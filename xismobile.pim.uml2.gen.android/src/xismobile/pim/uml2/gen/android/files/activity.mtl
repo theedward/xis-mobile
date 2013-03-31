@@ -28,22 +28,21 @@ public class [c.name.toUpperFirst()/]Activity extends [isListActivity()/]Activit
 		setContentView(R.layout.[c.name.toLowerCase()/]);
 	}
 
-[for (cl : Class | c.ownedElement->selectByType(Class))]
-	[if (cl.isXisCompositeWidget()
-		and cl.isMenu())]
+[if (c.hasMenu())]
+	[let m : Class = c.getMenu()]
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.[c.name.toLowerFirst()/], menu);
+		getMenuInflater().inflate(R.menu.[m.name.toLowerFirst()/], menu);
 		return true;
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-	[for (el : Class | cl.ownedElement->selectByType(Class))]
-		case R.id.menu_[el.name.toLowerCase()/]:
-		[let op : Operation = el.ownedOperation->at(1)]
+	[for (it : Class | m.getItems())]
+		case R.id.menu_[it.name.toLowerCase()/]:
+		[let op : Operation = it.ownedOperation->at(1)]
 		[if (op.isCancelOperation())]
 			finish();
 		[elseif (op.isNavigateToOperation())]
@@ -59,8 +58,8 @@ public class [c.name.toUpperFirst()/]Activity extends [isListActivity()/]Activit
 			return super.onOptionsItemSelected(item);
 		}
 	}
-	[/if]
-[/for]
+	[/let]
+[/if]
 }
 [/file]
 [/template]

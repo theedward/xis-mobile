@@ -53,7 +53,6 @@
 		c : Class | c.isXisInteractionSpace() = true)
 /]
 
-
 [query public isMainScreen (el : Element) : Boolean =
 	el.getTaggedValue('XIS-Mobile::XisInteractionSpace', 'isMainScreen') = true
 /]
@@ -139,6 +138,19 @@
 [query public hasMenu(c : Class) : Boolean = 
 	let menu : Collection(Class) = c.ownedElement->selectByType(Class) in
 	menu->select(m : Class | m.isMenu())->size() = 1
+/]
+
+[query public getMenu(c : Class) : Class =
+	if hasMenu() then
+		c.ownedElement->selectByType(Class)->select(
+			m : Class | m.isXisCompositeWidget() and  m.isMenu())
+	else null
+	endif
+/]
+
+[query public getItems(c : Class) : OrderedSet(Class) = 
+	c.ownedElement->selectByType(Class)->select(
+		i : Class | i.isItem())
 /]
 
 [query public isXisActionElement(c : Class) : Boolean =
