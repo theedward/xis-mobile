@@ -1,0 +1,74 @@
+[comment encoding = UTF-8 /]
+[module activity('http://www.eclipse.org/uml2/4.0.0/UML')]
+
+[import xismobile::pim::uml2::gen::android::common::xisMobileUtils /]
+[import xismobile::pim::uml2::gen::android::common::utils /]
+
+[template public generateActivity(c : Class)]
+[file ('src/'.concat(c.name.toUpperFirst().concat('Activity.java')), false, 'UTF-8')]
+package [getPackagePath()/]
+
+import android.os.Bundle;
+import android.app.[isListActivity()/]Activity;
+[if (c.hasMenu())]
+import android.view.Menu;
+[/if]
+
+
+public class [c.name.toUpperFirst()/]Activity extends [isListActivity()/]Activity {
+
+	[for (p: Property | c.attribute) separator('\n')]
+    private [p.type.name/] [p.name/];
+    [/for]
+
+	/** Called when the activity is first created. */
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.[c.name.toLowerCase()/]);
+	}
+
+[for (cl : Class | c.ownedElement->selectByType(Class))]
+	[if (cl.isXisCompositeWidget()
+		and cl.isMenu())]
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.[c.name.toLowerFirst()/], menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+	[for (el : Class | cl.ownedElement->selectByType(Class))]
+		case R.id.menu_[el.name.toLowerCase()/]:
+		[let op : Operation = el.ownedOperation->at(1)]
+		[if (op.isCancelOperation())]
+			finish();
+		[elseif (op.isNavigateToOperation())]
+			Intent intent = new Intent(this, [comment TODO /]Activity.class);
+			startActivity(intent);
+		[elseif (op.isSaveOperation())]
+			[op.name.toLowerFirst()/]
+		[/if]
+		[/let]			
+			return true;
+	[/for]
+		default:
+			return super.onOptionsItemSelected(item);
+		}
+	}
+	[/if]
+[/for]
+}
+[/file]
+[/template]
+
+[template public isListActivity(c : Class) post(trim())]
+[for (cl : Class | c.ownedElement->selectByType(Class))]
+	[if (cl.isXisCompositeWidget() and cl.isList())]
+List
+	[/if]
+[/for]
+[/template]

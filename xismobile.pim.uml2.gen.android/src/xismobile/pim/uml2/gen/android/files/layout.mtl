@@ -1,0 +1,139 @@
+[comment encoding = UTF-8 /]
+[module layout('http://www.eclipse.org/uml2/4.0.0/UML')]
+
+[import xismobile::pim::uml2::gen::android::common::xisMobileUtils /]
+
+[template public generateLayout(c : Class)]
+
+[file ('res/layout/'.concat(c.name.toLower()).concat('.xml'), false, 'UTF-8')]
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".[c.name.toUpperFirst()/]Activity" >
+
+[for (cl : Class | c.ownedElement->selectByType(Class))]
+	[if (cl.isLabel())]
+	[writeLabel()/]
+	[elseif (cl.isTextBox())]
+	[writeTextBox()/]	
+	[elseif (cl.isDatePicker())]
+	[writeDatePicker()/]
+	[elseif (cl.isTimePicker())]
+	[writeTimePicker()/]
+	[elseif (cl.isList())]
+	[writeListView()/]
+	[elseif (cl.isButton())]
+	[writeButton()/]
+	[/if]
+[/for]
+
+</RelativeLayout>
+[/file]
+[/template]
+
+[template public writeLabel(c : Class)]
+<TextView
+	android:id="@+id/label[c.name.toUpperFirst()/]"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:text="@string/[comment TODO value/]" />
+[/template]
+
+[template public writeTextBox(c : Class)]
+<EditText
+    android:id="@+id/editText[c.name.toUpperFirst()/]"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_centerHorizontal="true"
+    android:ems="10"
+	[comment TODO isMultiline()/]
+	android:inputType="textMultiLine"
+    android:minLines="3"
+    android:gravity="top"
+    android:scrollbars="vertical"
+	[comment  TODO hasHint()/]
+    android:hint="@string/todoedit_description"
+/>
+[/template]
+
+[template public writeListView(c : Class)]
+<ListView
+    android:id="@android:id/list"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+	android:layout_alignParentTop="true"
+	android:layout_centerHorizontal="true" >
+</ListView>
+[/template]
+
+[template public writeMapView(c : Class)]
+<com.google.android.maps.MapView
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/mapView[c.name.toUpperFirst()/]"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:clickable="true"
+	android:apiKey="Your Maps API Key goes here"
+/>
+[/template]
+
+[template public writeButton(c : Class)]
+<Button
+    android:id="@+id/button[c.name.toUpperFirst()/]"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+	[if (c.hasXisAction())]
+    android:onClick="[comment TODO actionName/]"
+	[/if]
+    android:text="@string/[c.name.toLower()/]_button"
+/>
+[/template]
+
+[template public writeLink(c : Class)]
+<TextView
+	android:id="@+id/link[c.name.toUpperFirst()/]"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:autolink="web"
+	android:text="@string/[comment TODO value/]"
+/>
+[/template]
+
+[template public writeDatePicker(c : Class)]
+<Button
+    android:id="@+id/datePicker[c.name.toUpperFirst()/]"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:onClick="showDatePickerDialog"
+    android:text="@string/[c.name.toLower()/]_date"
+/>
+[/template]
+
+[template public writeTimePicker(c : Class)]
+<Button
+    android:id="@+id/timePicker[c.name.toUpperFirst()/]"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:onClick="showTimePickerDialog"
+    android:text="@string/[c.name.toLower()/]_time"
+/>
+[/template]
+
+[template public writeImageView(c : Class)]
+<ImageView
+	android:id="@+id/image[c.name.toUpperFirst()/]"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:src="@drawable/[comment TODO Image URL/]"
+/>
+[/template]
+
+[template public writeWebView(c : Class)]
+<WebView  xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/webView[c.name.toUpperFirst()/]"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+/>
+[/template]

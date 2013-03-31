@@ -1,0 +1,33 @@
+[comment encoding = UTF-8 /]
+[module menu('http://www.eclipse.org/uml2/4.0.0/UML')]
+
+[import xismobile::pim::uml2::gen::android::common::xisMobileUtils /]
+
+[template public generateMenu(c : Class)]
+
+[for (cl : Class | c.ownedElement->selectByType(Class))]
+	[if (cl.isXisCompositeWidget()
+		and cl.isMenu())]
+[file ('res\\menu\\' + c.name.toLowerCase() + '.xml', false, 'UTF-8')]
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+[for (el : Class | cl.ownedMember.oclAsType(Class))]
+	[if (el.isMenuGroup())]
+	<group android:id="@+id/group_[el.name.toLowerCase()/]">
+	//TODO: generate Item code
+	</group>
+	[elseif (el.isItem())]
+	<item
+        android:id="@+id/menu_item_[el.name.toLowerCase()/]"
+        android:orderInCategory="100"
+        android:showAsAction="ifRoom"
+        android:title="@string/menu_item_[el.name.toLowerCase()/]"/>	
+	[/if]
+[/for]
+
+</menu>
+[/file]
+[/if]
+[/for]
+[/template]

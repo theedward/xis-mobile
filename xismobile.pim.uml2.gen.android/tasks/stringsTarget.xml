@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project basedir="." default="stringsSample" name="org.eclipse.acceleo.module.sampleSample">
+	<import file="../../org.eclipse.acceleo.module.sample/tasks/strings.xml"></import>
+
+    <!-- Change the values of MODEL and TARGET to point to your model and output folder -->
+	<property name="MODEL" value="${basedir}/model/file.xmi"></property>
+	<property name="TARGET" value="${basedir}/src-gen"></property>
+
+	<target name="stringsSample" description="Generate files in &apos;TARGET&apos;">
+		<antcall target="strings">
+			<param name="model" value="${MODEL}"></param>
+			<param name="target" value="${TARGET}"></param>
+		</antcall>
+	</target>
+</project>

@@ -1,0 +1,18 @@
+[comment encoding = UTF-8 /]
+[module domain2Android('http://www.eclipse.org/uml2/4.0.0/UML')/]
+
+[import xismobile::pim::uml2::gen::android::common::xisMobileUtils /]
+[import xismobile::pim::uml2::gen::android::files::dbAdapter /]
+[import xismobile::pim::uml2::gen::android::files::dbHelper /]
+
+[template public domain2Android(aModel : Model)]
+
+[comment @main /]
+[for (c : Class | aModel.allOwnedElements()->selectByType(Class))]
+[if (c.isXisEntity() and c.isToPersist())]
+	[generateDbAdapter(c)/]
+	[generateDbHelper(c)/]
+[/if]
+[/for]
+
+[/template]

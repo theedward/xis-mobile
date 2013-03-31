@@ -1,0 +1,204 @@
+[comment encoding = UTF-8 /]
+[module xisMobileUtils('http://www.eclipse.org/uml2/4.0.0/UML')]
+
+
+[comment
+	Domain View queries
+/]
+[query public getXisEntity(c : Class) : Stereotype =
+	c.getAppliedStereotype('XIS-Mobile::XisEntity')
+/]
+
+[query public isXisEntity(c : Class) : Boolean =
+	not c.getXisEntity().oclIsUndefined()
+/]
+
+[query public isToPersist(el : Element) : Boolean =
+	el.getTaggedValue('XIS-Mobile::XisEntity', 'persist') = true
+/]
+
+[query public getXisAttributes(c : Class) : Set(Property) =
+	c.ownedAttribute->select(p : Property | p.isXisAttribute())
+/]
+
+[query public getXisAttribute(p : Property) : Stereotype =
+	p.getAppliedStereotype('XIS-Mobile::XisAttribute')
+/]
+
+[query public isXisAttribute(p : Property) : Boolean =
+	not p.getXisAttribute().oclIsUndefined()
+/]
+
+[query public isNullable(p : Property) : Boolean =
+	p.getTaggedValue('XIS-Mobile::XisAttribute', 'isNullable') = true
+/]
+
+[query public isKey(p : Property) : Boolean =
+	p.getTaggedValue('XIS-Mobile::XisAttribute', 'isKey') = true
+/]
+
+[comment 
+	InteractionSpace View Queries
+/]
+[query public getXisInteractionSpace(c : Class) : Stereotype =
+	c.getAppliedStereotype('XIS-Mobile::XisInteractionSpace')
+/]
+
+[query public isXisInteractionSpace(c : Class) : Boolean =
+	not c.getXisInteractionSpace().oclIsUndefined()
+/]
+
+[query public isMainScreen (el : Element) : Boolean =
+	el.getTaggedValue('XIS-Mobile::XisInteractionSpace', 'isMainScreen') = true
+/]
+
+[query public getXisCompositeWidget(c : Class) : Stereotype =
+	c.getAppliedStereotype('XIS-Mobile::XisCompositeWidget')
+/]
+
+[query public isXisCompositeWidget(c : Class) : Boolean =
+	not c.getXisCompositeWidget().oclIsUndefined()
+/]
+
+[query public isList(c : Class) : Boolean =
+	getEnumValue(c.getValue(
+		c.getXisCompositeWidget(), 'type')
+	) = 'List'
+/]
+
+[query public isMenu(c : Class) : Boolean =
+	getEnumValue(c.getValue(
+		c.getXisCompositeWidget(), 'type')
+	) = 'Menu'
+/]
+
+[query public isListGroup(c : Class) : Boolean =
+	getEnumValue(c.getValue(
+		c.getXisCompositeWidget(), 'type')
+	) = 'LisGroup'
+/]
+
+[query public isMenuGroup(c : Class) : Boolean =
+	getEnumValue(c.getValue(
+		c.getXisCompositeWidget(), 'type')
+	) = 'MenuGroup'
+/]
+
+[query public isItem(c : Class) : Boolean =
+	getEnumValue(c.getValue(
+		c.getXisCompositeWidget(), 'type')
+	) = 'Item'
+/]
+
+[query public isXisAction(o : Operation) : Boolean =
+	not o.getXisAction().oclIsUndefined()
+/]
+
+[query public hasXisAction(c : Class) : Boolean =
+	c.ownedOperation->select(o : Operation | o.isXisAction() = true)->size() > 0
+/]
+
+[query public getXisAction(o : Operation) : Stereotype =
+	o.getAppliedStereotype('XIS-Mobile::XisAction')
+/]
+
+[query public getXisActions(c : Class) : OrderedSet(Operation) =
+	c.ownedOperation->select(o : Operation | o.isXisAction() = true)
+/]
+
+[query public isCancelOperation(o : Operation) : Boolean = 
+	getEnumValue(o.getValue(
+		o.getXisAction(), 'type')
+	) = 'Cancel'
+/]
+
+[query public isNavigateToOperation(o : Operation) : Boolean = 
+	getEnumValue(o.getValue(
+		o.getXisAction(), 'type')
+	) = 'NavigateTo'
+/]
+
+[query public isSaveOperation(o : Operation) : Boolean = 
+	getEnumValue(o.getValue(
+		o.getXisAction(), 'type')
+	) = 'Save'
+/]
+
+[query public isDeleteteOperation(o : Operation) : Boolean = 
+	getEnumValue(o.getValue(
+		o.getXisAction(), 'type')
+	) = 'Delete'
+/]
+
+[query public hasMenu(c : Class) : Boolean = 
+	let menu : Collection(Class) = c.ownedElement->selectByType(Class) in
+	menu->select(m : Class | m.isMenu())->size() = 1
+/]
+
+[query public isXisActionElement(c : Class) : Boolean =
+	not c.getAppliedStereotype('XIS-Mobile::XisActionElement').oclIsUndefined()
+/]
+
+[query public getXisWidget(c : Class) : Stereotype =
+	c.getAppliedStereotype('XIS-Mobile::XisWidget')
+/]
+
+[query public getXisActionElement(c : Class) : Stereotype =
+	c.getAppliedStereotype('XIS-Mobile::XisActionElement')
+/]
+
+[query public isLabel(c : Class) : Boolean = 
+	getEnumValue(c.getValue(
+		c.getXisActionElement(), 'actionElementType')
+	) = 'Label'
+/]
+
+[query public isTextBox(c : Class) : Boolean = 
+	not c.getAppliedStereotype('XIS-Mobile::XisTextBox').oclIsUndefined()
+/]
+
+[query public isButton(c : Class) : Boolean = 
+	getEnumValue(c.getValue(
+		c.getXisActionElement(), 'actionElementType')
+	) = 'Button'
+/]
+
+[query public isDatePicker(c : Class) : Boolean = 
+	getEnumValue(c.getValue(
+		c.getXisActionElement(), 'actionElementType')
+	) = 'DateBox'
+/]
+
+[query public isTimePicker(c : Class) : Boolean = 
+	getEnumValue(c.getValue(
+		c.getXisActionElement(), 'actionElementType')
+	) = 'TimeBox'
+/]
+
+[query public isLink(c : Class) : Boolean = 
+	getEnumValue(c.getValue(
+		c.getXisActionElement(), 'actionElementType')
+	) = 'Link'
+/]
+
+[query public getXisWidgetValue(c : Class, s : Stereotype) : String =
+	c.getValue(s, 'value')
+/]
+
+[query public getEnumValue(el : OclAny) : OclAny =
+	let eValue : EnumerationLiteral = el.oclAsType(EnumerationLiteral) in
+	if not eValue.oclIsUndefined() then
+		eValue.name
+	else 
+		null
+	endif
+/]
+
+[query public getTaggedValue(stereotypedElement : Element, stereotypeName : String, propertyName : String) : OclAny = 
+	let stereotype : Stereotype = stereotypedElement.getAppliedStereotype(stereotypeName) in
+	if not stereotype.oclIsUndefined() then
+		stereotypedElement.getValue(stereotype, propertyName)
+	else 
+		null
+	endif
+/]

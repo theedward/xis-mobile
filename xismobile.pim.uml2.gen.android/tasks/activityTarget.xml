@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project basedir="." default="activitySample" name="xismobile.pim.uml2.gen.androidSample">
+	<import file="../../xismobile.pim.uml2.gen.android/tasks/activity.xml"></import>
+
+    <!-- Change the values of MODEL and TARGET to point to your model and output folder -->
+	<property name="MODEL" value="${basedir}/model/file.xmi"></property>
+	<property name="TARGET" value="${basedir}/src-gen"></property>
+
+	<target name="activitySample" description="Generate files in &apos;TARGET&apos;">
+		<antcall target="activity">
+			<param name="model" value="${MODEL}"></param>
+			<param name="target" value="${TARGET}"></param>
+		</antcall>
+	</target>
+</project>
