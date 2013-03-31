@@ -48,6 +48,12 @@
 	not c.getXisInteractionSpace().oclIsUndefined()
 /]
 
+[query public getAllXisInteractionSpaces(m : Model) : OrderedSet(Class) =
+	m.allOwnedElements()->selectByType(Class)->select(
+		c : Class | c.isXisInteractionSpace() = true)
+/]
+
+
 [query public isMainScreen (el : Element) : Boolean =
 	el.getTaggedValue('XIS-Mobile::XisInteractionSpace', 'isMainScreen') = true
 /]
