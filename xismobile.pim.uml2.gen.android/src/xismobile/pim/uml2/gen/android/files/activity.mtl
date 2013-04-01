@@ -16,10 +16,12 @@ import android.view.Menu;
 
 
 public class [c.name.toUpperFirst()/]Activity extends [isListActivity()/]Activity {
+[if (c.attribute->size() > 0)]
 
 	[for (p: Property | c.attribute) separator('\n')]
     private [p.type.name/] [p.name/];
     [/for]
+[/if]
 
 	/** Called when the activity is first created. */
 	@Override
@@ -41,17 +43,19 @@ public class [c.name.toUpperFirst()/]Activity extends [isListActivity()/]Activit
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 	[for (it : Class | m.getItems())]
-		case R.id.menu_[it.name.toLowerCase()/]:
-		[let op : Operation = it.ownedOperation->at(1)]
+		case R.id.item_[it.name.toLowerCase()/]:
+	[if (it.hasXisAction())]
+		[let op : Operation = it.getXisAction()]
 		[if (op.isCancelOperation())]
 			finish();
 		[elseif (op.isNavigateToOperation())]
-			Intent intent = new Intent(this, [comment TODO /]Activity.class);
+			Intent intent = new Intent(this, [comment TODO /][op.ownedParameter->at(1).name/]Activity.class);
 			startActivity(intent);
 		[elseif (op.isSaveOperation())]
 			[op.name.toLowerFirst()/]
 		[/if]
-		[/let]			
+		[/let]
+	[/if]
 			return true;
 	[/for]
 		default:

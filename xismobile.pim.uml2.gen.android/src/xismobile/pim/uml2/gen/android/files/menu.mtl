@@ -19,10 +19,10 @@
 	</group>
 	[elseif (el.isItem())]
 	<item
-        android:id="@+id/menu_item_[el.name.toLowerCase()/]"
+        android:id="@+id/item_[el.name.toLowerCase()/]"
         android:orderInCategory="100"
         android:showAsAction="ifRoom"
-        android:title="@string/menu_item_[el.name.toLowerCase()/]"/>	
+        android:title="@string/item_[el.name.toLowerCase()/]"/>	
 	[/if]
 [/for]
 

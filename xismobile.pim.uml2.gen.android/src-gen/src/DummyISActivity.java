@@ -7,7 +7,6 @@ import android.view.Menu;
 
 public class DummyISActivity extends Activity {
 
-
 	/** Called when the activity is first created. */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -25,9 +24,12 @@ public class DummyISActivity extends Activity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-		case R.id.menu_optionb:
+		case R.id.item_optionb:
+			Intent intent = new Intent(this, Parameter1Activity.class);
+			startActivity(intent);
 			return true;
-		case R.id.menu_optiona:
+		case R.id.item_optiona:
+			finish();
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);

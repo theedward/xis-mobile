@@ -107,8 +107,8 @@
 	o.getAppliedStereotype('XIS-Mobile::XisAction')
 /]
 
-[query public getXisActions(c : Class) : OrderedSet(Operation) =
-	c.ownedOperation->select(o : Operation | o.isXisAction() = true)
+[query public getXisAction(item : Class) : Operation =
+	item.ownedOperation->select(o : Operation | o.isXisAction())->at(1)
 /]
 
 [query public isCancelOperation(o : Operation) : Boolean = 
@@ -154,22 +154,12 @@
 		i : Class | i.isItem())
 /]
 
-[query public isXisActionElement(c : Class) : Boolean =
-	not c.getAppliedStereotype('XIS-Mobile::XisActionElement').oclIsUndefined()
-/]
-
 [query public getXisWidget(c : Class) : Stereotype =
 	c.getAppliedStereotype('XIS-Mobile::XisWidget')
 /]
 
-[query public getXisActionElement(c : Class) : Stereotype =
-	c.getAppliedStereotype('XIS-Mobile::XisActionElement')
-/]
-
 [query public isLabel(c : Class) : Boolean = 
-	getEnumValue(c.getValue(
-		c.getXisActionElement(), 'actionElementType')
-	) = 'Label'
+	not c.getAppliedStereotype('XIS-Mobile::XisLabel').oclIsUndefined()
 /]
 
 [query public isTextBox(c : Class) : Boolean = 
@@ -177,27 +167,19 @@
 /]
 
 [query public isButton(c : Class) : Boolean = 
-	getEnumValue(c.getValue(
-		c.getXisActionElement(), 'actionElementType')
-	) = 'Button'
+	not c.getAppliedStereotype('XIS-Mobile::XisButton').oclIsUndefined()
 /]
 
 [query public isDatePicker(c : Class) : Boolean = 
-	getEnumValue(c.getValue(
-		c.getXisActionElement(), 'actionElementType')
-	) = 'DateBox'
+	not c.getAppliedStereotype('XIS-Mobile::XisDatePicker').oclIsUndefined()
 /]
 
 [query public isTimePicker(c : Class) : Boolean = 
-	getEnumValue(c.getValue(
-		c.getXisActionElement(), 'actionElementType')
-	) = 'TimeBox'
+	not c.getAppliedStereotype('XIS-Mobile::XisTimePicker').oclIsUndefined()
 /]
 
 [query public isLink(c : Class) : Boolean = 
-	getEnumValue(c.getValue(
-		c.getXisActionElement(), 'actionElementType')
-	) = 'Link'
+	not c.getAppliedStereotype('XIS-Mobile::XisLink').oclIsUndefined()
 /]
 
 [query public getXisWidgetValue(c : Class, s : Stereotype) : String =

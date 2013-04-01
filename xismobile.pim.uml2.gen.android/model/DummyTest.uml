@@ -6,8 +6,14 @@
     </packageImport>
     <packagedElement xmi:type="uml:Class" xmi:id="_lWBesJrCEeKHQ6FPSxvrrA" name="DummyIS">
       <nestedClassifier xmi:type="uml:Class" xmi:id="_o6aLcJrCEeKHQ6FPSxvrrA" name="DummyOptions">
-        <nestedClassifier xmi:type="uml:Class" xmi:id="_veuNAJrCEeKHQ6FPSxvrrA" name="optionA"/>
-        <nestedClassifier xmi:type="uml:Class" xmi:id="_xZU4gJrCEeKHQ6FPSxvrrA" name="optionB"/>
+        <nestedClassifier xmi:type="uml:Class" xmi:id="_veuNAJrCEeKHQ6FPSxvrrA" name="optionA">
+          <ownedOperation xmi:id="_lTVvkJrtEeKHQ6FPSxvrrA" name="operation1"/>
+        </nestedClassifier>
+        <nestedClassifier xmi:type="uml:Class" xmi:id="_xZU4gJrCEeKHQ6FPSxvrrA" name="optionB">
+          <ownedOperation xmi:id="_skoy8JrtEeKHQ6FPSxvrrA" name="operation2">
+            <ownedParameter xmi:id="_1J2VQJrtEeKHQ6FPSxvrrA" name="Parameter1"/>
+          </ownedOperation>
+        </nestedClassifier>
       </nestedClassifier>
     </packagedElement>
     <profileApplication xmi:id="_vMlZkJoREeKSRt9Yk2BcRQ">
@@ -21,4 +27,7 @@
   <XISMobile:XisCompositeWidget xmi:id="_M55RkJrDEeKHQ6FPSxvrrA" base_Class="_o6aLcJrCEeKHQ6FPSxvrrA" type="Menu"/>
   <XISMobile:XisCompositeWidget xmi:id="_QUcs4JrDEeKHQ6FPSxvrrA" base_Class="_veuNAJrCEeKHQ6FPSxvrrA" type="Item"/>
   <XISMobile:XisCompositeWidget xmi:id="_U_A-kJrDEeKHQ6FPSxvrrA" base_Class="_xZU4gJrCEeKHQ6FPSxvrrA" type="Item"/>
+  <XISMobile:XisAction xmi:id="_nVDIoJrtEeKHQ6FPSxvrrA" base_Operation="_lTVvkJrtEeKHQ6FPSxvrrA"/>
+  <XISMobile:XisAction xmi:id="_wJojsJrtEeKHQ6FPSxvrrA" type="NavigateTo" base_Operation="_skoy8JrtEeKHQ6FPSxvrrA"/>
+  <XISMobile:XisArgument xmi:id="_3XuiEJrtEeKHQ6FPSxvrrA" value="Dummy2IS" type="String" base_Parameter="_1J2VQJrtEeKHQ6FPSxvrrA"/>
 </xmi:XMI>
