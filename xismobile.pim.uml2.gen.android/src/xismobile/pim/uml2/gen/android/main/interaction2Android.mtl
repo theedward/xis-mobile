@@ -11,8 +11,8 @@
 [comment @main /]
 [if (c.isXisInteractionSpace())]
 	[generateActivity() /]
-	[generateMenu() /]
-	[generateLayout() /]
+	[comment][generateMenu() /]
+	[generateLayout() /][/comment]
 [/if]
 
 [/template]

@@ -140,12 +140,13 @@
 	menu->select(m : Class | m.isMenu())->size() = 1
 /]
 
-[query public getMenu(c : Class) : Class =
-	if hasMenu() then
-		c.ownedElement->selectByType(Class)->select(
-			m : Class | m.isXisCompositeWidget() and  m.isMenu())
-	else null
-	endif
+[query public getMenus(c : Class) : OrderedSet(Class) =
+	c.ownedElement->selectByType(Class)->select(
+		m : Class | m.isXisCompositeWidget() and m.isMenu())
+/]
+
+[query public getMenu(c : Class) : Class = 
+	c.getMenus()->at(1)
 /]
 
 [query public getItems(c : Class) : OrderedSet(Class) = 
