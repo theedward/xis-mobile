@@ -135,6 +135,28 @@
 	) = 'Delete'
 /]
 
+[query public getXisArgument(p : Parameter) : Stereotype = 
+	p.getAppliedStereotype('XIS-Mobile::XisArgument')
+/]
+
+[query public isXisArgument(p : Parameter) : Boolean = 
+	not p.getXisArgument().oclIsUndefined()
+/]
+
+[query public getXisArguments(o : Operation) : OrderedSet(Parameter) =
+	o.ownedParameter->select(p : Parameter | p.isXisArgument())
+/]
+
+[query public getXisArgumentValue(p : Parameter, key : String) : String = 
+	p.getValue(p.getXisArgument(), key)
+/]
+
+[query public getXisArgumentValueByName(o : Operation, name : String, key : String) : String = 
+	let par : Parameter = o.ownedParameter->select(
+		p : Parameter | p.isXisArgument() and p.name = name)->at(1) in
+	par.getXisArgumentValue(key)
+/]
+
 [query public hasMenu(c : Class) : Boolean = 
 	let menu : Collection(Class) = c.ownedElement->selectByType(Class) in
 	menu->select(m : Class | m.isMenu())->size() = 1

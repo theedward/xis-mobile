@@ -49,7 +49,7 @@ public class [c.name.toUpperFirst()/]Activity extends [isListActivity()/]Activit
 		[if (op.isCancelOperation())]
 			finish();
 		[elseif (op.isNavigateToOperation())]
-			Intent intent = new Intent(this, [comment TODO /][op.ownedParameter->at(1).name/]Activity.class);
+			Intent intent = new Intent(this, [op.getXisArgumentValueByName('interactionSpace', 'value').toUpperFirst()/]Activity.class);
 			startActivity(intent);
 		[elseif (op.isSaveOperation())]
 			[op.name.toLowerFirst()/]

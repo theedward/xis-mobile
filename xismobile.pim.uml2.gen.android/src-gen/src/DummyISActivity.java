@@ -25,7 +25,7 @@ public class DummyISActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.item_optionb:
-			Intent intent = new Intent(this, Parameter1Activity.class);
+			Intent intent = new Intent(this, Dummy2ISActivity.class);
 			startActivity(intent);
 			return true;
 		case R.id.item_optiona:
