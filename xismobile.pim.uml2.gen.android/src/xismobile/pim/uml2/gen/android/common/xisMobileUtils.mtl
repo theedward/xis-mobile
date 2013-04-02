@@ -151,10 +151,17 @@
 	p.getValue(p.getXisArgument(), key)
 /]
 
+[query public XisArgumentExist(o : Operation, name : String, key : String) : Boolean =
+	not o.getXisArgumentValueByName(name, key).oclIsUndefined()
+/]
+
 [query public getXisArgumentValueByName(o : Operation, name : String, key : String) : String = 
-	let par : Parameter = o.ownedParameter->select(
-		p : Parameter | p.isXisArgument() and p.name = name)->at(1) in
-	par.getXisArgumentValue(key)
+	let par : Sequence(Parameter) = o.ownedParameter->select(
+		p : Parameter | p.isXisArgument() and p.name = name)->asSequence() in
+	if not par->oclIsUndefined() and par->size() = 1
+	then par->at(1).getXisArgumentValue(key)
+	else null
+	endif
 /]
 
 [query public hasMenu(c : Class) : Boolean = 
@@ -225,3 +232,9 @@
 		null
 	endif
 /]
+
+[comment]TEMPLATES AREA[/comment]
+
+[template public writeTODO(a : OclAny)]
+// TODO: To be implemented...
+[/template]

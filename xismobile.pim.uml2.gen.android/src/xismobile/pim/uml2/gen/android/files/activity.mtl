@@ -49,8 +49,12 @@ public class [c.name.toUpperFirst()/]Activity extends [isListActivity()/]Activit
 		[if (op.isCancelOperation())]
 			finish();
 		[elseif (op.isNavigateToOperation())]
+			[if (op.XisArgumentExist('interactionSpace', 'value'))]
 			Intent intent = new Intent(this, [op.getXisArgumentValueByName('interactionSpace', 'value').toUpperFirst()/]Activity.class);
 			startActivity(intent);
+			[else]
+			[writeTODO()/]
+			[/if]
 		[elseif (op.isSaveOperation())]
 			[op.name.toLowerFirst()/]
 		[/if]

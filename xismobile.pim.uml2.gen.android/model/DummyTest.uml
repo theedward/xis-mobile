@@ -11,7 +11,7 @@
         </nestedClassifier>
         <nestedClassifier xmi:type="uml:Class" xmi:id="_xZU4gJrCEeKHQ6FPSxvrrA" name="optionB">
           <ownedOperation xmi:id="_skoy8JrtEeKHQ6FPSxvrrA" name="operation2">
-            <ownedParameter xmi:id="_1J2VQJrtEeKHQ6FPSxvrrA" name="Parameter1"/>
+            <ownedParameter xmi:id="_1J2VQJrtEeKHQ6FPSxvrrA" name="interactionSpace"/>
           </ownedOperation>
         </nestedClassifier>
       </nestedClassifier>
