@@ -14,17 +14,17 @@
     tools:context=".[c.name.toUpperFirst()/]Activity" >
 
 [for (cl : Class | c.ownedElement->selectByType(Class))]
-	[if (cl.isLabel())]
+	[if (cl.isXisLabel())]
 	[writeLabel()/]
-	[elseif (cl.isTextBox())]
+	[elseif (cl.isXisTextBox())]
 	[writeTextBox()/]	
-	[elseif (cl.isDatePicker())]
+	[elseif (cl.isXisDatePicker())]
 	[writeDatePicker()/]
-	[elseif (cl.isTimePicker())]
+	[elseif (cl.isXisTimePicker())]
 	[writeTimePicker()/]
 	[elseif (cl.isList())]
 	[writeListView()/]
-	[elseif (cl.isButton())]
+	[elseif (cl.isXisButton())]
 	[writeButton()/]
 	[/if]
 [/for]
@@ -48,13 +48,15 @@
     android:layout_height="wrap_content"
     android:layout_centerHorizontal="true"
     android:ems="10"
-	[comment TODO isMultiline()/]
+	[if (c.getXisTexBoxLines() > 1)]
 	android:inputType="textMultiLine"
-    android:minLines="3"
+	[/if]
+    android:minLines="[c.getXisTexBoxLines()/]"
     android:gravity="top"
     android:scrollbars="vertical"
-	[comment  TODO hasHint()/]
-    android:hint="@string/todoedit_description"
+	[if (c.XisTextBoxHasHint())]
+	android:hint="[c.getXisTexBoxHint()/]"
+	[/if]
 />
 [/template]
 
@@ -85,7 +87,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
 	[if (c.hasXisAction())]
-    android:onClick="[comment TODO actionName/]"
+    android:onClick="[c.getXisAction().name.toLowerFirst()/]"
 	[/if]
     android:text="@string/[c.name.toLower()/]_button"
 />
@@ -97,7 +99,7 @@
 	android:layout_width="fill_parent"
 	android:layout_height="wrap_content"
 	android:autolink="web"
-	android:text="@string/[comment TODO value/]"
+	android:text="[c.getXisLinkURL()/]"
 />
 [/template]
 
@@ -126,7 +128,7 @@
 	android:id="@+id/image[c.name.toUpperFirst()/]"
 	android:layout_width="wrap_content"
 	android:layout_height="wrap_content"
-	android:src="@drawable/[comment TODO Image URL/]"
+	android:src="[c.getXisImagePath()/]"
 />
 [/template]
 

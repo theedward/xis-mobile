@@ -24,15 +24,20 @@ public class DummyISActivity extends Activity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-		case R.id.item_optiona:
-			finish();
-			return true;
 		case R.id.item_optionb:
 			Intent intent = new Intent(this, Dummy2ISActivity.class);
 			startActivity(intent);
+			return true;
+		case R.id.item_optiona:
+			finish();
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
 		}
 	}
+
+/** WebService Actions Area */
+
+/** Custom Actions Area */
+
 }

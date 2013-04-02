@@ -12,10 +12,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
-[for (el : Class | cl.ownedMember.oclAsType(Class))]
+[for (el : Class | cl.ownedElement->selectByType(Class))]
 	[if (el.isMenuGroup())]
 	<group android:id="@+id/group_[el.name.toLowerCase()/]">
-	//TODO: generate Item code
+	// TODO: generate Item code
 	</group>
 	[elseif (el.isItem())]
 	<item

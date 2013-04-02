@@ -111,28 +111,58 @@
 	item.ownedOperation->select(o : Operation | o.isXisAction())->at(1)
 /]
 
-[query public isCancelOperation(o : Operation) : Boolean = 
+[query public isCancelAction(o : Operation) : Boolean = 
 	getEnumValue(o.getValue(
 		o.getXisAction(), 'type')
 	) = 'Cancel'
 /]
 
-[query public isNavigateToOperation(o : Operation) : Boolean = 
+[query public isNavigateToAction(o : Operation) : Boolean = 
 	getEnumValue(o.getValue(
 		o.getXisAction(), 'type')
 	) = 'NavigateTo'
 /]
 
-[query public isSaveOperation(o : Operation) : Boolean = 
+[query public isSaveAction(o : Operation) : Boolean = 
 	getEnumValue(o.getValue(
 		o.getXisAction(), 'type')
 	) = 'Save'
 /]
 
-[query public isDeleteteOperation(o : Operation) : Boolean = 
+[query public isDeleteteAction(o : Operation) : Boolean = 
 	getEnumValue(o.getValue(
 		o.getXisAction(), 'type')
 	) = 'Delete'
+/]
+
+[query public isDeleteteAllAction(o : Operation) : Boolean = 
+	getEnumValue(o.getValue(
+		o.getXisAction(), 'type')
+	) = 'DeleteAll'
+/]
+
+[query public isZoomInAction(o : Operation) : Boolean = 
+	getEnumValue(o.getValue(
+		o.getXisAction(), 'type')
+	) = 'ZoomIn'
+/]
+
+[query public isZoomOutAction(o : Operation) : Boolean = 
+	getEnumValue(o.getValue(
+		o.getXisAction(), 'type')
+	) = 'ZoomOut'
+/]
+
+[query public isWebServiceAction(o : Operation) : Boolean = 
+	getEnumValue(o.getValue(
+		o.getXisAction(), 'type')
+	) = 'WebService'
+/]
+
+[query public isCustomAction(o : Operation) : Boolean = 
+	getEnumValue(o.getValue(
+		o.getXisAction(), 'type')
+	) = 'Custom'
 /]
 
 [query public getXisArgument(p : Parameter) : Stereotype = 
@@ -151,7 +181,7 @@
 	p.getValue(p.getXisArgument(), key)
 /]
 
-[query public XisArgumentExist(o : Operation, name : String, key : String) : Boolean =
+[query public XisArgumentExists(o : Operation, name : String, key : String) : Boolean =
 	not o.getXisArgumentValueByName(name, key).oclIsUndefined()
 /]
 
@@ -187,28 +217,68 @@
 	c.getAppliedStereotype('XIS-Mobile::XisWidget')
 /]
 
-[query public isLabel(c : Class) : Boolean = 
+[query public isXisLabel(c : Class) : Boolean =
 	not c.getAppliedStereotype('XIS-Mobile::XisLabel').oclIsUndefined()
 /]
 
-[query public isTextBox(c : Class) : Boolean = 
-	not c.getAppliedStereotype('XIS-Mobile::XisTextBox').oclIsUndefined()
+[query public getXisTextBox(c : Class) : Stereotype =
+	c.getAppliedStereotype('XIS-Mobile::XisTextBox')
 /]
 
-[query public isButton(c : Class) : Boolean = 
+[query public isXisTextBox(c : Class) : Boolean =
+	not c.getXisTextBox().oclIsUndefined()
+/]
+
+[query public getXisTexBoxLines(c : Class) : Integer =
+	c.getValue(c.getXisTextBox(), 'lines')
+/]
+
+[query public XisTextBoxHasHint(c : Class) : Boolean =
+	not c.getValue(c.getXisTextBox(), 'hint').oclIsUndefined()
+/]
+
+[query public getXisTexBoxHint(c : Class) : Integer =
+	c.getValue(c.getXisTextBox(), 'hint')
+/]
+
+[query public isXisButton(c : Class) : Boolean =
 	not c.getAppliedStereotype('XIS-Mobile::XisButton').oclIsUndefined()
 /]
 
-[query public isDatePicker(c : Class) : Boolean = 
+[query public isXisDatePicker(c : Class) : Boolean =
 	not c.getAppliedStereotype('XIS-Mobile::XisDatePicker').oclIsUndefined()
 /]
 
-[query public isTimePicker(c : Class) : Boolean = 
+[query public isXisTimePicker(c : Class) : Boolean =
 	not c.getAppliedStereotype('XIS-Mobile::XisTimePicker').oclIsUndefined()
 /]
 
-[query public isLink(c : Class) : Boolean = 
+[query public isXisLink(c : Class) : Boolean =
 	not c.getAppliedStereotype('XIS-Mobile::XisLink').oclIsUndefined()
+/]
+
+[query public getXisLink(c : Class) : Stereotype =
+	c.getAppliedStereotype('XIS-Mobile::XisLink')
+/]
+
+[query public getXisLinkURL(c : Class) : String = 
+	c.getValue(c.getXisLink(), 'url')
+/]
+
+[query public isXisMapView(c : Class) : Boolean =
+	not c.getAppliedStereotype('XIS-Mobile::XisMapView').oclIsUndefined()
+/]
+
+[query public isXisImage(c : Class) : Boolean =
+	not c.getAppliedStereotype('XIS-Mobile::XisImage').oclIsUndefined()
+/]
+
+[query public getXisImage(c : Class) : Stereotype =
+	c.getAppliedStereotype('XIS-Mobile::XisImage')
+/]
+
+[query public getXisImagePath(c : Class) : String = 
+	c.getValue(c.getXisImage(), 'path')
 /]
 
 [query public getXisWidgetValue(c : Class, s : Stereotype) : String =
@@ -237,4 +307,14 @@
 
 [template public writeTODO(a : OclAny)]
 // TODO: To be implemented...
+[/template]
+
+[template public isListActivity(c : Class) post(trim())]
+[for (cl : Class | c.ownedElement->selectByType(Class))]
+	[if (cl.isXisCompositeWidget() and cl.isList())]
+List
+	[elseif (cl.isXisMapView())]
+Map
+	[/if]
+[/for]
 [/template]

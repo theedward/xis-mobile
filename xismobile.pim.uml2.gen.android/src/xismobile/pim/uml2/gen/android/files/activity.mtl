@@ -46,17 +46,23 @@ public class [c.name.toUpperFirst()/]Activity extends [isListActivity()/]Activit
 		case R.id.item_[it.name.toLowerCase()/]:
 	[if (it.hasXisAction())]
 		[let op : Operation = it.getXisAction()]
-		[if (op.isCancelOperation())]
+		[if (op.isCancelAction())]
 			finish();
-		[elseif (op.isNavigateToOperation())]
-			[if (op.XisArgumentExist('interactionSpace', 'value'))]
+		[elseif (op.isNavigateToAction())]
+			[if (op.XisArgumentExists('interactionSpace', 'value'))]
 			Intent intent = new Intent(this, [op.getXisArgumentValueByName('interactionSpace', 'value').toUpperFirst()/]Activity.class);
 			startActivity(intent);
 			[else]
 			[writeTODO()/]
 			[/if]
-		[elseif (op.isSaveOperation())]
+		[elseif (op.isSaveAction())]
 			[op.name.toLowerFirst()/]
+		[elseif (op.isDeleteteAction())]
+		
+		[elseif (op.isDeleteteAllAction())]
+
+		[elseif (op.isCustomAction())]
+			
 		[/if]
 		[/let]
 	[/if]
@@ -68,14 +74,13 @@ public class [c.name.toUpperFirst()/]Activity extends [isListActivity()/]Activit
 	}
 	[/let]
 [/if]
+
+/** WebService Actions Area */
+[comment]writeWebServiceActions[/comment]
+
+/** Custom Actions Area */
+[comment]writeCustomOperations[/comment]
+
 }
 [/file]
-[/template]
-
-[template public isListActivity(c : Class) post(trim())]
-[for (cl : Class | c.ownedElement->selectByType(Class))]
-	[if (cl.isXisCompositeWidget() and cl.isList())]
-List
-	[/if]
-[/for]
 [/template]
