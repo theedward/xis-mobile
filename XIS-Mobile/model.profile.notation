@@ -474,6 +474,10 @@
     </eAnnotations>
     <children xmi:type="notation:DecorationNode" xmi:id="_m502SJb9EeKwK-AIPNJqFA" type="1034"/>
     <children xmi:type="notation:BasicCompartment" xmi:id="_m502SZb9EeKwK-AIPNJqFA" type="1071">
+      <children xmi:type="notation:Shape" xmi:id="_26MbwJxREeKUaJlxJzmJdQ" type="3002" fontName="Segoe UI" lineColor="0">
+        <element xmi:type="uml:Property" href="model.profile.uml#_25BXEJxREeKUaJlxJzmJdQ"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_26MbwZxREeKUaJlxJzmJdQ"/>
+      </children>
       <styles xmi:type="notation:TitleStyle" xmi:id="_m502Spb9EeKwK-AIPNJqFA"/>
       <styles xmi:type="notation:SortingStyle" xmi:id="_m502S5b9EeKwK-AIPNJqFA"/>
       <styles xmi:type="notation:FilteringStyle" xmi:id="_m502TJb9EeKwK-AIPNJqFA"/>
