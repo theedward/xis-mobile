@@ -5,13 +5,18 @@
 [import xismobile::pim::uml2::gen::android::files::dbAdapter /]
 [import xismobile::pim::uml2::gen::android::files::dbHelper /]
 
-[template public domain2Android(aModel : Model)]
+[template public domain2Android(m : Model)]
 
 [comment @main /]
-[for (c : Class | aModel.allOwnedElements()->selectByType(Class))]
-[if (c.isXisEntity() and c.isToPersist())]
-	[generateDbAdapter(c)/]
-	[generateDbHelper(c)/]
+[for (c : Class | m.allOwnedElements()->selectByType(Class))]
+[if (c.isXisEntity())]
+	[if (c.isPersistent())]
+		[generateDbAdapter(c)/]
+		[generateDbHelper(c)/]
+	[else]
+		// TODO
+	[/if]
+	
 [/if]
 [/for]
 

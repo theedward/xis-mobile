@@ -16,7 +16,7 @@ import android.util.Log;
 
 public class [c.name.toUpperFirst()/]DbHelper extends SQLiteOpenHelper {
 
-	private static final String TAG = "[c.name.toUpperFirst()/]DbAdapter";
+	private static final String TAG = "[c.name.toUpperFirst()/]DbHelper";
 	private static final String DB_NAME = "[c.name.toLower()/]s.db";
 	private static final int DB_VERSION = 1;
 	

@@ -13,8 +13,8 @@
 	not c.getXisEntity().oclIsUndefined()
 /]
 
-[query public isToPersist(el : Element) : Boolean =
-	el.getTaggedValue('XIS-Mobile::XisEntity', 'persist') = true
+[query public isPersistent(el : Element) : Boolean =
+	el.getTaggedValue('XIS-Mobile::XisEntity', 'persistent') = true
 /]
 
 [query public getXisAttributes(c : Class) : Set(Property) =
@@ -50,7 +50,7 @@
 
 [query public getAllXisInteractionSpaces(m : Model) : OrderedSet(Class) =
 	m.allOwnedElements()->selectByType(Class)->select(
-		c : Class | c.isXisInteractionSpace() = true)
+		c : Class | c.isXisInteractionSpace())
 /]
 
 [query public isMainScreen (el : Element) : Boolean =
@@ -93,6 +93,10 @@
 	getEnumValue(c.getValue(
 		c.getXisCompositeWidget(), 'type')
 	) = 'Item'
+/]
+
+[query public getChildren(c : Class) : OrderedSet(Class) = 
+	c.ownedElement->selectByType(Class)
 /]
 
 [query public isXisAction(o : Operation) : Boolean =
