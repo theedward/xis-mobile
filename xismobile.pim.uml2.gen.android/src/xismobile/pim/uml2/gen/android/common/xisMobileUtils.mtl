@@ -30,7 +30,7 @@
 /]
 
 [query public isNullable(p : Property) : Boolean =
-	p.getTaggedValue('XIS-Mobile::XisAttribute', 'isNullable') = true
+	p.getTaggedValue('XIS-Mobile::XisAttribute', 'nullable') = true
 /]
 
 [query public isKey(p : Property) : Boolean =
