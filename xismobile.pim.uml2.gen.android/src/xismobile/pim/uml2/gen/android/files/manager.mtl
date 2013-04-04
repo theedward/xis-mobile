@@ -1,0 +1,34 @@
+[comment encoding = UTF-8 /]
+[module manager('http://www.eclipse.org/uml2/4.0.0/UML')]
+
+
+[template public generateManager(c : Class)]
+
+[file ('domain/'.concat(c.name.toUpperFirst()).concat('Factory.java'), false, 'UTF-8')]
+package domain
+
+import java.util.HashSet;
+import java.util.Set;
+
+public class [c.name.toUpperFirst()/]Manager {
+	
+	Set<[c.name.toUpperFirst()/]> [c.name.toLowerFirst()/]s = new HashSet<[c.name.toUpperFirst()/]>();
+	
+	public static void create[c.name.toUpperFirst()/]([comment fields/]) {
+		[c.name.toLowerFirst()/]s.add(new [c.name.toUpperFirst()/]());
+	}
+
+	public static void delete[c.name.toUpperFirst()/]([comment fields/]) {
+		[c.name.toLowerFirst()/]s.
+	}
+
+	public static void deleteAll[c.name.toUpperFirst()/]() {
+		[c.name.toLowerFirst()/]s.clear();
+	}
+
+	public static void update[c.name.toUpperFirst()/]() {
+		
+	}
+}
+[/file]
+[/template]

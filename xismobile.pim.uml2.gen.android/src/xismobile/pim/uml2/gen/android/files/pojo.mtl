@@ -10,7 +10,8 @@ package domain
 
 public class [c.name.toUpperFirst()/] {
 [if (c.hasXisEntityAttributes())]
-
+	
+	[c.generateConstructor()/]
 	[c.generateAttributes()/]
 	[c.generateGettersAndSetters()/]
 
@@ -19,6 +20,12 @@ public class [c.name.toUpperFirst()/] {
 [/if]
 }
 [/file]
+[/template]
+
+[template public generateConstructor(c : Class)]
+public [c.name.toUpperFirst()/]() {
+
+}
 [/template]
 
 [template public generateAttributes(c : Class)]

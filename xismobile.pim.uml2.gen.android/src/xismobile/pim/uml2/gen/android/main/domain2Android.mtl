@@ -5,6 +5,7 @@
 [import xismobile::pim::uml2::gen::android::files::dbAdapter /]
 [import xismobile::pim::uml2::gen::android::files::dbHelper /]
 [import xismobile::pim::uml2::gen::android::files::pojo /]
+[import xismobile::pim::uml2::gen::android::files::manager /]
 
 [template public domain2Android(c : Class)]
 
@@ -15,6 +16,7 @@
 		[c.generateDbHelper()/]
 	[else]
 		[c.generatePOJO()/]
+		[c.generateManager()/]
 	[/if]
 [/if]
 [/template]
