@@ -1,0 +1,40 @@
+[comment encoding = UTF-8 /]
+[module pojo('http://www.eclipse.org/uml2/4.0.0/UML')]
+
+[import xismobile::pim::uml2::gen::android::common::xisMobileUtils /]
+
+[template public generatePOJO(c : Class)]
+
+[file ('domain/'.concat(c.name.toUpperFirst()).concat('.java'), false, 'UTF-8')]
+package domain
+
+public class [c.name.toUpperFirst()/] {
+[if (c.hasXisEntityAttributes())]
+
+	[c.generateAttributes()/]
+	[c.generateGettersAndSetters()/]
+
+[else]
+	[writeTODO()/]
+[/if]
+}
+[/file]
+[/template]
+
+[template public generateAttributes(c : Class)]
+[for (p : Property | c.getXisEntityAttributes())]
+private [p.type.name/] [p.name.toLowerFirst()/];
+[/for]
+[/template]
+
+[template public generateGettersAndSetters(c : Class) post(trim())]
+[for (p : Property | c.getXisEntityAttributes()) separator('\n')]
+public [p.type.name/] get[p.name.toUpperFirst()/]() {
+	return this.[p.name.toLowerFirst()/];
+}
+
+public void set[p.name.toUpperFirst()/]([p.type.name/] [p.name.toLowerFirst()/]) {
+	this.[p.name.toLowerFirst()/] = [p.name.toLowerFirst()/];
+}
+[/for]
+[/template]
