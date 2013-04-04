@@ -2,9 +2,10 @@
 [module xisMobileUtils('http://www.eclipse.org/uml2/4.0.0/UML')]
 
 
-[comment
-	Domain View queries
-/]
+[**
+ * Domain View queries
+ */]
+
 [query public getXisEntity(c : Class) : Stereotype =
 	c.getAppliedStereotype('XIS-Mobile::XisEntity')
 /]
@@ -17,29 +18,38 @@
 	el.getTaggedValue('XIS-Mobile::XisEntity', 'persistent') = true
 /]
 
-[query public getXisAttributes(c : Class) : Set(Property) =
-	c.ownedAttribute->select(p : Property | p.isXisAttribute())
+[query public hasXisEntityAttributes(c : Class) : Boolean = 
+	c.ownedAttribute->size() > 0 and c.getXisEntityAttributes()->size() > 0
 /]
 
-[query public getXisAttribute(p : Property) : Stereotype =
-	p.getAppliedStereotype('XIS-Mobile::XisAttribute')
+[query public getXisEntityAttributes(c : Class) : Set(Property) =
+	c.ownedAttribute->select(p : Property | p.isXisEntityAttribute())
 /]
 
-[query public isXisAttribute(p : Property) : Boolean =
-	not p.getXisAttribute().oclIsUndefined()
+[query public getXisEntityAttribute(p : Property) : Stereotype =
+	p.getAppliedStereotype('XIS-Mobile::XisEntityAttribute')
+/]
+
+[query public isXisEntityAttribute(p : Property) : Boolean =
+	not p.getXisEntityAttribute().oclIsUndefined()
+/]
+
+[query public getXisEntityAttributeValue(p : Property) : String =
+	p.getTaggedValue('XIS-Mobile::XisEntityAttribute', 'value')
 /]
 
 [query public isNullable(p : Property) : Boolean =
-	p.getTaggedValue('XIS-Mobile::XisAttribute', 'nullable') = true
+	p.getTaggedValue('XIS-Mobile::XisEntityAttribute', 'nullable') = true
 /]
 
 [query public isKey(p : Property) : Boolean =
-	p.getTaggedValue('XIS-Mobile::XisAttribute', 'isKey') = true
+	p.getTaggedValue('XIS-Mobile::XisEntityAttribute', 'isKey') = true
 /]
 
-[comment 
-	InteractionSpace View Queries
-/]
+[**
+ * InteractionSpace View Queries  
+ */]
+
 [query public getXisInteractionSpace(c : Class) : Stereotype =
 	c.getAppliedStereotype('XIS-Mobile::XisInteractionSpace')
 /]
@@ -307,7 +317,9 @@
 	endif
 /]
 
-[comment]TEMPLATES AREA[/comment]
+[**
+ * Templates Area
+ */]
 
 [template public writeTODO(a : OclAny)]
 // TODO: To be implemented...

@@ -4,20 +4,17 @@
 [import xismobile::pim::uml2::gen::android::common::xisMobileUtils /]
 [import xismobile::pim::uml2::gen::android::files::dbAdapter /]
 [import xismobile::pim::uml2::gen::android::files::dbHelper /]
+[import xismobile::pim::uml2::gen::android::files::pojo /]
 
-[template public domain2Android(m : Model)]
+[template public domain2Android(c : Class)]
 
 [comment @main /]
-[for (c : Class | m.allOwnedElements()->selectByType(Class))]
 [if (c.isXisEntity())]
 	[if (c.isPersistent())]
-		[generateDbAdapter(c)/]
-		[generateDbHelper(c)/]
+		[c.generateDbAdapter()/]
+		[c.generateDbHelper()/]
 	[else]
-		// TODO
+		[c.generatePOJO()/]
 	[/if]
-	
 [/if]
-[/for]
-
 [/template]
