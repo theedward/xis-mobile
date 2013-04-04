@@ -58,11 +58,11 @@ public class [c.name.toUpperFirst()/]Activity extends [isListActivity()/]Activit
 		[elseif (op.isSaveAction())]
 			[op.name.toLowerFirst()/]
 		[elseif (op.isDeleteteAction())]
-		
+		[comment] TODO Delete Entity by name[/comment]
 		[elseif (op.isDeleteteAllAction())]
-
+		[comment] TODO DeleteAll entities[/comment]
 		[elseif (op.isCustomAction())]
-			
+			[writeTODO()/]
 		[/if]
 		[/let]
 	[/if]
