@@ -2,11 +2,12 @@
 [module dbAdapter('http://www.eclipse.org/uml2/4.0.0/UML')/]
 
 [import xismobile::pim::uml2::gen::android::common::xisMobileUtils /]
+[import xismobile::pim::uml2::gen::android::common::utils /]
 
 [template public generateDbAdapter(c : Class)]
 
 [file ('domain/'.concat(c.name.toUpperFirst()).concat('DbAdapter.java'), false, 'UTF-8')]
-package domain;
+package [c.getPackagePath()/].domain;
 
 import android.content.ContentValues;
 import android.content.Context;

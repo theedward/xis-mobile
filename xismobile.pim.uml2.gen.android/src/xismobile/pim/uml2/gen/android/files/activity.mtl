@@ -6,7 +6,7 @@
 
 [template public generateActivity(c : Class)]
 [file ('src/'.concat(c.name.toUpperFirst().concat('Activity.java')), false, 'UTF-8')]
-package [getPackagePath()/]
+package [c.getPackagePath()/];
 
 import android.os.Bundle;
 import android.app.[isListActivity()/]Activity;
