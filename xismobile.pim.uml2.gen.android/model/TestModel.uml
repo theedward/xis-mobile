@@ -31,5 +31,5 @@
   </uml:Model>
   <XISMobile:XisEntityAttribute xmi:id="_GvKA4J0kEeKXJ5PpjcImHQ" value="asdasdas" base_Property="_AYtcMJ0kEeKXJ5PpjcImHQ"/>
   <XISMobile:XisEntityAttribute xmi:id="_HgjBkJ0kEeKXJ5PpjcImHQ" base_Property="_CRp60J0kEeKXJ5PpjcImHQ"/>
-  <XISMobile:XisEntity xmi:id="_I2F4MJ0kEeKXJ5PpjcImHQ" persistent="false" base_Class="__KANYJ0jEeKXJ5PpjcImHQ"/>
+  <XISMobile:XisEntity xmi:id="_I2F4MJ0kEeKXJ5PpjcImHQ" base_Class="__KANYJ0jEeKXJ5PpjcImHQ"/>
 </xmi:XMI>
