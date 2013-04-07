@@ -9,11 +9,20 @@
 [file ('domain/'.concat(c.name.toUpperFirst()).concat('.java'), false, 'UTF-8')]
 package [c.getPackagePath()/].domain;
 
+[if (c.isPersistent())]
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
+
+[/if]
+
+[if (c.isPersistent())]
+@DatabaseTable(tableName = "[c.name.toUpperFirst()/]")
+[/if]
 public class [c.name.toUpperFirst()/] {
 [if (c.hasXisEntityAttributes())]
 	
 	[c.generateAttributes()/]
-	[c.generateConstructor()/]
+	[c.generateConstructors()/]
 	[c.generateGettersAndSetters()/]
 
 [else]
@@ -23,15 +32,23 @@ public class [c.name.toUpperFirst()/] {
 [/file]
 [/template]
 
-[template public generateConstructor(c : Class)]
+[template public generateConstructors(c : Class)]
 public [c.name.toUpperFirst()/]() {
-
+	[if (c.isPersistent())]
+	// Non-Arg constructor needed by OrmLite
+	[/if]
 }
 
+public [c.name.toUpperFirst()/]([comment]Attributes list[/comment]) {
+	[for (p : Property | c.getXisEntityAttributes())]
+	this.[p.name.toLowerFirst()/] = [p.name.toLowerFirst()/];
+	[/for]
+}
 [/template]
 
 [template public generateAttributes(c : Class)]
 [for (p : Property | c.getXisEntityAttributes())]
+[if (c.isPersistent())]@DatabaseField[/if]
 private [p.type.name/] [p.name.toLowerFirst()/];
 [/for]
 [/template]
