@@ -3,34 +3,45 @@
 
 [import xismobile::pim::uml2::gen::android::common::utils /]
 
-[template public generateManager(c : Class)]
+[template public generateManager(entities : OrderedSet(Class))]
 
-[file ('domain/'.concat(c.name.toUpperFirst()).concat('Manager.java'), false, 'UTF-8')]
-package [c.getPackagePath()/].domain;
+[file ('domain/DomainEntityManager.java', false, 'UTF-8')]
+package [entities->at(1).getPackagePath()/].domain;
 
 import java.util.HashSet;
 import java.util.Set;
 
+import android.content.Context;
 
-public class [c.name.toUpperFirst()/]Manager {
+public class DomainEntityManager {
 	
-	Set<[c.name.toUpperFirst()/]> [c.name.toLowerFirst()/]s = new HashSet<[c.name.toUpperFirst()/]>();
+	private Context context;
 	
-	public void create[c.name.toUpperFirst()/]([comment fields/]) {
-		[c.name.toLowerFirst()/]s.add(new [c.name.toUpperFirst()/]());
+	[for (c : Class | entities)]
+	private Set<[c.name.toUpperFirst()/]> [c.name.toLowerFirst()/]s;
+	[/for]
+	
+	public DomainEntityManager(Context context) {
+		this.context = context;
+		[for (c : Class | entities)]
+		[c.name.toLowerFirst()/]s = new HashSet<[c.name.toUpperFirst()/]>();
+		[/for]
+	}
+
+	[for (c : Class | entities)]
+	public void create[c.name.toUpperFirst()/]([c.name.toUpperFirst()/] [c.name.toLowerFirst()/]) {
+		[c.name.toLowerFirst()/]s.add([c.name.toLowerFirst()/]);
 	}
 
 	public void delete[c.name.toUpperFirst()/]([comment fields/]) {
-		[c.name.toLowerFirst()/]s.
+		[comment]TODO[/comment]
 	}
 
-	public void deleteAll[c.name.toUpperFirst()/]() {
+	public void deleteAll[c.name.toUpperFirst()/]s() {
 		[c.name.toLowerFirst()/]s.clear();
 	}
+	[/for]
 
-	public void update[c.name.toUpperFirst()/]() {
-		
-	}
 }
 [/file]
 [/template]

@@ -24,7 +24,10 @@ public class [c.name.toUpperFirst()/] {
 	[c.generateAttributes()/]
 	[c.generateConstructors()/]
 	[c.generateGettersAndSetters()/]
+	[if (not c.isPersistent())]
 
+	[c.generateEqualsMethods()/]
+	[/if]
 [else]
 	[writeTODO()/]
 [/if]
@@ -66,4 +69,25 @@ public void set[p.name.toUpperFirst()/]([p.type.name/] [p.name.toLowerFirst()/])
 	this.[p.name.toLowerFirst()/] = [p.name.toLowerFirst()/];
 }
 [/for]
+[/template]
+
+[template public generateEqualsMethods(c : Class)]
+@Override
+public boolean equals(Object obj) {
+	if (obj == null)
+		return false;
+	if (obj == this)
+		return true;
+	if (!(obj instanceof [c.name.toUpperFirst()/]))
+		return false;
+	
+	[c.name.toUpperFirst()/] c = ([c.name.toUpperFirst()/]) obj;	
+	return true; // TODO
+}
+	
+@Override
+public int hashCode() {
+	String code = name + age;
+	return code.hashCode();
+}
 [/template]

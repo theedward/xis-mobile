@@ -16,12 +16,6 @@ import android.view.Menu;
 
 
 public class [c.name.toUpperFirst()/]Activity extends [isListActivity()/]Activity {
-[if (c.attribute->size() > 0)]
-
-	[for (p: Property | c.attribute) separator('\n')]
-    private [p.type.name/] [p.name/];
-    [/for]
-[/if]
 
 	/** Called when the activity is first created. */
 	@Override
