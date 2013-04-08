@@ -18,7 +18,6 @@ import android.util.Log;
 
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.Dao;
-import com.j256.ormlite.dao.RuntimeExceptionDao;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 
@@ -31,30 +30,32 @@ public class OrmLiteHelper extends OrmLiteSqliteOpenHelper {
 	private static final String DB_NAME = "OrmDummy.db";[comment]TODO: App Name[/comment]
 	private static final int DB_VERSION = 1;
  
-	private Dao<SimpleData, Integer> simpleDao = null;
-	private RuntimeExceptionDao<SimpleData, String> simpleRuntimeDao = null;
+	[for (c : Class | entities)]
+	private Dao<[c.name.toUpperFirst()/], Integer> [c.name.toLowerFirst()/]Dao = null;
+	private RuntimeExceptionDao<[c.name.toUpperFirst()/], Integer> [c.name.toLowerFirst()/]RuntimeDao = null;
+	[/for]
  
 	public OrmLiteHelper(Context context) {
 		super(context, DB_NAME, null, DB_VERSION);
 		this.context = context;
 	}
  
-	public Dao<SimpleData, Integer> getDao() throws SQLException {
-		if (simpleDao == null) {
-			simpleDao = getDao(SimpleData.class);
+	[for (c : Class | entities)]
+	public Dao<[c.name.toUpperFirst()/], Integer> get[c.name.toUpperFirst()/]Dao() throws SQLException {
+		if ([c.name.toLowerFirst()/]Dao == null) {
+			[c.name.toLowerFirst()/]Dao = getDao([c.name.toUpperFirst()/].class);
 		}
-		return simpleDao;
+		return [c.name.toLowerFirst()/]Dao;
 	}
  
-	public RuntimeExceptionDao<SimpleData, String> getSimpleDataDao() {
-		if (simpleRuntimeDao == null) {
-			simpleRuntimeDao = getRuntimeExceptionDao(SimpleData.class);
+	public RuntimeExceptionDao<[c.name.toUpperFirst()/], String> get[c.name.toUpperFirst()/]RuntimeDao() {
+		if ([c.name.toLowerFirst()/]RuntimeDao == null) {
+			[c.name.toLowerFirst()/]RuntimeDao = getRuntimeExceptionDao([c.name.toUpperFirst()/].class);
 		}
-		return simpleRuntimeDao;
+		return [c.name.toLowerFirst()/]RuntimeDao;
 	}
 	
-	[for (c : Class | entities)]
-	public List<[c.name.toUpperFirst()/]> GetAll[c.name.toUpperFirst()/]() {
+	public List<[c.name.toUpperFirst()/]> GetAll[c.name.toUpperFirst()/]s() {
 		[comment]DatabaseHelper helper = new DatabaseHelper(_context);
 		RuntimeExceptionDao<SimpleData, String> simpleDao = helper.getSimpleDataDao();
 		List<SimpleData> list = simpleDao.queryForAll();
