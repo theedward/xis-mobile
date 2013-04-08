@@ -29,12 +29,12 @@ public class DomainEntityManager {
 	}
 
 	[for (c : Class | entities)]
-	public void create[c.name.toUpperFirst()/]([c.name.toUpperFirst()/] [c.name.toLowerFirst()/]) {
-		[c.name.toLowerFirst()/]s.add([c.name.toLowerFirst()/]);
+	public boolean create[c.name.toUpperFirst()/]([c.name.toUpperFirst()/] [c.name.toLowerFirst()/]) {
+		return [c.name.toLowerFirst()/]s.add([c.name.toLowerFirst()/]);
 	}
 
-	public void delete[c.name.toUpperFirst()/]([comment fields/]) {
-		[comment]TODO[/comment]
+	public boolean delete[c.name.toUpperFirst()/]([c.name.toUpperFirst()/] [c.name.toLowerFirst()/]) {
+		return [c.name.toLowerFirst()/]s.remove([c.name.toLowerFirst()/]);
 	}
 
 	public void deleteAll[c.name.toUpperFirst()/]s() {

@@ -62,7 +62,7 @@ public class OrmLiteHelper extends OrmLiteSqliteOpenHelper {
 	}
 
 	public int add[c.name.toUpperFirst()/]([c.name.toUpperFirst()/] [c.name.toLowerFirst()/]) {
-		RuntimeExceptionDao<SimpleData, String> dao = getSimpleDataDao();
+		RuntimeExceptionDao<SimpleData, String> dao = get[c.name.toUpperFirst()/]Dao();
 		int i = dao.create([c.name.toLowerFirst()/]);
 		return i;
 	}
