@@ -56,22 +56,35 @@ public class OrmLiteHelper extends OrmLiteSqliteOpenHelper {
 	}
 	
 	public List<[c.name.toUpperFirst()/]> GetAll[c.name.toUpperFirst()/]s() {
-		[comment]DatabaseHelper helper = new DatabaseHelper(_context);
-		RuntimeExceptionDao<SimpleData, String> simpleDao = helper.getSimpleDataDao();
-		List<SimpleData> list = simpleDao.queryForAll();
-		return list;[/comment]
+		[c.name.toLowerFirst()/]Dao = get[c.name.toUpperFirst()/]Dao();
+		List<[c.name.toUpperFirst()/]> list = null;
+		try {
+			list = [c.name.toLowerFirst()/]Dao.queryForAll();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
 	}
 
 	public int add[c.name.toUpperFirst()/]([c.name.toUpperFirst()/] [c.name.toLowerFirst()/]) {
-		RuntimeExceptionDao<SimpleData, String> dao = get[c.name.toUpperFirst()/]Dao();
-		int i = dao.create([c.name.toLowerFirst()/]);
+		[c.name.toLowerFirst()/]Dao = get[c.name.toUpperFirst()/]Dao();
+		int i = -1;
+		try {
+			i = [c.name.toLowerFirst()/]Dao.create([c.name.toLowerFirst()/]);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return i;
 	}
 
 	public void deleteAll[c.name.toUpperFirst()/]s() {
-		RuntimeExceptionDao<SimpleData, String> dao = getSimpleDataDao();
-		List<SimpleData> list = dao.queryForAll();
-		dao.delete(list);
+		[c.name.toLowerFirst()/]Dao = get[c.name.toUpperFirst()/]Dao();
+		try {
+			List<[c.name.toUpperFirst()/]> list = [c.name.toLowerFirst()/]Dao.queryForAll();
+			[c.name.toLowerFirst()/]Dao.delete(list);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	[/for]
 
