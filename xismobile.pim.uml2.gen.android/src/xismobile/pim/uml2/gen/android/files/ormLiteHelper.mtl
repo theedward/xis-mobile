@@ -124,10 +124,10 @@ public class OrmLiteHelper extends OrmLiteSqliteOpenHelper {
 		        + newVersion + ", which will destroy all old data...");
 	
 			dropTables(connectionSource);
+			onCreate(db, connectionSource);
 		} catch(SQLException e) {
 			Log.e(TAG, "Not possible to drop the tables", e);
 		}
-		onCreate(db, connectionSource);
 	}
 
 }
