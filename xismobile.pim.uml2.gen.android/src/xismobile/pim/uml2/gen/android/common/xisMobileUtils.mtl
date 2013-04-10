@@ -34,8 +34,16 @@
 	not p.getXisEntityAttribute().oclIsUndefined()
 /]
 
+[query public getXisEntityAttributeName(p : Property) : String =
+	p.getTaggedValue('XIS-Mobile::XisEntityAttribute', 'name')
+/]
+
 [query public getXisEntityAttributeValue(p : Property) : String =
 	p.getTaggedValue('XIS-Mobile::XisEntityAttribute', 'value')
+/]
+
+[query public getXisEntityAttributeType(p : Property) : String =
+	p.getTaggedValue('XIS-Mobile::XisEntityAttribute', 'type')
 /]
 
 [query public isNullable(p : Property) : Boolean =

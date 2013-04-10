@@ -42,12 +42,20 @@ public [c.name.toUpperFirst()/]() {
 	[/if]
 }
 
-public [c.name.toUpperFirst()/]([comment]Attributes list[/comment]) {
+public [c.name.toUpperFirst()/]([c.getXisAttributesForConstructor()/]) {
 	[for (p : Property | c.getXisEntityAttributes())]
-	this.[p.name.toLowerFirst()/] = [p.name.toLowerFirst()/];
+	this.[p.getXisEntityAttributeName().toLowerFirst()/] = [p.getXisEntityAttributeName().toLowerFirst()/];
 	[/for]
 }
 
+[/template]
+
+[template public getXisAttributesForConstructor(c : Class) post(trim())]
+[c.getXisEntityAttributes().getXisAttributeTypeAndName()->sep(', ')/]
+[/template]
+
+[template public getXisAttributeTypeAndName(p : Property)]
+[p.getXisEntityAttributeType()/] [p.getXisEntityAttributeName().toLowerFirst()/]
 [/template]
 
 [template public generateAttributes(c : Class)]
@@ -55,23 +63,24 @@ public [c.name.toUpperFirst()/]([comment]Attributes list[/comment]) {
 [if (c.isPersistent())]
 @DatabaseField
 [/if]
-private [p.type.name/] [p.name.toLowerFirst()/];
+private [p.getXisAttributeTypeAndName()/];
 [/for]
 [/template]
 
 [template public generateGettersAndSetters(c : Class) post(trim())]
 [for (p : Property | c.getXisEntityAttributes()) separator('\n')]
-public [p.type.name/] get[p.name.toUpperFirst()/]() {
-	return [p.name.toLowerFirst()/];
+public [p.getXisEntityAttributeType()/] get[p.name.toUpperFirst()/]() {
+	return [p.getXisEntityAttributeName().toLowerFirst()/];
 }
 
-public void set[p.name.toUpperFirst()/]([p.type.name/] [p.name.toLowerFirst()/]) {
-	this.[p.name.toLowerFirst()/] = [p.name.toLowerFirst()/];
+public void set[p.getXisEntityAttributeName().toUpperFirst()/]([p.getXisEntityAttributeType()/] [p.getXisEntityAttributeName().toLowerFirst()/]) {
+	this.[p.getXisEntityAttributeName().toLowerFirst()/] = [p.getXisEntityAttributeName().toLowerFirst()/];
 }
 [/for]
 [/template]
 
 [template public generateEqualsMethods(c : Class)]
+[let attrs : Set(Property) = c.getXisEntityAttributes()]
 @Override
 public boolean equals(Object obj) {
 	if (obj == null)
@@ -87,7 +96,16 @@ public boolean equals(Object obj) {
 	
 @Override
 public int hashCode() {
-	String code = name + age;
+	String code = [attrs->getHashCodeCondition()/];
 	return code.hashCode();
 }
+[/let]
+[/template]
+
+[template public getEqualsConditions(ps : Set(Property))]
+[ps.getXisAttributeTypeAndName()/]
+[/template]
+
+[template public getHashCodeCondition(ps : Set(Property))]
+[ps.getXisEntityAttributeName().toLowerFirst()->sep(' + ')/]
 [/template]
