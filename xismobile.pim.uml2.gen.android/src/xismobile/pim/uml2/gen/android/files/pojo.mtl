@@ -91,7 +91,7 @@ public boolean equals(Object obj) {
 		return false;
 	
 	[c.name.toUpperFirst()/] c = ([c.name.toUpperFirst()/]) obj;	
-	return true; // TODO
+	return [attrs->getEqualsCondition()/];
 }
 	
 @Override
@@ -102,8 +102,10 @@ public int hashCode() {
 [/let]
 [/template]
 
-[template public getEqualsConditions(ps : Set(Property))]
-[ps.getXisAttributeTypeAndName()/]
+[template public getEqualsCondition(ps : Set(Property)) post (trim())]
+[for (p : Property | ps) separator ('\t&& ')]
+this.[p.getXisEntityAttributeName()/] == c.[p.getXisEntityAttributeName()/]
+[/for]
 [/template]
 
 [template public getHashCodeCondition(ps : Set(Property))]

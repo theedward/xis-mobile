@@ -29,7 +29,7 @@
       <appliedProfile href="../../XIS-Mobile/model.profile.uml#_GVt5kJb3EeKwK-AIPNJqFA"/>
     </profileApplication>
   </uml:Model>
-  <XISMobile:XisEntity xmi:id="_NDevMKHFEeKUoPvtuUlduw" base_Class="__KANYJ0jEeKXJ5PpjcImHQ"/>
+  <XISMobile:XisEntity xmi:id="_NDevMKHFEeKUoPvtuUlduw" persistent="false" base_Class="__KANYJ0jEeKXJ5PpjcImHQ"/>
   <XISMobile:XisEntityAttribute xmi:id="_PGRGUKHFEeKUoPvtuUlduw" value="" type="STRING" base_Property="_AYtcMJ0kEeKXJ5PpjcImHQ" name="TITLE"/>
   <XISMobile:XisEntityAttribute xmi:id="_QBOSsKHFEeKUoPvtuUlduw" base_Property="_CRp60J0kEeKXJ5PpjcImHQ"/>
 </xmi:XMI>
