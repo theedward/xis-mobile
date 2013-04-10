@@ -35,7 +35,11 @@
 /]
 
 [query public getXisEntityAttributeName(p : Property) : String =
-	p.getTaggedValue('XIS-Mobile::XisEntityAttribute', 'name')
+	let name : OclAny = p.getTaggedValue('XIS-Mobile::XisEntityAttribute', 'name') in
+	if name.oclIsUndefined()
+	then p.name.toLowerFirst()
+	else name.oclAsType(String).toLowerFirst()
+	endif
 /]
 
 [query public getXisEntityAttributeValue(p : Property) : String =
@@ -43,7 +47,11 @@
 /]
 
 [query public getXisEntityAttributeType(p : Property) : String =
-	p.getTaggedValue('XIS-Mobile::XisEntityAttribute', 'type')
+	let type : OclAny = p.getTaggedValue('XIS-Mobile::XisEntityAttribute', 'type') in
+	if type.oclIsUndefined()
+	then p.type.name
+	else type
+	endif
 /]
 
 [query public isNullable(p : Property) : Boolean =

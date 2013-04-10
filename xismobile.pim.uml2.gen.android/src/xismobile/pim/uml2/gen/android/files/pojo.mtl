@@ -69,7 +69,7 @@ private [p.getXisAttributeTypeAndName()/];
 
 [template public generateGettersAndSetters(c : Class) post(trim())]
 [for (p : Property | c.getXisEntityAttributes()) separator('\n')]
-public [p.getXisEntityAttributeType()/] get[p.name.toUpperFirst()/]() {
+public [p.getXisEntityAttributeType()/] get[p.getXisEntityAttributeName().toUpperFirst()/]() {
 	return [p.getXisEntityAttributeName().toLowerFirst()/];
 }
 
