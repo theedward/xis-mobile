@@ -50,13 +50,15 @@ public class [c.name.toUpperFirst()/]Activity extends [isListActivity()/]Activit
 			[writeTODO()/]
 			[/if]
 		[elseif (op.isSaveAction())]
-			[op.name.toLowerFirst()/]
+		[comment] TODO Create/Update Entity by name[/comment]
 		[elseif (op.isDeleteteAction())]
 		[comment] TODO Delete Entity by name[/comment]
 		[elseif (op.isDeleteteAllAction())]
-		[comment] TODO DeleteAll entities[/comment]
+		[comment] TODO Delete all entities[/comment]
+		[elseif (op.isWebServiceAction())]
+			[op.name.toLowerFirst()/]();
 		[elseif (op.isCustomAction())]
-			[writeTODO()/]
+			[op.writeCustomActionCall()/]
 		[/if]
 		[/let]
 	[/if]
@@ -69,17 +71,39 @@ public class [c.name.toUpperFirst()/]Activity extends [isListActivity()/]Activit
 	[/let]
 [/if]
 
+[if (true)]
 /** WebService Actions Area */
-[comment]writeWebServiceActions[/comment]
+[comment] TODO writeWebServiceActions[/comment]
+[/if]
 
+[if (true)]
 /** Custom Actions Area */
-[comment]writeCustomOperations[/comment]
+[comment] TODO writeCustomOperations[/comment]
+[/if]
 
 }
 [/file]
 [/template]
 
-[template public writeWebServiceAction(o : Operation)]
+[template public writeCustomActionCall(o : Operation)]
+[o.name.toUpperFirst()/]([o.getXisArgumentsForCall()/]);
+[/template]
+
+[template public writeCustomActionDeclaration(o : Operation)]
+public void [o.name.toUpperFirst()/]([o.getXisArgumentsForCall()/]) {
+	[writeTODO()/]
+}
+[/template]
+
+[template public getXisArgumentsForCall(o : Operation)]
+[o.getXisArguments().getXisArgumentsTypeAndName()->sep(', ')/]
+[/template]
+
+[template public getXisArgumentsTypeAndName(p : Parameter)]
+[p.getXisArgumentType()/] [p.getXisArgumentName().toLowerFirst()/]
+[/template]
+
+[template public writeWebServiceDeclaration(o : Operation)]
 public void [o.name.toLowerFirst()/]() {
 	HttpClient client = new DefaultHttpClient();
 	HttpGet httpGet = new HttpGet("[comment URL/]");

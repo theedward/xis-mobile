@@ -224,6 +224,23 @@
 	endif
 /]
 
+[query public getXisArgumentName(p : Parameter) : String = 
+	let n : String = p.getXisArgumentValue('name') in
+	if n.oclIsUndefined()
+	then p.name.toLowerFirst()
+	else n.toLowerFirst()
+	endif
+/]
+
+[query public getXisArgumentType(p : Parameter) : String = 
+	let type : String = p.getXisArgumentValue('type') in
+	if type.oclIsUndefined()
+	then p.type.name
+	else type
+	endif
+/]
+
+
 [query public hasMenu(c : Class) : Boolean = 
 	let menu : Collection(Class) = c.ownedElement->selectByType(Class) in
 	menu->select(m : Class | m.isMenu())->size() = 1
