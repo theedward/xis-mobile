@@ -16,6 +16,9 @@
         android:minSdkVersion="8"
 		android:maxSdkVersion="17"
         android:targetSdkVersion="17" />
+	[if (m.needsInternetPermission())]
+	<uses-permission android:name="android.permission.INTERNET"/>	
+	[/if]
 
     <application
         android:icon="@drawable/ic_launcher"

@@ -336,6 +336,14 @@
 	c.getValue(s, 'value')
 /]
 
+[**
+ * Checks if the application needs Internet to work properly.
+ * Searches for WebService actions or WebView widgets. 
+ */]
+[query public needsInternetPermission(m : Model) : Boolean = 
+	true
+/]
+
 [query public getEnumValue(el : OclAny) : OclAny =
 	let eValue : EnumerationLiteral = el.oclAsType(EnumerationLiteral) in
 	if not eValue.oclIsUndefined() then

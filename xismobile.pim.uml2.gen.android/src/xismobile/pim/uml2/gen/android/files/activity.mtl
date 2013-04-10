@@ -73,12 +73,16 @@ public class [c.name.toUpperFirst()/]Activity extends [isListActivity()/]Activit
 
 [if (true)]
 /** WebService Actions Area */
-[comment] TODO writeWebServiceActions[/comment]
+[comment][for (o : Operation | expression) separator ('\n')]
+[o.writeWebServiceDeclaration()/]
+[/for][/comment]
 [/if]
 
 [if (true)]
 /** Custom Actions Area */
-[comment] TODO writeCustomOperations[/comment]
+[comment][for (o : Operation | expression) separator ('\n')]
+[o.writeCustomActionDeclaration()/]
+[/for][/comment]
 [/if]
 
 }
