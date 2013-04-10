@@ -1,0 +1,111 @@
+[comment encoding = UTF-8 /]
+[module widget('http://www.eclipse.org/uml2/4.0.0/UML')]
+
+[import xismobile::pim::uml2::gen::android::common::xisMobileUtils /]
+
+[template public writeLabel(c : Class)]
+<TextView
+	android:id="@+id/label[c.name.toUpperFirst()/]"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:text="@string/[comment TODO value/]" />
+[/template]
+
+[template public writeTextBox(c : Class)]
+<EditText
+    android:id="@+id/editText[c.name.toUpperFirst()/]"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_centerHorizontal="true"
+    android:ems="10"
+	[if (c.getXisTexBoxLines() > 1)]
+	android:inputType="textMultiLine"
+	[/if]
+    android:minLines="[c.getXisTexBoxLines()/]"
+    android:gravity="top"
+    android:scrollbars="vertical"
+	[if (c.XisTextBoxHasHint())]
+	android:hint="[c.getXisTexBoxHint()/]"
+	[/if]
+/>
+[/template]
+
+[template public writeListView(c : Class)]
+<ListView
+    android:id="@android:id/list"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+	android:layout_alignParentTop="true"
+	android:layout_centerHorizontal="true" >
+</ListView>
+[/template]
+
+[template public writeMapView(c : Class)]
+<com.google.android.maps.MapView
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/mapView[c.name.toUpperFirst()/]"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:clickable="true"
+	android:apiKey="Your Maps API Key goes here"
+/>
+[/template]
+
+[template public writeButton(c : Class)]
+<Button
+    android:id="@+id/button[c.name.toUpperFirst()/]"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+	[if (c.hasXisAction())]
+    android:onClick="[c.getXisAction().name.toLowerFirst()/]"
+	[/if]
+    android:text="@string/[c.name.toLower()/]_button"
+/>
+[/template]
+
+[template public writeLink(c : Class)]
+<TextView
+	android:id="@+id/link[c.name.toUpperFirst()/]"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:autolink="web"
+	android:text="[c.getXisLinkURL()/]"
+/>
+[/template]
+
+[template public writeDatePicker(c : Class)]
+<Button
+    android:id="@+id/datePicker[c.name.toUpperFirst()/]"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:onClick="showDatePickerDialog"
+    android:text="@string/[c.name.toLower()/]_date"
+/>
+[/template]
+
+[template public writeTimePicker(c : Class)]
+<Button
+    android:id="@+id/timePicker[c.name.toUpperFirst()/]"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:onClick="showTimePickerDialog"
+    android:text="@string/[c.name.toLower()/]_time"
+/>
+[/template]
+
+[template public writeImageView(c : Class)]
+<ImageView
+	android:id="@+id/image[c.name.toUpperFirst()/]"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:src="[c.getXisImagePath()/]"
+/>
+[/template]
+
+[template public writeWebView(c : Class)]
+<WebView  xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/webView[c.name.toUpperFirst()/]"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+/>
+[/template]
