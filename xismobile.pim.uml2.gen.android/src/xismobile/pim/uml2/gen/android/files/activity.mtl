@@ -78,3 +78,27 @@ public class [c.name.toUpperFirst()/]Activity extends [isListActivity()/]Activit
 }
 [/file]
 [/template]
+
+[template public writeWebServiceAction(o : Operation)]
+public void [o.name.toLowerFirst()/]() {
+	HttpClient client = new DefaultHttpClient();
+	HttpGet httpGet = new HttpGet("[comment URL/]");
+
+	try {
+		HttpResponse response = client.execute(httpGet);
+		StatusLine statusLine = response.getStatusLine();
+		int statusCode = statusLine.getStatusCode();
+		if (statusCode == 200) {
+			HttpEntity entity = response.getEntity();
+			InputStream content = entity.getContent();
+			// TODO: Process response
+		} else {
+			Log.e("WS", "Failed call to WS [o.name.toLowerFirst()/] code:" + statusCode);
+		}
+	} catch (ClientProtocolException e) {
+		e.printStackTrace();
+	} catch (IOException e) {
+		e.printStackTrace();
+	}
+}
+[/template]
