@@ -195,6 +195,10 @@
 	) = 'Custom'
 /]
 
+[query public getWSActionURL(o : Operation) : String = 
+	o.getXisArgumentValueByName('url', 'value')
+/]
+
 [query public getXisArgument(p : Parameter) : Stereotype = 
 	p.getAppliedStereotype('XIS-Mobile::XisArgument')
 /]

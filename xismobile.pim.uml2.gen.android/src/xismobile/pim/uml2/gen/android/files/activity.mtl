@@ -106,7 +106,7 @@ public void [o.name.toUpperFirst()/]([o.getXisArgumentsForCall()/]) {
 [template public writeWebServiceDeclaration(o : Operation)]
 public void [o.name.toLowerFirst()/]() {
 	HttpClient client = new DefaultHttpClient();
-	HttpGet httpGet = new HttpGet("[comment URL/]");
+	HttpGet httpGet = new HttpGet("[o.getWSActionURL()/]");
 
 	try {
 		HttpResponse response = client.execute(httpGet);
