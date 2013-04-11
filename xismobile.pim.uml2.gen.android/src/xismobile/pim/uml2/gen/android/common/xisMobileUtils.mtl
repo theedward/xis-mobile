@@ -195,6 +195,16 @@
 	) = 'Custom'
 /]
 
+[query public getAllCustomActions(c : Class) : Set(Operation) = 
+	let ops : Collection(Operation) = c.allOwnedElements()->selectByType(Operation) in
+	ops->select(o : Operation | o.isCustomAction())
+/]
+
+[query public getAllWebServiceActions(c : Class) : Set(Operation) = 
+	let ops : Collection(Operation) = c.allOwnedElements()->selectByType(Operation) in
+	ops->select(o : Operation | o.isWebServiceAction())
+/]
+
 [query public getWSActionURL(o : Operation) : String = 
 	o.getXisArgumentValueByName('url', 'value')
 /]

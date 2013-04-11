@@ -70,21 +70,25 @@ public class [c.name.toUpperFirst()/]Activity extends [isListActivity()/]Activit
 	}
 	[/let]
 [/if]
+	
+	[let wsl : Set(Operation) = c.getAllWebServiceActions()]
+	[if (wsl->size() > 0)]
+	/** WebService Actions Area */
+	[for (o : Operation | wsl) separator ('\n')]
+	[o.writeWebServiceDeclaration()/]
+	[/for]
 
-[if (true)]
-/** WebService Actions Area */
-[comment][for (o : Operation | expression) separator ('\n')]
-[o.writeWebServiceDeclaration()/]
-[/for][/comment]
-[/if]
+	[/if]
+	[/let]
+	[let cls : Set(Operation) = c.getAllCustomActions()]
+	[if (cls->size() > 0)]
+	/** Custom Actions Area */
+	[for (o : Operation | cls) separator ('\n')]
+	[o.writeCustomActionDeclaration()/]
+	[/for]
 
-[if (true)]
-/** Custom Actions Area */
-[comment][for (o : Operation | expression) separator ('\n')]
-[o.writeCustomActionDeclaration()/]
-[/for][/comment]
-[/if]
-
+	[/if]
+	[/let]
 }
 [/file]
 [/template]
