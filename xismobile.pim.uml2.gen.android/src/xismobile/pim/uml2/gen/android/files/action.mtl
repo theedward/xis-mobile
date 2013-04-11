@@ -1,0 +1,74 @@
+[comment encoding = UTF-8 /]
+[module action('http://www.eclipse.org/uml2/4.0.0/UML')]
+
+[import xismobile::pim::uml2::gen::android::common::xisMobileUtils /]
+
+
+[template public getXisArgumentsTypeAndName(p : Parameter)]
+[p.getXisArgumentType()/] [p.getXisArgumentName().toLowerFirst()/]
+[/template]
+
+[template public getXisArgumentsForCall(o : Operation)]
+[o.getXisArguments().getXisArgumentsTypeAndName()->sep(', ')/]
+[/template]
+
+[**
+ * WebService Actions templates 
+ */]
+
+[template public writeWebServiceArea(c : Class)]
+[let wsl : Set(Operation) = c.getAllWebServiceActions()]
+[if (wsl->size() > 0)]
+/** WebService Actions Area */
+[for (o : Operation | wsl) separator ('\n')]
+[o.writeWebServiceDeclaration()/]
+[/for]
+[/if]
+[/let]
+[/template]
+
+[template public writeWebServiceDeclaration(o : Operation)]
+public void [o.name.toLowerFirst()/]() {
+	HttpClient client = new DefaultHttpClient();
+	HttpGet httpGet = new HttpGet("[o.getWSActionURL()/]");
+
+	try {
+		HttpResponse response = client.execute(httpGet);
+		StatusLine statusLine = response.getStatusLine();
+		int statusCode = statusLine.getStatusCode();
+		if (statusCode == 200) {
+			HttpEntity entity = response.getEntity();
+			InputStream content = entity.getContent();
+			// TODO: Process response
+		} else {
+			Log.e("WS", "Failed to call the WS [o.name.toLowerFirst()/] code:" + statusCode);
+		}
+	} catch (ClientProtocolException e) {
+		e.printStackTrace();
+	} catch (IOException e) {
+		e.printStackTrace();
+	}
+}
+[/template]
+
+
+[**
+ * Custom Actions templates 
+ */]
+
+[template public writeCustomActionArea(cls : Set(Operation)) post (trim())]
+/** Custom Actions Area */
+[for (o : Operation | cls) separator ('\n')]
+[o.writeCustomActionDeclaration()/]
+[/for]
+[/template]
+
+[template public writeCustomActionCall(o : Operation)]
+[o.name.toLowerFirst()/]([o.getXisArgumentsForCall()/]);
+[/template]
+
+[template public writeCustomActionDeclaration(o : Operation)]
+public void [o.name.toLowerFirst()/]([o.getXisArgumentsForCall()/]) {
+	[writeTODO()/]
+}
+[/template]
