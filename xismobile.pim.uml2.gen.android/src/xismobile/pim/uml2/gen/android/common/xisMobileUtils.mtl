@@ -320,6 +320,10 @@
 	not c.getAppliedStereotype('XIS-Mobile::XisMapView').oclIsUndefined()
 /]
 
+[query public isXisWebView(c : Class) : Boolean =
+	not c.getAppliedStereotype('XIS-Mobile::XisWebView').oclIsUndefined()
+/]
+
 [query public isXisImage(c : Class) : Boolean =
 	not c.getAppliedStereotype('XIS-Mobile::XisImage').oclIsUndefined()
 /]
@@ -338,10 +342,13 @@
 
 [**
  * Checks if the application needs Internet to work properly.
- * Searches for WebService actions or WebView widgets. 
+ * Searches for WebService actions, MapView or WebView widgets. 
  */]
 [query public needsInternetPermission(m : Model) : Boolean = 
-	true
+	let cls : Collection(Class) = m.allOwnedElements()->selectByType(Class),
+	acts : Collection(Operation) = m.allOwnedElements()->selectByType(Operation)  in
+	cls->select(c : Class | c.isXisMapView() or c.isXisWebView())->size() > 0 or
+	acts->select(o : Operation | o.isWebServiceAction())->size() > 0
 /]
 
 [query public getEnumValue(el : OclAny) : OclAny =

@@ -5,3 +5,6 @@
 [query public callService(c : Class) : Boolean = 
 	invoke('xismobile.pim.uml2.gen.android.services.ServiceName', 'serviceName(java.lang.String)', Sequence{c})
 /]
+
+
+

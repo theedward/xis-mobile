@@ -21,7 +21,10 @@
           <value xsi:nil="true"/>
         </defaultValue>
       </ownedAttribute>
+      <ownedOperation xmi:id="_YWIE4KKFEeK5RY8mQsFOGA" name="Operation1"/>
     </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_564qcKKEEeK5RY8mQsFOGA" name="Class2"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_q3B0QKKFEeK5RY8mQsFOGA" name="Class3"/>
     <profileApplication xmi:id="_Lp5tIKHFEeKUoPvtuUlduw">
       <eAnnotations xmi:id="_LqBB4KHFEeKUoPvtuUlduw" source="http://www.eclipse.org/uml2/2.0.0/UML">
         <references xmi:type="ecore:EPackage" href="../../XIS-Mobile/model.profile.uml#_6sgCwKHCEeKUoPvtuUlduw"/>
@@ -32,4 +35,5 @@
   <XISMobile:XisEntity xmi:id="_NDevMKHFEeKUoPvtuUlduw" persistent="false" base_Class="__KANYJ0jEeKXJ5PpjcImHQ"/>
   <XISMobile:XisEntityAttribute xmi:id="_PGRGUKHFEeKUoPvtuUlduw" value="" type="STRING" base_Property="_AYtcMJ0kEeKXJ5PpjcImHQ" name="TITLE"/>
   <XISMobile:XisEntityAttribute xmi:id="_QBOSsKHFEeKUoPvtuUlduw" base_Property="_CRp60J0kEeKXJ5PpjcImHQ"/>
+  <XISMobile:XisAction xmi:id="_ZsA5wKKFEeK5RY8mQsFOGA" type="WebService" base_Operation="_YWIE4KKFEeK5RY8mQsFOGA"/>
 </xmi:XMI>
