@@ -10,13 +10,13 @@
 package [c.getPackagePath()/];
 
 import android.os.Bundle;
-import android.app.[isListActivity()/]Activity;
+import android.app.Activity;
 [if (c.hasMenu())]
 import android.view.Menu;
 [/if]
 
 
-public class [c.name.toUpperFirst()/]Activity extends [isListActivity()/]Activity {
+public class [c.name.toUpperFirst()/]Activity extends Activity {
 
 	/** Called when the activity is first created. */
 	@Override

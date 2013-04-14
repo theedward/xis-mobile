@@ -330,6 +330,10 @@
 	not c.getAppliedStereotype('XIS-Mobile::XisMapView').oclIsUndefined()
 /]
 
+[query public hasMapViews(m : Model) : Boolean = 
+	m.allOwnedElements()->selectByKind(Class)->select(c : Class | c.isXisMapView())->size() > 0
+/]
+
 [query public isXisWebView(c : Class) : Boolean =
 	not c.getAppliedStereotype('XIS-Mobile::XisWebView').oclIsUndefined()
 /]
@@ -385,14 +389,4 @@
 
 [template public writeTODO(a : OclAny)]
 // TODO: To be implemented...
-[/template]
-
-[template public isListActivity(c : Class) post(trim())]
-[for (cl : Class | c.ownedElement->selectByType(Class))]
-	[if (cl.isXisCompositeWidget() and cl.isList())]
-List
-	[elseif (cl.isXisMapView())]
-Map
-	[/if]
-[/for]
 [/template]
