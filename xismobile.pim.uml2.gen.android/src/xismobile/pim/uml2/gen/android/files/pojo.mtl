@@ -61,7 +61,7 @@ public [c.name.toUpperFirst()/]([c.getXisAttributesForConstructor()/]) {
 [template public generateAttributes(c : Class)]
 [for (p : Property | c.getXisEntityAttributes())]
 [if (c.isPersistent())]
-@DatabaseField
+@DatabaseField[if (p.isKey())](id = true)[/if]
 [/if]
 private [p.getXisAttributeTypeAndName()/];
 [/for]
