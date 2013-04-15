@@ -350,8 +350,8 @@
 	c.getValue(c.getXisImage(), 'path')
 /]
 
-[query public getXisWidgetValue(c : Class, s : Stereotype) : String =
-	c.getValue(s, 'value')
+[query public getXisWidgetValue(c : Class) : String =
+	c.getValue(c.getXisWidget(), 'value')
 /]
 
 [**

@@ -8,7 +8,7 @@
 	android:id="@+id/label[c.name.toUpperFirst()/]"
 	android:layout_width="fill_parent"
 	android:layout_height="wrap_content"
-	android:text="@string/[comment TODO value/]" />
+	android:text="[c.getXisWidgetValue()/]" />
 [/template]
 
 [template public writeTextBox(c : Class)]
