@@ -32,6 +32,21 @@ public class [c.name.toUpperFirst()/]Activity extends Activity {
 		setContentView(R.layout.[c.name.toLowerCase()/]);
 	}
 
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		[if (c.needsDbConnection())]
+		if (db != null) {
+			OpenHelperManager.releaseHelper();
+			db = null;
+		}
+		[elseif (c.needsDomainViews())]
+		if (manager != null) {
+			manager = null;
+		}
+		[/if]
+	}
+
 [if (c.hasMenu())]
 	[let m : Class = c.getMenu()]
 	@Override
@@ -91,7 +106,22 @@ public class [c.name.toUpperFirst()/]Activity extends Activity {
 	[/if]
 [/let]
 
+	[if (c.needsDbConnection())]
+	private OrmLiteHelper getDbHelper() {
+		if (db == null) {
+			db = OpenHelperManager.getHelper(this, OrmLiteHelper.class); 
+		}
+		return db;
+	}
+	[elseif (c.needsDomainViews())]
+	private DomainEntityManager getManager() {
+		if (manager == null) {
+			manager = new DomainEntityManager(this);  
+		}
+		return manager;
+	}	
+	[/if]
+
 }
 [/file]
 [/template]
-
