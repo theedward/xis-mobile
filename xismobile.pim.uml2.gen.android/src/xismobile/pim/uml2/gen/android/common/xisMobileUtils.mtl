@@ -6,6 +6,14 @@
  * Domain View queries
  */]
 
+[query public needsDbConnection(o : OclAny) : Boolean =
+	true 
+/]
+
+[query public needsDomainViews(o : OclAny) : Boolean =
+	true 
+/]
+
 [query public getXisEntity(c : Class) : Stereotype =
 	c.getAppliedStereotype('XIS-Mobile::XisEntity')
 /]

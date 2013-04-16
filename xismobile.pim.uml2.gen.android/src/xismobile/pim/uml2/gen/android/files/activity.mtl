@@ -18,6 +18,13 @@ import android.view.Menu;
 
 public class [c.name.toUpperFirst()/]Activity extends Activity {
 
+[if (c.needsDbConnection())]
+	private OrmLiteHelper db = null;
+
+[elseif (c.needsDomainViews())]
+	private DomainEntityManager manager = null;
+
+[/if]
 	/** Called when the activity is first created. */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -87,5 +94,4 @@ public class [c.name.toUpperFirst()/]Activity extends Activity {
 }
 [/file]
 [/template]
-
 
