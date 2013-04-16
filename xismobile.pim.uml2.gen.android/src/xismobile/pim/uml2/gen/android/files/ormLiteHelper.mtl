@@ -32,7 +32,6 @@ public class OrmLiteHelper extends OrmLiteSqliteOpenHelper {
  
 	[for (c : Class | entities)]
 	private Dao<[c.name.toUpperFirst()/], Integer> [c.name.toLowerFirst()/]Dao = null;
-	private RuntimeExceptionDao<[c.name.toUpperFirst()/], Integer> [c.name.toLowerFirst()/]RuntimeDao = null;
 	[/for]
  
 	public OrmLiteHelper(Context context) {
@@ -47,14 +46,29 @@ public class OrmLiteHelper extends OrmLiteSqliteOpenHelper {
 		}
 		return [c.name.toLowerFirst()/]Dao;
 	}
- 
-	public RuntimeExceptionDao<[c.name.toUpperFirst()/], String> get[c.name.toUpperFirst()/]RuntimeDao() {
-		if ([c.name.toLowerFirst()/]RuntimeDao == null) {
-			[c.name.toLowerFirst()/]RuntimeDao = getRuntimeExceptionDao([c.name.toUpperFirst()/].class);
+
+	public int create[c.name.toUpperFirst()/]([c.name.toUpperFirst()/] [c.name.toLowerFirst()/]) {
+		int i = -1;
+		[c.name.toLowerFirst()/]Dao = get[c.name.toUpperFirst()/]Dao();
+		try {
+			i = [c.name.toLowerFirst()/]Dao.create([c.name.toLowerFirst()/]);
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
-		return [c.name.toLowerFirst()/]RuntimeDao;
+		return i;
 	}
-	
+
+	public [c.name.toUpperFirst()/] get[c.name.toUpperFirst()/]ById() {
+		[c.name.toLowerFirst()/]Dao = get[c.name.toUpperFirst()/]Dao();
+		[c.name.toUpperFirst()/] res = null;
+		try {
+			res = [c.name.toLowerFirst()/]Dao.query();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return res;
+	}
+
 	public List<[c.name.toUpperFirst()/]> GetAll[c.name.toUpperFirst()/]s() {
 		[c.name.toLowerFirst()/]Dao = get[c.name.toUpperFirst()/]Dao();
 		List<[c.name.toUpperFirst()/]> list = null;
@@ -66,11 +80,11 @@ public class OrmLiteHelper extends OrmLiteSqliteOpenHelper {
 		return list;
 	}
 
-	public int add[c.name.toUpperFirst()/]([c.name.toUpperFirst()/] [c.name.toLowerFirst()/]) {
-		[c.name.toLowerFirst()/]Dao = get[c.name.toUpperFirst()/]Dao();
+	public int delete[c.name.toUpperFirst()/]([c.name.toLowerFirst()/]) {
 		int i = -1;
+		[c.name.toLowerFirst()/]Dao = get[c.name.toUpperFirst()/]Dao();
 		try {
-			i = [c.name.toLowerFirst()/]Dao.create([c.name.toLowerFirst()/]);
+			i = [c.name.toLowerFirst()/]Dao.delete([c.name.toLowerFirst()/]);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -78,13 +92,15 @@ public class OrmLiteHelper extends OrmLiteSqliteOpenHelper {
 	}
 
 	public void deleteAll[c.name.toUpperFirst()/]s() {
+		int i = -1;
 		[c.name.toLowerFirst()/]Dao = get[c.name.toUpperFirst()/]Dao();
 		try {
 			List<[c.name.toUpperFirst()/]> list = [c.name.toLowerFirst()/]Dao.queryForAll();
-			[c.name.toLowerFirst()/]Dao.delete(list);
+			i = [c.name.toLowerFirst()/]Dao.delete(list);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		return i;
 	}
 	[/for]
 
@@ -103,7 +119,9 @@ public class OrmLiteHelper extends OrmLiteSqliteOpenHelper {
 	@Override
 	public void close() {
 		super.close();
-		[comment]simpleRuntimeDao = null;[/comment]
+		[for (c : Class | entities)]
+		[c.name.toLowerFirst()/]Dao = null;
+		[/for]
 	}
 
 	@Override

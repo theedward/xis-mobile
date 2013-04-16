@@ -33,6 +33,27 @@ public class DomainEntityManager {
 		return [c.name.toLowerFirst()/]s.add([c.name.toLowerFirst()/]);
 	}
 
+	public [c.name.toUpperFirst()/] get[c.name.toUpperFirst()/]ById(int id) {
+		[c.name.toUpperFirst()/] [c.name.toLowerFirst()/] = null;
+
+		for ([c.name.toUpperFirst()/] [c.name.at(0)/] : [c.name.toLowerFirst()/]s) {
+			if([c.name.at(0)/].getId() == id) {
+				[c.name.toLowerFirst()/] = [c.name.at(0)/];
+				break;				
+			}
+		}
+ 
+		return [c.name.toLowerFirst()/];
+	}
+
+	public Set<[c.name.toUpperFirst()/]> getAll[c.name.toUpperFirst()/]s() {
+		return [c.name.toLowerFirst()/]s;
+	}
+
+	public boolean update[c.name.toUpperFirst()/]([c.name.toUpperFirst()/] [c.name.toLowerFirst()/]) {
+		return [c.name.toLowerFirst()/]s.add([c.name.toLowerFirst()/]);
+	}
+
 	public boolean delete[c.name.toUpperFirst()/]([c.name.toUpperFirst()/] [c.name.toLowerFirst()/]) {
 		return [c.name.toLowerFirst()/]s.remove([c.name.toLowerFirst()/]);
 	}

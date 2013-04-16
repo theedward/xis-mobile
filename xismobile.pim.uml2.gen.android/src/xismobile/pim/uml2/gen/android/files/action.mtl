@@ -41,7 +41,7 @@ public void [o.name.toLowerFirst()/]() {
 			InputStream content = entity.getContent();
 			// TODO: Process response
 		} else {
-			Log.e("WS", "Failed to call the WS [o.name.toLowerFirst()/] code:" + statusCode);
+			Log.e("WS", "Failed to call the WS [o.name.toLowerFirst()/]. Code:" + statusCode);
 		}
 	} catch (ClientProtocolException e) {
 		e.printStackTrace();

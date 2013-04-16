@@ -8,22 +8,23 @@
 	android:id="@+id/label[c.name.toUpperFirst()/]"
 	android:layout_width="fill_parent"
 	android:layout_height="wrap_content"
-	android:text="[c.getXisWidgetValue()/]" />
+	android:text="[c.getXisWidgetValue()/]"
+/>
 [/template]
 
 [template public writeTextBox(c : Class)]
 <EditText
-    android:id="@+id/editText[c.name.toUpperFirst()/]"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_centerHorizontal="true"
-    android:ems="10"
+	android:id="@+id/editText[c.name.toUpperFirst()/]"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:layout_centerHorizontal="true"
+	android:ems="10"
 	[if (c.getXisTexBoxLines() > 1)]
 	android:inputType="textMultiLine"
 	[/if]
-    android:minLines="[c.getXisTexBoxLines()/]"
-    android:gravity="top"
-    android:scrollbars="vertical"
+	android:minLines="[c.getXisTexBoxLines()/]"
+	android:gravity="top"
+	android:scrollbars="vertical"
 	[if (c.XisTextBoxHasHint())]
 	android:hint="[c.getXisTexBoxHint()/]"
 	[/if]
@@ -32,12 +33,12 @@
 
 [template public writeListView(c : Class)]
 <ListView
-    android:id="@android:id/list"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+	android:id="@android:id/list"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
 	android:layout_alignParentTop="true"
-	android:layout_centerHorizontal="true" >
-</ListView>
+	android:layout_centerHorizontal="true"
+/>
 [/template]
 
 [template public writeMapView(c : Class)]
@@ -53,13 +54,13 @@
 
 [template public writeButton(c : Class)]
 <Button
-    android:id="@+id/button[c.name.toUpperFirst()/]"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+	android:id="@+id/button[c.name.toUpperFirst()/]"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
 	[if (c.hasXisAction())]
-    android:onClick="[c.getXisAction().name.toLowerFirst()/]"
+	android:onClick="[c.getXisAction().name.toLowerFirst()/]"
 	[/if]
-    android:text="@string/[c.name.toLower()/]_button"
+	android:text="[c.getXisWidgetValue()/]"
 />
 [/template]
 
@@ -75,21 +76,21 @@
 
 [template public writeDatePicker(c : Class)]
 <Button
-    android:id="@+id/datePicker[c.name.toUpperFirst()/]"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:onClick="showDatePickerDialog"
-    android:text="@string/[c.name.toLower()/]_date"
+	android:id="@+id/datePicker[c.name.toUpperFirst()/]"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:onClick="showDatePicker[c.name.toUpperFirst()/]Dialog"
+	android:text="[c.getXisDatePickerValue()/]"
 />
 [/template]
 
 [template public writeTimePicker(c : Class)]
 <Button
-    android:id="@+id/timePicker[c.name.toUpperFirst()/]"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:onClick="showTimePickerDialog"
-    android:text="@string/[c.name.toLower()/]_time"
+	android:id="@+id/timePicker[c.name.toUpperFirst()/]"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:onClick="showTimePicker[c.name.toUpperFirst()/]Dialog"
+	android:text="[c.getXisTimePickerValue()/]"
 />
 [/template]
 
@@ -103,7 +104,7 @@
 [/template]
 
 [template public writeWebView(c : Class)]
-<WebView  xmlns:android="http://schemas.android.com/apk/res/android"
+<WebView xmlns:android="http://schemas.android.com/apk/res/android"
 	android:id="@+id/webView[c.name.toUpperFirst()/]"
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent"
