@@ -408,6 +408,18 @@
 /]
 
 [**
+ * ViewEntity queries 
+ */]
+
+[query public getXisViewEntity(c : Class) : Stereotype =
+	c.getAppliedStereotype('XIS-Mobile::XisViewEntity')
+/]
+
+[query public isXisViewEntity(c : Class) : Boolean = 
+	not c.getXisViewEntity().oclIsUndefined()
+/]
+
+[**
  * Templates Area
  */]
 
