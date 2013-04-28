@@ -5,3 +5,7 @@
 [query public getReferencedEntities(c : Class) : Set(String) =
 	invoke('xismobile.pim.uml2.gen.android.services.Services', 'getReferencedEntities(org.eclipse.uml2.uml.Class)', Sequence{c})
 /]
+
+[query public getClassAssociationAttributes(c : Class) : Set(Property) =
+	invoke('xismobile.pim.uml2.gen.android.services.Services', 'getClassAssociationAttributes(org.eclipse.uml2.uml.Class)', Sequence{c})
+/]
