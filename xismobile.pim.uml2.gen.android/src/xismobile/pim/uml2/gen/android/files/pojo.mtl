@@ -3,6 +3,7 @@
 
 [import xismobile::pim::uml2::gen::android::common::xisMobileUtils /]
 [import xismobile::pim::uml2::gen::android::common::utils /]
+[import xismobile::pim::uml2::gen::android::services::services /]
 
 [template public generatePOJO(c : Class)]
 
@@ -18,7 +19,7 @@ import com.j256.ormlite.table.DatabaseTable;
 [if (c.isPersistent())]
 @DatabaseTable(tableName = "[c.name.toUpperFirst()/]")
 [/if]
-public class [c.name.toUpperFirst()/] {
+public class [c.name.toUpperFirst()/][c.getExtensionAndImplementations()/] {
 [if (c.hasXisEntityAttributes())]
 	
 	[c.generateAttributes()/]
@@ -110,4 +111,16 @@ this.[p.getXisEntityAttributeName()/] == c.[p.getXisEntityAttributeName()/]
 
 [template public getHashCodeCondition(ps : Set(Property))]
 [ps.getXisEntityAttributeName().toLowerFirst()->sep(' + ')/]
+[/template]
+
+[template public getExtension(c : Class)]
+[if (c.generalization->size() = 1)]
+ extends [c.generalization.target.oclAsType(Class).name/]
+[/if]
+[/template]
+
+[template public getImplementations(c : Class)]
+[if (c.interfaceRealization->size() > 0)]
+ implements [c.interfaceRealization.target.oclAsType(Interface).name->sep(', ')/]
+[/if]
 [/template]

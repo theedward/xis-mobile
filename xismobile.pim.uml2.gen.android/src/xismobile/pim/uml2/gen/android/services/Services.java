@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.eclipse.uml2.uml.Association;
 import org.eclipse.uml2.uml.Class;
+import org.eclipse.uml2.uml.Interface;
+import org.eclipse.uml2.uml.InterfaceRealization;
 import org.eclipse.uml2.uml.Property;
 import org.eclipse.uml2.uml.Type;
 
@@ -51,6 +53,29 @@ public class Services {
 			}
 		}
 		return result;
+	}
+	
+	public String getExtensionAndImplementations(Class c) {
+		StringBuilder builder = new StringBuilder();
+		
+		if (c.getGeneralizations().size() == 1) {
+			Class cl = (Class) c.getGeneralizations().get(0).getTargets().get(0);
+			builder.append(" extends ").append(cl.getName());
+		}
+		
+		if (c.getInterfaceRealizations().size() > 0) {
+			if (builder.length() > 0) {
+				builder.append(" ");
+			}
+			builder.append("implements ");
+			Interface i;
+			for (InterfaceRealization it : c.getInterfaceRealizations()) {
+				i = (Interface) it.getTargets().get(0);
+				builder.append(i.getName()).append(", ");
+			}
+			builder.delete(builder.length()-2, builder.length());
+		}
+		return builder.toString();
 	}
 
 }
