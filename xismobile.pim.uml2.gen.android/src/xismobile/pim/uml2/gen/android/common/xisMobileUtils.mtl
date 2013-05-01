@@ -7,11 +7,11 @@
  */]
 
 [query public needsDbConnection(o : OclAny) : Boolean =
-	true 
+	false
 /]
 
 [query public needsDomainViews(o : OclAny) : Boolean =
-	true 
+	false 
 /]
 
 [query public getXisEntity(c : Class) : Stereotype =
