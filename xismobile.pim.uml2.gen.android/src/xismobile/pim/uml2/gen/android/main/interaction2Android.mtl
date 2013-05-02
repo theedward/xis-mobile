@@ -6,13 +6,15 @@
 [import xismobile::pim::uml2::gen::android::files::menu /]
 [import xismobile::pim::uml2::gen::android::files::layout /]
 
-[template public interaction2Android(c : Class)]
-	
-[comment @main /]
-[if (c.isXisInteractionSpace())]
-	[generateActivity() /]
-	[generateMenu() /]
-	[generateLayout() /]
-[/if]
+[template public interaction2Android(m : Model)]
 
+[let spaces : OrderedSet(Class) = m.getAllXisInteractionSpaces()]
+	[if (spaces->size() > 0)]
+		[for (c : Class | spaces)]
+			[generateActivity() /]
+			[generateMenu() /]
+			[generateLayout() /]
+		[/for]
+	[/if]
+[/let]
 [/template]

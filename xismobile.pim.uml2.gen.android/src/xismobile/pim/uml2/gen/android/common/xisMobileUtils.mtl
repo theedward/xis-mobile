@@ -70,6 +70,11 @@
 	p.getTaggedValue('XIS-Mobile::XisEntityAttribute', 'isKey') = true
 /]
 
+[query public getAllXisEntities(m : Model) : OrderedSet(Class) =
+	m.allOwnedElements()->selectByType(Class)->select(
+		c : Class | c.isXisEntity())
+/]
+
 [**
  * InteractionSpace View Queries  
  */]

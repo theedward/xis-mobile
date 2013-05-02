@@ -39,7 +39,7 @@ public class OrmLiteHelper extends OrmLiteSqliteOpenHelper {
 		this.context = context;
 	}
  
-	[for (c : Class | entities)]
+	[for (c : Class | entities) separator ('\n')]
 	public Dao<[c.name.toUpperFirst()/], Integer> get[c.name.toUpperFirst()/]Dao() throws SQLException {
 		if ([c.name.toLowerFirst()/]Dao == null) {
 			[c.name.toLowerFirst()/]Dao = getDao([c.name.toUpperFirst()/].class);

@@ -4,10 +4,9 @@
 [import xismobile::pim::uml2::gen::android::files::strings /]
 
 
-[template public navigation2Android(aModel : Model)]
-	
-[comment @main /]
-[generateAndroidManifest()/]
+[template public navigation2Android(m : Model)]
+
+[m.generateAndroidManifest()/]
 [comment][generateStrings()/][/comment]
 	
 [/template]
