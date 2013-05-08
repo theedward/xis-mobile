@@ -1,4 +1,4 @@
-xis-mobile
+XIS-Mobile
 ==========
 
-Xis-Mobile Framework
+XIS-Mobile Framework

@@ -62,7 +62,7 @@
                 <layoutConstraint xmi:type="notation:Bounds" xmi:id="_lPg_bLJuEeKR6vjxvs-RZQ"/>
               </children>
               <element xmi:type="uml:Class" href="TestModel.uml#_lPg_YLJuEeKR6vjxvs-RZQ"/>
-              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_lPg_YrJuEeKR6vjxvs-RZQ" x="70" y="1" width="174" height="69"/>
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_lPg_YrJuEeKR6vjxvs-RZQ" x="40" y="-4" width="174" height="69"/>
             </children>
             <styles xmi:type="notation:TitleStyle" xmi:id="_eXvPS7JuEeKR6vjxvs-RZQ" showTitle="true"/>
             <layoutConstraint xmi:type="notation:Bounds" xmi:id="_eXvPTLJuEeKR6vjxvs-RZQ"/>
@@ -75,6 +75,24 @@
       </children>
       <element xmi:type="uml:Class" href="TestModel.uml#_aRmgULJuEeKR6vjxvs-RZQ"/>
       <layoutConstraint xmi:type="notation:Bounds" xmi:id="_aSMWMbJuEeKR6vjxvs-RZQ" x="280" y="39" width="321" height="262"/>
+    </children>
+    <children xmi:type="notation:Shape" xmi:id="_z3cOobMJEeKPB6EShhOr9g" type="2073" fontName="Segoe UI" lineColor="0">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_z3cOo7MJEeKPB6EShhOr9g" source="ShadowFigure">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_z3cOpLMJEeKPB6EShhOr9g" key="ShadowFigure_Value" value="false"/>
+      </eAnnotations>
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_z3cOpbMJEeKPB6EShhOr9g" source="displayNameLabelIcon">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_z3cOprMJEeKPB6EShhOr9g" key="displayNameLabelIcon_value" value="false"/>
+      </eAnnotations>
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_z3cOp7MJEeKPB6EShhOr9g" source="QualifiedName">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_z3cOqLMJEeKPB6EShhOr9g" key="QualifiedNameDepth" value="1000"/>
+      </eAnnotations>
+      <children xmi:type="notation:DecorationNode" xmi:id="_z3cOqbMJEeKPB6EShhOr9g" type="5156"/>
+      <children xmi:type="notation:BasicCompartment" xmi:id="_z3cOqrMJEeKPB6EShhOr9g" type="7073">
+        <styles xmi:type="notation:TitleStyle" xmi:id="_z3cOq7MJEeKPB6EShhOr9g" showTitle="true"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_z3cOrLMJEeKPB6EShhOr9g"/>
+      </children>
+      <element xmi:type="uml:Class" href="TestModel.uml#_z3cOoLMJEeKPB6EShhOr9g"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_z3cOorMJEeKPB6EShhOr9g" x="680" y="210" width="76" height="76"/>
     </children>
     <styles xmi:type="notation:DiagramStyle" xmi:id="_Og88wbJuEeKR6vjxvs-RZQ"/>
     <element xmi:type="uml:Model" href="TestModel.uml#_OgqCFLJuEeKR6vjxvs-RZQ"/>
