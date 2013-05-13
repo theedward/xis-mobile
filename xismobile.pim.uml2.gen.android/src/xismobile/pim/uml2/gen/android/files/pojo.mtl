@@ -6,22 +6,27 @@
 [import xismobile::pim::uml2::gen::android::services::services /]
 
 [template public generatePOJO(c : Class)]
+[let persistent : Boolean = c.isPersistent()]
 
 [file ('domain/'.concat(c.name.toUpperFirst()).concat('.java'), false, 'UTF-8')]
 package [c.getPackagePath()/].domain;
 
-[if (c.isPersistent())]
+[if (persistent)]
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
 [/if]
 
-[if (c.isPersistent())]
+[if (persistent)]
 @DatabaseTable(tableName = "[c.name.toUpperFirst()/]")
 [/if]
 public class [c.name.toUpperFirst()/][c.getExtensionAndImplementations()/] {
 [if (c.hasXisEntityAttributes())]
 	
+	[if (persistent)]
+	@DatabaseField(generatedId = true)
+    private int id;
+	[/if]
 	[c.generateAssociationAttrs()/]
 	[c.generateAttributes()/]
 	[c.generateConstructors()/]
@@ -35,6 +40,7 @@ public class [c.name.toUpperFirst()/][c.getExtensionAndImplementations()/] {
 [/if]
 }
 [/file]
+[/let]
 [/template]
 
 [template public generateConstructors(c : Class)]
@@ -63,10 +69,18 @@ public [c.name.toUpperFirst()/]([c.getXisAttributesForConstructor()/]) {
 [template public generateAttributes(c : Class)]
 [for (p : Property | c.getXisEntityAttributes())]
 [if (c.isPersistent())]
-@DatabaseField[if (p.isKey())](id = true)[/if]
+@DatabaseField[p.addKeyAndNullableTags()/]
 [/if]
 private [p.getXisAttributeTypeAndName()/];
 [/for]
+[/template]
+
+[template public addKeyAndNullableTags(p : Property)]
+[if (p.isKey())]
+(id = true, canBeNull = false)
+[elseif (not p.isNullable())]
+(canBeNull = false)
+[/if]
 [/template]
 
 [template public generateGettersAndSetters(c : Class) post(trim())]

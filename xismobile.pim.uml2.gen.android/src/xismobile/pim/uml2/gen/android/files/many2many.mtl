@@ -4,33 +4,37 @@
 [import xismobile::pim::uml2::gen::android::common::xisMobileUtils /]
 [import xismobile::pim::uml2::gen::android::common::utils /]
 
-[template public generateMany2ManyPOJO(c : Class)]
+[template public generateMany2ManyPOJO(entities : OrderedSet(Class))]
+[let first : Class = entities->at(1)]
+[let  second : Class = entities->at(2)]
 
-[file ('domain/'.concat(c.name.toUpperFirst()).concat('.java'), false, 'UTF-8')]
-package [c.getPackagePath()/].domain;
+[file ('domain/'.concat(first.name.toUpperFirst()).concat(second.name.toUpperFirst()).concat('.java'), false, 'UTF-8')]
+package [first.getPackagePath()/].domain;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
 
-@DatabaseTable(tableName = "[c.name.toUpperFirst()/]")
-public class [c.name.toUpperFirst()/] {
+@DatabaseTable(tableName = "[first.name.toUpperFirst().concat(second.name.toUpperFirst())/]")
+public class [first.name.toUpperFirst().concat(second.name.toUpperFirst())/] {
 
 	@DatabaseField(generatedId = true)
     private int id;
     @DatabaseField(foreign = true)
-    private [c.name.toUpperFirst()/] [c.name.toLowerFirst()/];
+    private [first.name.toUpperFirst()/] [first.name.toLowerFirst()/];
     @DatabaseField(foreign = true)
-    private [c.name.toUpperFirst()/] [c.name.toLowerFirst()/];
+    private [second.name.toUpperFirst()/] [second.name.toLowerFirst()/];
 
-	public [c.name.toUpperFirst()/]() {
+	public [first.name.toUpperFirst().concat(second.name.toUpperFirst())/]() {
 		// Non-Arg constructor needed by OrmLite
 	}
 
-	public [c.name.toUpperFirst()/]([c.name.toUpperFirst()/] [c.name.toLowerFirst()/], [c.name.toUpperFirst()/] [c.name.toLowerFirst()/]) {
-		this.[c.name.toLowerFirst()/] = [c.name.toLowerFirst()/];
-		this.[c.name.toLowerFirst()/] = [c.name.toLowerFirst()/];
+	public [first.name.toUpperFirst().concat(second.name.toUpperFirst())/]([first.name.toUpperFirst()/] [first.name.toLowerFirst()/], [second.name.toUpperFirst()/] [second.name.toLowerFirst()/]) {
+		this.[first.name.toLowerFirst()/] = [first.name.toLowerFirst()/];
+		this.[second.name.toLowerFirst()/] = [second.name.toLowerFirst()/];
 	}
 }
 [/file]
+[/let]
+[/let]
 [/template]
