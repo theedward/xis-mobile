@@ -1,0 +1,36 @@
+[comment encoding = UTF-8 /]
+[module many2many('http://www.eclipse.org/uml2/4.0.0/UML')]
+
+[import xismobile::pim::uml2::gen::android::common::xisMobileUtils /]
+[import xismobile::pim::uml2::gen::android::common::utils /]
+
+[template public generateMany2ManyPOJO(c : Class)]
+
+[file ('domain/'.concat(c.name.toUpperFirst()).concat('.java'), false, 'UTF-8')]
+package [c.getPackagePath()/].domain;
+
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
+
+
+@DatabaseTable(tableName = "[c.name.toUpperFirst()/]")
+public class [c.name.toUpperFirst()/] {
+
+	@DatabaseField(generatedId = true)
+    private int id;
+    @DatabaseField(foreign = true)
+    private [c.name.toUpperFirst()/] [c.name.toLowerFirst()/];
+    @DatabaseField(foreign = true)
+    private [c.name.toUpperFirst()/] [c.name.toLowerFirst()/];
+
+	public [c.name.toUpperFirst()/]() {
+		// Non-Arg constructor needed by OrmLite
+	}
+
+	public [c.name.toUpperFirst()/]([c.name.toUpperFirst()/] [c.name.toLowerFirst()/], [c.name.toUpperFirst()/] [c.name.toLowerFirst()/]) {
+		this.[c.name.toLowerFirst()/] = [c.name.toLowerFirst()/];
+		this.[c.name.toLowerFirst()/] = [c.name.toLowerFirst()/];
+	}
+}
+[/file]
+[/template]

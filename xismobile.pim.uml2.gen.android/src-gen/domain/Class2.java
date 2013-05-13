@@ -7,7 +7,7 @@ import com.j256.ormlite.table.DatabaseTable;
 @DatabaseTable(tableName = "Class2")
 public class Class2 {
 	
-	
+	public List<Class3> class3;
 	@DatabaseField
 	private String name;
 	
