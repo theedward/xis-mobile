@@ -13,6 +13,14 @@
           <value xsi:nil="true"/>
         </defaultValue>
       </ownedAttribute>
+      <ownedAttribute xmi:id="_Od62gLvoEeKs_NFZ_xPnsg" name="Property1" visibility="public" isUnique="false">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_TKpEULvoEeKs_NFZ_xPnsg" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_TKprYLvoEeKs_NFZ_xPnsg" value="1"/>
+        <defaultValue xmi:type="uml:LiteralString" xmi:id="_TKt80LvoEeKs_NFZ_xPnsg">
+          <value xsi:nil="true"/>
+        </defaultValue>
+      </ownedAttribute>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="_7QUoELMGEeKPB6EShhOr9g" name="Class3">
       <ownedAttribute xmi:id="__BbiMLMGEeKPB6EShhOr9g" name="description" visibility="public" isUnique="false">
@@ -34,6 +42,17 @@
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Y4j7IrvBEeKs_NFZ_xPnsg" value="*"/>
       </ownedEnd>
     </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_nm_eoLvmEeKs_NFZ_xPnsg" name="Class4"/>
+    <packagedElement xmi:type="uml:Association" xmi:id="_qpp-YLvmEeKs_NFZ_xPnsg" name="class2_class4_1" memberEnd="_qpp-YbvmEeKs_NFZ_xPnsg _qppXULvmEeKs_NFZ_xPnsg" navigableOwnedEnd="_qppXULvmEeKs_NFZ_xPnsg _qpp-YbvmEeKs_NFZ_xPnsg">
+      <ownedEnd xmi:id="_qpp-YbvmEeKs_NFZ_xPnsg" name="class2" type="_5MiSwLMDEeKPB6EShhOr9g" association="_qpp-YLvmEeKs_NFZ_xPnsg">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qpp-YrvmEeKs_NFZ_xPnsg" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qpp-Y7vmEeKs_NFZ_xPnsg" value="*"/>
+      </ownedEnd>
+      <ownedEnd xmi:id="_qppXULvmEeKs_NFZ_xPnsg" name="class4" type="_nm_eoLvmEeKs_NFZ_xPnsg" association="_qpp-YLvmEeKs_NFZ_xPnsg">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qppXUbvmEeKs_NFZ_xPnsg"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qppXUrvmEeKs_NFZ_xPnsg" value="*"/>
+      </ownedEnd>
+    </packagedElement>
     <profileApplication xmi:id="_RFy4ELJuEeKR6vjxvs-RZQ">
       <eAnnotations xmi:id="_RF8pELJuEeKR6vjxvs-RZQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
         <references xmi:type="ecore:EPackage" href="../../XIS-Mobile/model.profile.uml#_zT4sUbJeEeKR6vjxvs-RZQ"/>
@@ -45,4 +64,6 @@
   <XISMobile:XisEntityAttribute xmi:id="_6jL1QLMGEeKPB6EShhOr9g" base_Property="_7QWkoLMDEeKPB6EShhOr9g"/>
   <XISMobile:XisEntity xmi:id="_8fDFALMGEeKPB6EShhOr9g" base_Class="_7QUoELMGEeKPB6EShhOr9g"/>
   <XISMobile:XisEntityAttribute xmi:id="_DrMioLMHEeKPB6EShhOr9g" base_Property="__BbiMLMGEeKPB6EShhOr9g"/>
+  <XISMobile:XisEntity xmi:id="_puFG8LvmEeKs_NFZ_xPnsg" base_Class="_nm_eoLvmEeKs_NFZ_xPnsg"/>
+  <XISMobile:XisEntityAttribute xmi:id="_Vj4MkLvoEeKs_NFZ_xPnsg" base_Property="_Od62gLvoEeKs_NFZ_xPnsg"/>
 </xmi:XMI>

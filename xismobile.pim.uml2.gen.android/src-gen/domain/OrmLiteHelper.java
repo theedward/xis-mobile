@@ -21,77 +21,15 @@ public class OrmLiteHelper extends OrmLiteSqliteOpenHelper {
 	private static final String DB_NAME = "OrmDummy.db";
 	private static final int DB_VERSION = 1;
  
-	private Dao<Class3, Integer> class3Dao = null;
 	private Dao<Class2, Integer> class2Dao = null;
+	private Dao<Class3, Integer> class3Dao = null;
+	private Dao<Class4, Integer> class4Dao = null;
  
 	public OrmLiteHelper(Context context) {
 		super(context, DB_NAME, null, DB_VERSION);
 		this.context = context;
 	}
  
-	public Dao<Class3, Integer> getClass3Dao() throws SQLException {
-		if (class3Dao == null) {
-			class3Dao = getDao(Class3.class);
-		}
-		return class3Dao;
-	}
-
-	public int createClass3(Class3 class3) {
-		int i = -1;
-		class3Dao = getClass3Dao();
-		try {
-			i = class3Dao.create(class3);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return i;
-	}
-
-	public Class3 getClass3ById() {
-		class3Dao = getClass3Dao();
-		Class3 res = null;
-		try {
-			res = class3Dao.query();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return res;
-	}
-
-	public List<Class3> GetAllClass3s() {
-		class3Dao = getClass3Dao();
-		List<Class3> list = null;
-		try {
-			list = class3Dao.queryForAll();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return list;
-	}
-
-	public int deleteClass3(class3) {
-		int i = -1;
-		class3Dao = getClass3Dao();
-		try {
-			i = class3Dao.delete(class3);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return i;
-	}
-
-	public void deleteAllClass3s() {
-		int i = -1;
-		class3Dao = getClass3Dao();
-		try {
-			List<Class3> list = class3Dao.queryForAll();
-			i = class3Dao.delete(list);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return i;
-	}
-
 	public Dao<Class2, Integer> getClass2Dao() throws SQLException {
 		if (class2Dao == null) {
 			class2Dao = getDao(Class2.class);
@@ -155,21 +93,150 @@ public class OrmLiteHelper extends OrmLiteSqliteOpenHelper {
 		return i;
 	}
 
+	public Dao<Class3, Integer> getClass3Dao() throws SQLException {
+		if (class3Dao == null) {
+			class3Dao = getDao(Class3.class);
+		}
+		return class3Dao;
+	}
+
+	public int createClass3(Class3 class3) {
+		int i = -1;
+		class3Dao = getClass3Dao();
+		try {
+			i = class3Dao.create(class3);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return i;
+	}
+
+	public Class3 getClass3ById() {
+		class3Dao = getClass3Dao();
+		Class3 res = null;
+		try {
+			res = class3Dao.query();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return res;
+	}
+
+	public List<Class3> GetAllClass3s() {
+		class3Dao = getClass3Dao();
+		List<Class3> list = null;
+		try {
+			list = class3Dao.queryForAll();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	public int deleteClass3(class3) {
+		int i = -1;
+		class3Dao = getClass3Dao();
+		try {
+			i = class3Dao.delete(class3);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return i;
+	}
+
+	public void deleteAllClass3s() {
+		int i = -1;
+		class3Dao = getClass3Dao();
+		try {
+			List<Class3> list = class3Dao.queryForAll();
+			i = class3Dao.delete(list);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return i;
+	}
+
+	public Dao<Class4, Integer> getClass4Dao() throws SQLException {
+		if (class4Dao == null) {
+			class4Dao = getDao(Class4.class);
+		}
+		return class4Dao;
+	}
+
+	public int createClass4(Class4 class4) {
+		int i = -1;
+		class4Dao = getClass4Dao();
+		try {
+			i = class4Dao.create(class4);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return i;
+	}
+
+	public Class4 getClass4ById() {
+		class4Dao = getClass4Dao();
+		Class4 res = null;
+		try {
+			res = class4Dao.query();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return res;
+	}
+
+	public List<Class4> GetAllClass4s() {
+		class4Dao = getClass4Dao();
+		List<Class4> list = null;
+		try {
+			list = class4Dao.queryForAll();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	public int deleteClass4(class4) {
+		int i = -1;
+		class4Dao = getClass4Dao();
+		try {
+			i = class4Dao.delete(class4);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return i;
+	}
+
+	public void deleteAllClass4s() {
+		int i = -1;
+		class4Dao = getClass4Dao();
+		try {
+			List<Class4> list = class4Dao.queryForAll();
+			i = class4Dao.delete(list);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return i;
+	}
+
 	public void createTables(ConnectionSource connectionSource) {
-		TableUtils.createTable(connectionSource, Class3.class);
 		TableUtils.createTable(connectionSource, Class2.class);
+		TableUtils.createTable(connectionSource, Class3.class);
+		TableUtils.createTable(connectionSource, Class4.class);
 	}
 
 	public void dropTables(ConnectionSource connectionSource) {
-		TableUtils.dropTable(connectionSource, Class3.class, true);
 		TableUtils.dropTable(connectionSource, Class2.class, true);
+		TableUtils.dropTable(connectionSource, Class3.class, true);
+		TableUtils.dropTable(connectionSource, Class4.class, true);
 	}
 	
 	@Override
 	public void close() {
 		super.close();
-		class3Dao = null;
 		class2Dao = null;
+		class3Dao = null;
+		class4Dao = null;
 	}
 
 	@Override

@@ -27,8 +27,8 @@ public class [c.name.toUpperFirst()/][c.getExtensionAndImplementations()/] {
 	@DatabaseField(generatedId = true)
     private int id;
 	[/if]
-	[c.generateAssociationAttrs()/]
 	[c.generateAttributes()/]
+	[c.generateAssociationAttrs()/]
 	[c.generateConstructors()/]
 	[c.generateGettersAndSetters()/]
 	[if (not c.isPersistent())]
@@ -66,7 +66,7 @@ public [c.name.toUpperFirst()/]([c.getXisAttributesForConstructor()/]) {
 [p.getXisEntityAttributeType()/] [p.getXisEntityAttributeName().toLowerFirst()/]
 [/template]
 
-[template public generateAttributes(c : Class)]
+[template public generateAttributes(c : Class) post (trim())]
 [for (p : Property | c.getXisEntityAttributes())]
 [if (c.isPersistent())]
 @DatabaseField[p.addKeyAndNullableTags()/]
@@ -140,7 +140,7 @@ this.[p.getXisEntityAttributeName()/] == c.[p.getXisEntityAttributeName()/]
 [/if]
 [/template]
 
-[template public generateAssociationAttrs(c : Class) post (trim())]
+[template public generateAssociationAttrs(c : Class)]
 [for (a : Association | c.getAssociations())]
 [let first : Property = a.memberEnd->at(1)]
 [let second : Property = a.memberEnd->at(2)]

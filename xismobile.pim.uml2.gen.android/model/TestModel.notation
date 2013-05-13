@@ -30,6 +30,17 @@
         <element xmi:type="uml:Property" href="TestModel.uml#_7QWkoLMDEeKPB6EShhOr9g"/>
         <layoutConstraint xmi:type="notation:Location" xmi:id="_yC7rcbMGEeKPB6EShhOr9g" x="57" y="8"/>
       </children>
+      <children xmi:type="notation:Shape" xmi:id="_Od_H8LvoEeKs_NFZ_xPnsg" type="3012" fontName="Segoe UI" lineColor="0">
+        <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_VkAvcLvoEeKs_NFZ_xPnsg" source="Stereotype_Annotation">
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_VkBWgLvoEeKs_NFZ_xPnsg" key="StereotypeWithQualifiedNameList" value=""/>
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_VkBWgbvoEeKs_NFZ_xPnsg" key="StereotypeList" value="XIS-Mobile::XisEntityAttribute"/>
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_VkBWgrvoEeKs_NFZ_xPnsg" key="Stereotype_Presentation_Kind" value="HorizontalStereo"/>
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_VkBWg7voEeKs_NFZ_xPnsg" key="PropStereoDisplay" value=""/>
+          <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_VkBWhLvoEeKs_NFZ_xPnsg" key="StereotypePropertyLocation" value="Compartment"/>
+        </eAnnotations>
+        <element xmi:type="uml:Property" href="TestModel.uml#_Od62gLvoEeKs_NFZ_xPnsg"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_Od_H8bvoEeKs_NFZ_xPnsg"/>
+      </children>
       <styles xmi:type="notation:TitleStyle" xmi:id="_w-tOUbMGEeKPB6EShhOr9g"/>
       <styles xmi:type="notation:SortingStyle" xmi:id="_w-tOUrMGEeKPB6EShhOr9g"/>
       <styles xmi:type="notation:FilteringStyle" xmi:id="_w-tOU7MGEeKPB6EShhOr9g"/>
@@ -100,6 +111,45 @@
     <element xmi:type="uml:Class" href="TestModel.uml#_7QUoELMGEeKPB6EShhOr9g"/>
     <layoutConstraint xmi:type="notation:Bounds" xmi:id="_7RGrMbMGEeKPB6EShhOr9g" x="515" y="90"/>
   </children>
+  <children xmi:type="notation:Shape" xmi:id="_nnGzYLvmEeKs_NFZ_xPnsg" type="2008" fontName="Segoe UI" lineColor="0">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_nnJPoLvmEeKs_NFZ_xPnsg" source="ShadowFigure">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_nnJPobvmEeKs_NFZ_xPnsg" key="ShadowFigure_Value" value="false"/>
+    </eAnnotations>
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_nnJ2sLvmEeKs_NFZ_xPnsg" source="displayNameLabelIcon">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_nnJ2sbvmEeKs_NFZ_xPnsg" key="displayNameLabelIcon_value" value="false"/>
+    </eAnnotations>
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_nnJ2srvmEeKs_NFZ_xPnsg" source="QualifiedName">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_nnJ2s7vmEeKs_NFZ_xPnsg" key="QualifiedNameDepth" value="1000"/>
+    </eAnnotations>
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_puVloLvmEeKs_NFZ_xPnsg" source="Stereotype_Annotation">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_puVlobvmEeKs_NFZ_xPnsg" key="StereotypeWithQualifiedNameList" value=""/>
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_puVlorvmEeKs_NFZ_xPnsg" key="StereotypeList" value="XIS-Mobile::XisEntity"/>
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_puVlo7vmEeKs_NFZ_xPnsg" key="Stereotype_Presentation_Kind" value="HorizontalStereo"/>
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_puVlpLvmEeKs_NFZ_xPnsg" key="PropStereoDisplay" value=""/>
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_puVlpbvmEeKs_NFZ_xPnsg" key="StereotypePropertyLocation" value="Compartment"/>
+    </eAnnotations>
+    <children xmi:type="notation:DecorationNode" xmi:id="_nnJ2tLvmEeKs_NFZ_xPnsg" type="5029"/>
+    <children xmi:type="notation:BasicCompartment" xmi:id="_nnKdwLvmEeKs_NFZ_xPnsg" type="7017">
+      <styles xmi:type="notation:TitleStyle" xmi:id="_nnKdwbvmEeKs_NFZ_xPnsg"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_nnKdwrvmEeKs_NFZ_xPnsg"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_nnKdw7vmEeKs_NFZ_xPnsg"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_nnKdxLvmEeKs_NFZ_xPnsg"/>
+    </children>
+    <children xmi:type="notation:BasicCompartment" xmi:id="_nnKdxbvmEeKs_NFZ_xPnsg" type="7018">
+      <styles xmi:type="notation:TitleStyle" xmi:id="_nnKdxrvmEeKs_NFZ_xPnsg"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_nnKdx7vmEeKs_NFZ_xPnsg"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_nnKdyLvmEeKs_NFZ_xPnsg"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_nnKdybvmEeKs_NFZ_xPnsg"/>
+    </children>
+    <children xmi:type="notation:BasicCompartment" xmi:id="_nnKdyrvmEeKs_NFZ_xPnsg" type="7019">
+      <styles xmi:type="notation:TitleStyle" xmi:id="_nnKdy7vmEeKs_NFZ_xPnsg"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_nnKdzLvmEeKs_NFZ_xPnsg"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_nnKdzbvmEeKs_NFZ_xPnsg"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_nnKdzrvmEeKs_NFZ_xPnsg"/>
+    </children>
+    <element xmi:type="uml:Class" href="TestModel.uml#_nm_eoLvmEeKs_NFZ_xPnsg"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_nnGzYbvmEeKs_NFZ_xPnsg" x="375" y="255"/>
+  </children>
   <styles xmi:type="notation:DiagramStyle" xmi:id="_vhnlQbMGEeKPB6EShhOr9g"/>
   <element xmi:type="uml:Model" href="TestModel.uml#_OgqCFLJuEeKR6vjxvs-RZQ"/>
   <edges xmi:type="notation:Connector" xmi:id="_Y5HUwLvBEeKs_NFZ_xPnsg" type="4001" source="_w-P7ULMGEeKPB6EShhOr9g" target="_7RGrMLMGEeKPB6EShhOr9g" lineColor="0">
@@ -126,5 +176,30 @@
     <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_Y5HUwrvBEeKs_NFZ_xPnsg" points="[0, -2, -202, 0]$[183, -2, -19, 0]"/>
     <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_ZCR30LvBEeKs_NFZ_xPnsg" id="(1.0,0.5321100917431193)"/>
     <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_ZCR30bvBEeKs_NFZ_xPnsg" id="(0.084070796460177,0.5137614678899083)"/>
+  </edges>
+  <edges xmi:type="notation:Connector" xmi:id="_qptowLvmEeKs_NFZ_xPnsg" type="4001" source="_w-P7ULMGEeKPB6EShhOr9g" target="_nnGzYLvmEeKs_NFZ_xPnsg" lineColor="0">
+    <children xmi:type="notation:DecorationNode" xmi:id="_qpu24LvmEeKs_NFZ_xPnsg" type="6001">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_qpu24bvmEeKs_NFZ_xPnsg" y="-20"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_qpu24rvmEeKs_NFZ_xPnsg" type="6002">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_qpu247vmEeKs_NFZ_xPnsg" y="20"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_qpvd8LvmEeKs_NFZ_xPnsg" type="6003">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_qpvd8bvmEeKs_NFZ_xPnsg" y="-20"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_qpvd8rvmEeKs_NFZ_xPnsg" type="6005">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_qpvd87vmEeKs_NFZ_xPnsg" y="20"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_qpvd9LvmEeKs_NFZ_xPnsg" type="6033">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_qpvd9bvmEeKs_NFZ_xPnsg" y="20"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_qpvd9rvmEeKs_NFZ_xPnsg" type="6034">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_qpvd97vmEeKs_NFZ_xPnsg" y="-20"/>
+    </children>
+    <styles xmi:type="notation:FontStyle" xmi:id="_qpuP0LvmEeKs_NFZ_xPnsg" fontName="Segoe UI"/>
+    <element xmi:type="uml:Association" href="TestModel.uml#_qpp-YLvmEeKs_NFZ_xPnsg"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_qpuP0bvmEeKs_NFZ_xPnsg" points="[13, 23, -53, -87]$[59, 88, -7, -22]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_qp4n4LvmEeKs_NFZ_xPnsg" id="(0.5736040609137056,0.7889908256880734)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_qp4n4bvmEeKs_NFZ_xPnsg" id="(0.41,0.21359223300970873)"/>
   </edges>
 </notation:Diagram>

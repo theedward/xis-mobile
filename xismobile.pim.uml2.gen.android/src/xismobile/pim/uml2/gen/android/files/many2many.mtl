@@ -4,7 +4,7 @@
 [import xismobile::pim::uml2::gen::android::common::xisMobileUtils /]
 [import xismobile::pim::uml2::gen::android::common::utils /]
 
-[template public generateMany2ManyPOJO(entities : OrderedSet(Class))]
+[template public generateMany2ManyPOJO(entities : OrderedSet(Type))]
 [let first : Class = entities->at(1)]
 [let  second : Class = entities->at(2)]
 

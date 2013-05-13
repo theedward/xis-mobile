@@ -7,10 +7,12 @@ import com.j256.ormlite.table.DatabaseTable;
 @DatabaseTable(tableName = "Class3")
 public class Class3 {
 	
-	public List<Class2> class2;
+	@DatabaseField(generatedId = true)
+    private int id;
 	@DatabaseField
 	private String description;
-	
+	public List<Class2> class2;
+
 	public Class3() {
 		// Non-Arg constructor needed by OrmLite
 	}
