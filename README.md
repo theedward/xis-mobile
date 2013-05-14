@@ -15,7 +15,7 @@ The XIS-Mobile Framework XIS-Mobile Framework aims to:
 2. Check the quality of the produced model;
 3. Generate source code from it for Android and Windows Phone applications.
 
-To accomplish these goals are being developped three modules:
+To accomplish these goals are being developed three modules:
 
 1. Visual Editor based on [Papyrus](http://www.eclipse.org/papyrus/). In the future release, [Sparx Enterprise Architect](http://www.sparxsystems.com/) will be used as the Visual Editor;
 2. Model Validator using the [Epsilon Validation Language (EVL)](http://www.eclipse.org/epsilon/doc/evl/);
