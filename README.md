@@ -5,9 +5,9 @@ XIS-Mobile is a Master's Thesis project which intends to develop mobile applicat
 	In order to accomplish this goal, it proposes a Domain Specific Language (DSL) to describe mobile applications in a platform-independent way and an Eclipse Modeling Framework-based framework which supports the language.  
 The XIS-Mobile language reuses some of the best concepts used in the XIS UML profile, used for modeling interactive systems, and introduces new ones in order to be more appropriate to mobile applications design. The first version of the XIS-Mobile language comprises three views:
 
-**- Domain View -** Describes the domain entities and the relationships among them;
-**- InteractionSpace View -** Describes each application's screen, known as interaction space, namely the UI layout, the events a certain UI component can trigger and the gestures that can be performed;
-**- NavigationSpaced View -** Describes the navigation flow between the several interaction spaces with which the user interacts.
+- **Domain View -** Describes the domain entities and the relationships among them;
+- **InteractionSpace View -** Describes each application's screen, known as interaction space, namely the UI layout, the events a certain UI component can trigger and the gestures that can be performed;
+- **NavigationSpaced View -** Describes the navigation flow between the several interaction spaces with which the user interacts.
 
 The XIS-Mobile Framework XIS-Mobile Framework aims to:
 
