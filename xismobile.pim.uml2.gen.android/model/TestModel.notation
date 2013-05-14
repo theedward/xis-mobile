@@ -59,7 +59,7 @@
       <layoutConstraint xmi:type="notation:Bounds" xmi:id="_w-t1ZLMGEeKPB6EShhOr9g"/>
     </children>
     <element xmi:type="uml:Class" href="TestModel.uml#_5MiSwLMDEeKPB6EShhOr9g"/>
-    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_w-P7UbMGEeKPB6EShhOr9g" x="135" y="90"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_w-P7UbMGEeKPB6EShhOr9g" x="105" y="30"/>
   </children>
   <children xmi:type="notation:Shape" xmi:id="_7RGrMLMGEeKPB6EShhOr9g" type="2008" fontName="Segoe UI" lineColor="0">
     <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_7RHSQLMGEeKPB6EShhOr9g" source="ShadowFigure">
@@ -109,7 +109,7 @@
       <layoutConstraint xmi:type="notation:Bounds" xmi:id="_7RIgabMGEeKPB6EShhOr9g"/>
     </children>
     <element xmi:type="uml:Class" href="TestModel.uml#_7QUoELMGEeKPB6EShhOr9g"/>
-    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_7RGrMbMGEeKPB6EShhOr9g" x="515" y="90"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_7RGrMbMGEeKPB6EShhOr9g" x="600" y="90"/>
   </children>
   <children xmi:type="notation:Shape" xmi:id="_nnGzYLvmEeKs_NFZ_xPnsg" type="2008" fontName="Segoe UI" lineColor="0">
     <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_nnJPoLvmEeKs_NFZ_xPnsg" source="ShadowFigure">
@@ -148,7 +148,7 @@
       <layoutConstraint xmi:type="notation:Bounds" xmi:id="_nnKdzrvmEeKs_NFZ_xPnsg"/>
     </children>
     <element xmi:type="uml:Class" href="TestModel.uml#_nm_eoLvmEeKs_NFZ_xPnsg"/>
-    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_nnGzYbvmEeKs_NFZ_xPnsg" x="375" y="255"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_nnGzYbvmEeKs_NFZ_xPnsg" x="490" y="225"/>
   </children>
   <styles xmi:type="notation:DiagramStyle" xmi:id="_vhnlQbMGEeKPB6EShhOr9g"/>
   <element xmi:type="uml:Model" href="TestModel.uml#_OgqCFLJuEeKR6vjxvs-RZQ"/>
@@ -185,7 +185,7 @@
       <layoutConstraint xmi:type="notation:Location" xmi:id="_qpu247vmEeKs_NFZ_xPnsg" y="20"/>
     </children>
     <children xmi:type="notation:DecorationNode" xmi:id="_qpvd8LvmEeKs_NFZ_xPnsg" type="6003">
-      <layoutConstraint xmi:type="notation:Location" xmi:id="_qpvd8bvmEeKs_NFZ_xPnsg" y="-20"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_qpvd8bvmEeKs_NFZ_xPnsg" x="13" y="-13"/>
     </children>
     <children xmi:type="notation:DecorationNode" xmi:id="_qpvd8rvmEeKs_NFZ_xPnsg" type="6005">
       <layoutConstraint xmi:type="notation:Location" xmi:id="_qpvd87vmEeKs_NFZ_xPnsg" y="20"/>

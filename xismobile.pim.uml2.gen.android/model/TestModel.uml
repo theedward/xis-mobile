@@ -34,8 +34,8 @@
     </packagedElement>
     <packagedElement xmi:type="uml:Association" xmi:id="_Y4vhULvBEeKs_NFZ_xPnsg" name="class2_class3_1" memberEnd="_Y4vhUbvBEeKs_NFZ_xPnsg _Y4j7ILvBEeKs_NFZ_xPnsg">
       <ownedEnd xmi:id="_Y4vhUbvBEeKs_NFZ_xPnsg" name="class2" type="_5MiSwLMDEeKPB6EShhOr9g" association="_Y4vhULvBEeKs_NFZ_xPnsg">
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Y4vhUrvBEeKs_NFZ_xPnsg"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Y4vhU7vBEeKs_NFZ_xPnsg" value="*"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Y4vhUrvBEeKs_NFZ_xPnsg" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Y4vhU7vBEeKs_NFZ_xPnsg" value="1"/>
       </ownedEnd>
       <ownedEnd xmi:id="_Y4j7ILvBEeKs_NFZ_xPnsg" name="class3" type="_7QUoELMGEeKPB6EShhOr9g" association="_Y4vhULvBEeKs_NFZ_xPnsg">
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Y4j7IbvBEeKs_NFZ_xPnsg"/>
@@ -45,8 +45,8 @@
     <packagedElement xmi:type="uml:Class" xmi:id="_nm_eoLvmEeKs_NFZ_xPnsg" name="Class4"/>
     <packagedElement xmi:type="uml:Association" xmi:id="_qpp-YLvmEeKs_NFZ_xPnsg" name="class2_class4_1" memberEnd="_qpp-YbvmEeKs_NFZ_xPnsg _qppXULvmEeKs_NFZ_xPnsg" navigableOwnedEnd="_qppXULvmEeKs_NFZ_xPnsg _qpp-YbvmEeKs_NFZ_xPnsg">
       <ownedEnd xmi:id="_qpp-YbvmEeKs_NFZ_xPnsg" name="class2" type="_5MiSwLMDEeKPB6EShhOr9g" association="_qpp-YLvmEeKs_NFZ_xPnsg">
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qpp-YrvmEeKs_NFZ_xPnsg" value="1"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qpp-Y7vmEeKs_NFZ_xPnsg" value="*"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qpp-YrvmEeKs_NFZ_xPnsg"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qpp-Y7vmEeKs_NFZ_xPnsg" value="1"/>
       </ownedEnd>
       <ownedEnd xmi:id="_qppXULvmEeKs_NFZ_xPnsg" name="class4" type="_nm_eoLvmEeKs_NFZ_xPnsg" association="_qpp-YLvmEeKs_NFZ_xPnsg">
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qppXUbvmEeKs_NFZ_xPnsg"/>
@@ -64,6 +64,6 @@
   <XISMobile:XisEntityAttribute xmi:id="_6jL1QLMGEeKPB6EShhOr9g" base_Property="_7QWkoLMDEeKPB6EShhOr9g"/>
   <XISMobile:XisEntity xmi:id="_8fDFALMGEeKPB6EShhOr9g" base_Class="_7QUoELMGEeKPB6EShhOr9g"/>
   <XISMobile:XisEntityAttribute xmi:id="_DrMioLMHEeKPB6EShhOr9g" base_Property="__BbiMLMGEeKPB6EShhOr9g"/>
-  <XISMobile:XisEntity xmi:id="_puFG8LvmEeKs_NFZ_xPnsg" base_Class="_nm_eoLvmEeKs_NFZ_xPnsg"/>
+  <XISMobile:XisEntity xmi:id="_puFG8LvmEeKs_NFZ_xPnsg" persistent="false" base_Class="_nm_eoLvmEeKs_NFZ_xPnsg"/>
   <XISMobile:XisEntityAttribute xmi:id="_Vj4MkLvoEeKs_NFZ_xPnsg" base_Property="_Od62gLvoEeKs_NFZ_xPnsg"/>
 </xmi:XMI>

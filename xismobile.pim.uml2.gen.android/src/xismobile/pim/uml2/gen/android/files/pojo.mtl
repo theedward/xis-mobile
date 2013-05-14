@@ -23,12 +23,12 @@ import com.j256.ormlite.table.DatabaseTable;
 public class [c.name.toUpperFirst()/][c.getExtensionAndImplementations()/] {
 [if (c.hasXisEntityAttributes())]
 	
-	[if (persistent)]
-	@DatabaseField(generatedId = true)
-    private int id;
-	[/if]
 	[c.generateAttributes()/]
+	[if (persistent)]
+	[c.generateForeingKeyAttributes()/]
+	[else]
 	[c.generateAssociationAttrs()/]
+	[/if]
 	[c.generateConstructors()/]
 	[c.generateGettersAndSetters()/]
 	[if (not c.isPersistent())]
@@ -36,6 +36,15 @@ public class [c.name.toUpperFirst()/][c.getExtensionAndImplementations()/] {
 	[c.generateEqualsMethods()/]
 	[/if]
 [else]
+	[if (persistent)]
+
+	@DatabaseField(generatedId = true)
+    private int id;
+
+	public int getId() {
+		return id;
+	}
+	[/if]
 	[writeTODO()/]
 [/if]
 }
@@ -140,6 +149,39 @@ this.[p.getXisEntityAttributeName()/] == c.[p.getXisEntityAttributeName()/]
 [/if]
 [/template]
 
+[template public generateForeingKeyAttributes(c : Class)]
+[for (a : Association | c.getAssociations())]
+[let first : Property = a.memberEnd->at(1)]
+[let second : Property = a.memberEnd->at(2)]
+[if (first.upperBound() = 1 and second.upperBound() = 1)]
+	[if (not first.isNavigable() and not second.isNavigable() or
+		first.isNavigable() and second.isNavigable())]
+		[if (a.endType->at(2).name = c.name)]
+[a.processForeignKeyAttr(1)/]
+		[/if]
+	[elseif (first.isNavigable())]
+		[if (a.endType->at(1).name = c.name)]
+[a.processForeignKeyAttr(2)/]
+		[/if]	
+	[elseif (second.isNavigable())]
+		[if (a.endType->at(2).name = c.name)]
+[a.processForeignKeyAttr(1)/]
+		[/if]
+	[/if]
+[elseif (first.upperBound() = 1 and second.upperBound() = -1)]
+	[if (a.endType->at(2).name = c.name)]
+[a.processForeignKeyAttr(1)/]
+	[/if]
+[elseif (first.upperBound() = -1 and second.upperBound() = 1)]
+	[if (a.endType->at(1).name = c.name)]
+[a.processForeignKeyAttr(2)/]
+	[/if]
+[/if]
+[/let]
+[/let]
+[/for]
+[/template]
+
 [template public generateAssociationAttrs(c : Class)]
 [for (a : Association | c.getAssociations())]
 [let first : Property = a.memberEnd->at(1)]
@@ -165,6 +207,14 @@ first.isNavigable() and second.isNavigable())]
 [/for]
 [/template]
 
+[template public processForeignKeyAttr(a : Association, idx : Integer) post (trim())]
+[let p : Property = a.memberEnd->at(idx)]
+@DatabaseField(foreign = true)
+public [a.endType->at(idx).name/] [p.name/];
+[/let]
+[/template]
+
+
 [template public processAttr(a : Association, idx : Integer) post (trim())]
 [let p : Property = a.memberEnd->at(idx)]
 	[if (p.upperBound() = 1)]
@@ -174,3 +224,5 @@ public List<[a.endType->at(idx).name/]> [p.name/];
 	[/if]
 [/let]
 [/template]
+
+
