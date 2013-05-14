@@ -315,6 +315,10 @@
 	c.getValue(c.getXisTextBox(), 'hint')
 /]
 
+[query public isXisCheckBox(c : Class) : Boolean =
+	not c.getAppliedStereotype('XIS-Mobile::XisCheckBox').oclIsUndefined()
+/]
+
 [query public isXisButton(c : Class) : Boolean =
 	not c.getAppliedStereotype('XIS-Mobile::XisButton').oclIsUndefined()
 /]

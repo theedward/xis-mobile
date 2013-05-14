@@ -64,6 +64,17 @@
 />
 [/template]
 
+[template public writeCheckBox(c : Class)]
+<CheckBox android:id="@+id/checkbox[c.name.toUpperFirst()/]"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    [if (c.hasXisAction())]
+	android:onClick="[c.getXisAction().name.toLowerFirst()/]"
+	[/if]
+	android:text="[c.getXisWidgetValue()/]"
+/>
+[/template]
+
 [template public writeLink(c : Class)]
 <TextView
 	android:id="@+id/link[c.name.toUpperFirst()/]"
