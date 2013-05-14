@@ -11,5 +11,5 @@
 /]
 
 [query public getExtensionAndImplementations(c : Class) : String = 
-	invoke('org.eclipse.acceleo.module.sample.Services', 'getExtensionAndImplementations(org.eclipse.uml2.uml.Class)', Sequence{c})
+	invoke('xismobile.pim.uml2.gen.android.services.Services', 'getExtensionAndImplementations(org.eclipse.uml2.uml.Class)', Sequence{c})
 /]

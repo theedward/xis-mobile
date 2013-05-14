@@ -31,24 +31,14 @@
 />
 [/template]
 
-[template public writeListView(c : Class)]
-<ListView
-	android:id="@android:id/list"
-	android:layout_width="match_parent"
-	android:layout_height="wrap_content"
-	android:layout_alignParentTop="true"
-	android:layout_centerHorizontal="true"
-/>
-[/template]
-
-[template public writeMapView(c : Class)]
-<com.google.android.maps.MapView
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:id="@+id/mapView[c.name.toUpperFirst()/]"
-	android:layout_width="fill_parent"
-	android:layout_height="fill_parent"
-	android:clickable="true"
-	android:apiKey="Your Maps API Key goes here"
+[template public writeCheckBox(c : Class)]
+<CheckBox android:id="@+id/checkbox[c.name.toUpperFirst()/]"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    [if (c.hasXisAction())]
+	android:onClick="[c.getXisAction().name.toLowerFirst()/]"
+	[/if]
+	android:text="[c.getXisWidgetValue()/]"
 />
 [/template]
 
@@ -64,17 +54,6 @@
 />
 [/template]
 
-[template public writeCheckBox(c : Class)]
-<CheckBox android:id="@+id/checkbox[c.name.toUpperFirst()/]"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    [if (c.hasXisAction())]
-	android:onClick="[c.getXisAction().name.toLowerFirst()/]"
-	[/if]
-	android:text="[c.getXisWidgetValue()/]"
-/>
-[/template]
-
 [template public writeLink(c : Class)]
 <TextView
 	android:id="@+id/link[c.name.toUpperFirst()/]"
@@ -82,6 +61,15 @@
 	android:layout_height="wrap_content"
 	android:autolink="web"
 	android:text="[c.getXisLinkURL()/]"
+/>
+[/template]
+
+[template public writeImageView(c : Class)]
+<ImageView
+	android:id="@+id/image[c.name.toUpperFirst()/]"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:src="[c.getXisImagePath()/]"
 />
 [/template]
 
@@ -105,19 +93,31 @@
 />
 [/template]
 
-[template public writeImageView(c : Class)]
-<ImageView
-	android:id="@+id/image[c.name.toUpperFirst()/]"
-	android:layout_width="wrap_content"
-	android:layout_height="wrap_content"
-	android:src="[c.getXisImagePath()/]"
-/>
-[/template]
-
 [template public writeWebView(c : Class)]
 <WebView xmlns:android="http://schemas.android.com/apk/res/android"
 	android:id="@+id/webView[c.name.toUpperFirst()/]"
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent"
+/>
+[/template]
+
+[template public writeMapView(c : Class)]
+<com.google.android.maps.MapView
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/mapView[c.name.toUpperFirst()/]"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:clickable="true"
+	android:apiKey="Your Maps API Key goes here"
+/>
+[/template]
+
+[template public writeListView(c : Class)]
+<ListView
+	android:id="@android:id/list"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:layout_alignParentTop="true"
+	android:layout_centerHorizontal="true"
 />
 [/template]
