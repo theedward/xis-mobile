@@ -913,6 +913,32 @@
     <element xmi:type="uml:Stereotype" href="model.profile.uml#_1fYkYJrBEeKHQ6FPSxvrrA"/>
     <layoutConstraint xmi:type="notation:Bounds" xmi:id="_1gDSwZrBEeKHQ6FPSxvrrA" x="695" y="230" height="71"/>
   </children>
+  <children xmi:type="notation:Shape" xmi:id="_BBiZgL1fEeK6wZAJIboSVw" type="1026" fontName="Segoe UI" lineColor="0">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_BBsKgL1fEeK6wZAJIboSVw" source="ShadowFigure">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_BBsKgb1fEeK6wZAJIboSVw" key="ShadowFigure_Value" value="false"/>
+    </eAnnotations>
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_BBsKgr1fEeK6wZAJIboSVw" source="displayNameLabelIcon">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_BBsKg71fEeK6wZAJIboSVw" key="displayNameLabelIcon_value" value="false"/>
+    </eAnnotations>
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_BBsKhL1fEeK6wZAJIboSVw" source="QualifiedName">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_BBsKhb1fEeK6wZAJIboSVw" key="QualifiedNameDepth" value="1000"/>
+    </eAnnotations>
+    <children xmi:type="notation:DecorationNode" xmi:id="_BBsKhr1fEeK6wZAJIboSVw" type="1034"/>
+    <children xmi:type="notation:BasicCompartment" xmi:id="_BBsKh71fEeK6wZAJIboSVw" type="1071">
+      <styles xmi:type="notation:TitleStyle" xmi:id="_BBsKiL1fEeK6wZAJIboSVw"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_BBsKib1fEeK6wZAJIboSVw"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_BBsKir1fEeK6wZAJIboSVw"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_BBsKi71fEeK6wZAJIboSVw"/>
+    </children>
+    <children xmi:type="notation:BasicCompartment" xmi:id="_BBsKjL1fEeK6wZAJIboSVw" visible="false" type="1019">
+      <styles xmi:type="notation:TitleStyle" xmi:id="_BBsKjb1fEeK6wZAJIboSVw"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_BBsKjr1fEeK6wZAJIboSVw"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_BBsKj71fEeK6wZAJIboSVw"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_BBsKkL1fEeK6wZAJIboSVw"/>
+    </children>
+    <element xmi:type="uml:Stereotype" href="model.profile.uml#_BAWGsL1fEeK6wZAJIboSVw"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_BBiZgb1fEeK6wZAJIboSVw" x="425" y="385" height="63"/>
+  </children>
   <styles xmi:type="notation:DiagramStyle" xmi:id="_GWO28Jb3EeKwK-AIPNJqFA"/>
   <element xmi:type="uml:Profile" href="model.profile.uml#_GVt5kJb3EeKwK-AIPNJqFA"/>
   <edges xmi:type="notation:Connector" xmi:id="_m6wnMJb5EeKwK-AIPNJqFA" type="4002" source="_jJAM0Jb5EeKwK-AIPNJqFA" target="_R6m5EJb3EeKwK-AIPNJqFA" lineColor="0">
