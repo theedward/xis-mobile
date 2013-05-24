@@ -43,11 +43,7 @@
 /]
 
 [query public getXisEntityAttributeName(p : Property) : String =
-	let name : OclAny = p.getTaggedValue('XIS-Mobile::XisEntityAttribute', 'name') in
-	if name.oclIsUndefined()
-	then p.name.toLowerFirst()
-	else name.oclAsType(String).toLowerFirst()
-	endif
+	p.name.toLowerFirst()
 /]
 
 [query public getXisEntityAttributeValue(p : Property) : String =
@@ -407,7 +403,7 @@
 	endif
 /]
 
-[query public getTaggedValue(stereotypedElement : Element, stereotypeName : String, propertyName : String) : OclAny = 
+[query public getTaggedValue(stereotypedElement : Element, stereotypeName : String, propertyName : String) : OclAny =
 	let stereotype : Stereotype = stereotypedElement.getAppliedStereotype(stereotypeName) in
 	if not stereotype.oclIsUndefined() then
 		stereotypedElement.getValue(stereotype, propertyName)
