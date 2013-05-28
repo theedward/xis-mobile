@@ -43,7 +43,7 @@
 /]
 
 [query public getXisEntityAttributeName(p : Property) : String =
-	p.name.toLowerFirst()
+	p.name
 /]
 
 [query public getXisEntityAttributeValue(p : Property) : String =
@@ -266,7 +266,7 @@
 
 [query public hasMenu(c : Class) : Boolean = 
 	let menu : Collection(Class) = c.ownedElement->selectByType(Class) in
-	menu->select(m : Class | m.isMenu())->size() = 1
+	menu->select(m : Class | m.isXisCompositeWidget() and m.isMenu())->size() = 1
 /]
 
 [query public getMenus(c : Class) : OrderedSet(Class) =

@@ -60,10 +60,9 @@ public [c.name.toUpperFirst()/]() {
 }
 
 public [c.name.toUpperFirst()/]([c.getXisAttributesForConstructor()/]) {
-	[comment][for (p : Property | c.getXisEntityAttributes())]
+	[for (p : Property | c.getXisEntityAttributes())]
 	this.[p.getXisEntityAttributeName().toLowerFirst()/] = [p.getXisEntityAttributeName().toLowerFirst()/];
-	[/for][/comment]
-	// TODO: To be fixed
+	[/for]
 }
 
 [/template]
@@ -73,7 +72,7 @@ public [c.name.toUpperFirst()/]([c.getXisAttributesForConstructor()/]) {
 [/template]
 
 [template public getXisAttributeTypeAndName(p : Property)]
-[p.getXisEntityAttributeType()/] [comment][p.getXisEntityAttributeName().toLowerFirst()/][/comment]
+[p.getXisEntityAttributeType()/] [p.getXisEntityAttributeName().toLowerFirst()/]
 [/template]
 
 [template public generateAttributes(c : Class) post (trim())]
