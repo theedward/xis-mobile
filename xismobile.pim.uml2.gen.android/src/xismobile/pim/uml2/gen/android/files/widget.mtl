@@ -8,7 +8,7 @@
 	android:id="@+id/label[c.name.toUpperFirst()/]"
 	android:layout_width="fill_parent"
 	android:layout_height="wrap_content"
-	android:text="[c.getXisWidgetValue()/]"
+	android:text="[c.getXisWidgetValue(c.getXisLabel())/]"
 />
 [/template]
 
@@ -38,7 +38,7 @@
     [if (c.hasXisAction())]
 	android:onClick="[c.getXisAction().name.toLowerFirst()/]"
 	[/if]
-	android:text="[c.getXisWidgetValue()/]"
+	android:text="[c.getXisWidgetValue(c.getXisCheckBox())/]"
 />
 [/template]
 
@@ -50,7 +50,7 @@
 	[if (c.hasXisAction())]
 	android:onClick="[c.getXisAction().name.toLowerFirst()/]"
 	[/if]
-	android:text="[c.getXisWidgetValue()/]"
+	android:text="[c.getXisWidgetValue(c.getXisButton())/]"
 />
 [/template]
 

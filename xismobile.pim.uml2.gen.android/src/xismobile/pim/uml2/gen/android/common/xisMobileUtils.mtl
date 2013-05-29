@@ -263,6 +263,25 @@
 	endif
 /]
 
+[query public widgetsHaveGestures(c : Class) : Boolean = 
+	let widgets : Collection(Class) = c.getChildren()->select(
+		w : Class | not w.isXisCompositeWidget() and w.getAssociations()->size() > 0) in
+	if widgets->size() > 0
+	then widgets.getAssociations().endType.oclAsType(Class)->select(
+			g : Class | g.isXisGesture())->size() > 0
+	else false
+	endif
+/]
+
+[query public getWidgetsGestures(c : Class) : OrderedSet(Class) = 
+	let widgets : Collection(Class) = c.getChildren()->select(
+		w : Class | not w.isXisCompositeWidget() and w.getAssociations()->size() > 0) in
+	if widgets->size() > 0
+	then widgets.getAssociations().endType.oclAsType(Class)->select(
+			g : Class | g.isXisGesture())
+	else null
+	endif
+/]
 
 [query public hasMenu(c : Class) : Boolean = 
 	let menu : Collection(Class) = c.ownedElement->selectByType(Class) in
@@ -285,6 +304,10 @@
 
 [query public getXisWidget(c : Class) : Stereotype =
 	c.getAppliedStereotype('XIS-Mobile::XisWidget')
+/]
+
+[query public getXisLabel(c : Class) : Stereotype =
+	c.getAppliedStereotype('XIS-Mobile::XisLabel')
 /]
 
 [query public isXisLabel(c : Class) : Boolean =
@@ -311,12 +334,24 @@
 	c.getValue(c.getXisTextBox(), 'hint')
 /]
 
+[query public getXisCheckBox(c : Class) : Stereotype =
+	c.getAppliedStereotype('XIS-Mobile::XisCheckBox')
+/]
+
 [query public isXisCheckBox(c : Class) : Boolean =
 	not c.getAppliedStereotype('XIS-Mobile::XisCheckBox').oclIsUndefined()
 /]
 
+[query public getXisButton(c : Class) : Stereotype =
+	c.getAppliedStereotype('XIS-Mobile::XisButton')
+/]
+
 [query public isXisButton(c : Class) : Boolean =
 	not c.getAppliedStereotype('XIS-Mobile::XisButton').oclIsUndefined()
+/]
+
+[query public getXisDatePicker(c : Class) : Stereotype =
+	c.getAppliedStereotype('XIS-Mobile::XisDatePicker')
 /]
 
 [query public isXisDatePicker(c : Class) : Boolean =
@@ -324,11 +359,15 @@
 /]
 
 [query public getXisDatePickerValue(c : Class) : String = 
-	let value : String = c.getXisWidgetValue() in
+	let value : String = c.getXisWidgetValue(c.getXisDatePicker()) in
 	if value.oclIsUndefined()
 	then 'Date'
 	else value
 	endif
+/]
+
+[query public getXisTimePicker(c : Class) : Stereotype =
+	c.getAppliedStereotype('XIS-Mobile::XisTimePicker')
 /]
 
 [query public isXisTimePicker(c : Class) : Boolean =
@@ -336,7 +375,7 @@
 /]
 
 [query public getXisTimePickerValue(c : Class) : String = 
-	let value : String = c.getXisWidgetValue() in
+	let value : String = c.getXisWidgetValue(c.getXisTimePicker()) in
 	if value.oclIsUndefined()
 	then 'Time'
 	else value
@@ -379,8 +418,16 @@
 	c.getValue(c.getXisImage(), 'path')
 /]
 
-[query public getXisWidgetValue(c : Class) : String =
-	c.getValue(c.getXisWidget(), 'value')
+[query public getXisWidgetValue(c : Class, s : Stereotype) : String =
+	c.getValue(s, 'value')
+/]
+
+[query public isXisGesture(c : Class) : Boolean = 
+	not c.getAppliedStereotype('XIS-Mobile::XisGesture').oclIsUndefined()
+/]
+
+[query public getXisGesture(c : Class) : Stereotype =
+	c.getAppliedStereotype('XIS-Mobile::XisGesture')
 /]
 
 [**

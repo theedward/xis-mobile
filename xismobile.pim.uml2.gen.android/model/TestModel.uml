@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xmi:XMI xmi:version="20110701" xmlns:xmi="http://www.omg.org/spec/XMI/20110701" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:XISMobile="http:///schemas/XISMobile/_zT4sULJeEeKR6vjxvs-RZQ/12" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/4.0.0/UML" xsi:schemaLocation="http:///schemas/XISMobile/_zT4sULJeEeKR6vjxvs-RZQ/12 file:/C:/Users/User/git/xis-mobile/XIS-Mobile/model.profile.uml#_zT4sUbJeEeKR6vjxvs-RZQ">
+<xmi:XMI xmi:version="20110701" xmlns:xmi="http://www.omg.org/spec/XMI/20110701" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:XISMobile="http:///schemas/XISMobile/_xefMwMheEeKUM4Th83tGrQ/14" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/4.0.0/UML" xsi:schemaLocation="http:///schemas/XISMobile/_xefMwMheEeKUM4Th83tGrQ/14 ../../XIS-Mobile/model.profile.uml#_xeo9wMheEeKUM4Th83tGrQ">
   <uml:Model xmi:id="_OgqCFLJuEeKR6vjxvs-RZQ" name="Model">
     <packageImport xmi:id="_OgqCFbJuEeKR6vjxvs-RZQ">
       <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
@@ -53,17 +53,29 @@
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qppXUrvmEeKs_NFZ_xPnsg" value="*"/>
       </ownedEnd>
     </packagedElement>
-    <profileApplication xmi:id="_RFy4ELJuEeKR6vjxvs-RZQ">
-      <eAnnotations xmi:id="_RF8pELJuEeKR6vjxvs-RZQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="../../XIS-Mobile/model.profile.uml#_zT4sUbJeEeKR6vjxvs-RZQ"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_iNsYsMhdEeKg1rGTvDeEZA" name="Class5">
+      <nestedClassifier xmi:type="uml:Class" xmi:id="_jxNZ4MhdEeKg1rGTvDeEZA" name="Class6">
+        <ownedAttribute xmi:id="_VHVUgMhfEeKUM4Th83tGrQ" name="class7" type="_kS3VcMhdEeKg1rGTvDeEZA" association="_VHVUg8hfEeKUM4Th83tGrQ">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_VHVUgchfEeKUM4Th83tGrQ" value="1"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_VHVUgshfEeKUM4Th83tGrQ" value="1"/>
+        </ownedAttribute>
+      </nestedClassifier>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_kS3VcMhdEeKg1rGTvDeEZA" name="Class7"/>
+    <packagedElement xmi:type="uml:Association" xmi:id="_VHVUg8hfEeKUM4Th83tGrQ" name="class6_class7_1" memberEnd="_VHVUhMhfEeKUM4Th83tGrQ _VHVUgMhfEeKUM4Th83tGrQ">
+      <ownedEnd xmi:id="_VHVUhMhfEeKUM4Th83tGrQ" name="class6" type="_jxNZ4MhdEeKg1rGTvDeEZA" association="_VHVUg8hfEeKUM4Th83tGrQ">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_VHVUhchfEeKUM4Th83tGrQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_VHVUhshfEeKUM4Th83tGrQ" value="1"/>
+      </ownedEnd>
+    </packagedElement>
+    <profileApplication xmi:id="_2r5FwMheEeKUM4Th83tGrQ">
+      <eAnnotations xmi:id="_2sC2wMheEeKUM4Th83tGrQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="../../XIS-Mobile/model.profile.uml#_xeo9wMheEeKUM4Th83tGrQ"/>
       </eAnnotations>
       <appliedProfile href="../../XIS-Mobile/model.profile.uml#_GVt5kJb3EeKwK-AIPNJqFA"/>
     </profileApplication>
   </uml:Model>
-  <XISMobile:XisEntity xmi:id="_38CM0LMGEeKPB6EShhOr9g" base_Class="_5MiSwLMDEeKPB6EShhOr9g"/>
-  <XISMobile:XisEntityAttribute xmi:id="_6jL1QLMGEeKPB6EShhOr9g" base_Property="_7QWkoLMDEeKPB6EShhOr9g"/>
-  <XISMobile:XisEntity xmi:id="_8fDFALMGEeKPB6EShhOr9g" base_Class="_7QUoELMGEeKPB6EShhOr9g"/>
-  <XISMobile:XisEntityAttribute xmi:id="_DrMioLMHEeKPB6EShhOr9g" base_Property="__BbiMLMGEeKPB6EShhOr9g"/>
-  <XISMobile:XisEntity xmi:id="_puFG8LvmEeKs_NFZ_xPnsg" persistent="false" base_Class="_nm_eoLvmEeKs_NFZ_xPnsg"/>
-  <XISMobile:XisEntityAttribute xmi:id="_Vj4MkLvoEeKs_NFZ_xPnsg" base_Property="_Od62gLvoEeKs_NFZ_xPnsg"/>
+  <XISMobile:XisGesture xmi:id="_Rl8RYMhfEeKUM4Th83tGrQ" base_Class="_kS3VcMhdEeKg1rGTvDeEZA"/>
+  <XISMobile:XisInteractionSpace xmi:id="_ShvyUMhfEeKUM4Th83tGrQ" base_Class="_iNsYsMhdEeKg1rGTvDeEZA"/>
+  <XISMobile:XisLabel xmi:id="_TuhHcMhfEeKUM4Th83tGrQ" value="adsdsdadasd" base_Class="_jxNZ4MhdEeKg1rGTvDeEZA"/>
 </xmi:XMI>
