@@ -12,6 +12,33 @@
 [o.getXisArguments().getXisArgumentsTypeAndName()->sep(', ')/]
 [/template]
 
+[template public writeXisAction(o : Operation) post (trim())]
+[if (o.isCancelAction())]
+finish();
+[elseif (o.isNavigateToAction())]
+	[if (o.XisArgumentExists('interactionSpace', 'value'))]
+Intent intent = new Intent(this, [o.getXisArgumentValueByName('interactionSpace', 'value').toUpperFirst()/]Activity.class);
+startActivity(intent);
+	[else]
+[writeTODO()/]
+	[/if]
+[elseif (o.isSaveAction())]
+[comment] TODO Create/Update Entity by name[/comment]
+[elseif (o.isDeleteteAction())]
+[comment] TODO Delete Entity by name[/comment]
+[elseif (o.isDeleteteAllAction())]
+[comment] TODO Delete all entities[/comment]
+[elseif (o.isWebServiceAction())]
+	[if (o.XisArgumentExists('url', 'value'))]
+[o.name.toLowerFirst()/]("[o.getXisArgumentValueByName('url', 'value')/]");
+	[else]
+[writeTODO()/]
+	[/if]
+[elseif (o.isCustomAction())]
+[o.writeCustomActionCall()/]
+[/if]
+[/template]
+
 [**
  * WebService Actions templates 
  */]
@@ -28,9 +55,9 @@
 [/template]
 
 [template public writeWebServiceDeclaration(o : Operation)]
-public void [o.name.toLowerFirst()/]() {
+public void [o.name.toLowerFirst()/](String url) {
 	HttpClient client = new DefaultHttpClient();
-	HttpGet httpGet = new HttpGet("[o.getWSActionURL()/]");
+	HttpGet httpGet = new HttpGet(url);
 
 	try {
 		HttpResponse response = client.execute(httpGet);

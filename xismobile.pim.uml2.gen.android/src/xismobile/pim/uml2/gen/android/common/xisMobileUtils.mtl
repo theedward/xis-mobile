@@ -146,8 +146,8 @@
 	o.getAppliedStereotype('XIS-Mobile::XisAction')
 /]
 
-[query public getXisAction(item : Class) : Operation =
-	item.ownedOperation->select(o : Operation | o.isXisAction())->at(1)
+[query public getXisAction(c : Class) : Operation =
+	c.ownedOperation->select(o : Operation | o.isXisAction())->at(1)
 /]
 
 [query public isCancelAction(o : Operation) : Boolean = 
@@ -267,7 +267,7 @@
 	let widgets : Collection(Class) = c.getChildren()->select(
 		w : Class | not w.isXisCompositeWidget() and w.getAssociations()->size() > 0) in
 	if widgets->size() > 0
-	then widgets.getAssociations().endType.oclAsType(Class)->select(
+	then widgets.getAssociations().endType->selectByType(Class)->select(
 			g : Class | g.isXisGesture())->size() > 0
 	else false
 	endif
@@ -276,7 +276,7 @@
 [query public getWidgetsWithGestures(c : Class) : OrderedSet(Class) = 
 	let widgets : Collection(Class) = c.getChildren()->select(
 		w : Class | not w.isXisCompositeWidget() and w.getAssociations()->size() > 0
-			and w.getAssociations().endType.oclAsType(Class).isXisGesture()->size() > 0) in
+			and w.getAssociations().endType->selectByType(Class).isXisGesture()->size() > 0) in
 	if widgets->size() > 0
 	then widgets
 	else null
@@ -284,12 +284,36 @@
 /]
 
 [query public getWidgetGestures(c : Class) : OrderedSet(Class) = 
-	let gestures : Collection(Class) = c.getAssociations().endType.
-		oclAsType(Class)->select(g : Class | g.isXisGesture()) in
+	let gestures : Collection(Class) = c.getAssociations().endType->selectByType(Class)
+		->select(g : Class | g.isXisGesture()) in
 	if gestures->size() > 0
 	then gestures
 	else null
 	endif
+/]
+
+[query public isTapGesture(c : Class) : Boolean = 
+	getEnumValue(c.getValue(c.getXisGesture(), 'type')) = 'Tap'
+/]
+
+[query public isDoubleTapGesture(c : Class) : Boolean = 
+	getEnumValue(c.getValue(c.getXisGesture(), 'type')) = 'DoubleTap'
+/]
+
+[query public isLongTapGesture(c : Class) : Boolean = 
+	getEnumValue(c.getValue(c.getXisGesture(), 'type')) = 'LongTap'
+/]
+
+[query public isSwipeGesture(c : Class) : Boolean = 
+	getEnumValue(c.getValue(c.getXisGesture(), 'type')) = 'Swipe'
+/]
+
+[query public isStretchGesture(c : Class) : Boolean = 
+	getEnumValue(c.getValue(c.getXisGesture(), 'type')) = 'Stretch'
+/]
+
+[query public isPinchGesture(c : Class) : Boolean = 
+	getEnumValue(c.getValue(c.getXisGesture(), 'type')) = 'Pinch'
 /]
 
 [query public hasMenu(c : Class) : Boolean = 

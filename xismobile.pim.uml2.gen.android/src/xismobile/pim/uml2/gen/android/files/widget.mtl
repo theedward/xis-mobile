@@ -2,6 +2,7 @@
 [module widget('http://www.eclipse.org/uml2/4.0.0/UML')]
 
 [import xismobile::pim::uml2::gen::android::common::xisMobileUtils /]
+[import xismobile::pim::uml2::gen::android::files::action /]
 
 [template public getWidgetName(c : Class) post (trim())]
 [if (c.isXisLabel())]
@@ -57,44 +58,101 @@ XisMapView map[c.name.toUpperFirst()/] = (XisMapView)findViewById(R.id.map[c.nam
 [template public writeXisGestureManager(c : Class)]
 [let name : String = c.getWidgetName()]
 [c.getWidgetName()/].setXisGestureManager(new XisGestureManager() {
-	[for (g : Class | c.getWidgetGestures())]
+	[let gestures : OrderedSet(Class) = c.getWidgetGestures()]
+
 	@Override
 	public void onTapGesture() {
-		// TODO Auto-generated method stub
+	[let taps : OrderedSet(Class) = gestures->select(g : Class | g.isTapGesture())]
+	[if (taps->size() = 1)]
+		[let action : Operation = taps->at(1).getXisAction()]
+		[if (not action.oclIsUndefined())]
+		[action.writeXisAction()/]
+		[/if]
+		[/let]
+	[else]
+		[writeTODO()/]
+	[/if]
+	[/let]
 	}
-	[/for]
+	
 	@Override
 	public void onDoubleTapGesture() {
-		// TODO Auto-generated method stub
+	[let taps : OrderedSet(Class) = gestures->select(g : Class | g.isDoubleTapGesture())]
+	[if (taps->size() = 1)]
+		[let action : Operation = taps->at(1).getXisAction()]
+		[if (not action.oclIsUndefined())]
+		[action.writeCustomActionCall()/]
+		[/if]
+		[/let]
+	[else]
+		[writeTODO()/]
+	[/if]
+	[/let]
 	}
 
 	@Override
 	public void onLongTapGesture() {
-		// TODO Auto-generated method stub
+	[let taps : OrderedSet(Class) = gestures->select(g : Class | g.isLongTapGesture())]
+	[if (taps->size() = 1)]
+		[let action : Operation = taps->at(1).getXisAction()]
+		[if (not action.oclIsUndefined())]
+		[action.writeCustomActionCall()/]
+		[/if]
+		[/let]
+	[else]
+		[writeTODO()/]
+	[/if]
+	[/let]
 	}
 
 	@Override
 	public void onSwipeGesture() {
-		// TODO Auto-generated method stub
+	[let taps : OrderedSet(Class) = gestures->select(g : Class | g.isSwipeGesture())]
+	[if (taps->size() = 1)]
+		[let action : Operation = taps->at(1).getXisAction()]
+		[if (not action.oclIsUndefined())]
+		[action.writeCustomActionCall()/]
+		[/if]
+		[/let]
+	[else]
+		[writeTODO()/]
+	[/if]
+	[/let]
 	}
 	
 	@Override
 	public void onStretchGesture() {
-		// TODO Auto-generated method stub
+	[let taps : OrderedSet(Class) = gestures->select(g : Class | g.isStretchGesture())]
+	[if (taps->size() = 1)]
+		[let action : Operation = taps->at(1).getXisAction()]
+		[if (not action.oclIsUndefined())]
+		[action.writeCustomActionCall()/]
+		[/if]
+		[/let]
+	[else]
+		[writeTODO()/]
+	[/if]
+	[/let]
 	}
 	
 	@Override
 	public void onPinchGesture() {
-		// TODO Auto-generated method stub
+	[let taps : OrderedSet(Class) = gestures->select(g : Class | g.isPinchGesture())]
+	[if (taps->size() = 1)]
+		[let action : Operation = taps->at(1).getXisAction()]
+		[if (not action.oclIsUndefined())]
+		[action.writeCustomActionCall()/]
+		[/if]
+		[/let]
+	[else]
+		[writeTODO()/]
+	[/if]
+	[/let]
 	}
+	[/let]
 });
 [/let]
 [/template]
-
-[template public name(arg : Type)]
-	template_expression
-[/template]
-
 
 [template public writeLabel(c : Class)]
 <TextView
