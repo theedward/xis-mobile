@@ -4,16 +4,20 @@
 [import xismobile::pim::uml2::gen::android::common::xisMobileUtils /]
 [import xismobile::pim::uml2::gen::android::common::utils /]
 [import xismobile::pim::uml2::gen::android::files::action /]
+[import xismobile::pim::uml2::gen::android::files::widget /]
 
 [template public generateActivity(c : Class)]
 [file ('src/'.concat(c.name.toUpperFirst().concat('Activity.java')), false, 'UTF-8')]
-[let gestures : OrderedSet(Class) = c.getWidgetsGestures()]
+[let widgets : OrderedSet(Class) = c.getWidgetsWithGestures()]
 package [c.getPackagePath()/];
 
 import android.os.Bundle;
 import android.app.Activity;
 [if (c.hasMenu())]
 import android.view.Menu;
+[/if]
+[if (widgets->size() > 0)]
+import xis_mobile.library.widgets.*;
 [/if]
 
 
@@ -31,7 +35,7 @@ public class [c.name.toUpperFirst()/]Activity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.[c.name.toLowerCase()/]);
-		[if (gestures->size() > 0)]
+		[if (widgets->size() > 0)]
 		initializeWidgets();
 		[/if]
 	}
@@ -50,13 +54,19 @@ public class [c.name.toUpperFirst()/]Activity extends Activity {
 		}
 		[/if]
 	}
+	[if (widgets->size() > 0)]
 
-	[if (gestures->size() > 0)]
 	public void initializeWidgets() {
-		[for (g : Class | gestures)]
-		
+		[for (w : Class | widgets)]
+		initialize[w.getWidgetName().toUpperFirst()/]();
 		[/for]
 	}
+
+	[for (w : Class | widgets)]
+	public void initialize[w.getWidgetName().toUpperFirst()/]() {
+		[w.initializeWidget()/]
+	}
+	[/for]
 	[/if]
 
 [if (c.hasMenu())]
@@ -133,7 +143,6 @@ public class [c.name.toUpperFirst()/]Activity extends Activity {
 		return manager;
 	}	
 	[/if]
-
 }
 [/let]
 [/file]

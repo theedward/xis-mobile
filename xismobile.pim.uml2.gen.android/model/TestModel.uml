@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xmi:XMI xmi:version="20110701" xmlns:xmi="http://www.omg.org/spec/XMI/20110701" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:XISMobile="http:///schemas/XISMobile/_xefMwMheEeKUM4Th83tGrQ/14" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/4.0.0/UML" xsi:schemaLocation="http:///schemas/XISMobile/_xefMwMheEeKUM4Th83tGrQ/14 ../../XIS-Mobile/model.profile.uml#_xeo9wMheEeKUM4Th83tGrQ">
+<xmi:XMI xmi:version="20110701" xmlns:xmi="http://www.omg.org/spec/XMI/20110701" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:XISMobile="http:///schemas/XISMobile/_xefMwMheEeKUM4Th83tGrQ/14" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/4.0.0/UML" xsi:schemaLocation="http:///schemas/XISMobile/_xefMwMheEeKUM4Th83tGrQ/14 file:/C:/Users/User/git/xis-mobile/XIS-Mobile/model.profile.uml#_xeo9wMheEeKUM4Th83tGrQ">
   <uml:Model xmi:id="_OgqCFLJuEeKR6vjxvs-RZQ" name="Model">
     <packageImport xmi:id="_OgqCFbJuEeKR6vjxvs-RZQ">
       <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>

@@ -3,6 +3,99 @@
 
 [import xismobile::pim::uml2::gen::android::common::xisMobileUtils /]
 
+[template public getWidgetName(c : Class) post (trim())]
+[if (c.isXisLabel())]
+label[c.name.toUpperFirst()/]
+[elseif (c.isXisTextBox())]
+editText[c.name.toUpperFirst()/]
+[elseif (c.isXisCheckBox())]
+checkBox[c.name.toUpperFirst()/]
+[elseif (c.isXisButton())]
+button[c.name.toUpperFirst()/]
+[elseif (c.isXisLink())]
+link[c.name.toUpperFirst()/]
+[elseif (c.isXisImage())]
+image[c.name.toUpperFirst()/]
+[elseif (c.isXisDatePicker())]
+datePicker[c.name.toUpperFirst()/]
+[elseif (c.isXisTimePicker())]
+timePicker[c.name.toUpperFirst()/]
+[elseif (c.isXisWebView())]
+webView[c.name.toUpperFirst()/]
+[elseif (c.isXisMapView())]
+mapView[c.name.toUpperFirst()/]
+[elseif (c.isList())]
+list[c.name.toUpperFirst()/]
+[/if]
+[/template]
+
+[template public initializeWidget(c : Class) post (trim())]
+[if (c.isXisLabel())]
+XisLabel label[c.name.toUpperFirst()/] = (XisLabel)findViewById(R.id.label[c.name.toUpperFirst()/]);
+[elseif (c.isXisTextBox())]
+XisTextBox editText[c.name.toUpperFirst()/] = (XisTextBox)findViewById(R.id.editText[c.name.toUpperFirst()/]);
+[elseif (c.isXisCheckBox())]
+XisCheckBox checkBox[c.name.toUpperFirst()/] = (XisCheckBox)findViewById(R.id.checkBox[c.name.toUpperFirst()/]);
+[elseif (c.isXisButton())]
+XisButton button[c.name.toUpperFirst()/] = (XisButton)findViewById(R.id.button[c.name.toUpperFirst()/]);
+[elseif (c.isXisLink())]
+XisLink link[c.name.toUpperFirst()/] = (XisLink)findViewById(R.id.link[c.name.toUpperFirst()/]);
+[elseif (c.isXisImage())]
+XisImage image[c.name.toUpperFirst()/] = (XisImage)findViewById(R.id.image[c.name.toUpperFirst()/]);
+[elseif (c.isXisDatePicker())]
+XisDatePicker datePicker[c.name.toUpperFirst()/] = (XisDatePicker)findViewById(R.id.datePicker[c.name.toUpperFirst()/]);
+[elseif (c.isXisTimePicker())]
+XisTimePicker timePicker[c.name.toUpperFirst()/] = (XisTimePicker)findViewById(R.id.timePicker[c.name.toUpperFirst()/]);
+[elseif (c.isXisWebView())]
+XisWebView web[c.name.toUpperFirst()/] = (XisWebView)findViewById(R.id.web[c.name.toUpperFirst()/]);
+[elseif (c.isXisMapView())]
+XisMapView map[c.name.toUpperFirst()/] = (XisMapView)findViewById(R.id.map[c.name.toUpperFirst()/]);
+[/if]
+[c.writeXisGestureManager()/]
+[/template]
+
+[template public writeXisGestureManager(c : Class)]
+[let name : String = c.getWidgetName()]
+[c.getWidgetName()/].setXisGestureManager(new XisGestureManager() {
+	[for (g : Class | c.getWidgetGestures())]
+	@Override
+	public void onTapGesture() {
+		// TODO Auto-generated method stub
+	}
+	[/for]
+	@Override
+	public void onDoubleTapGesture() {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void onLongTapGesture() {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void onSwipeGesture() {
+		// TODO Auto-generated method stub
+	}
+	
+	@Override
+	public void onStretchGesture() {
+		// TODO Auto-generated method stub
+	}
+	
+	@Override
+	public void onPinchGesture() {
+		// TODO Auto-generated method stub
+	}
+});
+[/let]
+[/template]
+
+[template public name(arg : Type)]
+	template_expression
+[/template]
+
+
 [template public writeLabel(c : Class)]
 <TextView
 	android:id="@+id/label[c.name.toUpperFirst()/]"
@@ -32,7 +125,7 @@
 [/template]
 
 [template public writeCheckBox(c : Class)]
-<CheckBox android:id="@+id/checkbox[c.name.toUpperFirst()/]"
+<CheckBox android:id="@+id/checkBox[c.name.toUpperFirst()/]"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     [if (c.hasXisAction())]

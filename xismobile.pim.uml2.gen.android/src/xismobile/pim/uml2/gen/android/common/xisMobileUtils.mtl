@@ -273,12 +273,21 @@
 	endif
 /]
 
-[query public getWidgetsGestures(c : Class) : OrderedSet(Class) = 
+[query public getWidgetsWithGestures(c : Class) : OrderedSet(Class) = 
 	let widgets : Collection(Class) = c.getChildren()->select(
-		w : Class | not w.isXisCompositeWidget() and w.getAssociations()->size() > 0) in
+		w : Class | not w.isXisCompositeWidget() and w.getAssociations()->size() > 0
+			and w.getAssociations().endType.oclAsType(Class).isXisGesture()->size() > 0) in
 	if widgets->size() > 0
-	then widgets.getAssociations().endType.oclAsType(Class)->select(
-			g : Class | g.isXisGesture())
+	then widgets
+	else null
+	endif
+/]
+
+[query public getWidgetGestures(c : Class) : OrderedSet(Class) = 
+	let gestures : Collection(Class) = c.getAssociations().endType.
+		oclAsType(Class)->select(g : Class | g.isXisGesture()) in
+	if gestures->size() > 0
+	then gestures
 	else null
 	endif
 /]
