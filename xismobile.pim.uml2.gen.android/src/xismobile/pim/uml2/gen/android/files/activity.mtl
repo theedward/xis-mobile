@@ -127,8 +127,8 @@ public class [c.name.toUpperFirst()/]Activity extends Activity {
 	[cls->writeCustomActionArea()/]
 	[/if]
 [/let]
-
 	[if (c.needsDbConnection())]
+
 	private OrmLiteHelper getDbHelper() {
 		if (db == null) {
 			db = OpenHelperManager.getHelper(this, OrmLiteHelper.class); 

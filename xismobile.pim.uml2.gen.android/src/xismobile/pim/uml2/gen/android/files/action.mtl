@@ -47,9 +47,9 @@ startActivity(intent);
 [let wsl : Set(Operation) = c.getAllWebServiceActions()]
 [if (wsl->size() > 0)]
 /** WebService Actions Area */
-[for (o : Operation | wsl) separator ('\n')]
+	[for (o : Operation | wsl) separator ('\n')]
 [o.writeWebServiceDeclaration()/]
-[/for]
+	[/for]
 [/if]
 [/let]
 [/template]
