@@ -279,7 +279,7 @@
 			and w.getAssociations().endType->selectByType(Class).isXisGesture()->size() > 0) in
 	if widgets->size() > 0
 	then widgets
-	else null
+	else OrderedSet(Class){}
 	endif
 /]
 

@@ -68,9 +68,10 @@ public class [c.name.toUpperFirst()/]Activity extends Activity {
 	}
 	[/for]
 	[/if]
-
+[/let]
 [if (c.hasMenu())]
 	[let m : Class = c.getMenu()]
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -144,6 +145,5 @@ public class [c.name.toUpperFirst()/]Activity extends Activity {
 	}	
 	[/if]
 }
-[/let]
 [/file]
 [/template]
