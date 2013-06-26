@@ -49,8 +49,8 @@ public class OrmLiteHelper extends OrmLiteSqliteOpenHelper {
 
 	public int create[c.name.toUpperFirst()/]([c.name.toUpperFirst()/] [c.name.toLowerFirst()/]) {
 		int i = -1;
-		[c.name.toLowerFirst()/]Dao = get[c.name.toUpperFirst()/]Dao();
 		try {
+			[c.name.toLowerFirst()/]Dao = get[c.name.toUpperFirst()/]Dao();
 			i = [c.name.toLowerFirst()/]Dao.create([c.name.toLowerFirst()/]);
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -58,11 +58,11 @@ public class OrmLiteHelper extends OrmLiteSqliteOpenHelper {
 		return i;
 	}
 
-	public [c.name.toUpperFirst()/] get[c.name.toUpperFirst()/]ById() {
-		[c.name.toLowerFirst()/]Dao = get[c.name.toUpperFirst()/]Dao();
+	public [c.name.toUpperFirst()/] get[c.name.toUpperFirst()/]ById(int id) {
 		[c.name.toUpperFirst()/] res = null;
 		try {
-			res = [c.name.toLowerFirst()/]Dao.query();
+			[c.name.toLowerFirst()/]Dao = get[c.name.toUpperFirst()/]Dao();
+			res = [c.name.toLowerFirst()/]Dao.queryForId(id);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -70,9 +70,9 @@ public class OrmLiteHelper extends OrmLiteSqliteOpenHelper {
 	}
 
 	public List<[c.name.toUpperFirst()/]> GetAll[c.name.toUpperFirst()/]s() {
-		[c.name.toLowerFirst()/]Dao = get[c.name.toUpperFirst()/]Dao();
 		List<[c.name.toUpperFirst()/]> list = null;
 		try {
+			[c.name.toLowerFirst()/]Dao = get[c.name.toUpperFirst()/]Dao();
 			list = [c.name.toLowerFirst()/]Dao.queryForAll();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -80,10 +80,10 @@ public class OrmLiteHelper extends OrmLiteSqliteOpenHelper {
 		return list;
 	}
 
-	public int delete[c.name.toUpperFirst()/]([c.name.toLowerFirst()/]) {
+	public int delete[c.name.toUpperFirst()/]([c.name.toUpperFirst()/] [c.name.toLowerFirst()/]) {
 		int i = -1;
-		[c.name.toLowerFirst()/]Dao = get[c.name.toUpperFirst()/]Dao();
 		try {
+			[c.name.toLowerFirst()/]Dao = get[c.name.toUpperFirst()/]Dao();
 			i = [c.name.toLowerFirst()/]Dao.delete([c.name.toLowerFirst()/]);
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -91,10 +91,10 @@ public class OrmLiteHelper extends OrmLiteSqliteOpenHelper {
 		return i;
 	}
 
-	public void deleteAll[c.name.toUpperFirst()/]s() {
+	public int deleteAll[c.name.toUpperFirst()/]s() {
 		int i = -1;
-		[c.name.toLowerFirst()/]Dao = get[c.name.toUpperFirst()/]Dao();
 		try {
+			[c.name.toLowerFirst()/]Dao = get[c.name.toUpperFirst()/]Dao();
 			List<[c.name.toUpperFirst()/]> list = [c.name.toLowerFirst()/]Dao.queryForAll();
 			i = [c.name.toLowerFirst()/]Dao.delete(list);
 		} catch (SQLException e) {
@@ -104,13 +104,13 @@ public class OrmLiteHelper extends OrmLiteSqliteOpenHelper {
 	}
 	[/for]
 
-	public void createTables(ConnectionSource connectionSource) {
+	public void createTables(ConnectionSource connectionSource) throws SQLException {
 		[for (c : Class | entities)]
 		TableUtils.createTable(connectionSource, [c.name.toUpperFirst()/].class);
 		[/for]
 	}
 
-	public void dropTables(ConnectionSource connectionSource) {
+	public void dropTables(ConnectionSource connectionSource) throws SQLException {
 		[for (c : Class | entities)]
 		TableUtils.dropTable(connectionSource, [c.name.toUpperFirst()/].class, true);
 		[/for]

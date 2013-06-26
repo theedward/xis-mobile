@@ -15,8 +15,7 @@ import android.content.Context;
 
 public class DomainEntityManager {
 	
-	private Context context;
-	
+	private Context context; 
 	[for (c : Class | entities)]
 	private Set<[c.name.toUpperFirst()/]> [c.name.toLowerFirst()/]s;
 	[/for]
@@ -33,12 +32,12 @@ public class DomainEntityManager {
 		return [c.name.toLowerFirst()/]s.add([c.name.toLowerFirst()/]);
 	}
 
-	public [c.name.toUpperFirst()/] get[c.name.toUpperFirst()/]ById(int id) {
+	public [c.name.toUpperFirst()/] get[c.name.toUpperFirst()/]ById(String id) {
 		[c.name.toUpperFirst()/] [c.name.toLowerFirst()/] = null;
 
-		for ([c.name.toUpperFirst()/] [c.name.at(0)/] : [c.name.toLowerFirst()/]s) {
-			if([c.name.at(0)/].getId() == id) {
-				[c.name.toLowerFirst()/] = [c.name.at(0)/];
+		for ([c.name.toUpperFirst()/] [c.name.at(1).toLower()/] : [c.name.toLowerFirst()/]s) {
+			if([c.name.at(1).toLower()/].equals(id)) {
+				[c.name.toLowerFirst()/] = [c.name.at(1).toLower()/];
 				break;				
 			}
 		}

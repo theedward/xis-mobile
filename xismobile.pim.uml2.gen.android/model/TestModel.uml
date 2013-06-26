@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xmi:XMI xmi:version="20110701" xmlns:xmi="http://www.omg.org/spec/XMI/20110701" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:XISMobile="http:///schemas/XISMobile/_xefMwMheEeKUM4Th83tGrQ/14" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/4.0.0/UML" xsi:schemaLocation="http:///schemas/XISMobile/_xefMwMheEeKUM4Th83tGrQ/14 ../../XIS-Mobile/model.profile.uml#_xeo9wMheEeKUM4Th83tGrQ">
+<xmi:XMI xmi:version="20110701" xmlns:xmi="http://www.omg.org/spec/XMI/20110701" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:XISMobile="http:///schemas/XISMobile/_AEuV4N1yEeKx4K09U_Hnmw/17" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/4.0.0/UML" xsi:schemaLocation="http:///schemas/XISMobile/_AEuV4N1yEeKx4K09U_Hnmw/17 file:/C:/Users/User/git/xis-mobile/XIS-Mobile/model.profile.uml#_AEuV4d1yEeKx4K09U_Hnmw">
   <uml:Model xmi:id="_OgqCFLJuEeKR6vjxvs-RZQ" name="Model">
     <packageImport xmi:id="_OgqCFbJuEeKR6vjxvs-RZQ">
       <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
     </packageImport>
-    <packagedElement xmi:type="uml:Class" xmi:id="_5MiSwLMDEeKPB6EShhOr9g" name="Class2">
+    <packagedElement xmi:type="uml:Class" xmi:id="_5MiSwLMDEeKPB6EShhOr9g" name="Task">
       <ownedAttribute xmi:id="_7QWkoLMDEeKPB6EShhOr9g" name="name" visibility="public" isUnique="false">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_9ngCMLMDEeKPB6EShhOr9g" value="1"/>
@@ -22,7 +22,26 @@
         </defaultValue>
       </ownedAttribute>
     </packagedElement>
-    <packagedElement xmi:type="uml:Class" xmi:id="_7QUoELMGEeKPB6EShhOr9g" name="Class3">
+    <packagedElement xmi:type="uml:Class" xmi:id="_7QUoELMGEeKPB6EShhOr9g" name="Note"/>
+    <packagedElement xmi:type="uml:Association" xmi:id="_Y4vhULvBEeKs_NFZ_xPnsg" name="class2_class3_1" memberEnd="_Y4vhUbvBEeKs_NFZ_xPnsg _Y4j7ILvBEeKs_NFZ_xPnsg" navigableOwnedEnd="_Y4j7ILvBEeKs_NFZ_xPnsg">
+      <ownedEnd xmi:id="_Y4vhUbvBEeKs_NFZ_xPnsg" name="class2" type="_5MiSwLMDEeKPB6EShhOr9g" association="_Y4vhULvBEeKs_NFZ_xPnsg">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Y4vhUrvBEeKs_NFZ_xPnsg" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Y4vhU7vBEeKs_NFZ_xPnsg" value="1"/>
+      </ownedEnd>
+      <ownedEnd xmi:id="_Y4j7ILvBEeKs_NFZ_xPnsg" name="class3" type="_7QUoELMGEeKPB6EShhOr9g" aggregation="composite" association="_Y4vhULvBEeKs_NFZ_xPnsg">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Y4j7IbvBEeKs_NFZ_xPnsg"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Y4j7IrvBEeKs_NFZ_xPnsg" value="*"/>
+      </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_nm_eoLvmEeKs_NFZ_xPnsg" name="Category">
+      <ownedAttribute xmi:id="_iq28QN2aEeKIOLvFg0sF3A" name="name" visibility="public" isUnique="false">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_kbJ1MN2aEeKIOLvFg0sF3A" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_kbM4gN2aEeKIOLvFg0sF3A" value="1"/>
+        <defaultValue xmi:type="uml:LiteralString" xmi:id="_kbRJ8N2aEeKIOLvFg0sF3A">
+          <value xsi:nil="true"/>
+        </defaultValue>
+      </ownedAttribute>
       <ownedAttribute xmi:id="__BbiMLMGEeKPB6EShhOr9g" name="description" visibility="public" isUnique="false">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Cd96gLMHEeKPB6EShhOr9g" value="1"/>
@@ -32,53 +51,29 @@
         </defaultValue>
       </ownedAttribute>
     </packagedElement>
-    <packagedElement xmi:type="uml:Association" xmi:id="_Y4vhULvBEeKs_NFZ_xPnsg" name="class2_class3_1" memberEnd="_Y4vhUbvBEeKs_NFZ_xPnsg _Y4j7ILvBEeKs_NFZ_xPnsg">
-      <ownedEnd xmi:id="_Y4vhUbvBEeKs_NFZ_xPnsg" name="class2" type="_5MiSwLMDEeKPB6EShhOr9g" association="_Y4vhULvBEeKs_NFZ_xPnsg">
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Y4vhUrvBEeKs_NFZ_xPnsg" value="1"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Y4vhU7vBEeKs_NFZ_xPnsg" value="1"/>
-      </ownedEnd>
-      <ownedEnd xmi:id="_Y4j7ILvBEeKs_NFZ_xPnsg" name="class3" type="_7QUoELMGEeKPB6EShhOr9g" association="_Y4vhULvBEeKs_NFZ_xPnsg">
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Y4j7IbvBEeKs_NFZ_xPnsg"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Y4j7IrvBEeKs_NFZ_xPnsg" value="*"/>
-      </ownedEnd>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Class" xmi:id="_nm_eoLvmEeKs_NFZ_xPnsg" name="Class4"/>
-    <packagedElement xmi:type="uml:Association" xmi:id="_qpp-YLvmEeKs_NFZ_xPnsg" name="class2_class4_1" memberEnd="_qpp-YbvmEeKs_NFZ_xPnsg _qppXULvmEeKs_NFZ_xPnsg" navigableOwnedEnd="_qppXULvmEeKs_NFZ_xPnsg _qpp-YbvmEeKs_NFZ_xPnsg">
+    <packagedElement xmi:type="uml:Association" xmi:id="_qpp-YLvmEeKs_NFZ_xPnsg" name="class2_class4_1" memberEnd="_qpp-YbvmEeKs_NFZ_xPnsg _qppXULvmEeKs_NFZ_xPnsg" navigableOwnedEnd="_qppXULvmEeKs_NFZ_xPnsg">
       <ownedEnd xmi:id="_qpp-YbvmEeKs_NFZ_xPnsg" name="class2" type="_5MiSwLMDEeKPB6EShhOr9g" association="_qpp-YLvmEeKs_NFZ_xPnsg">
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qpp-YrvmEeKs_NFZ_xPnsg"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qpp-Y7vmEeKs_NFZ_xPnsg" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qpp-Y7vmEeKs_NFZ_xPnsg" value="*"/>
       </ownedEnd>
       <ownedEnd xmi:id="_qppXULvmEeKs_NFZ_xPnsg" name="class4" type="_nm_eoLvmEeKs_NFZ_xPnsg" association="_qpp-YLvmEeKs_NFZ_xPnsg">
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qppXUbvmEeKs_NFZ_xPnsg"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qppXUrvmEeKs_NFZ_xPnsg" value="*"/>
-      </ownedEnd>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Class" xmi:id="_iNsYsMhdEeKg1rGTvDeEZA" name="Class5">
-      <nestedClassifier xmi:type="uml:Class" xmi:id="_jxNZ4MhdEeKg1rGTvDeEZA" name="Class6">
-        <ownedAttribute xmi:id="_VHVUgMhfEeKUM4Th83tGrQ" name="class7" type="_kS3VcMhdEeKg1rGTvDeEZA" association="_VHVUg8hfEeKUM4Th83tGrQ">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_VHVUgchfEeKUM4Th83tGrQ" value="1"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_VHVUgshfEeKUM4Th83tGrQ" value="1"/>
-        </ownedAttribute>
-      </nestedClassifier>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Class" xmi:id="_kS3VcMhdEeKg1rGTvDeEZA" name="Class7">
-      <ownedOperation xmi:id="_rP_oIMk4EeKcR7D_iclBTA" name="Operation1"/>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Association" xmi:id="_VHVUg8hfEeKUM4Th83tGrQ" name="class6_class7_1" memberEnd="_VHVUhMhfEeKUM4Th83tGrQ _VHVUgMhfEeKUM4Th83tGrQ">
-      <ownedEnd xmi:id="_VHVUhMhfEeKUM4Th83tGrQ" name="class6" type="_jxNZ4MhdEeKg1rGTvDeEZA" association="_VHVUg8hfEeKUM4Th83tGrQ">
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_VHVUhchfEeKUM4Th83tGrQ" value="1"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_VHVUhshfEeKUM4Th83tGrQ" value="1"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qppXUbvmEeKs_NFZ_xPnsg" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qppXUrvmEeKs_NFZ_xPnsg" value="1"/>
       </ownedEnd>
     </packagedElement>
     <profileApplication xmi:id="_2r5FwMheEeKUM4Th83tGrQ">
       <eAnnotations xmi:id="_2sC2wMheEeKUM4Th83tGrQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="../../XIS-Mobile/model.profile.uml#_xeo9wMheEeKUM4Th83tGrQ"/>
+        <references xmi:type="ecore:EPackage" href="../../XIS-Mobile/model.profile.uml#_AEuV4d1yEeKx4K09U_Hnmw"/>
       </eAnnotations>
       <appliedProfile href="../../XIS-Mobile/model.profile.uml#_GVt5kJb3EeKwK-AIPNJqFA"/>
     </profileApplication>
   </uml:Model>
-  <XISMobile:XisGesture xmi:id="_Rl8RYMhfEeKUM4Th83tGrQ" base_Class="_kS3VcMhdEeKg1rGTvDeEZA"/>
-  <XISMobile:XisInteractionSpace xmi:id="_ShvyUMhfEeKUM4Th83tGrQ" base_Class="_iNsYsMhdEeKg1rGTvDeEZA"/>
-  <XISMobile:XisLabel xmi:id="_TuhHcMhfEeKUM4Th83tGrQ" value="adsdsdadasd" base_Class="_jxNZ4MhdEeKg1rGTvDeEZA"/>
-  <XISMobile:XisAction xmi:id="_szrBYMk4EeKcR7D_iclBTA" base_Operation="_rP_oIMk4EeKcR7D_iclBTA"/>
+  <XISMobile:XisEntity xmi:id="_QIQvUN2QEeKIOLvFg0sF3A" base_Class="_5MiSwLMDEeKPB6EShhOr9g"/>
+  <XISMobile:XisEntity xmi:id="_RCp7AN2QEeKIOLvFg0sF3A" base_Class="_nm_eoLvmEeKs_NFZ_xPnsg"/>
+  <XISMobile:XisEntity xmi:id="_R9WosN2QEeKIOLvFg0sF3A" base_Class="_7QUoELMGEeKPB6EShhOr9g"/>
+  <XISMobile:XisEntityAttribute xmi:id="_VcMHEN2QEeKIOLvFg0sF3A" base_Property="_7QWkoLMDEeKPB6EShhOr9g"/>
+  <XISMobile:XisEntityAssociation xmi:id="_agkbYN2aEeKIOLvFg0sF3A" base_Association="_Y4vhULvBEeKs_NFZ_xPnsg"/>
+  <XISMobile:XisEntityAssociation xmi:id="_1Qy8oN2aEeKIOLvFg0sF3A" base_Association="_qpp-YLvmEeKs_NFZ_xPnsg"/>
+  <XISMobile:XisEntityAttribute xmi:id="_5CAkcN2aEeKIOLvFg0sF3A" base_Property="_iq28QN2aEeKIOLvFg0sF3A"/>
+  <XISMobile:XisEntityAttribute xmi:id="_GVNmAN5CEeKm457A__Nb9w" base_Property="__BbiMLMGEeKPB6EShhOr9g"/>
 </xmi:XMI>

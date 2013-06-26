@@ -24,10 +24,10 @@ import xis_mobile.library.widgets.*;
 public class [c.name.toUpperFirst()/]Activity extends Activity {
 
 [if (c.needsDbConnection())]
-	private OrmLiteHelper db = null;
+	private OrmLiteHelper helper;
 
 [elseif (c.needsDomainViews())]
-	private DomainEntityManager manager = null;
+	private DomainEntityManager manager;
 
 [/if]
 	/** Called when the activity is first created. */
@@ -44,9 +44,9 @@ public class [c.name.toUpperFirst()/]Activity extends Activity {
 	protected void onDestroy() {
 		super.onDestroy();
 		[if (c.needsDbConnection())]
-		if (db != null) {
+		if (helper != null) {
 			OpenHelperManager.releaseHelper();
-			db = null;
+			helper = null;
 		}
 		[elseif (c.needsDomainViews())]
 		if (manager != null) {
@@ -131,10 +131,10 @@ public class [c.name.toUpperFirst()/]Activity extends Activity {
 	[if (c.needsDbConnection())]
 
 	private OrmLiteHelper getDbHelper() {
-		if (db == null) {
-			db = OpenHelperManager.getHelper(this, OrmLiteHelper.class); 
+		if (helper == null) {
+			helper = OpenHelperManager.getHelper(getApplicationContext(), OrmLiteHelper.class); 
 		}
-		return db;
+		return helper;
 	}
 	[elseif (c.needsDomainViews())]
 	private DomainEntityManager getManager() {

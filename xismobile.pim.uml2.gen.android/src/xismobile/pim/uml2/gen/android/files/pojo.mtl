@@ -11,6 +11,8 @@
 [file ('domain/'.concat(c.name.toUpperFirst()).concat('.java'), false, 'UTF-8')]
 package [c.getPackagePath()/].domain;
 
+import java.util.*;
+
 [if (persistent)]
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
@@ -21,30 +23,30 @@ import com.j256.ormlite.table.DatabaseTable;
 @DatabaseTable(tableName = "[c.name.toUpperFirst()/]")
 [/if]
 public class [c.name.toUpperFirst()/][c.getExtensionAndImplementations()/] {
+
+[if (persistent)]
+	@DatabaseField(generatedId = true)
+	private int id;
+[else]
+	private String id;
+[/if]
+
 [if (c.hasXisEntityAttributes())]
-	
 	[c.generateAttributes()/]
 	[if (persistent)]
 	[c.generateForeingKeyAttributes()/]
 	[else]
 	[c.generateAssociationAttrs()/]
 	[/if]
-	[c.generateConstructors()/]
+	[c.generateNonArgConstructor()/]
+	[c.generateConstructorWithArgs()/]
 	[c.generateGettersAndSetters()/]
 	[if (not c.isPersistent())]
 
 	[c.generateEqualsMethods()/]
 	[/if]
 [else]
-	[if (persistent)]
-
-	@DatabaseField(generatedId = true)
-    private int id;
-
-	public int getId() {
-		return id;
-	}
-	[/if]
+	[c.generateNonArgConstructor()/]
 	[writeTODO()/]
 [/if]
 }
@@ -52,14 +54,22 @@ public class [c.name.toUpperFirst()/][c.getExtensionAndImplementations()/] {
 [/let]
 [/template]
 
-[template public generateConstructors(c : Class)]
+[template public generateNonArgConstructor(c : Class)]
 public [c.name.toUpperFirst()/]() {
 	[if (c.isPersistent())]
 	// Non-Arg constructor needed by OrmLite
+	[else]
+	this.id = UUID.randomUUID().toString();
 	[/if]
 }
 
+[/template]
+
+[template public generateConstructorWithArgs(c : Class)]
 public [c.name.toUpperFirst()/]([c.getXisAttributesForConstructor()/]) {
+	[if (not c.isPersistent())]
+	this.id = UUID.randomUUID().toString();
+	[/if]
 	[for (p : Property | c.getXisEntityAttributes())]
 	this.[p.getXisEntityAttributeName().toLowerFirst()/] = [p.getXisEntityAttributeName().toLowerFirst()/];
 	[/for]
@@ -86,13 +96,17 @@ private [p.getXisAttributeTypeAndName()/];
 
 [template public addKeyAndNullableTags(p : Property)]
 [if (p.isKey())]
-(id = true, canBeNull = false)
+(index = true)
 [elseif (not p.isNullable())]
 (canBeNull = false)
 [/if]
 [/template]
 
 [template public generateGettersAndSetters(c : Class) post(trim())]
+public [if (c.isPersistent())]int[else]String[/if] getId() {
+	return id;
+}
+
 [for (p : Property | c.getXisEntityAttributes()) separator('\n')]
 public [p.getXisEntityAttributeType()/] get[p.getXisEntityAttributeName().toUpperFirst()/]() {
 	return this.[p.getXisEntityAttributeName().toLowerFirst()/];
@@ -116,13 +130,17 @@ public boolean equals(Object obj) {
 		return false;
 	
 	[c.name.toUpperFirst()/] c = ([c.name.toUpperFirst()/]) obj;	
-	return [attrs->getEqualsCondition()/];
+	return this.id == c.id;[comment][attrs->getEqualsCondition()/];[/comment]
 }
 	
 @Override
 public int hashCode() {
-	String code = [attrs->getHashCodeCondition()/];
-	return code.hashCode();
+	StringBuilder sbCode = new StringBuilder();
+	[for (p : Property | attrs)]
+	sbCode.append([p.getXisEntityAttributeName().toLowerFirst()/]);
+	[/for]
+	[comment]String code = [attrs->getHashCodeCondition()/];[/comment]
+	return sbCode.toString().hashCode();
 }
 [/let]
 [/template]
@@ -133,8 +151,12 @@ this.[p.getXisEntityAttributeName()/] == c.[p.getXisEntityAttributeName()/]
 [/for]
 [/template]
 
-[template public getHashCodeCondition(ps : Set(Property))]
+[template public getHashCodeCondition(ps : Set(Property)) post (trim())]
+[if (ps->size() > 1)]
 [ps.getXisEntityAttributeName().toLowerFirst()->sep(' + ')/]
+[elseif (ps.getXisEntityAttributeType() <> 'String')]
+[ps.getXisEntityAttributeName().toLowerFirst().concat('.toString()')/]
+[/if]
 [/template]
 
 [template public getExtension(c : Class)]
@@ -224,5 +246,3 @@ public List<[a.endType->at(idx).name/]> [p.name/];
 	[/if]
 [/let]
 [/template]
-
-

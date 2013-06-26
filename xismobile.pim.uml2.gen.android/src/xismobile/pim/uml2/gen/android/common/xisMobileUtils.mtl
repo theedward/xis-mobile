@@ -54,7 +54,7 @@
 	let type : OclAny = p.getTaggedValue('XIS-Mobile::XisEntityAttribute', 'type') in
 	if type.oclIsUndefined()
 	then p.type.name
-	else type
+	else type.oclAsType(EnumerationLiteral).name
 	endif
 /]
 
@@ -437,6 +437,10 @@
 
 [query public isXisWebView(c : Class) : Boolean =
 	not c.getAppliedStereotype('XIS-Mobile::XisWebView').oclIsUndefined()
+/]
+
+[query public isXisDropdown(c : Class) : Boolean =
+	not c.getAppliedStereotype('XIS-Mobile::XisDropdown').oclIsUndefined()
 /]
 
 [query public isXisImage(c : Class) : Boolean =
