@@ -3,6 +3,7 @@
 
 [import xismobile::pim::uml2::gen::android::common::xisMobileUtils /]
 [import xismobile::pim::uml2::gen::android::common::utils /]
+[import xismobile::pim::uml2::gen::android::services::services /]
 
 [template public generateOrmLiteHelper(entities : OrderedSet(Class))]
 
@@ -29,9 +30,13 @@ public class OrmLiteHelper extends OrmLiteSqliteOpenHelper {
 	private static final String TAG = "OrmLiteHelper";
 	private static final String DB_NAME = "OrmDummy.db";[comment]TODO: App Name[/comment]
 	private static final int DB_VERSION = 1;
- 
+[let assocs : Sequence(String) = entities.getManyToManyAssociations()]
+
 	[for (c : Class | entities)]
 	private Dao<[c.name.toUpperFirst()/], Integer> [c.name.toLowerFirst()/]Dao = null;
+	[/for]
+	[for (s : String | assocs)]
+	private Dao<[s/], Integer> [s.toLowerFirst()/]Dao = null;
 	[/for]
  
 	public OrmLiteHelper(Context context) {
@@ -40,79 +45,30 @@ public class OrmLiteHelper extends OrmLiteSqliteOpenHelper {
 	}
  
 	[for (c : Class | entities) separator ('\n')]
-	public Dao<[c.name.toUpperFirst()/], Integer> get[c.name.toUpperFirst()/]Dao() throws SQLException {
-		if ([c.name.toLowerFirst()/]Dao == null) {
-			[c.name.toLowerFirst()/]Dao = getDao([c.name.toUpperFirst()/].class);
-		}
-		return [c.name.toLowerFirst()/]Dao;
-	}
-
-	public int create[c.name.toUpperFirst()/]([c.name.toUpperFirst()/] [c.name.toLowerFirst()/]) {
-		int i = -1;
-		try {
-			[c.name.toLowerFirst()/]Dao = get[c.name.toUpperFirst()/]Dao();
-			i = [c.name.toLowerFirst()/]Dao.create([c.name.toLowerFirst()/]);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return i;
-	}
-
-	public [c.name.toUpperFirst()/] get[c.name.toUpperFirst()/]ById(int id) {
-		[c.name.toUpperFirst()/] res = null;
-		try {
-			[c.name.toLowerFirst()/]Dao = get[c.name.toUpperFirst()/]Dao();
-			res = [c.name.toLowerFirst()/]Dao.queryForId(id);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return res;
-	}
-
-	public List<[c.name.toUpperFirst()/]> GetAll[c.name.toUpperFirst()/]s() {
-		List<[c.name.toUpperFirst()/]> list = null;
-		try {
-			[c.name.toLowerFirst()/]Dao = get[c.name.toUpperFirst()/]Dao();
-			list = [c.name.toLowerFirst()/]Dao.queryForAll();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return list;
-	}
-
-	public int delete[c.name.toUpperFirst()/]([c.name.toUpperFirst()/] [c.name.toLowerFirst()/]) {
-		int i = -1;
-		try {
-			[c.name.toLowerFirst()/]Dao = get[c.name.toUpperFirst()/]Dao();
-			i = [c.name.toLowerFirst()/]Dao.delete([c.name.toLowerFirst()/]);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return i;
-	}
-
-	public int deleteAll[c.name.toUpperFirst()/]s() {
-		int i = -1;
-		try {
-			[c.name.toLowerFirst()/]Dao = get[c.name.toUpperFirst()/]Dao();
-			List<[c.name.toUpperFirst()/]> list = [c.name.toLowerFirst()/]Dao.queryForAll();
-			i = [c.name.toLowerFirst()/]Dao.delete(list);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return i;
-	}
+	[c.name.writeDaoOperations()/]
 	[/for]
+	[if (assocs->size() > 0)]
+
+	[for (s : String | assocs) separator ('\n')]
+	[s.writeDaoOperations()/]
+	[/for]
+	[/if]
 
 	public void createTables(ConnectionSource connectionSource) throws SQLException {
 		[for (c : Class | entities)]
 		TableUtils.createTable(connectionSource, [c.name.toUpperFirst()/].class);
+		[/for]
+		[for (s : String | assocs)]
+		TableUtils.createTable(connectionSource, [s/].class);
 		[/for]
 	}
 
 	public void dropTables(ConnectionSource connectionSource) throws SQLException {
 		[for (c : Class | entities)]
 		TableUtils.dropTable(connectionSource, [c.name.toUpperFirst()/].class, true);
+		[/for]
+		[for (s : String | assocs)]
+		TableUtils.dropTable(connectionSource, [s/].class, true);
 		[/for]
 	}
 	
@@ -122,7 +78,11 @@ public class OrmLiteHelper extends OrmLiteSqliteOpenHelper {
 		[for (c : Class | entities)]
 		[c.name.toLowerFirst()/]Dao = null;
 		[/for]
+		[for (s : String | assocs)]
+		[s.toLowerFirst()/]Dao = null;
+		[/for]
 	}
+[/let]
 
 	@Override
 	public void onCreate(SQLiteDatabase db, ConnectionSource connectionSource) {
@@ -140,7 +100,6 @@ public class OrmLiteHelper extends OrmLiteSqliteOpenHelper {
 			Log.i(TAG,
 				"Upgrading database from version " + oldVersion + " to "
 		        + newVersion + ", which will destroy all old data...");
-	
 			dropTables(connectionSource);
 			onCreate(db, connectionSource);
 		} catch(SQLException e) {
@@ -150,4 +109,73 @@ public class OrmLiteHelper extends OrmLiteSqliteOpenHelper {
 
 }
 [/file]
+[/template]
+
+[template public writeDaoDeclaration(s : String)]
+
+[/template]
+
+[template public writeDaoOperations(s : String)]
+private Dao<[s.toUpperFirst()/], Integer> get[s.toUpperFirst()/]Dao() throws SQLException {
+	if ([s.toLowerFirst()/]Dao == null) {
+		[s.toLowerFirst()/]Dao = getDao([s.toUpperFirst()/].class);
+	}
+	return [s.toLowerFirst()/]Dao;
+}
+
+public int create[s.toUpperFirst()/]([s.toUpperFirst()/] [s.toLowerFirst()/]) {
+	int i = -1;
+	try {
+		[s.toLowerFirst()/]Dao = get[s.toUpperFirst()/]Dao();
+		i = [s.toLowerFirst()/]Dao.create([s.toLowerFirst()/]);
+	} catch (SQLException e) {
+		e.printStackTrace();
+	}
+	return i;
+}
+
+public [s.toUpperFirst()/] get[s.toUpperFirst()/]ById(int id) {
+	[s.toUpperFirst()/] res = null;
+	try {
+		[s.toLowerFirst()/]Dao = get[s.toUpperFirst()/]Dao();
+		res = [s.toLowerFirst()/]Dao.queryForId(id);
+	} catch (SQLException e) {
+		e.printStackTrace();
+	}
+	return res;
+}
+
+public List<[s.toUpperFirst()/]> GetAll[s.toUpperFirst()/]s() {
+	List<[s.toUpperFirst()/]> list = null;
+	try {
+		[s.toLowerFirst()/]Dao = get[s.toUpperFirst()/]Dao();
+		list = [s.toLowerFirst()/]Dao.queryForAll();
+	} catch (SQLException e) {
+		e.printStackTrace();
+	}
+	return list;
+}
+
+public int delete[s.toUpperFirst()/]([s.toUpperFirst()/] [s.toLowerFirst()/]) {
+	int i = -1;
+	try {
+		[s.toLowerFirst()/]Dao = get[s.toUpperFirst()/]Dao();
+		i = [s.toLowerFirst()/]Dao.delete([s.toLowerFirst()/]);
+	} catch (SQLException e) {
+		e.printStackTrace();
+	}
+	return i;
+}
+
+public int deleteAll[s.toUpperFirst()/]s() {
+	int i = -1;
+	try {
+		[s.toLowerFirst()/]Dao = get[s.toUpperFirst()/]Dao();
+		List<[s.toUpperFirst()/]> list = [s.toLowerFirst()/]Dao.queryForAll();
+		i = [s.toLowerFirst()/]Dao.delete(list);
+	} catch (SQLException e) {
+		e.printStackTrace();
+	}
+	return i;
+}
 [/template]

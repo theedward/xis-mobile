@@ -13,3 +13,7 @@
 [query public getExtensionAndImplementations(c : Class) : String = 
 	invoke('xismobile.pim.uml2.gen.android.services.Services', 'getExtensionAndImplementations(org.eclipse.uml2.uml.Class)', Sequence{c})
 /]
+
+[query public getManyToManyAssociations(c : Class) : Set(String) = 
+	invoke('xismobile.pim.uml2.gen.android.services.Services', 'getManyToManyAssociations(org.eclipse.uml2.uml.Class)', Sequence{c})
+/]

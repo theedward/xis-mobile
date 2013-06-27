@@ -78,4 +78,24 @@ public class Services {
 		return builder.toString();
 	}
 
+	public List<String> getManyToManyAssociations(Class c) {
+		List<String> joinEntities = new ArrayList<String>();
+		Property first = null;
+		Property second = null;
+		
+		for (Association a : c.getAssociations()) {
+			first = a.getMemberEnds().get(0);
+			second = a.getMemberEnds().get(1);
+			if (first.upperBound() == -1 && second.upperBound() == -1) {
+				if (a.getEndTypes().get(0).getName().equals(c.getName())) {
+					joinEntities.add(toUpperFirst(a.getEndTypes().get(0).getName()) + toUpperFirst(a.getEndTypes().get(1).getName()));
+				}
+			}
+		}
+		return joinEntities;
+	}
+	
+	private String toUpperFirst(String s) {
+		return s.substring(0, 1) + s.substring(1);
+	}
 }
