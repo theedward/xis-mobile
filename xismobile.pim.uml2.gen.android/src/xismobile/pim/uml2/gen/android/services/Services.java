@@ -10,7 +10,6 @@ import org.eclipse.uml2.uml.InterfaceRealization;
 import org.eclipse.uml2.uml.Property;
 import org.eclipse.uml2.uml.Type;
 
-
 public class Services {
 
 	public List<String> getReferencedEntities(Class c) {
@@ -21,25 +20,24 @@ public class Services {
 		}
 		return entities;
 	}
-	
+
 	public List<Property> getClassAssociationAttributes(Class c) {
 		List<Type> endTypes = null;
 		Property first = null;
 		Property second = null;
 		List<Property> memberEnds = null;
 		List<Property> result = new ArrayList<Property>();
-		
+
 		for (Association a : c.getAssociations()) {
 			endTypes = a.getEndTypes();
 			memberEnds = a.getMemberEnds();
 			first = memberEnds.get(0);
 			second = memberEnds.get(1);
-			if (!first.isNavigable() && !second.isNavigable() ||
-				first.isNavigable() && second.isNavigable()) {
+			if (!first.isNavigable() && !second.isNavigable()
+					|| first.isNavigable() && second.isNavigable()) {
 				if (endTypes.get(0).getName().compareTo(c.getName()) == 0) {
 					result.add(second);
-				}
-				else {
+				} else {
 					result.add(first);
 				}
 			} else if (first.isNavigable()) {
@@ -54,15 +52,16 @@ public class Services {
 		}
 		return result;
 	}
-	
+
 	public String getExtensionAndImplementations(Class c) {
 		StringBuilder builder = new StringBuilder();
-		
+
 		if (c.getGeneralizations().size() == 1) {
-			Class cl = (Class) c.getGeneralizations().get(0).getTargets().get(0);
+			Class cl = (Class) c.getGeneralizations().get(0).getTargets()
+					.get(0);
 			builder.append(" extends ").append(cl.getName());
 		}
-		
+
 		if (c.getInterfaceRealizations().size() > 0) {
 			if (builder.length() > 0) {
 				builder.append(" ");
@@ -73,7 +72,7 @@ public class Services {
 				i = (Interface) it.getTargets().get(0);
 				builder.append(i.getName()).append(", ");
 			}
-			builder.delete(builder.length()-2, builder.length());
+			builder.delete(builder.length() - 2, builder.length());
 		}
 		return builder.toString();
 	}
@@ -82,19 +81,96 @@ public class Services {
 		List<String> joinEntities = new ArrayList<String>();
 		Property first = null;
 		Property second = null;
-		
+
 		for (Association a : c.getAssociations()) {
 			first = a.getMemberEnds().get(0);
 			second = a.getMemberEnds().get(1);
 			if (first.upperBound() == -1 && second.upperBound() == -1) {
 				if (a.getEndTypes().get(0).getName().equals(c.getName())) {
-					joinEntities.add(toUpperFirst(a.getEndTypes().get(0).getName()) + toUpperFirst(a.getEndTypes().get(1).getName()));
+					joinEntities.add(toUpperFirst(a.getEndTypes().get(0)
+							.getName())
+							+ toUpperFirst(a.getEndTypes().get(1).getName()));
 				}
 			}
 		}
 		return joinEntities;
 	}
+
+	public List<Class> getInteractionSpaceReferencedEntities(Class c) {
+		List<Class> bes = new ArrayList<Class>();
+		List<Class> entities = new ArrayList<Class>();
+		List<Association> assocs = new ArrayList<Association>();
+		Type first = null;
+		Type second = null;
+
+		for (Association a : c.getAssociations()) {
+			if (isXisDomainAssociation(a)) {
+				assocs.add(a);
+			}
+		}
+
+		for (Association a : assocs) {
+			first = a.getEndTypes().get(0);
+			second = a.getEndTypes().get(1);
+			if (isXisBusinessEntity(first)) {
+				bes.add((Class) first);
+			} else if (isXisBusinessEntity(second)) {
+				bes.add((Class) second);
+			}
+		}
+
+		for (Class cl : bes) {
+			for (Association a : cl.getAssociations()) {
+				if (isXisMasterAssociation(a) || isXisDetailAssociation(a)
+						|| isXisReferenceAssociation(a)) {
+					first = a.getEndTypes().get(0);
+					second = a.getEndTypes().get(1);
+					if (isXisEntity(first)) {
+						entities.add((Class) first);
+					} else if (isXisEntity(second)) {
+						entities.add((Class) second);
+					}
+				}
+			}
+		}
+
+		return entities;
+	}
+
+	/**
+	 * AUXILIARY METHODS REGION
+	 */
+	private boolean isXisEntity(Type t) {
+		return t.getAppliedStereotype("XIS-Mobile::XisEntity") != null;
+	}
 	
+	private boolean isXisDomainAssociation(Association a) {
+		return a.getAppliedStereotype("XIS-Mobile::XisDomainAssociation") != null;
+	}
+
+	private boolean isXisBusinessEntity(Type t) {
+		return t.getAppliedStereotype("XIS-Mobile::XisBusinessEntity") != null;
+	}
+
+	private boolean isXisMasterAssociation(Association a) {
+		return a.getAppliedStereotype("XIS-Mobile::XisMasterAssociation") != null;
+	}
+
+	private boolean isXisDetailAssociation(Association a) {
+		return a.getAppliedStereotype("XIS-Mobile::XisDetailAssociation") != null;
+	}
+
+	private boolean isXisReferenceAssociation(Association a) {
+		return a.getAppliedStereotype("XIS-Mobile::XisReferenceAssociation") != null;
+	}
+	
+	/**
+	 * Auxiliary method to put the first letter of a string in upper case.
+	 * 
+	 * @param s
+	 *            The original string
+	 * @return The string with the first letter in upper case
+	 */
 	private String toUpperFirst(String s) {
 		return s.substring(0, 1) + s.substring(1);
 	}

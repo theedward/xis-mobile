@@ -5,6 +5,7 @@
 [import xismobile::pim::uml2::gen::android::common::utils /]
 [import xismobile::pim::uml2::gen::android::files::action /]
 [import xismobile::pim::uml2::gen::android::files::widget /]
+[import xismobile::pim::uml2::gen::android::services::services /]
 
 [template public generateActivity(c : Class)]
 [file ('src/'.concat(c.name.toUpperFirst().concat('Activity.java')), false, 'UTF-8')]
@@ -19,7 +20,9 @@ import android.view.Menu;
 [if (widgets->size() > 0)]
 import xis_mobile.library.widgets.*;
 [/if]
-
+[for (entity : Class | c.getInteractionSpaceReferencedEntities())]
+import domain.[entity.name.toUpperFirst()/];
+[/for]
 
 public class [c.name.toUpperFirst()/]Activity extends Activity {
 

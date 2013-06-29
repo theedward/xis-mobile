@@ -17,3 +17,7 @@
 [query public getManyToManyAssociations(c : Class) : Set(String) = 
 	invoke('xismobile.pim.uml2.gen.android.services.Services', 'getManyToManyAssociations(org.eclipse.uml2.uml.Class)', Sequence{c})
 /]
+
+[query public getInteractionSpaceReferencedEntities(c : Class) : Set(Class) = 
+	invoke('xismobile.pim.uml2.gen.android.services.Services', 'getInteractionSpaceReferencedEntities(org.eclipse.uml2.uml.Class)', Sequence{c})
+/]

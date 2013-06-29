@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xmi:XMI xmi:version="20110701" xmlns:xmi="http://www.omg.org/spec/XMI/20110701" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:XISMobile="http:///schemas/XISMobile/_AEuV4N1yEeKx4K09U_Hnmw/17" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/4.0.0/UML" xsi:schemaLocation="http:///schemas/XISMobile/_AEuV4N1yEeKx4K09U_Hnmw/17 file:/C:/Users/User/git/xis-mobile/XIS-Mobile/model.profile.uml#_AEuV4d1yEeKx4K09U_Hnmw">
+<xmi:XMI xmi:version="20110701" xmlns:xmi="http://www.omg.org/spec/XMI/20110701" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:XISMobile="http:///schemas/XISMobile/_AEuV4N1yEeKx4K09U_Hnmw/17" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/4.0.0/UML" xsi:schemaLocation="http:///schemas/XISMobile/_AEuV4N1yEeKx4K09U_Hnmw/17 ../../XIS-Mobile/model.profile.uml#_AEuV4d1yEeKx4K09U_Hnmw">
   <uml:Model xmi:id="_OgqCFLJuEeKR6vjxvs-RZQ" name="Model">
     <packageImport xmi:id="_OgqCFbJuEeKR6vjxvs-RZQ">
       <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
@@ -32,16 +32,6 @@
         </defaultValue>
       </ownedAttribute>
     </packagedElement>
-    <packagedElement xmi:type="uml:Association" xmi:id="_Y4vhULvBEeKs_NFZ_xPnsg" name="class2_class3_1" memberEnd="_Y4vhUbvBEeKs_NFZ_xPnsg _Y4j7ILvBEeKs_NFZ_xPnsg" navigableOwnedEnd="_Y4j7ILvBEeKs_NFZ_xPnsg">
-      <ownedEnd xmi:id="_Y4vhUbvBEeKs_NFZ_xPnsg" name="class2" type="_5MiSwLMDEeKPB6EShhOr9g" association="_Y4vhULvBEeKs_NFZ_xPnsg">
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Y4vhUrvBEeKs_NFZ_xPnsg"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Y4vhU7vBEeKs_NFZ_xPnsg" value="1"/>
-      </ownedEnd>
-      <ownedEnd xmi:id="_Y4j7ILvBEeKs_NFZ_xPnsg" name="class3" type="_7QUoELMGEeKPB6EShhOr9g" aggregation="composite" association="_Y4vhULvBEeKs_NFZ_xPnsg">
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Y4j7IbvBEeKs_NFZ_xPnsg"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Y4j7IrvBEeKs_NFZ_xPnsg" value="1"/>
-      </ownedEnd>
-    </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="_nm_eoLvmEeKs_NFZ_xPnsg" name="Category">
       <ownedAttribute xmi:id="_iq28QN2aEeKIOLvFg0sF3A" name="name" visibility="public" isUnique="false">
         <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
@@ -70,6 +60,7 @@
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qppXUrvmEeKs_NFZ_xPnsg" value="*"/>
       </ownedEnd>
     </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_7RxyIODQEeKb--rgxKGUFA" name="Stuff"/>
     <profileApplication xmi:id="_2r5FwMheEeKUM4Th83tGrQ">
       <eAnnotations xmi:id="_2sC2wMheEeKUM4Th83tGrQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
         <references xmi:type="ecore:EPackage" href="../../XIS-Mobile/model.profile.uml#_AEuV4d1yEeKx4K09U_Hnmw"/>
@@ -77,13 +68,13 @@
       <appliedProfile href="../../XIS-Mobile/model.profile.uml#_GVt5kJb3EeKwK-AIPNJqFA"/>
     </profileApplication>
   </uml:Model>
-  <XISMobile:XisEntity xmi:id="_QIQvUN2QEeKIOLvFg0sF3A" base_Class="_5MiSwLMDEeKPB6EShhOr9g"/>
-  <XISMobile:XisEntity xmi:id="_RCp7AN2QEeKIOLvFg0sF3A" base_Class="_nm_eoLvmEeKs_NFZ_xPnsg"/>
   <XISMobile:XisEntity xmi:id="_R9WosN2QEeKIOLvFg0sF3A" base_Class="_7QUoELMGEeKPB6EShhOr9g"/>
   <XISMobile:XisEntityAttribute xmi:id="_VcMHEN2QEeKIOLvFg0sF3A" base_Property="_7QWkoLMDEeKPB6EShhOr9g"/>
-  <XISMobile:XisEntityAssociation xmi:id="_agkbYN2aEeKIOLvFg0sF3A" base_Association="_Y4vhULvBEeKs_NFZ_xPnsg"/>
-  <XISMobile:XisEntityAssociation xmi:id="_1Qy8oN2aEeKIOLvFg0sF3A" base_Association="_qpp-YLvmEeKs_NFZ_xPnsg"/>
   <XISMobile:XisEntityAttribute xmi:id="_5CAkcN2aEeKIOLvFg0sF3A" base_Property="_iq28QN2aEeKIOLvFg0sF3A"/>
   <XISMobile:XisEntityAttribute xmi:id="_GVNmAN5CEeKm457A__Nb9w" base_Property="__BbiMLMGEeKPB6EShhOr9g"/>
   <XISMobile:XisEntityAttribute xmi:id="_JIzbEN5aEeKm457A__Nb9w" type="String" base_Property="_EKbckN5aEeKm457A__Nb9w"/>
+  <XISMobile:XisInteractionSpace xmi:id="_2bkKwODIEeKb--rgxKGUFA" base_Class="_5MiSwLMDEeKPB6EShhOr9g"/>
+  <XISMobile:XisBusinessEntity xmi:id="_4TCCsODIEeKb--rgxKGUFA" base_Class="_nm_eoLvmEeKs_NFZ_xPnsg"/>
+  <XISMobile:XisDomainAssociation xmi:id="_bYrhUODKEeKb--rgxKGUFA" base_Association="_qpp-YLvmEeKs_NFZ_xPnsg"/>
+  <XISMobile:XisEntity xmi:id="_ItPRsODREeKb--rgxKGUFA" base_Class="_7RxyIODQEeKb--rgxKGUFA"/>
 </xmi:XMI>
