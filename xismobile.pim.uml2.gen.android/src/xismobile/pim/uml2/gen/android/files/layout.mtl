@@ -14,30 +14,8 @@
     android:layout_height="match_parent"
     tools:context=".[c.name.toUpperFirst()/]Activity" >
 
-[for (cl : Class | c.ownedElement->selectByType(Class))]
-	[if (cl.isXisLabel())]
-	[cl.writeLabel()/]
-	[elseif (cl.isXisTextBox())]
-	[cl.writeTextBox()/]
-	[elseif (cl.isXisCheckBox())]
-	[cl.writeCheckBox()/]
-	[elseif (cl.isXisButton())]
-	[cl.writeButton()/]
-	[elseif (cl.isXisLink())]
-	[cl.writeLink()/]
-	[elseif (cl.isXisImage())]
-	[cl.writeImageView()/]
-	[elseif (cl.isXisDatePicker())]
-	[cl.writeDatePicker()/]
-	[elseif (cl.isXisTimePicker())]
-	[cl.writeTimePicker()/]
-	[elseif (cl.isXisWebView())]
-	[cl.writeWebView()/]
-	[elseif (cl.isXisMapView())]
-	[cl.writeMapView()/]
-	[elseif (cl.isList())]
-	[cl.writeListView()/]
-	[/if]
+[for (cl : Class | c.getChildren())]
+	[cl.writeWidget()/]
 [/for]
 
 </RelativeLayout>

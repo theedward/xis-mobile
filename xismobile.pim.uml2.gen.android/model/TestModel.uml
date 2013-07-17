@@ -56,11 +56,21 @@
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qpp-Y7vmEeKs_NFZ_xPnsg" value="*"/>
       </ownedEnd>
       <ownedEnd xmi:id="_qppXULvmEeKs_NFZ_xPnsg" name="class4" type="_nm_eoLvmEeKs_NFZ_xPnsg" association="_qpp-YLvmEeKs_NFZ_xPnsg">
-        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qppXUbvmEeKs_NFZ_xPnsg"/>
-        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qppXUrvmEeKs_NFZ_xPnsg" value="*"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qppXUbvmEeKs_NFZ_xPnsg" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qppXUrvmEeKs_NFZ_xPnsg" value="1"/>
       </ownedEnd>
     </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="_7RxyIODQEeKb--rgxKGUFA" name="Stuff"/>
+    <packagedElement xmi:type="uml:Association" xmi:id="_jGarU-KGEeKqMMqiNBXKfg" name="task_note_1" memberEnd="_jGarVOKGEeKqMMqiNBXKfg _jGarUOKGEeKqMMqiNBXKfg" navigableOwnedEnd="_jGarUOKGEeKqMMqiNBXKfg">
+      <ownedEnd xmi:id="_jGarVOKGEeKqMMqiNBXKfg" name="task" type="_5MiSwLMDEeKPB6EShhOr9g" association="_jGarU-KGEeKqMMqiNBXKfg">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_jGarVeKGEeKqMMqiNBXKfg" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_jGarVuKGEeKqMMqiNBXKfg" value="1"/>
+      </ownedEnd>
+      <ownedEnd xmi:id="_jGarUOKGEeKqMMqiNBXKfg" name="note" type="_7QUoELMGEeKPB6EShhOr9g" aggregation="composite" association="_jGarU-KGEeKqMMqiNBXKfg">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_jGarUeKGEeKqMMqiNBXKfg"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_jGarUuKGEeKqMMqiNBXKfg" value="*"/>
+      </ownedEnd>
+    </packagedElement>
     <profileApplication xmi:id="_2r5FwMheEeKUM4Th83tGrQ">
       <eAnnotations xmi:id="_2sC2wMheEeKUM4Th83tGrQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
         <references xmi:type="ecore:EPackage" href="../../XIS-Mobile/model.profile.uml#_AEuV4d1yEeKx4K09U_Hnmw"/>
@@ -73,8 +83,8 @@
   <XISMobile:XisEntityAttribute xmi:id="_5CAkcN2aEeKIOLvFg0sF3A" base_Property="_iq28QN2aEeKIOLvFg0sF3A"/>
   <XISMobile:XisEntityAttribute xmi:id="_GVNmAN5CEeKm457A__Nb9w" base_Property="__BbiMLMGEeKPB6EShhOr9g"/>
   <XISMobile:XisEntityAttribute xmi:id="_JIzbEN5aEeKm457A__Nb9w" type="String" base_Property="_EKbckN5aEeKm457A__Nb9w"/>
-  <XISMobile:XisInteractionSpace xmi:id="_2bkKwODIEeKb--rgxKGUFA" base_Class="_5MiSwLMDEeKPB6EShhOr9g"/>
-  <XISMobile:XisBusinessEntity xmi:id="_4TCCsODIEeKb--rgxKGUFA" base_Class="_nm_eoLvmEeKs_NFZ_xPnsg"/>
   <XISMobile:XisDomainAssociation xmi:id="_bYrhUODKEeKb--rgxKGUFA" base_Association="_qpp-YLvmEeKs_NFZ_xPnsg"/>
   <XISMobile:XisEntity xmi:id="_ItPRsODREeKb--rgxKGUFA" base_Class="_7RxyIODQEeKb--rgxKGUFA"/>
+  <XISMobile:XisEntity xmi:id="_ahI3kOKGEeKqMMqiNBXKfg" base_Class="_5MiSwLMDEeKPB6EShhOr9g"/>
+  <XISMobile:XisEntity xmi:id="_U2oWYOKHEeKqMMqiNBXKfg" base_Class="_nm_eoLvmEeKs_NFZ_xPnsg"/>
 </xmi:XMI>

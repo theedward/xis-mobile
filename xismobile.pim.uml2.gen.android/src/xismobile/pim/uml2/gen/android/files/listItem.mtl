@@ -2,9 +2,9 @@
 [module listItem('http://www.eclipse.org/uml2/4.0.0/UML')]
 
 [import xismobile::pim::uml2::gen::android::common::xisMobileUtils /]
+[import xismobile::pim::uml2::gen::android::files::widget /]
 
 [template public generateListItem(c : Class)]
-
 [for (cl : Class | c.getChildren())]
 	[if (cl.isXisCompositeWidget()
 		and cl.isList())]
@@ -16,7 +16,7 @@
     android:layout_height="match_parent" >
 
 [for (el : Class | cl.getChildren())]
-	
+	[el.writeWidget()/]
 [/for]
 
 </RelativeLayout>

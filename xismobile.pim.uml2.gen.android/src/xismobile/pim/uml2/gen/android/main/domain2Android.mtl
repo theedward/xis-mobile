@@ -20,7 +20,7 @@
 	[/if]
 [/for]
 	[if (entities->at(1).isPersistent())]
-		[entities->generateOrmLiteHelper()/]
+		[entities->generateOrmLiteHelper(m)/]
 		[comment][c.generateDbAdapter()/]
 		[c.generateDbHelper()/][/comment]
 	[else]

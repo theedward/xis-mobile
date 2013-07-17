@@ -1,0 +1,137 @@
+[comment encoding = UTF-8 /]
+[module adapter('http://www.eclipse.org/uml2/4.0.0/UML')]
+
+[import xismobile::pim::uml2::gen::android::common::xisMobileUtils /]
+
+[template public generateAdapter(c : Class)]
+
+[file (c.name.toUpperFirst().concat('Adapter.java'), false, 'UTF-8')]
+import java.util.List;
+
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+
+import xis_mobile.library.widgets.*;
+
+
+public class [c.name.toUpperFirst()/]Adapter extends ArrayAdapter<[comment]TODO[/comment]> {
+    private Context context;
+    private int row;
+    private List<[comment]TODO[/comment]> list;
+    
+	public NameAdapter(Context context, int rowId, List<[comment]TODO[/comment]> list) {
+		super(context, rowId, list);
+		this.context = context;
+		this.row = rowId;
+		this.list = list;
+	}
+
+	@Override
+	public int getCount() {
+		return list.size();
+	}
+	
+	@Override
+	public [comment]TODO[/comment] getItem(int position) {
+		return list.get(position);
+	}
+	
+	@Override
+	public long getItemId(int position) {
+		return position;
+	}
+
+	@Override
+	public View getView(int position, View convertView, ViewGroup parent) {
+		ViewHolder holder;
+		
+		if (view == null) {
+			LayoutInflater inflater = (LayoutInflater)context
+					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			convertView = inflater.inflate(row, null);
+			holder = new ViewHolder();
+			convertView.setTag(holder);
+		} else {
+			holder = (ViewHolder)convertView.getTag();
+		}
+	 
+		if (list == null || (position + 1) > list.size())
+			return convertView;
+
+		[comment]TODO[/comment] obj = list.get(position);
+	[let rowElements : OrderedSet(Class) = c.getChildren()]
+		[for (el : Class | rowElements)]
+		holder.[el.name.toLowerFirst()/] = [el.writeFindWidget()/]
+		holder.[el.name.toLowerFirst()/].setText(obj.get[comment]TODO: Attribute[/comment]());
+		[/for]
+		
+		return convertView;
+	}
+
+	public static class ViewHolder {
+		[for (el : Class | rowElements)]
+		public [el.writeWidgetType()/] [el.name.toLowerFirst()/];
+		[/for]
+	}
+	[/let]
+}
+[/file]
+[/template]
+
+[template public writeFindWidget(c : Class)]
+[if (c.isXisLabel())]
+(XisLabel)findViewById(R.id.label[c.name.toUpperFirst()/]);
+[elseif (c.isXisTextBox())]
+(XisTextBox)findViewById(R.id.editText[c.name.toUpperFirst()/]);
+[elseif (c.isXisCheckBox())]
+(XisCheckBox)findViewById(R.id.checkBox[c.name.toUpperFirst()/]);
+[elseif (c.isXisButton())]
+(XisButton)findViewById(R.id.button[c.name.toUpperFirst()/]);
+[elseif (c.isXisLink())]
+(XisLink)findViewById(R.id.link[c.name.toUpperFirst()/]);
+[elseif (c.isXisImage())]
+(XisImage)findViewById(R.id.image[c.name.toUpperFirst()/]);
+[elseif (c.isXisDatePicker())]
+(XisDatePicker)findViewById(R.id.datePicker[c.name.toUpperFirst()/]);
+[elseif (c.isXisTimePicker())]
+(XisTimePicker)findViewById(R.id.timePicker[c.name.toUpperFirst()/]);
+[elseif (c.isXisWebView())]
+(XisWebView)findViewById(R.id.web[c.name.toUpperFirst()/]);
+[elseif (c.isXisMapView())]
+(XisMapView)findViewById(R.id.map[c.name.toUpperFirst()/]);
+[elseif (c.isList())]
+(ListView)findViewById(R.id.list[c.name.toUpperFirst()/]);
+[/if]
+[/template]
+
+[template public writeWidgetType(c : Class)]
+[if (c.isXisLabel())]
+XisLabel
+[elseif (c.isXisTextBox())]
+XisTextBox
+[elseif (c.isXisCheckBox())]
+XisCheckBox
+[elseif (c.isXisButton())]
+XisButton
+[elseif (c.isXisLink())]
+XisLink
+[elseif (c.isXisImage())]
+XisImage
+[elseif (c.isXisDatePicker())]
+XisDatePicker
+[elseif (c.isXisTimePicker())]
+XisTimePicker
+[elseif (c.isXisWebView())]
+XisWebView
+[elseif (c.isXisMapView())]
+XisMapView
+[elseif (c.isList())]
+ListView
+[elseif (c.isXisDropdown())]
+Spinner
+[/if]
+[/template]
+

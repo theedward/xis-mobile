@@ -4,8 +4,9 @@
 [import xismobile::pim::uml2::gen::android::common::xisMobileUtils /]
 [import xismobile::pim::uml2::gen::android::common::utils /]
 [import xismobile::pim::uml2::gen::android::services::services /]
+[import xismobile::pim::uml2::gen::android::files::businessEntity /]
 
-[template public generateOrmLiteHelper(entities : OrderedSet(Class))]
+[template public generateOrmLiteHelper(entities : OrderedSet(Class), model : Model)]
 
 [file ('domain/OrmLiteHelper.java', false, 'UTF-8')]
 package [entities->at(1).getPackagePath()/].domain;
@@ -107,27 +108,32 @@ public class OrmLiteHelper extends OrmLiteSqliteOpenHelper {
 		}
 	}
 
+	// BusinessEntities Region
+	[for (be : Class | getAllBusinessEntities(model)) separator ('\n')]
+	[writeBusinessEntity(be, true)/]
+	[/for]
+
 }
 [/file]
 [/template]
 
-[template public writeDaoDeclaration(s : String)]
-
-[/template]
-
 [template public writeDaoOperations(s : String)]
-private Dao<[s.toUpperFirst()/], Integer> get[s.toUpperFirst()/]Dao() throws SQLException {
+public Dao<[s.toUpperFirst()/], Integer> get[s.toUpperFirst()/]Dao() {
 	if ([s.toLowerFirst()/]Dao == null) {
-		[s.toLowerFirst()/]Dao = getDao([s.toUpperFirst()/].class);
+		try {
+			[s.toLowerFirst()/]Dao = getDao([s.toUpperFirst()/].class);
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	return [s.toLowerFirst()/]Dao;
 }
 
-public int create[s.toUpperFirst()/]([s.toUpperFirst()/] [s.toLowerFirst()/]) {
+public int createOrUpdate[s.toUpperFirst()/]([s.toUpperFirst()/] [s.toLowerFirst()/]) {
 	int i = -1;
 	try {
 		[s.toLowerFirst()/]Dao = get[s.toUpperFirst()/]Dao();
-		i = [s.toLowerFirst()/]Dao.create([s.toLowerFirst()/]);
+		i = [s.toLowerFirst()/]Dao.createOrUpdate([s.toLowerFirst()/]).getNumLinesChanged();
 	} catch (SQLException e) {
 		e.printStackTrace();
 	}

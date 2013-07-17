@@ -3,6 +3,7 @@
 
 [import xismobile::pim::uml2::gen::android::common::xisMobileUtils /]
 [import xismobile::pim::uml2::gen::android::files::action /]
+[import xismobile::pim::uml2::gen::android::files::adapter /]
 
 [template public getWidgetName(c : Class) post (trim())]
 [if (c.isXisLabel())]
@@ -25,10 +26,10 @@ timePicker[c.name.toUpperFirst()/]
 webView[c.name.toUpperFirst()/]
 [elseif (c.isXisMapView())]
 mapView[c.name.toUpperFirst()/]
-[elseif (c.isXisDropdown())]
-spinner[c.name.toUpperFirst()/]
 [elseif (c.isList())]
 list[c.name.toUpperFirst()/]
+[elseif (c.isXisDropdown())]
+spinner[c.name.toUpperFirst()/]
 [/if]
 [/template]
 
@@ -53,6 +54,12 @@ XisTimePicker timePicker[c.name.toUpperFirst()/] = (XisTimePicker)findViewById(R
 XisWebView web[c.name.toUpperFirst()/] = (XisWebView)findViewById(R.id.web[c.name.toUpperFirst()/]);
 [elseif (c.isXisMapView())]
 XisMapView map[c.name.toUpperFirst()/] = (XisMapView)findViewById(R.id.map[c.name.toUpperFirst()/]);
+[elseif (c.isList())]
+ListView list[c.name.toUpperFirst()/] = (ListView)findViewById(R.id.list[c.name.toUpperFirst()/]);
+list[c.name.toUpperFirst()/].setAdapter();
+[c.generateAdapter()/]
+[elseif (c.isXisDropdown())]
+Spinner spinner[c.name.toUpperFirst()/] = (Spinner)findViewById(R.id.spinner[c.name.toUpperFirst()/]);
 [/if]
 [c.writeXisGestureManager()/]
 [/template]
@@ -154,6 +161,34 @@ XisMapView map[c.name.toUpperFirst()/] = (XisMapView)findViewById(R.id.map[c.nam
 	[/let]
 });
 [/let]
+[/template]
+
+[template public writeWidget(c : Class)]
+[if (c.isXisLabel())]
+[c.writeLabel()/]
+[elseif (c.isXisTextBox())]
+[c.writeTextBox()/]
+[elseif (c.isXisCheckBox())]
+[c.writeCheckBox()/]
+[elseif (c.isXisButton())]
+[c.writeButton()/]
+[elseif (c.isXisLink())]
+[c.writeLink()/]
+[elseif (c.isXisImage())]
+[c.writeImageView()/]
+[elseif (c.isXisDatePicker())]
+[c.writeDatePicker()/]
+[elseif (c.isXisTimePicker())]
+[c.writeTimePicker()/]
+[elseif (c.isXisWebView())]
+[c.writeWebView()/]
+[elseif (c.isXisMapView())]
+[c.writeMapView()/]
+[elseif (c.isList())]
+[c.writeListView()/]
+[elseif (c.isXisDropdown())]
+[c.writeDropdown()/]
+[/if]
 [/template]
 
 [template public writeLabel(c : Class)]
@@ -266,11 +301,30 @@ XisMapView map[c.name.toUpperFirst()/] = (XisMapView)findViewById(R.id.map[c.nam
 [/template]
 
 [template public writeListView(c : Class)]
+[if (c.listIsSearchable())]
+<EditText
+    android:id="@+id/search[c.name.toUpperFirst()/]"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:drawableRight="@android:drawable/ic_search_category_default"
+    android:ems="10"
+    android:hint="Search..." >
+    <requestFocus />
+</EditText>
+[/if]
 <ListView
-	android:id="@android:id/list[c.name.toUpperFirst()/]"
+	android:id="@+id/list[c.name.toUpperFirst()/]"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
 	android:layout_alignParentTop="true"
 	android:layout_centerHorizontal="true"
+/>
+[/template]
+
+[template public writeDropdown(c : Class)]
+<Spinner
+    android:id="@+id/spinner[c.name.toUpperFirst()/]"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
 />
 [/template]

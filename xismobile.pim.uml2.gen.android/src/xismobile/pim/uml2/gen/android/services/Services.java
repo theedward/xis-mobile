@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.eclipse.uml2.uml.Association;
 import org.eclipse.uml2.uml.Class;
+import org.eclipse.uml2.uml.Generalization;
 import org.eclipse.uml2.uml.Interface;
 import org.eclipse.uml2.uml.InterfaceRealization;
 import org.eclipse.uml2.uml.Property;
@@ -55,9 +56,10 @@ public class Services {
 
 	public String getExtensionAndImplementations(Class c) {
 		StringBuilder builder = new StringBuilder();
+		List<Generalization> gens = c.getGeneralizations(); 
 
-		if (c.getGeneralizations().size() == 1) {
-			Class cl = (Class) c.getGeneralizations().get(0).getTargets()
+		if (gens.size() == 1 && isXisInheritance(gens.get(0))) {
+			Class cl = (Class) gens.get(0).getTargets()
 					.get(0);
 			builder.append(" extends ").append(cl.getName());
 		}
@@ -164,14 +166,18 @@ public class Services {
 		return a.getAppliedStereotype("XIS-Mobile::XisReferenceAssociation") != null;
 	}
 	
+	private boolean isXisInheritance(Generalization g) {
+		return g.getAppliedStereotype("XIS-Mobile::XisInheritance") != null;
+	}
+	
 	/**
 	 * Auxiliary method to put the first letter of a string in upper case.
 	 * 
-	 * @param s
-	 *            The original string
+	 * @param s The original string 
+	 * 
 	 * @return The string with the first letter in upper case
 	 */
 	private String toUpperFirst(String s) {
-		return s.substring(0, 1) + s.substring(1);
+		return s.substring(0, 1).toUpperCase() + s.substring(1);
 	}
 }

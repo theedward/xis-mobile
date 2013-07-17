@@ -231,7 +231,7 @@ first.isNavigable() and second.isNavigable())]
 
 [template public processForeignKeyAttr(a : Association, idx : Integer) post (trim())]
 [let p : Property = a.memberEnd->at(idx)]
-@DatabaseField(foreign = true)
+@DatabaseField(foreign = true, foreignAutoRefresh = true)
 public [a.endType->at(idx).name/] [p.name/];
 [/let]
 [/template]

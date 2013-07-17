@@ -72,6 +72,31 @@
 /]
 
 [**
+ * BusinessEntity View queries 
+ */]
+
+[query public getXisBusinessEntity(c : Class) : Stereotype =
+	c.getAppliedStereotype('XIS-Mobile::XisBusinessEntity')
+/]
+
+[query public isXisBusinessEntity(c : Class) : Boolean = 
+	not c.getXisBusinessEntity().oclIsUndefined()
+/]
+
+[query public isXisDomainAssociation(a : Association) : Boolean =
+	not a.getAppliedStereotype('XIS-Mobile::XisDomainAssociation').oclIsUndefined()
+/]
+
+[query public getAllBusinessEntities(m : Model) : OrderedSet(Class) =
+	m.allOwnedElements()->selectByType(Class)->select(
+		c : Class | c.isXisBusinessEntity())
+/]
+
+[query public getXisDomainAssociations(c : Class) : Set(Association) =
+	c.getAssociations()->select(a : Association | a.isXisDomainAssociation())
+/]
+
+[**
  * InteractionSpace View Queries  
  */]
 
@@ -130,6 +155,16 @@
 	) = 'Item'
 /]
 
+[query public isTab(c : Class) : Boolean =
+	getEnumValue(c.getValue(
+		c.getXisCompositeWidget(), 'type')
+	) = 'Tab'
+/]
+
+[query public listIsSearchable(c : Class) : Boolean = 
+	not c.getValue(c.getXisCompositeWidget(), 'searchBy').oclIsUndefined()
+/]
+
 [query public getChildren(c : Class) : OrderedSet(Class) = 
 	c.ownedElement->selectByType(Class)
 /]
@@ -148,6 +183,14 @@
 
 [query public getXisAction(c : Class) : Operation =
 	c.ownedOperation->select(o : Operation | o.isXisAction())->at(1)
+/]
+
+[query public performsNavigation(o : Operation) : Boolean = 
+	not o.getValue(o.getXisAction(), 'navigation').oclIsUndefined()
+/]
+
+[query public getNavigation(o : Operation) : String = 
+	o.getValue(o.getXisAction(), 'navigation')
 /]
 
 [query public isCancelAction(o : Operation) : Boolean = 
@@ -494,22 +537,6 @@
 	else 
 		null
 	endif
-/]
-
-[**
- * BusinessEntity queries 
- */]
-
-[query public getXisBusinessEntity(c : Class) : Stereotype =
-	c.getAppliedStereotype('XIS-Mobile::XisBusinessEntity')
-/]
-
-[query public isXisBusinessEntity(c : Class) : Boolean = 
-	not c.getXisBusinessEntity().oclIsUndefined()
-/]
-
-[query public isXisDomainAssociation(a : Association) : Boolean =
-	not a.getAppliedStereotype('XIS-Mobile::XisDomainAssociation').oclIsUndefined()
 /]
 
 [**

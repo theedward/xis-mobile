@@ -27,8 +27,8 @@
 
 		<activity
 			android:name=".[c.name/]Activity"
-		[if (c.isMainScreen())]
 			android:label="@string/[c.name/]_activity" >
+		[if (c.isMainScreen())]
 			<intent-filter >
 		    	<action android:name="android.intent.action.MAIN" />
 		    	<category android:name="android.intent.category.LAUNCHER" />

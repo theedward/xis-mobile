@@ -3,7 +3,6 @@
 
 [import xismobile::pim::uml2::gen::android::common::xisMobileUtils /]
 
-
 [template public getXisArgumentsTypeAndName(p : Parameter)]
 [p.getXisArgumentType()/] [p.getXisArgumentName().toLowerFirst()/]
 [/template]
@@ -15,14 +14,12 @@
 [template public writeXisAction(o : Operation) post (trim())]
 [if (o.isCancelAction())]
 finish();
-[elseif (o.isNavigateToAction())]
-	[if (o.XisArgumentExists('interactionSpace', 'value'))]
-Intent intent = new Intent(this, [o.getXisArgumentValueByName('interactionSpace', 'value').toUpperFirst()/]Activity.class);
-startActivity(intent);
-	[else]
-[writeTODO()/]
+[else]
+[let navigation : String = o.getNavigation()]
+	[if (not navigation.oclIsUndefined())]
+Intent intent = new Intent(this, [navigation/]Activity.class);
 	[/if]
-[elseif (o.isSaveAction())]
+[if (o.isSaveAction())]
 [comment] TODO Create/Update Entity by name[/comment]
 [elseif (o.isDeleteteAction())]
 [comment] TODO Delete Entity by name[/comment]
@@ -37,6 +34,11 @@ startActivity(intent);
 [elseif (o.isCustomAction())]
 [o.writeCustomActionCall()/]
 [/if]
+	[if (not navigation.oclIsUndefined())]
+startActivity(intent);
+	[/if]
+[/let]
+[/if]
 [/template]
 
 [**
@@ -46,7 +48,7 @@ startActivity(intent);
 [template public writeWebServiceArea(c : Class)]
 [let wsl : Set(Operation) = c.getAllWebServiceActions()]
 [if (wsl->size() > 0)]
-/** WebService Actions Area */
+/** WebService Actions Region */
 	[for (o : Operation | wsl) separator ('\n')]
 [o.writeWebServiceDeclaration()/]
 	[/for]
@@ -84,7 +86,7 @@ public void [o.name.toLowerFirst()/](String url) {
  */]
 
 [template public writeCustomActionArea(cls : Set(Operation)) post (trim())]
-/** Custom Actions Area */
+/** Custom Actions Region */
 [for (o : Operation | cls) separator ('\n')]
 [o.writeCustomActionDeclaration()/]
 [/for]

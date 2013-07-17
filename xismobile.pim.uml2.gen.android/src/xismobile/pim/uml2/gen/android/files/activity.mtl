@@ -18,6 +18,7 @@ import android.app.Activity;
 import android.view.Menu;
 [/if]
 [if (widgets->size() > 0)]
+
 import xis_mobile.library.widgets.*;
 [/if]
 [for (entity : Class | c.getInteractionSpaceReferencedEntities())]
@@ -28,16 +29,23 @@ public class [c.name.toUpperFirst()/]Activity extends Activity {
 
 [if (c.needsDbConnection())]
 	private OrmLiteHelper helper;
-
 [elseif (c.needsDomainViews())]
 	private DomainEntityManager manager;
-
 [/if]
+	[for (w : Class | widgets)]
+	private [w.writeWidgetTypeAndName()/];
+	[/for]
+
 	/** Called when the activity is first created. */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.[c.name.toLowerCase()/]);
+		[if (c.needsDbConnection())]
+		getDbHelper();
+		[elseif (c.needsDomainViews())]
+		getManager();
+		[/if]
 		[if (widgets->size() > 0)]
 		initializeWidgets();
 		[/if]
@@ -49,6 +57,7 @@ public class [c.name.toUpperFirst()/]Activity extends Activity {
 		[if (c.needsDbConnection())]
 		if (helper != null) {
 			OpenHelperManager.releaseHelper();
+			helper.close();
 			helper = null;
 		}
 		[elseif (c.needsDomainViews())]
@@ -89,26 +98,7 @@ public class [c.name.toUpperFirst()/]Activity extends Activity {
 		case R.id.item_[it.name.toLowerCase()/]:
 	[if (it.hasXisAction())]
 		[let op : Operation = it.getXisAction()]
-		[if (op.isCancelAction())]
-			finish();
-		[elseif (op.isNavigateToAction())]
-			[if (op.XisArgumentExists('interactionSpace', 'value'))]
-			Intent intent = new Intent(this, [op.getXisArgumentValueByName('interactionSpace', 'value').toUpperFirst()/]Activity.class);
-			startActivity(intent);
-			[else]
-			[writeTODO()/]
-			[/if]
-		[elseif (op.isSaveAction())]
-		[comment] TODO Create/Update Entity by name[/comment]
-		[elseif (op.isDeleteteAction())]
-		[comment] TODO Delete Entity by name[/comment]
-		[elseif (op.isDeleteteAllAction())]
-		[comment] TODO Delete all entities[/comment]
-		[elseif (op.isWebServiceAction())]
-			[op.name.toLowerFirst()/]();
-		[elseif (op.isCustomAction())]
-			[op.writeCustomActionCall()/]
-		[/if]
+		[op.writeXisAction()/]
 		[/let]
 	[/if]
 			return true;
@@ -131,7 +121,7 @@ public class [c.name.toUpperFirst()/]Activity extends Activity {
 	[cls->writeCustomActionArea()/]
 	[/if]
 [/let]
-	[if (c.needsDbConnection())]
+[if (c.needsDbConnection())]
 
 	private OrmLiteHelper getDbHelper() {
 		if (helper == null) {
@@ -139,14 +129,42 @@ public class [c.name.toUpperFirst()/]Activity extends Activity {
 		}
 		return helper;
 	}
-	[elseif (c.needsDomainViews())]
+[elseif (c.needsDomainViews())]
 	private DomainEntityManager getManager() {
 		if (manager == null) {
-			manager = new DomainEntityManager(this);  
+			manager = new DomainEntityManager(getApplicationContext());  
 		}
 		return manager;
 	}	
-	[/if]
+[/if]
 }
 [/file]
+[/template]
+
+[template public writeWidgetTypeAndName(c : Class)]
+[if (c.isXisLabel())]
+XisLabel label[c.name.toUpperFirst()/]
+[elseif (c.isXisTextBox())]
+XisTextBox editText[c.name.toUpperFirst()/]
+[elseif (c.isXisCheckBox())]
+XisCheckBox checkBox[c.name.toUpperFirst()/]
+[elseif (c.isXisButton())]
+XisButton button[c.name.toUpperFirst()/]
+[elseif (c.isXisLink())]
+XisLink link[c.name.toUpperFirst()/]
+[elseif (c.isXisImage())]
+XisImage image[c.name.toUpperFirst()/]
+[elseif (c.isXisDatePicker())]
+XisDatePicker datePicker[c.name.toUpperFirst()/]
+[elseif (c.isXisTimePicker())]
+XisTimePicker timePicker[c.name.toUpperFirst()/]
+[elseif (c.isXisWebView())]
+XisWebView webView[c.name.toUpperFirst()/]
+[elseif (c.isXisMapView())]
+XisMapView mapView[c.name.toUpperFirst()/]
+[elseif (c.isList())]
+ListView list[c.name.toUpperFirst()/]
+[elseif (c.isXisDropdown())]
+Spinner spinner[c.name.toUpperFirst()/]
+[/if]
 [/template]
