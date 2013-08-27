@@ -6,12 +6,12 @@
  * Domain View queries
  */]
 
-[query public needsDbConnection(o : OclAny) : Boolean =
-	false
+[query public needsDbHelper(cl : Set(Class)) : Boolean =
+	not cl->oclIsUndefined() and cl->exists(c : Class | c.isPersistent())
 /]
 
-[query public needsDomainViews(o : OclAny) : Boolean =
-	false 
+[query public needsEntityManager(cl : Set(Class)) : Boolean =
+	not cl->oclIsUndefined() and cl->exists(c : Class | c.isPersistent()._not()) 
 /]
 
 [query public getXisEntity(c : Class) : Stereotype =
@@ -456,6 +456,14 @@
 	then 'Time'
 	else value
 	endif
+/]
+
+[query public hasDatePicker(cl : OrderedSet(Class)) : Boolean = 
+	cl->select(c : Class | c.isXisDatePicker())->size() > 0
+/]
+
+[query public hasTimePicker(cl : OrderedSet(Class)) : Boolean = 
+	cl->select(c : Class | c.isXisTimePicker())->size() > 0
 /]
 
 [query public isXisLink(c : Class) : Boolean =

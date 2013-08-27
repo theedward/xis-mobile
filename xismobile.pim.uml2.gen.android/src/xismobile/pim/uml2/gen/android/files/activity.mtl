@@ -17,33 +17,52 @@ import android.app.Activity;
 [if (c.hasMenu())]
 import android.view.Menu;
 [/if]
+[if (widgets->hasDatePicker() or widgets->hasTimePicker())]
+import java.util.Calendar;
+[if (widgets->hasDatePicker())]
+import android.app.DatePickerDialog;
+import android.app.DatePickerDialog.OnDateSetListener;
+[/if]
+[if (widgets->hasTimePicker())]
+import android.app.TimePickerDialog;
+import android.app.TimePickerDialog.OnTimeSetListener;
+[/if]
+[/if]
 [if (widgets->size() > 0)]
 
 import xis_mobile.library.widgets.*;
 [/if]
-[for (entity : Class | c.getInteractionSpaceReferencedEntities())]
+[let entities : Set(Class) = c.getInteractionSpaceReferencedEntities()]
+[for (entity : Class | entities)]
 import domain.[entity.name.toUpperFirst()/];
 [/for]
 
 public class [c.name.toUpperFirst()/]Activity extends Activity {
 
-[if (c.needsDbConnection())]
+[let dbNeeded : Boolean = entities->needsDbHelper()]
+[let managerNeeded : Boolean = entities->needsEntityManager()]
+[if (dbNeeded)]
 	private OrmLiteHelper helper;
-[elseif (c.needsDomainViews())]
+[/if]
+[if (managerNeeded)]
 	private DomainEntityManager manager;
 [/if]
 	[for (w : Class | widgets)]
 	private [w.writeWidgetTypeAndName()/];
 	[/for]
+	[if (widgets->hasDatePicker() or widgets->hasTimePicker())]
+	private final Calendar mCalendar = Calendar.getInstance(); 
+	[/if]
 
 	/** Called when the activity is first created. */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.[c.name.toLowerCase()/]);
-		[if (c.needsDbConnection())]
+		[if (dbNeeded)]
 		getDbHelper();
-		[elseif (c.needsDomainViews())]
+		[/if]
+		[if (managerNeeded)]
 		getManager();
 		[/if]
 		[if (widgets->size() > 0)]
@@ -54,13 +73,14 @@ public class [c.name.toUpperFirst()/]Activity extends Activity {
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		[if (c.needsDbConnection())]
+		[if (dbNeeded)]
 		if (helper != null) {
 			OpenHelperManager.releaseHelper();
 			helper.close();
 			helper = null;
 		}
-		[elseif (c.needsDomainViews())]
+		[/if]
+		[if (managerNeeded)]
 		if (manager != null) {
 			manager = null;
 		}
@@ -79,8 +99,45 @@ public class [c.name.toUpperFirst()/]Activity extends Activity {
 		[w.initializeWidget()/]
 	}
 	[/for]
+	[if (widgets->hasDatePicker())]
+
+	public void setDatePicker(View v)
+	{
+		int yearC = mCalendar.get(Calendar.YEAR);
+		int monthC = mCalendar.get(Calendar.MONTH);
+		int dayC = mCalendar.get(Calendar.DAY_OF_MONTH);
+		
+		new DatePickerDialog(this, new OnDateSetListener() {
+			
+			@Override
+			public void onDateSet(DatePicker view, int year, int monthOfYear,
+					int dayOfMonth) {
+				mDatePickerBtn.setText(String.format("%s-%s-%s", year, monthOfYear+1,
+					dayOfMonth));
+				mCalendar.set(year, monthOfYear, dayOfMonth);
+			}
+		}, yearC, monthC, dayC).show();
+	}
 	[/if]
-[/let]
+	[if (widgets->hasTimePicker())]
+
+	public void setTimePicker(View v)
+	{
+		int hour = mCalendar.get(Calendar.HOUR_OF_DAY);
+		int minutes = mCalendar.get(Calendar.MINUTE);
+		
+		new TimePickerDialog(this, new OnTimeSetListener() {
+			
+			@Override
+			public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+				mTimePickerBtn.setText(String.format("%s:%s", hourOfDay, minute));
+				mCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+				mCalendar.set(Calendar.MINUTE, minute);
+			}
+		}, hour, minutes, true).show();
+	}
+	[/if]
+	[/if]
 [if (c.hasMenu())]
 	[let m : Class = c.getMenu()]
 
@@ -121,7 +178,7 @@ public class [c.name.toUpperFirst()/]Activity extends Activity {
 	[cls->writeCustomActionArea()/]
 	[/if]
 [/let]
-[if (c.needsDbConnection())]
+[if (dbNeeded)]
 
 	private OrmLiteHelper getDbHelper() {
 		if (helper == null) {
@@ -129,7 +186,8 @@ public class [c.name.toUpperFirst()/]Activity extends Activity {
 		}
 		return helper;
 	}
-[elseif (c.needsDomainViews())]
+[/if]
+[if (managerNeeded)]
 	private DomainEntityManager getManager() {
 		if (manager == null) {
 			manager = new DomainEntityManager(getApplicationContext());  
@@ -138,6 +196,10 @@ public class [c.name.toUpperFirst()/]Activity extends Activity {
 	}	
 [/if]
 }
+[/let]
+[/let]
+[/let]
+[/let]
 [/file]
 [/template]
 
