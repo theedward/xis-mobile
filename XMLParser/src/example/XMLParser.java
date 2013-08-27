@@ -98,9 +98,12 @@ public class XMLParser {
 						aux = lst.item(i);
 						if (aux.getNodeName().equals("XIS-Mobile:XisEntityAttribute")) {
 							Element el = (Element) aux;
-							el.setAttribute("base_Property", el.getAttribute("base_Attribute"));
-							el.removeAttribute("base_Attribute");
-//							System.out.println(el.getAttribute("base_Property"));
+							if (el.hasAttribute("base_Attribute"))
+							{
+								el.setAttribute("base_Property", el.getAttribute("base_Attribute"));
+								el.removeAttribute("base_Attribute");
+	//							System.out.println(el.getAttribute("base_Property"));
+							}
 						}
 						parent.removeChild(aux);
 						xmiElement.appendChild(aux.cloneNode(true));
