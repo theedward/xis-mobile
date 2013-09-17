@@ -647,7 +647,7 @@
       </defaultValue>
     </ownedAttribute>
   </packagedElement>
-  <packagedElement xmi:type="uml:Stereotype" xmi:id="_t3PFMB9xEeOZ6al_I843SA" name="XisServer">
+  <packagedElement xmi:type="uml:Stereotype" xmi:id="_t3PFMB9xEeOZ6al_I843SA" clientDependency="_GuRJAB-aEeORB-DmcVQjUg" name="XisServer">
     <ownedAttribute xmi:id="_zAKt4B9xEeOZ6al_I843SA" name="name" visibility="public" isUnique="false">
       <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
       <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_2gFKUB9xEeOZ6al_I843SA" value="1"/>
@@ -664,8 +664,9 @@
         <value xsi:nil="true"/>
       </defaultValue>
     </ownedAttribute>
+    <interfaceRealization xmi:id="_GuRJAB-aEeORB-DmcVQjUg" client="_t3PFMB9xEeOZ6al_I843SA" supplier="_l8NvYB9xEeOZ6al_I843SA"/>
   </packagedElement>
-  <packagedElement xmi:type="uml:Stereotype" xmi:id="_7qgAwB9xEeOZ6al_I843SA" name="XisLocationProvider">
+  <packagedElement xmi:type="uml:Stereotype" xmi:id="_7qgAwB9xEeOZ6al_I843SA" clientDependency="_rgzHkB-YEeORB-DmcVQjUg" name="XisLocationProvider">
     <ownedAttribute xmi:id="_GNyZUB9yEeOZ6al_I843SA" name="name" visibility="public" isUnique="false">
       <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
       <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_YGJiAB9yEeOZ6al_I843SA" value="1"/>
@@ -674,9 +675,10 @@
         <value xsi:nil="true"/>
       </defaultValue>
     </ownedAttribute>
+    <interfaceRealization xmi:id="_rgzHkB-YEeORB-DmcVQjUg" client="_7qgAwB9xEeOZ6al_I843SA" supplier="_iz0bEB9xEeOZ6al_I843SA"/>
     <ownedOperation xmi:id="_OZDVIB9zEeOZ6al_I843SA" name="getCurrentPosition"/>
   </packagedElement>
-  <packagedElement xmi:type="uml:Stereotype" xmi:id="__U-HYB9xEeOZ6al_I843SA" name="XisContactsProvider">
+  <packagedElement xmi:type="uml:Stereotype" xmi:id="__U-HYB9xEeOZ6al_I843SA" clientDependency="_nlD1UB-ZEeORB-DmcVQjUg" name="XisContactsProvider">
     <ownedAttribute xmi:id="_ZBESIB9yEeOZ6al_I843SA" name="name" visibility="public" isUnique="false">
       <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
       <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_aNPKUB9yEeOZ6al_I843SA" value="1"/>
@@ -685,9 +687,10 @@
         <value xsi:nil="true"/>
       </defaultValue>
     </ownedAttribute>
+    <interfaceRealization xmi:id="_nlD1UB-ZEeORB-DmcVQjUg" client="__U-HYB9xEeOZ6al_I843SA" supplier="_iz0bEB9xEeOZ6al_I843SA"/>
     <ownedOperation xmi:id="_VoewQB9zEeOZ6al_I843SA" name="getAllContacts"/>
   </packagedElement>
-  <packagedElement xmi:type="uml:Stereotype" xmi:id="_om4wcB9yEeOZ6al_I843SA" name="XisCalendarProvider">
+  <packagedElement xmi:type="uml:Stereotype" xmi:id="_om4wcB9yEeOZ6al_I843SA" clientDependency="_4v2GUB-ZEeORB-DmcVQjUg" name="XisCalendarProvider">
     <ownedAttribute xmi:id="_qaomAB9yEeOZ6al_I843SA" name="name" visibility="public" isUnique="false">
       <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
       <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_rZaicB9yEeOZ6al_I843SA" value="1"/>
@@ -696,8 +699,9 @@
         <value xsi:nil="true"/>
       </defaultValue>
     </ownedAttribute>
+    <interfaceRealization xmi:id="_4v2GUB-ZEeORB-DmcVQjUg" client="_om4wcB9yEeOZ6al_I843SA" supplier="_iz0bEB9xEeOZ6al_I843SA"/>
   </packagedElement>
-  <packagedElement xmi:type="uml:Stereotype" xmi:id="_1kJ4IB9yEeOZ6al_I843SA" name="XisClientMobileApp">
+  <packagedElement xmi:type="uml:Stereotype" xmi:id="_1kJ4IB9yEeOZ6al_I843SA" clientDependency="_-hsJIB-ZEeORB-DmcVQjUg" name="XisClientMobileApp">
     <ownedAttribute xmi:id="_68kHQB9yEeOZ6al_I843SA" name="name" visibility="public" isUnique="false">
       <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
       <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_7-KuMB9yEeOZ6al_I843SA" value="1"/>
@@ -706,6 +710,7 @@
         <value xsi:nil="true"/>
       </defaultValue>
     </ownedAttribute>
+    <interfaceRealization xmi:id="_-hsJIB-ZEeORB-DmcVQjUg" client="_1kJ4IB9yEeOZ6al_I843SA" supplier="_iz0bEB9xEeOZ6al_I843SA"/>
   </packagedElement>
   <packagedElement xmi:type="uml:Stereotype" xmi:id="_h6THMB9zEeOZ6al_I843SA" name="XisInteractionSpace">
     <ownedAttribute xmi:id="_mM8BEB9zEeOZ6al_I843SA" name="name" visibility="public" isUnique="false">
