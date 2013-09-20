@@ -3,9 +3,9 @@
 
 [import xismobile::pim::uml2::gen::android::common::xisMobileUtils /]
 
-[template public generateAdapter(c : Class)]
+[template public generateAdapter(widget : Class, entity : Class)]
 
-[file (c.name.toUpperFirst().concat('Adapter.java'), false, 'UTF-8')]
+[file (entity.name.toUpperFirst().concat('Adapter.java'), false, 'UTF-8')]
 import java.util.List;
 
 import android.content.Context;
@@ -17,12 +17,12 @@ import android.widget.ArrayAdapter;
 import xis_mobile.library.widgets.*;
 
 
-public class [c.name.toUpperFirst()/]Adapter extends ArrayAdapter<[comment]TODO[/comment]> {
+public class [entity.name.toUpperFirst()/]Adapter extends ArrayAdapter<[entity.name.toUpperFirst()/]> {
     private Context context;
     private int row;
-    private List<[comment]TODO[/comment]> list;
+    private List<[entity.name.toUpperFirst()/]> list;
     
-	public NameAdapter(Context context, int rowId, List<[comment]TODO[/comment]> list) {
+	public [entity.name.toUpperFirst()/]Adapter(Context context, int rowId, List<[entity.name.toUpperFirst()/]> list) {
 		super(context, rowId, list);
 		this.context = context;
 		this.row = rowId;
@@ -35,7 +35,7 @@ public class [c.name.toUpperFirst()/]Adapter extends ArrayAdapter<[comment]TODO[
 	}
 	
 	@Override
-	public [comment]TODO[/comment] getItem(int position) {
+	public [entity.name.toUpperFirst()/] getItem(int position) {
 		return list.get(position);
 	}
 	
@@ -61,8 +61,8 @@ public class [c.name.toUpperFirst()/]Adapter extends ArrayAdapter<[comment]TODO[
 		if (list == null || (position + 1) > list.size())
 			return convertView;
 
-		[comment]TODO[/comment] obj = list.get(position);
-	[let rowElements : OrderedSet(Class) = c.getChildren()]
+		[entity.name.toUpperFirst()/] obj = list.get(position);
+	[let rowElements : OrderedSet(Class) = widget.getChildren()]
 		[for (el : Class | rowElements)]
 		holder.[el.name.toLowerFirst()/] = [el.writeFindWidget()/]
 		holder.[el.name.toLowerFirst()/].setText(obj.get[comment]TODO: Attribute[/comment]());
@@ -134,4 +134,3 @@ ListView
 Spinner
 [/if]
 [/template]
-

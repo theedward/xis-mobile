@@ -4,70 +4,84 @@
 [import xismobile::pim::uml2::gen::android::common::xisMobileUtils /]
 [import xismobile::pim::uml2::gen::android::files::action /]
 [import xismobile::pim::uml2::gen::android::files::adapter /]
+[import xismobile::pim::uml2::gen::android::services::services /]
 
 [template public getWidgetName(c : Class) post (trim())]
 [if (c.isXisLabel())]
-label[c.name.toUpperFirst()/]
+mLabel[c.name.toUpperFirst()/]
 [elseif (c.isXisTextBox())]
-editText[c.name.toUpperFirst()/]
+mEditText[c.name.toUpperFirst()/]
 [elseif (c.isXisCheckBox())]
-checkBox[c.name.toUpperFirst()/]
+mCheckBox[c.name.toUpperFirst()/]
 [elseif (c.isXisButton())]
-button[c.name.toUpperFirst()/]
+mButton[c.name.toUpperFirst()/]
 [elseif (c.isXisLink())]
-link[c.name.toUpperFirst()/]
+mLink[c.name.toUpperFirst()/]
 [elseif (c.isXisImage())]
-image[c.name.toUpperFirst()/]
+mImage[c.name.toUpperFirst()/]
 [elseif (c.isXisDatePicker())]
-datePicker[c.name.toUpperFirst()/]
+mDatePicker[c.name.toUpperFirst()/]
 [elseif (c.isXisTimePicker())]
-timePicker[c.name.toUpperFirst()/]
+mTimePicker[c.name.toUpperFirst()/]
 [elseif (c.isXisWebView())]
-webView[c.name.toUpperFirst()/]
+mWebView[c.name.toUpperFirst()/]
 [elseif (c.isXisMapView())]
-mapView[c.name.toUpperFirst()/]
-[elseif (c.isList())]
-list[c.name.toUpperFirst()/]
+mMapView[c.name.toUpperFirst()/]
+[elseif (c.isXisCompositeWidget() and c.isList())]
+mList[c.name.toUpperFirst()/]
 [elseif (c.isXisDropdown())]
-spinner[c.name.toUpperFirst()/]
+mSpinner[c.name.toUpperFirst()/]
 [/if]
 [/template]
 
-[template public initializeWidget(c : Class) post (trim())]
+[template public initializeWidget(c : Class, action : String) post (trim())]
 [if (c.isXisLabel())]
-XisLabel label[c.name.toUpperFirst()/] = (XisLabel)findViewById(R.id.label[c.name.toUpperFirst()/]);
-[elseif (c.isXisTextBox())]
-XisTextBox editText[c.name.toUpperFirst()/] = (XisTextBox)findViewById(R.id.editText[c.name.toUpperFirst()/]);
-[elseif (c.isXisCheckBox())]
-XisCheckBox checkBox[c.name.toUpperFirst()/] = (XisCheckBox)findViewById(R.id.checkBox[c.name.toUpperFirst()/]);
-[elseif (c.isXisButton())]
-XisButton button[c.name.toUpperFirst()/] = (XisButton)findViewById(R.id.button[c.name.toUpperFirst()/]);
-[elseif (c.isXisLink())]
-XisLink link[c.name.toUpperFirst()/] = (XisLink)findViewById(R.id.link[c.name.toUpperFirst()/]);
-[elseif (c.isXisImage())]
-XisImage image[c.name.toUpperFirst()/] = (XisImage)findViewById(R.id.image[c.name.toUpperFirst()/]);
-[elseif (c.isXisDatePicker())]
-XisDatePicker datePicker[c.name.toUpperFirst()/] = (XisDatePicker)findViewById(R.id.datePicker[c.name.toUpperFirst()/]);
-[elseif (c.isXisTimePicker())]
-XisTimePicker timePicker[c.name.toUpperFirst()/] = (XisTimePicker)findViewById(R.id.timePicker[c.name.toUpperFirst()/]);
-[elseif (c.isXisWebView())]
-XisWebView web[c.name.toUpperFirst()/] = (XisWebView)findViewById(R.id.web[c.name.toUpperFirst()/]);
-[elseif (c.isXisMapView())]
-XisMapView map[c.name.toUpperFirst()/] = (XisMapView)findViewById(R.id.map[c.name.toUpperFirst()/]);
-[elseif (c.isList())]
-ListView list[c.name.toUpperFirst()/] = (ListView)findViewById(R.id.list[c.name.toUpperFirst()/]);
-list[c.name.toUpperFirst()/].setAdapter();
-[c.generateAdapter()/]
-[elseif (c.isXisDropdown())]
-Spinner spinner[c.name.toUpperFirst()/] = (Spinner)findViewById(R.id.spinner[c.name.toUpperFirst()/]);
+mLabel[c.name.toUpperFirst()/] = (XisLabel)findViewById(R.id.label[c.name.toUpperFirst()/]);
+[if ((action = 'update' or action = 'read') and c.hasXisWidgetDomainValue(c.getXisWidget()))]
+String value = String.valueOf(<entity>.<attribute>);
+mLabel.setText(value);
 [/if]
 [c.writeXisGestureManager()/]
+[elseif (c.isXisTextBox())]
+mEditText[c.name.toUpperFirst()/] = (XisTextBox)findViewById(R.id.editText[c.name.toUpperFirst()/]);
+[c.writeXisGestureManager()/]
+[elseif (c.isXisCheckBox())]
+mCheckBox[c.name.toUpperFirst()/] = (XisCheckBox)findViewById(R.id.checkBox[c.name.toUpperFirst()/]);
+[c.writeXisGestureManager()/]
+[elseif (c.isXisImage())]
+mImage[c.name.toUpperFirst()/] = (XisImage)findViewById(R.id.image[c.name.toUpperFirst()/]);
+[c.writeXisGestureManager()/]
+[elseif (c.isXisDatePicker())]
+mDatePicker[c.name.toUpperFirst()/] = (Button)findViewById(R.id.datePicker[c.name.toUpperFirst()/]);
+[c.writeXisGestureManager()/]
+[elseif (c.isXisTimePicker())]
+mTimePicker[c.name.toUpperFirst()/] = (Button)findViewById(R.id.timePicker[c.name.toUpperFirst()/]);
+[c.writeXisGestureManager()/]
+[elseif (c.isXisWebView())]
+mWeb[c.name.toUpperFirst()/] = (XisWebView)findViewById(R.id.web[c.name.toUpperFirst()/]);
+[c.writeXisGestureManager()/]
+[elseif (c.isXisMapView())]
+mMap[c.name.toUpperFirst()/] = (XisMapView)findViewById(R.id.map[c.name.toUpperFirst()/]);
+[c.writeXisGestureManager()/]
+[elseif (c.isXisCompositeWidget() and c.isList())]
+mList[c.name.toUpperFirst()/] = (ListView)findViewById(R.id.list[c.name.toUpperFirst()/]);
+mList[c.name.toUpperFirst()/].setAdapter();
+[comment][c.generateAdapter()/][/comment]
+[elseif (c.isXisButton())]
+mButton[c.name.toUpperFirst()/] = (XisButton)findViewById(R.id.button[c.name.toUpperFirst()/]);
+[c.writeXisGestureManagerWithDefault(c.getXisButton())/]
+[elseif (c.isXisLink())]
+mLink[c.name.toUpperFirst()/] = (XisLink)findViewById(R.id.link[c.name.toUpperFirst()/]);
+[c.writeXisGestureManagerWithDefault(c.getXisLink())/]
+[elseif (c.isXisDropdown())]
+mSpinner[c.name.toUpperFirst()/] = (Spinner)findViewById(R.id.spinner[c.name.toUpperFirst()/]);
+[/if]
 [/template]
 
 [template public writeXisGestureManager(c : Class)]
 [let name : String = c.getWidgetName()]
+[let gestures : OrderedSet(Class) = c.getWidgetGestures()]
 [c.getWidgetName()/].setXisGestureManager(new XisGestureManager() {
-	[let gestures : OrderedSet(Class) = c.getWidgetGestures()]
 
 	@Override
 	public void onTapGesture() {
@@ -158,8 +172,105 @@ Spinner spinner[c.name.toUpperFirst()/] = (Spinner)findViewById(R.id.spinner[c.n
 	[/if]
 	[/let]
 	}
-	[/let]
 });
+[/let]
+[/let]
+[/template]
+
+[template public writeXisGestureManagerWithDefault(c : Class, s : Stereotype)]
+[let name : String = c.getWidgetName()]
+[let gestures : OrderedSet(Class) = c.getWidgetGestures()]
+[let op : OclAny = c.getDefaultOnTapGesture(s)]
+[if (not op.oclIsUndefined() or gestures->size() > 0)]
+[c.getWidgetName()/].setXisGestureManager(new XisGestureManager() {
+
+	@Override
+	public void onTapGesture() {
+	[if (not op.oclIsUndefined())]
+		[op.oclAsType(Operation).writeXisAction()/]
+	[else]
+		[writeTODO()/]
+	[/if]
+	}
+	
+	@Override
+	public void onDoubleTapGesture() {
+	[let taps : OrderedSet(Class) = gestures->select(g : Class | g.isDoubleTapGesture())]
+	[if (taps->size() = 1)]
+		[let action : Operation = taps->at(1).getXisAction()]
+		[if (not action.oclIsUndefined())]
+		[action.writeXisAction()/]
+		[/if]
+		[/let]
+	[else]
+		[writeTODO()/]
+	[/if]
+	[/let]
+	}
+
+	@Override
+	public void onLongTapGesture() {
+	[let taps : OrderedSet(Class) = gestures->select(g : Class | g.isLongTapGesture())]
+	[if (taps->size() = 1)]
+		[let action : Operation = taps->at(1).getXisAction()]
+		[if (not action.oclIsUndefined())]
+		[action.writeXisAction()/]
+		[/if]
+		[/let]
+	[else]
+		[writeTODO()/]
+	[/if]
+	[/let]
+	}
+
+	@Override
+	public void onSwipeGesture() {
+	[let taps : OrderedSet(Class) = gestures->select(g : Class | g.isSwipeGesture())]
+	[if (taps->size() = 1)]
+		[let action : Operation = taps->at(1).getXisAction()]
+		[if (not action.oclIsUndefined())]
+		[action.writeXisAction()/]
+		[/if]
+		[/let]
+	[else]
+		[writeTODO()/]
+	[/if]
+	[/let]
+	}
+	
+	@Override
+	public void onStretchGesture() {
+	[let taps : OrderedSet(Class) = gestures->select(g : Class | g.isStretchGesture())]
+	[if (taps->size() = 1)]
+		[let action : Operation = taps->at(1).getXisAction()]
+		[if (not action.oclIsUndefined())]
+		[action.writeXisAction()/]
+		[/if]
+		[/let]
+	[else]
+		[writeTODO()/]
+	[/if]
+	[/let]
+	}
+	
+	@Override
+	public void onPinchGesture() {
+	[let taps : OrderedSet(Class) = gestures->select(g : Class | g.isPinchGesture())]
+	[if (taps->size() = 1)]
+		[let action : Operation = taps->at(1).getXisAction()]
+		[if (not action.oclIsUndefined())]
+		[action.writeXisAction()/]
+		[/if]
+		[/let]
+	[else]
+		[writeTODO()/]
+	[/if]
+	[/let]
+	}
+});
+[/if]
+[/let]
+[/let]
 [/let]
 [/template]
 
@@ -196,7 +307,11 @@ Spinner spinner[c.name.toUpperFirst()/] = (Spinner)findViewById(R.id.spinner[c.n
 	android:id="@+id/label[c.name.toUpperFirst()/]"
 	android:layout_width="fill_parent"
 	android:layout_height="wrap_content"
-	android:text="[c.getXisWidgetValue(c.getXisLabel())/]"
+[let value : String = c.getXisWidgetValue(c.getXisLabel())]
+	[if (not value.oclIsUndefined() and not value.stringContains('.'))]
+	android:text="[value/]"
+	[/if]
+[/let]
 />
 [/template]
 
@@ -216,6 +331,11 @@ Spinner spinner[c.name.toUpperFirst()/] = (Spinner)findViewById(R.id.spinner[c.n
 	[if (c.XisTextBoxHasHint())]
 	android:hint="[c.getXisTexBoxHint()/]"
 	[/if]
+[let value : String = c.getXisWidgetValue(c.getXisTextBox())]
+	[if (not value.oclIsUndefined() and not value.stringContains('.'))]
+	android:text="[value/]"
+	[/if]
+[/let]
 />
 [/template]
 
@@ -226,7 +346,11 @@ Spinner spinner[c.name.toUpperFirst()/] = (Spinner)findViewById(R.id.spinner[c.n
     [if (c.hasXisAction())]
 	android:onClick="[c.getXisAction().name.toLowerFirst()/]"
 	[/if]
-	android:text="[c.getXisWidgetValue(c.getXisCheckBox())/]"
+[let value : String = c.getXisWidgetValue(c.getXisCheckBox())]
+	[if (not value.oclIsUndefined() and not value.stringContains('.'))]
+	android:text="[value/]"
+	[/if]
+[/let]
 />
 [/template]
 
@@ -238,7 +362,11 @@ Spinner spinner[c.name.toUpperFirst()/] = (Spinner)findViewById(R.id.spinner[c.n
 	[if (c.hasXisAction())]
 	android:onClick="[c.getXisAction().name.toLowerFirst()/]"
 	[/if]
-	android:text="[c.getXisWidgetValue(c.getXisButton())/]"
+[let value : String = c.getXisWidgetValue(c.getXisButton())]
+	[if (not value.oclIsUndefined() and not value.stringContains('.'))]
+	android:text="[value/]"
+	[/if]
+[/let]
 />
 [/template]
 

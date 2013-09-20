@@ -5,15 +5,39 @@
 
 [template public generateMenu(c : Class)]
 
+[if (c.isXisCompositeWidget() and c.isMenu())]
+[file ('res/menu/' + c.name.toLowerCase() + '_menu.xml', false, 'UTF-8')]
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+[for (el : Class | c.getChildren())]
+	[if (el.isGroup())]
+	<group android:id="@+id/group_[el.name.toLowerCase()/]">
+	[for (it : Class | el.getChildren())]
+		[it.writeMenuItem()/]
+	[/for]
+	</group>
+	[elseif (el.isItem())]
+		[el.writeMenuItem()/]
+	[/if]
+[/for]
+
+</menu>
+[/file]
+[/if]
+[/template]
+
+[template public generateContextMenu(c : Class)]
+
 [for (cl : Class | c.getChildren())]
 	[if (cl.isXisCompositeWidget()
 		and cl.isMenu())]
-[file ('res/menu/' + c.name.toLowerCase() + '.xml', false, 'UTF-8')]
+[file ('res/menu/' + c.name.toLowerCase() + '_menu.xml', false, 'UTF-8')]
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
 [for (el : Class | cl.getChildren())]
-	[if (el.isMenuGroup())]
+	[if (el.isGroup())]
 	<group android:id="@+id/group_[el.name.toLowerCase()/]">
 	[for (it : Class | el.getChildren())]
 		[it.writeMenuItem()/]
@@ -33,7 +57,24 @@
 [template public writeMenuItem(c : Class)]
 <item
     android:id="@+id/item_[c.name.toLowerCase()/]"
-    android:orderInCategory="100"
-    android:showAsAction="ifRoom"
+	[if (c.hasXisAction())]
+	[let o : Operation = c.getXisAction()]
+	android:icon="@android:drawable/[writeActionIcon(o)/]"
+	[/let]
+	[/if]
     android:title="@string/item_[c.name.toLowerCase()/]"/>
+[/template]
+
+[template public writeActionIcon(o : Operation) post (trim())]
+[if (o.isCancelAction())]
+ic_menu_revert
+[elseif (o.isCreateAction())]
+ic_menu_add
+[elseif (o.isUpdateAction())]
+ic_menu_edit
+[elseif (o.isDeleteteAction() or o.isDeleteteAllAction())]
+ic_menu_delete
+[elseif (o.isWebServiceAction())]
+ic_menu_send
+[/if]
 [/template]

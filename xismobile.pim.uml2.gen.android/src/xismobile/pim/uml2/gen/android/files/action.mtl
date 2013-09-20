@@ -19,12 +19,26 @@ finish();
 	[if (not navigation.oclIsUndefined())]
 Intent intent = new Intent(this, [navigation/]Activity.class);
 	[/if]
-[if (o.isSaveAction())]
-[comment] TODO Create/Update Entity by name[/comment]
+[if (o.isCreateAction())]
+[let entity : String = o.getXisArgumentValueByName('entityName')]
+[entity.toUpperFirst()/] [entity.toLowerFirst()/] = new [entity.toUpperFirst()/]();
+[/let]
+[elseif (o.isReadAction())]
+[let entity : String = o.getXisArgumentValueByName('entityName')]
+[entity.toLowerFirst()/] = helper.get[entity.toUpperFirst()/]ById(String id);
+[/let]
+[elseif (o.isUpdateAction())]
+[let entity : String = o.getXisArgumentValueByName('entityName')]
+helper.update[entity.toUpperFirst()/]([entity.toLowerFirst()/]);
+[/let]
 [elseif (o.isDeleteteAction())]
-[comment] TODO Delete Entity by name[/comment]
+[let entity : String = o.getXisArgumentValueByName('entityName')]
+helper.delete[entity.toUpperFirst()/]([entity.toLowerFirst()/]);
+[/let]
 [elseif (o.isDeleteteAllAction())]
-[comment] TODO Delete all entities[/comment]
+[let entity : String = o.getXisArgumentValueByName('entityName')]
+helper.deleteAll[entity.toUpperFirst()/]s();
+[/let]
 [elseif (o.isWebServiceAction())]
 	[if (o.XisArgumentExists('url', 'value'))]
 [o.name.toLowerFirst()/]("[o.getXisArgumentValueByName('url', 'value')/]");
@@ -79,7 +93,6 @@ public void [o.name.toLowerFirst()/](String url) {
 	}
 }
 [/template]
-
 
 [**
  * Custom Actions templates 

@@ -97,7 +97,109 @@ public class Services {
 		}
 		return joinEntities;
 	}
+	
+	public List<Class> getMasterEntities(Class c) {
+		List<Class> bes = new ArrayList<Class>();
+		List<Class> entities = new ArrayList<Class>();
+		Type first = null;
+		Type second = null;
 
+		for (Association a : c.getAssociations()) {
+			if (isXisDomainAssociation(a)) {
+				first = a.getEndTypes().get(0);
+				second = a.getEndTypes().get(1);
+				if (isXisBusinessEntity(first)) {
+					bes.add((Class) first);
+				} else if (isXisBusinessEntity(second)) {
+					bes.add((Class) second);
+				}
+			}
+		}
+
+		for (Class cl : bes) {
+			for (Association a : cl.getAssociations()) {
+				if (isXisMasterAssociation(a)) {
+					first = a.getEndTypes().get(0);
+					second = a.getEndTypes().get(1);
+					if (isXisEntity(first)) {
+						entities.add((Class) first);
+					} else if (isXisEntity(second)) {
+						entities.add((Class) second);
+					}
+				}
+			}
+		}
+		return entities;
+	}
+
+	public List<Class> getDetailEntities(Class c) {
+		List<Class> bes = new ArrayList<Class>();
+		List<Class> entities = new ArrayList<Class>();
+		Type first = null;
+		Type second = null;
+
+		for (Association a : c.getAssociations()) {
+			if (isXisDomainAssociation(a)) {
+				first = a.getEndTypes().get(0);
+				second = a.getEndTypes().get(1);
+				if (isXisBusinessEntity(first)) {
+					bes.add((Class) first);
+				} else if (isXisBusinessEntity(second)) {
+					bes.add((Class) second);
+				}
+			}
+		}
+
+		for (Class cl : bes) {
+			for (Association a : cl.getAssociations()) {
+				if (isXisDetailAssociation(a)) {
+					first = a.getEndTypes().get(0);
+					second = a.getEndTypes().get(1);
+					if (isXisEntity(first)) {
+						entities.add((Class) first);
+					} else if (isXisEntity(second)) {
+						entities.add((Class) second);
+					}
+				}
+			}
+		}
+		return entities;
+	}
+	
+	public List<Class> getReferenceEntities(Class c) {
+		List<Class> bes = new ArrayList<Class>();
+		List<Class> entities = new ArrayList<Class>();
+		Type first = null;
+		Type second = null;
+
+		for (Association a : c.getAssociations()) {
+			if (isXisDomainAssociation(a)) {
+				first = a.getEndTypes().get(0);
+				second = a.getEndTypes().get(1);
+				if (isXisBusinessEntity(first)) {
+					bes.add((Class) first);
+				} else if (isXisBusinessEntity(second)) {
+					bes.add((Class) second);
+				}
+			}
+		}
+
+		for (Class cl : bes) {
+			for (Association a : cl.getAssociations()) {
+				if (isXisReferenceAssociation(a)) {
+					first = a.getEndTypes().get(0);
+					second = a.getEndTypes().get(1);
+					if (isXisEntity(first)) {
+						entities.add((Class) first);
+					} else if (isXisEntity(second)) {
+						entities.add((Class) second);
+					}
+				}
+			}
+		}
+		return entities;
+	}
+	
 	public List<Class> getInteractionSpaceReferencedEntities(Class c) {
 		List<Class> bes = new ArrayList<Class>();
 		List<Class> entities = new ArrayList<Class>();
@@ -138,6 +240,34 @@ public class Services {
 
 		return entities;
 	}
+	
+	public List<Class> getInboundNavigationReferencedEntities(Class c) {
+		List<Class> entities = new ArrayList<>();
+//		Property first = null;
+//		Property second = null;
+//		Type endType = null;
+//		
+////		Element el = c.getOwner();
+//		
+//		for (Association a : c.getAssociations()) {
+//			if (isXisNavigationAssociation(a)) {
+//				first = a.getMemberEnds().get(0);
+//				second = a.getMemberEnds().get(1);
+//				if (first.isNavigable()) {
+//					if (a.getEndTypes().get(0).getName().compareTo(c.getName()) != 0) {
+////						result.add(first);
+//					}
+//				}
+//				else {
+//					if (a.getEndTypes().get(1).getName().compareTo(c.getName()) != 0) {
+////						result.add(first);
+//					}
+//				}
+//			}
+//		}
+		
+		return entities;
+	}
 
 	/**
 	 * AUXILIARY METHODS REGION
@@ -149,6 +279,10 @@ public class Services {
 	private boolean isXisDomainAssociation(Association a) {
 		return a.getAppliedStereotype("XIS-Mobile::XisDomainAssociation") != null;
 	}
+	
+//	private boolean isXisNavigationAssociation(Association a) {
+//		return a.getAppliedStereotype("XIS-Mobile::XisNavigationAssociation") != null;
+//	}
 
 	private boolean isXisBusinessEntity(Type t) {
 		return t.getAppliedStereotype("XIS-Mobile::XisBusinessEntity") != null;
@@ -168,6 +302,10 @@ public class Services {
 	
 	private boolean isXisInheritance(Generalization g) {
 		return g.getAppliedStereotype("XIS-Mobile::XisInheritance") != null;
+	}
+	
+	public boolean stringContains(String s1, String s2) {
+		return s1.contains(s2);
 	}
 	
 	/**

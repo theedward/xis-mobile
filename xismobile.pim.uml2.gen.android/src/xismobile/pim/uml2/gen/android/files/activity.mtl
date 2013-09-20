@@ -5,11 +5,12 @@
 [import xismobile::pim::uml2::gen::android::common::utils /]
 [import xismobile::pim::uml2::gen::android::files::action /]
 [import xismobile::pim::uml2::gen::android::files::widget /]
+[import xismobile::pim::uml2::gen::android::files::menu /]
 [import xismobile::pim::uml2::gen::android::services::services /]
 
 [template public generateActivity(c : Class)]
 [file ('src/'.concat(c.name.toUpperFirst().concat('Activity.java')), false, 'UTF-8')]
-[let widgets : OrderedSet(Class) = c.getWidgetsWithGestures()]
+[let widgets : Set(Class) = c.getXisWidgets()]
 package [c.getPackagePath()/];
 
 import android.os.Bundle;
@@ -17,22 +18,12 @@ import android.app.Activity;
 [if (c.hasMenu())]
 import android.view.Menu;
 [/if]
-[if (widgets->hasDatePicker() or widgets->hasTimePicker())]
-import java.util.Calendar;
-[if (widgets->hasDatePicker())]
-import android.app.DatePickerDialog;
-import android.app.DatePickerDialog.OnDateSetListener;
-[/if]
-[if (widgets->hasTimePicker())]
-import android.app.TimePickerDialog;
-import android.app.TimePickerDialog.OnTimeSetListener;
-[/if]
-[/if]
 [if (widgets->size() > 0)]
 
 import xis_mobile.library.widgets.*;
 [/if]
-[let entities : Set(Class) = c.getInteractionSpaceReferencedEntities()]
+
+[let entities : Sequence(Class) = c.getInteractionSpaceReferencedEntities()]
 [for (entity : Class | entities)]
 import domain.[entity.name.toUpperFirst()/];
 [/for]
@@ -43,28 +34,43 @@ public class [c.name.toUpperFirst()/]Activity extends Activity {
 [let managerNeeded : Boolean = entities->needsEntityManager()]
 [if (dbNeeded)]
 	private OrmLiteHelper helper;
-[/if]
-[if (managerNeeded)]
+[elseif (managerNeeded)]
 	private DomainEntityManager manager;
 [/if]
-	[for (w : Class | widgets)]
-	private [w.writeWidgetTypeAndName()/];
+	[writeWidgetVariables(widgets)/]
+[if (entities->size() > 0)]
+	[if (c.isMainScreen())]
+	// Load BE entities (Master, Details & References)
+	[for (master : Class | c.getMasterEntities())]
+	private List<[master.name.toUpperFirst()/]> [master.name.toLowerFirst()/]s;
 	[/for]
-	[if (widgets->hasDatePicker() or widgets->hasTimePicker())]
-	private final Calendar mCalendar = Calendar.getInstance(); 
+	[else]
+	// get referenced entities
 	[/if]
+[/if]
 
 	/** Called when the activity is first created. */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.[c.name.toLowerCase()/]);
+	[if (entities->size() > 0)]
 		[if (dbNeeded)]
 		getDbHelper();
+		[if (c.isMainScreen())]
+		[for (ent : Class | c.getMasterEntities())]
+		[ent.name.toLowerFirst()/]s = helper.getAll[ent.name.toUpperFirst()/]s();
+		[/for]
 		[/if]
-		[if (managerNeeded)]
+		[elseif (managerNeeded)]
 		getManager();
+		[if (c.isMainScreen())]
+		[for (ent : Class | c.getMasterEntities())]
+		[ent.name.toLowerFirst()/]s = manager.getAll[ent.name.toUpperFirst()/]s();
+		[/for]
 		[/if]
+		[/if]
+	[/if]
 		[if (widgets->size() > 0)]
 		initializeWidgets();
 		[/if]
@@ -73,18 +79,19 @@ public class [c.name.toUpperFirst()/]Activity extends Activity {
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
+	[if (entities->size() > 0)]
 		[if (dbNeeded)]
 		if (helper != null) {
 			OpenHelperManager.releaseHelper();
 			helper.close();
 			helper = null;
 		}
-		[/if]
-		[if (managerNeeded)]
+		[elseif (managerNeeded)]
 		if (manager != null) {
 			manager = null;
 		}
 		[/if]
+	[/if]
 	}
 	[if (widgets->size() > 0)]
 
@@ -96,72 +103,36 @@ public class [c.name.toUpperFirst()/]Activity extends Activity {
 
 	[for (w : Class | widgets)]
 	public void initialize[w.getWidgetName().toUpperFirst()/]() {
-		[w.initializeWidget()/]
+		[w.initializeWidget('')/]
 	}
+	[writeWidgetInit(w.getXisWidgets())/]
 	[/for]
-	[if (widgets->hasDatePicker())]
-
-	public void setDatePicker(View v)
-	{
-		int yearC = mCalendar.get(Calendar.YEAR);
-		int monthC = mCalendar.get(Calendar.MONTH);
-		int dayC = mCalendar.get(Calendar.DAY_OF_MONTH);
-		
-		new DatePickerDialog(this, new OnDateSetListener() {
-			
-			@Override
-			public void onDateSet(DatePicker view, int year, int monthOfYear,
-					int dayOfMonth) {
-				mDatePickerBtn.setText(String.format("%s-%s-%s", year, monthOfYear+1,
-					dayOfMonth));
-				mCalendar.set(year, monthOfYear, dayOfMonth);
-			}
-		}, yearC, monthC, dayC).show();
-	}
-	[/if]
-	[if (widgets->hasTimePicker())]
-
-	public void setTimePicker(View v)
-	{
-		int hour = mCalendar.get(Calendar.HOUR_OF_DAY);
-		int minutes = mCalendar.get(Calendar.MINUTE);
-		
-		new TimePickerDialog(this, new OnTimeSetListener() {
-			
-			@Override
-			public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-				mTimePickerBtn.setText(String.format("%s:%s", hourOfDay, minute));
-				mCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
-				mCalendar.set(Calendar.MINUTE, minute);
-			}
-		}, hour, minutes, true).show();
-	}
-	[/if]
 	[/if]
 [if (c.hasMenu())]
 	[let m : Class = c.getMenu()]
+	[generateMenu(c.getMenu()) /]
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.[m.name.toLowerFirst()/], menu);
+		getMenuInflater().inflate(R.menu.[m.name.toLowerFirst()/]_menu, menu);
 		return true;
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-	[for (it : Class | m.getItems())]
-		case R.id.item_[it.name.toLowerCase()/]:
-	[if (it.hasXisAction())]
-		[let op : Operation = it.getXisAction()]
-		[op.writeXisAction()/]
-		[/let]
-	[/if]
-			return true;
-	[/for]
-		default:
-			return super.onOptionsItemSelected(item);
+		[for (it : Class | m.getItems())]
+			case R.id.[it.name.toLowerCase()/]_item:
+		[if (it.hasXisAction())]
+			[let op : Operation = it.getXisAction()]
+			[op.writeXisAction()/]
+			[/let]
+		[/if]
+				return true;
+		[/for]
+			default:
+				return super.onOptionsItemSelected(item);
 		}
 	}
 	[/let]
@@ -186,8 +157,8 @@ public class [c.name.toUpperFirst()/]Activity extends Activity {
 		}
 		return helper;
 	}
-[/if]
-[if (managerNeeded)]
+[elseif (managerNeeded)]
+
 	private DomainEntityManager getManager() {
 		if (manager == null) {
 			manager = new DomainEntityManager(getApplicationContext());  
@@ -203,30 +174,53 @@ public class [c.name.toUpperFirst()/]Activity extends Activity {
 [/file]
 [/template]
 
-[template public writeWidgetTypeAndName(c : Class)]
+[template public writeWidgetVariables(widgets : Set(Class)) post (trim())]
+[if (not widgets->oclIsUndefined())]
+[for (w : Class | widgets)]
+[if (w.isXisCompositeWidget() and w.isForm())]
+[writeWidgetVariables(w.getXisWidgets())/]
+[else]
+private [w.writeWidgetTypeAndName()/];
+[/if]
+[/for]
+[/if]
+[/template]
+
+[template public writeWidgetInit(widgets : Set(Class)) post (trim())]
+[if (not widgets->oclIsUndefined())]
+[for (w : Class | widgets)]
+public void initialize[w.getWidgetName().toUpperFirst()/]() {
+	[w.initializeWidget('')/]
+}
+[writeWidgetInit(w.getXisWidgets())/]
+[/for]
+[/if]
+[/template]
+
+[template public writeWidgetTypeAndName(c : Class) post (trim())]
 [if (c.isXisLabel())]
-XisLabel label[c.name.toUpperFirst()/]
+XisLabel mLabel[c.name.toUpperFirst()/]
 [elseif (c.isXisTextBox())]
-XisTextBox editText[c.name.toUpperFirst()/]
+XisTextBox mEditText[c.name.toUpperFirst()/]
 [elseif (c.isXisCheckBox())]
-XisCheckBox checkBox[c.name.toUpperFirst()/]
+XisCheckBox mCheckBox[c.name.toUpperFirst()/]
 [elseif (c.isXisButton())]
-XisButton button[c.name.toUpperFirst()/]
+XisButton mButton[c.name.toUpperFirst()/]
 [elseif (c.isXisLink())]
-XisLink link[c.name.toUpperFirst()/]
+XisLink mLink[c.name.toUpperFirst()/]
 [elseif (c.isXisImage())]
-XisImage image[c.name.toUpperFirst()/]
+XisImage mImage[c.name.toUpperFirst()/]
 [elseif (c.isXisDatePicker())]
-XisDatePicker datePicker[c.name.toUpperFirst()/]
+DatePicker mDatePicker[c.name.toUpperFirst()/]
 [elseif (c.isXisTimePicker())]
-XisTimePicker timePicker[c.name.toUpperFirst()/]
+TimePicker mTimePicker[c.name.toUpperFirst()/]
 [elseif (c.isXisWebView())]
-XisWebView webView[c.name.toUpperFirst()/]
+WebView mWeb[c.name.toUpperFirst()/]
 [elseif (c.isXisMapView())]
-XisMapView mapView[c.name.toUpperFirst()/]
+MapView mMap[c.name.toUpperFirst()/]
 [elseif (c.isList())]
-ListView list[c.name.toUpperFirst()/]
+ListView mList[c.name.toUpperFirst()/]
 [elseif (c.isXisDropdown())]
-Spinner spinner[c.name.toUpperFirst()/]
+Spinner mSpinner[c.name.toUpperFirst()/]
 [/if]
 [/template]

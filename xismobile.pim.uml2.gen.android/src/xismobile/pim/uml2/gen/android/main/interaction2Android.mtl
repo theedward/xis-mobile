@@ -3,7 +3,6 @@
 
 [import xismobile::pim::uml2::gen::android::common::xisMobileUtils /]
 [import xismobile::pim::uml2::gen::android::files::activity /]
-[import xismobile::pim::uml2::gen::android::files::menu /]
 [import xismobile::pim::uml2::gen::android::files::layout /]
 
 [template public interaction2Android(m : Model)]
@@ -12,7 +11,6 @@
 	[if (spaces->size() > 0)]
 		[for (c : Class | spaces)]
 			[generateActivity() /]
-			[generateMenu() /]
 			[generateLayout() /]
 		[/for]
 	[/if]
