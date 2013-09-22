@@ -65,7 +65,9 @@ public class [entity.name.toUpperFirst()/]Adapter extends ArrayAdapter<[entity.n
 	[let rowElements : OrderedSet(Class) = widget.getChildren()]
 		[for (el : Class | rowElements)]
 		holder.[el.name.toLowerFirst()/] = [el.writeFindWidget()/]
-		holder.[el.name.toLowerFirst()/].setText(obj.get[comment]TODO: Attribute[/comment]());
+		[let attr : String = el.getXisWidgetValue(el.getAppliedStereotypes()->asOrderedSet()->at(1))]
+		holder.[el.name.toLowerFirst()/].setText(String.valueOf(obj.get[attr.toUpperFirst()/]()));
+		[/let]
 		[/for]
 		
 		return convertView;

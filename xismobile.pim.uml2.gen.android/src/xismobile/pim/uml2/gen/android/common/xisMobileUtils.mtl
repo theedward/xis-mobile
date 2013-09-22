@@ -425,7 +425,7 @@
 
 [query public getItems(c : Class) : OrderedSet(Class) = 
 	c.ownedElement->selectByType(Class)->select(
-		i : Class | i.isItem())
+		i : Class | i.isXisCompositeWidget() and i.isItem())
 /]
 
 [query public getXisWidget(c : Class) : Stereotype =
@@ -567,6 +567,12 @@
 
 [query public getXisWidgetDomainValue(c : Class, s : Stereotype) : String =
 	c.getValue(s, 'domainValue')
+/]
+
+[query public getListEntity(c : Class) : Class = 
+	let name : String = c.getXisWidgetValue(c.getXisCompositeWidget()) in
+	c.getModel().allOwnedElements()->selectByType(Class)->
+		select(e : Class | e.name = name)
 /]
 
 [query public hasXisWidgetDomainValue(c : Class, s : Stereotype) : Boolean =

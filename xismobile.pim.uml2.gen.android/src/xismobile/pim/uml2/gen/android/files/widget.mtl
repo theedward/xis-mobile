@@ -4,6 +4,7 @@
 [import xismobile::pim::uml2::gen::android::common::xisMobileUtils /]
 [import xismobile::pim::uml2::gen::android::files::action /]
 [import xismobile::pim::uml2::gen::android::files::adapter /]
+
 [import xismobile::pim::uml2::gen::android::services::services /]
 
 [template public getWidgetName(c : Class) post (trim())]
@@ -65,8 +66,13 @@ mMap[c.name.toUpperFirst()/] = (XisMapView)findViewById(R.id.map[c.name.toUpperF
 [c.writeXisGestureManager()/]
 [elseif (c.isXisCompositeWidget() and c.isList())]
 mList[c.name.toUpperFirst()/] = (ListView)findViewById(R.id.list[c.name.toUpperFirst()/]);
-mList[c.name.toUpperFirst()/].setAdapter();
-[comment][c.generateAdapter()/][/comment]
+[let entity : Class = c.getListEntity()]
+[let item : Class = c.getItems()->at(1)]
+mList[c.name.toUpperFirst()/].setAdapter(new TaskAdapter(getApplicationContext(), R.layout.[item.name.toUpperFirst()/]_item, [entity.name.toLowerFirst()/]s));
+[item.generateListItem()/]
+[c.generateAdapter(entity)/]
+[/let]
+[/let]
 [elseif (c.isXisButton())]
 mButton[c.name.toUpperFirst()/] = (XisButton)findViewById(R.id.button[c.name.toUpperFirst()/]);
 [c.writeXisGestureManagerWithDefault(c.getXisButton())/]
@@ -455,4 +461,21 @@ mSpinner[c.name.toUpperFirst()/] = (Spinner)findViewById(R.id.spinner[c.name.toU
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
 />
+[/template]
+
+[template public generateListItem(c : Class)]
+
+[file ('res/layout/' + c.name.toLowerCase() + '_item.xml', false, 'UTF-8')]
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+[for (cl : Class | c.getChildren())]
+	[cl.writeWidget()/]
+[/for]
+
+</RelativeLayout>
+[/file]
 [/template]

@@ -269,6 +269,10 @@ public class Services {
 		return entities;
 	}
 
+	public String getEntityAttributeOfWidget(String value) {
+		return value.split(".")[1];
+	}
+	
 	/**
 	 * AUXILIARY METHODS REGION
 	 */

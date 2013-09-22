@@ -34,6 +34,10 @@
 	invoke('xismobile.pim.uml2.gen.android.services.Services', 'getInteractionSpaceReferencedEntities(org.eclipse.uml2.uml.Class)', Sequence{c})
 /]
 
+[query public getEntityAttributeOfWidget(value : Class) : String = 
+	invoke('xismobile.pim.uml2.gen.android.services.Services', 'getEntityAttributeOfWidget(java.lang.String)', Sequence{value})
+/]
+
 [query public stringContains(s1 : String, s2 : String) : Boolean = 
 	invoke('xismobile.pim.uml2.gen.android.services.Services', 'stringContains(java.lang.String, java.lang.String)', Sequence{s1, s2})
 /]
