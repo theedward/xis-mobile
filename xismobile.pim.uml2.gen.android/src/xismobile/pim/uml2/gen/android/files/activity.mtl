@@ -110,7 +110,7 @@ public class [c.name.toUpperFirst()/]Activity extends Activity {
 	[/if]
 [if (c.hasMenu())]
 	[let m : Class = c.getMenu()]
-	[generateMenu(c.getMenu()) /]
+	[generateMenu(m) /]
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
