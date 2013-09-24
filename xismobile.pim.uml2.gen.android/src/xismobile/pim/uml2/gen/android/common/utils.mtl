@@ -30,5 +30,5 @@
 /]
 
 [query public getPackagePath(c : Class) : Sequence(OclAny) = 
-	containingPackages().name.toLowerCase().replace(' ', '_')->sep('.')
+	containingPackages().name.toLowerCase().replace(' ', '_').replace('-', '_')->sep('.')
 /]
