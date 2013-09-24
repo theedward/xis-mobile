@@ -1,12 +1,17 @@
 [comment encoding = UTF-8 /]
 [module configuration('http://www.eclipse.org/uml2/4.0.0/UML')]
 
+[import xismobile::pim::uml2::gen::android::services::services /]
+
 [template public generateConfigFiles(m : Model)]
 	[m.generateSettings()/]
 	[m.generateClassPath()/]
 	[m.generateProject()/]
 	[m.generateProguardProperties()/]
 	[m.generateProjectProperties()/]
+	[addLibrary('android-support-v4.jar')/]
+	[addLibrary('ormlite-core-4.45.jar')/]
+	[addLibrary('ormlite-android-4.45.jar')/]
 [/template]
 
 [template private generateSettings(m : Model)]
@@ -72,6 +77,7 @@ org.eclipse.jdt.core.compiler.source=1.6
 </projectDescription>
 [/file]
 [/template]
+
 [template private generateProguardProperties(m : Model)]
 
 [file ('proguard-properties.txt', false, 'UTF-8')]

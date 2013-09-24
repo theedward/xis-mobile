@@ -1,5 +1,9 @@
 package xismobile.pim.uml2.gen.android.services;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +14,8 @@ import org.eclipse.uml2.uml.Interface;
 import org.eclipse.uml2.uml.InterfaceRealization;
 import org.eclipse.uml2.uml.Property;
 import org.eclipse.uml2.uml.Type;
+
+import xismobile.pim.uml2.gen.android.main.Uml2Android;
 
 public class Services {
 
@@ -265,12 +271,49 @@ public class Services {
 //				}
 //			}
 //		}
-		
 		return entities;
 	}
 
 	public String getEntityAttributeOfWidget(String value) {
 		return value.split(".")[1];
+	}
+	
+	/**
+	 * 
+	 * @param jar
+	 * @param target
+	 */
+	public void addLibrary(String jar) {
+		try {
+			String target = Uml2Android.targetFolderPath + "/libs/";
+			File srcFile = new File("libs/" + jar);
+			File destFolder = new File(target);
+			File destFile = new File(target + jar);
+			
+			if (!destFolder.exists()) {
+				destFolder.mkdir();
+			}
+			
+			FileChannel src = null;
+			FileChannel dest = null;
+			
+			try {
+				src = new FileInputStream(srcFile).getChannel();
+				dest = new FileOutputStream(destFile).getChannel();
+				dest.transferFrom(src, 0, src.size());
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				if (src != null) {
+					src.close();
+				}
+				if (dest != null) {
+					dest.close();
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	/**

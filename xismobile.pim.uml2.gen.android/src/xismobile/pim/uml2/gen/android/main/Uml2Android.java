@@ -48,6 +48,11 @@ public class Uml2Android extends AbstractAcceleoGenerator {
      * @generated
      */
     public static final String[] TEMPLATE_NAMES = { "uml2Android" };
+
+    /**
+     * The path of the output folder of the generation.
+     */
+    public static String targetFolderPath;
     
     /**
      * The list of properties files from the launch parameters (Launch configuration).
@@ -121,7 +126,7 @@ public class Uml2Android extends AbstractAcceleoGenerator {
      * 
      * @param args
      *            Arguments of the generation.
-     * @generated
+     * @generated NOT
      */
     public static void main(String[] args) {
         try {
@@ -130,6 +135,7 @@ public class Uml2Android extends AbstractAcceleoGenerator {
             } else {
                 URI modelURI = URI.createFileURI(args[0]);
                 File folder = new File(args[1]);
+                targetFolderPath = args[1];
                 
                 List<String> arguments = new ArrayList<String>();
                 
