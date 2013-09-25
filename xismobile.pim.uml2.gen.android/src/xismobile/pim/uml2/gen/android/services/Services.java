@@ -1,11 +1,13 @@
 package xismobile.pim.uml2.gen.android.services;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.nio.channels.FileChannel;
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
+import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
 
 import org.eclipse.uml2.uml.Association;
 import org.eclipse.uml2.uml.Class;
@@ -286,7 +288,8 @@ public class Services {
 	public void addLibrary(String jar) {
 		try {
 			String target = Uml2Android.targetFolderPath + "/libs/";
-			File srcFile = new File("libs/" + jar);
+			JarFile srcFile = new JarFile("generator.jar");
+//			File srcFile = new File("generator.jar!/libs/" + jar);
 			File destFolder = new File(target);
 			File destFile = new File(target + jar);
 			
@@ -294,21 +297,49 @@ public class Services {
 				destFolder.mkdir();
 			}
 			
-			FileChannel src = null;
-			FileChannel dest = null;
+			Enumeration<JarEntry> entries = srcFile.entries();
+			JarEntry entry = null;
+			
+			while (entries.hasMoreElements()) {
+				entry = (JarEntry) entries.nextElement();
+				if (entry.getName().compareTo("libs/" + jar) == 0) {
+					break;
+	            }
+			}
+			
+//			FileChannel src = null;
+//			FileChannel dest = null;
+			InputStream is = null;
+			FileOutputStream os = null;
 			
 			try {
-				src = new FileInputStream(srcFile).getChannel();
-				dest = new FileOutputStream(destFile).getChannel();
-				dest.transferFrom(src, 0, src.size());
+//				src = new FileInputStream(srcFile).getChannel();
+//				dest = new FileOutputStream(destFile).getChannel();
+//				dest.transferFrom(src, 0, src.size());
+				is = srcFile.getInputStream(entry);
+	            os = new FileOutputStream(destFile);
+	            byte[] buffer = new byte[1024];
+	            int length;
+	            while ((length = is.read(buffer)) > 0) {
+	                os.write(buffer, 0, length);
+	            }
 			} catch (Exception e) {
 				e.printStackTrace();
 			} finally {
-				if (src != null) {
-					src.close();
+//				if (src != null) {
+//					src.close();
+//				}
+//				if (dest != null) {
+//					dest.close();
+//				}
+				if (is != null) {
+					is.close();
 				}
-				if (dest != null) {
-					dest.close();
+				if (os != null) {
+					os.close();
+				}
+				if (srcFile != null) {
+					srcFile.close();
 				}
 			}
 		} catch (Exception e) {
