@@ -8,7 +8,7 @@
 [let first : Class = entities->at(1)]
 [let  second : Class = entities->at(2)]
 
-[file ('domain/'.concat(first.name.toUpperFirst()).concat(second.name.toUpperFirst()).concat('.java'), false, 'UTF-8')]
+[file (first.getPackageDirectoryPath() + '/domain/'.concat(first.name.toUpperFirst()).concat(second.name.toUpperFirst()).concat('.java'), false, 'UTF-8')]
 package [first.getPackagePath()/].domain;
 
 import com.j256.ormlite.field.DatabaseField;

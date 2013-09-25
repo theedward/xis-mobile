@@ -2,10 +2,13 @@
 [module adapter('http://www.eclipse.org/uml2/4.0.0/UML')]
 
 [import xismobile::pim::uml2::gen::android::common::xisMobileUtils /]
+[import xismobile::pim::uml2::gen::android::common::utils /]
 
 [template public generateAdapter(widget : Class, entity : Class)]
 
-[file (entity.name.toUpperFirst().concat('Adapter.java'), false, 'UTF-8')]
+[file (widget.getPackageDirectoryPath() + '/'.concat(entity.name.toUpperFirst()).concat('Adapter.java'), false, 'UTF-8')]
+package [widget.getPackagePath()/];
+
 import java.util.List;
 
 import android.content.Context;

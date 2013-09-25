@@ -6,7 +6,7 @@
 
 [template public generateDbAdapter(c : Class)]
 
-[file ('domain/'.concat(c.name.toUpperFirst()).concat('DbAdapter.java'), false, 'UTF-8')]
+[file (c.getPackageDirectoryPath() + '/domain/'.concat(c.name.toUpperFirst()).concat('DbAdapter.java'), false, 'UTF-8')]
 package [c.getPackagePath()/].domain;
 
 import android.content.ContentValues;

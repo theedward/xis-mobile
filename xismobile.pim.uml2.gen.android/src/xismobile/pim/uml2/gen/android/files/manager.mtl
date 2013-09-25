@@ -5,8 +5,8 @@
 
 [template public generateManager(entities : OrderedSet(Class))]
 
-[file ('domain/DomainEntityManager.java', false, 'UTF-8')]
-package [entities->at(1).getPackagePath()/].domain;
+[file (entities->first().getPackageDirectoryPath()  + '/domain/DomainEntityManager.java', false, 'UTF-8')]
+package [entities->first().getPackagePath()/].domain;
 
 import java.util.HashSet;
 import java.util.Set;

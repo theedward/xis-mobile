@@ -10,7 +10,7 @@
 
 [template public generateActivity(c : Class)]
 
-[file ('src/' + c.getPackageDirectoryPath() + '/'.concat(c.name.toUpperFirst().concat('Activity.java')), false, 'UTF-8')]
+[file ('src/' + c.getPackageDirectoryPath() + '/'.concat(c.name.toUpperFirst()).concat('Activity.java'), false, 'UTF-8')]
 [let widgets : Set(Class) = c.getXisWidgets()]
 package [c.getPackagePath()/];
 

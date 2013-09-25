@@ -8,8 +8,8 @@
 
 [template public generateOrmLiteHelper(entities : OrderedSet(Class), model : Model)]
 
-[file ('domain/OrmLiteHelper.java', false, 'UTF-8')]
-package [entities->at(1).getPackagePath()/].domain;
+[file (entities->first().getPackageDirectoryPath()  +  '/domain/OrmLiteHelper.java', false, 'UTF-8')]
+package [entities->first().getPackagePath()/].domain;
 
 import java.sql.SQLException;
 import java.util.List;
