@@ -1,6 +1,7 @@
 [comment encoding = UTF-8 /]
 [module androidManifest('http://www.eclipse.org/uml2/4.0.0/UML')/]
 
+[import xismobile::pim::uml2::gen::android::common::utils /]
 [import xismobile::pim::uml2::gen::android::common::xisMobileUtils /]
 
 [template public generateAndroidManifest(m : Model)]
@@ -8,7 +9,7 @@
 [file ('AndroidManifest.xml', false, 'UTF-8')]
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="[comment TODO /]"
+    package="[m.getAllXisInteractionSpaces()->first().getPackagePath()/]"
     android:versionCode="1"
     android:versionName="1.0" >
 
