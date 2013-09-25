@@ -26,9 +26,14 @@
 /]
 
 [query public containingPackages(c : Class) : Sequence(Package) =
-	c.ancestors(Package)->reject(oclIsKindOf(Model))->reverse()
+	let packages : Sequence(Package) = c.ancestors(Package)->reject(oclIsKindOf(Model))->reverse() in
+	packages->excluding(packages->last())
 /]
 
 [query public getPackagePath(c : Class) : Sequence(OclAny) = 
 	containingPackages().name.toLowerCase().replace(' ', '_').replace('-', '_')->sep('.')
+/]
+
+[query public getPackageDirectoryPath(c : Class) : Sequence(OclAny) = 
+	containingPackages().name.toLowerCase().replace(' ', '_').replace('-', '_')->sep('/')
 /]
