@@ -461,7 +461,7 @@
 	not c.getValue(c.getXisTextBox(), 'hint').oclIsUndefined()
 /]
 
-[query public getXisTexBoxHint(c : Class) : Integer =
+[query public getXisTexBoxHint(c : Class) : String =
 	c.getValue(c.getXisTextBox(), 'hint')
 /]
 
