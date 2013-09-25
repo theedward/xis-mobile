@@ -6,7 +6,7 @@
 
 [template public generateAdapter(widget : Class, entity : Class)]
 
-[file (widget.getPackageDirectoryPath() + '/'.concat(entity.name.toUpperFirst()).concat('Adapter.java'), false, 'UTF-8')]
+[file ('src/' + widget.getPackageDirectoryPath() + '/'.concat(entity.name.toUpperFirst()).concat('Adapter.java'), false, 'UTF-8')]
 package [widget.getPackagePath()/];
 
 import java.util.List;

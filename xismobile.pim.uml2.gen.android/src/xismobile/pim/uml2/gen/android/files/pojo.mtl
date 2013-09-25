@@ -8,7 +8,7 @@
 [template public generatePOJO(c : Class)]
 [let persistent : Boolean = c.isPersistent()]
 
-[file (c.getPackageDirectoryPath() + '/domain/'.concat(c.name.toUpperFirst()).concat('.java'), false, 'UTF-8')]
+[file ('src/' + c.getPackageDirectoryPath() + '/domain/'.concat(c.name.toUpperFirst()).concat('.java'), false, 'UTF-8')]
 package [c.getPackagePath()/].domain;
 
 import java.util.*;

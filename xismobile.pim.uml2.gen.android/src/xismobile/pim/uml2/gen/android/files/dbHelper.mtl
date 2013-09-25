@@ -6,7 +6,7 @@
 
 [template public generateDbHelper(c : Class)]
 
-[file (c.getPackageDirectoryPath() + '/domain/'.concat(c.name.toUpperFirst()).concat('DbHelper.java'), false, 'UTF-8')]
+[file ('src/' + c.getPackageDirectoryPath() + '/domain/'.concat(c.name.toUpperFirst()).concat('DbHelper.java'), false, 'UTF-8')]
 package [c.getPackagePath()/].domain;
 
 import android.content.Context;
