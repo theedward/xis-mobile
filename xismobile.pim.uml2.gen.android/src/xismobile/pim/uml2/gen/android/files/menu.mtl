@@ -44,7 +44,7 @@
 	[/for]
 	</group>
 	[elseif (el.isItem())]
-		[el.writeMenuItem()/]
+	[el.writeMenuItem()/]
 	[/if]
 [/for]
 
