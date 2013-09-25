@@ -1,15 +1,16 @@
 [comment encoding = UTF-8 /]
 [module activity('http://www.eclipse.org/uml2/4.0.0/UML')]
 
-[import xismobile::pim::uml2::gen::android::common::xisMobileUtils /]
 [import xismobile::pim::uml2::gen::android::common::utils /]
+[import xismobile::pim::uml2::gen::android::common::xisMobileUtils /]
 [import xismobile::pim::uml2::gen::android::files::action /]
 [import xismobile::pim::uml2::gen::android::files::widget /]
 [import xismobile::pim::uml2::gen::android::files::menu /]
 [import xismobile::pim::uml2::gen::android::services::services /]
 
 [template public generateActivity(c : Class)]
-[file ('src/'.concat(c.name.toUpperFirst().concat('Activity.java')), false, 'UTF-8')]
+
+[file ('src/' + c.getPackageDirectoryPath() + '/'.concat(c.name.toUpperFirst().concat('Activity.java')), false, 'UTF-8')]
 [let widgets : Set(Class) = c.getXisWidgets()]
 package [c.getPackagePath()/];
 
@@ -18,12 +19,17 @@ import android.app.Activity;
 [if (c.hasMenu())]
 import android.view.Menu;
 [/if]
+[let entities : Sequence(Class) = c.getInteractionSpaceReferencedEntities()]
+[if (entities->needsDbHelper())]
+
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
+[/if]
 [if (widgets->size() > 0)]
 
 import xis_mobile.library.widgets.*;
 [/if]
 
-[let entities : Sequence(Class) = c.getInteractionSpaceReferencedEntities()]
 [for (entity : Class | entities)]
 import domain.[entity.name.toUpperFirst()/];
 [/for]
