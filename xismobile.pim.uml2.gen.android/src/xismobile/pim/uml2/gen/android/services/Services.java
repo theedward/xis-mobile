@@ -279,9 +279,9 @@ public class Services {
 	}
 	
 	/**
+	 * Copies the desired library jar to the target generation folder.
 	 * 
-	 * @param jar
-	 * @param target
+	 * @param jar the library jar name
 	 */
 	public void addLibrary(String jar) {
 		try {
