@@ -5,6 +5,7 @@
 [import xismobile::pim::uml2::gen::android::main::domain2Android /]
 [import xismobile::pim::uml2::gen::android::main::navigation2Android /]
 [import xismobile::pim::uml2::gen::android::main::interaction2Android /]
+[import xismobile::pim::uml2::gen::android::files::strings /]
 
 [template public uml2Android(m : Model)]
 
@@ -13,5 +14,6 @@
 [m.domain2Android()/]
 [m.navigation2Android()/]
 [m.interaction2Android()/]
+[m.generateStrings()/]
 
 [/template]

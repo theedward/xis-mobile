@@ -14,6 +14,7 @@ import org.eclipse.uml2.uml.Class;
 import org.eclipse.uml2.uml.Generalization;
 import org.eclipse.uml2.uml.Interface;
 import org.eclipse.uml2.uml.InterfaceRealization;
+import org.eclipse.uml2.uml.Model;
 import org.eclipse.uml2.uml.Property;
 import org.eclipse.uml2.uml.Type;
 
@@ -345,6 +346,36 @@ public class Services {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	/**
+	 * Stores the value of a string resource to be included in res/values/strings.xml.
+	 * 
+	 * @param key the name of the string resource
+	 * @param value the value of the string resource
+	 */
+	public void addStringResource(String key, String value) {
+		Uml2Android.stringResources.put(key, value);
+	}
+	
+	/**
+	 * 
+	 * 
+	 * @param m
+	 * @return
+	 */
+	public String getStringResources(Model m) {
+		StringBuilder sb = new StringBuilder();
+		String resource = "<string name=\"%s\">%s</string>\n\t"; 
+		
+		for (String key : Uml2Android.stringResources.keySet()) {
+			sb.append(String.format(resource, key, Uml2Android.stringResources.get(key)));
+		}
+		
+		if (sb.length() > 0) {
+			sb = sb.delete(sb.length()-2, sb.length()-1);
+		}
+		return sb.toString();
 	}
 	
 	/**

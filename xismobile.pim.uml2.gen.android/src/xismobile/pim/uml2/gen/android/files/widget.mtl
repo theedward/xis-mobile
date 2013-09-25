@@ -4,7 +4,7 @@
 [import xismobile::pim::uml2::gen::android::common::xisMobileUtils /]
 [import xismobile::pim::uml2::gen::android::files::action /]
 [import xismobile::pim::uml2::gen::android::files::adapter /]
-
+[import xismobile::pim::uml2::gen::android::files::strings /]
 [import xismobile::pim::uml2::gen::android::services::services /]
 
 [template public getWidgetName(c : Class) post (trim())]
@@ -280,7 +280,7 @@ mSpinner[c.name.toUpperFirst()/] = (Spinner)findViewById(R.id.spinner[c.name.toU
 [/let]
 [/template]
 
-[template public writeWidget(c : Class)]
+[template public writeWidget(c : Class) post (trim())]
 [if (c.isXisLabel())]
 [c.writeLabel()/]
 [elseif (c.isXisTextBox())]
@@ -315,7 +315,7 @@ mSpinner[c.name.toUpperFirst()/] = (Spinner)findViewById(R.id.spinner[c.name.toU
 	android:layout_height="wrap_content"
 [let value : String = c.getXisWidgetValue(c.getXisLabel())]
 	[if (not value.oclIsUndefined() and not value.stringContains('.'))]
-	android:text="[value/]"
+	android:text="[addString(name + '_text', value)/]"
 	[/if]
 [/let]
 />
@@ -323,7 +323,8 @@ mSpinner[c.name.toUpperFirst()/] = (Spinner)findViewById(R.id.spinner[c.name.toU
 
 [template public writeTextBox(c : Class)]
 <EditText
-	android:id="@+id/editText[c.name.toUpperFirst()/]"
+[let name : String = 'editText' + c.name.toUpperFirst()]
+	android:id="@+id/[name/]"
 	android:layout_width="wrap_content"
 	android:layout_height="wrap_content"
 	android:layout_centerHorizontal="true"
@@ -335,18 +336,20 @@ mSpinner[c.name.toUpperFirst()/] = (Spinner)findViewById(R.id.spinner[c.name.toU
 	android:gravity="top"
 	android:scrollbars="vertical"
 	[if (c.XisTextBoxHasHint())]
-	android:hint="[c.getXisTexBoxHint()/]"
+	android:hint="[addString(name + '_hint', c.getXisTexBoxHint())/]"
 	[/if]
 [let value : String = c.getXisWidgetValue(c.getXisTextBox())]
 	[if (not value.oclIsUndefined() and not value.stringContains('.'))]
-	android:text="[value/]"
+	android:text="[addString(name + '_text', value)/]"
 	[/if]
+[/let]
 [/let]
 />
 [/template]
 
 [template public writeCheckBox(c : Class)]
-<CheckBox android:id="@+id/checkBox[c.name.toUpperFirst()/]"
+[let name : String = 'checkBox' + c.name.toUpperFirst()]
+<CheckBox android:id="@+id/[name/]"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     [if (c.hasXisAction())]
@@ -354,15 +357,17 @@ mSpinner[c.name.toUpperFirst()/] = (Spinner)findViewById(R.id.spinner[c.name.toU
 	[/if]
 [let value : String = c.getXisWidgetValue(c.getXisCheckBox())]
 	[if (not value.oclIsUndefined() and not value.stringContains('.'))]
-	android:text="[value/]"
+	android:text="[addString(name + '_text', value)/]"
 	[/if]
+[/let]
 [/let]
 />
 [/template]
 
 [template public writeButton(c : Class)]
+[let name : String = 'button' + c.name.toUpperFirst()]
 <Button
-	android:id="@+id/button[c.name.toUpperFirst()/]"
+	android:id="@+id/[name/]"
 	android:layout_width="wrap_content"
 	android:layout_height="wrap_content"
 	[if (c.hasXisAction())]
@@ -370,81 +375,96 @@ mSpinner[c.name.toUpperFirst()/] = (Spinner)findViewById(R.id.spinner[c.name.toU
 	[/if]
 [let value : String = c.getXisWidgetValue(c.getXisButton())]
 	[if (not value.oclIsUndefined() and not value.stringContains('.'))]
-	android:text="[value/]"
+	android:text="[addString(name + '_text', value)/]"
 	[/if]
 [/let]
 />
+[/let]
 [/template]
 
 [template public writeLink(c : Class)]
+[let name : String = 'button' + c.name.toUpperFirst()]
 <TextView
 	android:id="@+id/link[c.name.toUpperFirst()/]"
 	android:layout_width="fill_parent"
 	android:layout_height="wrap_content"
 	android:autolink="web"
-	android:text="[c.getXisLinkURL()/]"
+	android:text="[addString(name + '_text', c.getXisLinkURL())/]"
 />
+[/let]
 [/template]
 
 [template public writeImageView(c : Class)]
+[let name : String = 'image' + c.name.toUpperFirst()]
 <ImageView
-	android:id="@+id/image[c.name.toUpperFirst()/]"
+	android:id="@+id/[name/]"
 	android:layout_width="wrap_content"
 	android:layout_height="wrap_content"
-	android:src="[c.getXisImagePath()/]"
+	android:src="[addString(name + '_src', c.getXisImagePath())/]"
 />
+[/let]
 [/template]
 
 [template public writeDatePicker(c : Class)]
+[let name : String = 'datePicker' + c.name.toUpperFirst()]
 <Button
-	android:id="@+id/datePicker[c.name.toUpperFirst()/]"
+	android:id="@+id/[name/]"
 	android:layout_width="wrap_content"
 	android:layout_height="wrap_content"
 	android:onClick="showDatePicker[c.name.toUpperFirst()/]Dialog"
-	android:text="[c.getXisDatePickerValue()/]"
+	android:text="[addString(name + '_text', c.getXisDatePickerValue())/]"
 />
+[/let]
 [/template]
 
 [template public writeTimePicker(c : Class)]
+[let name : String = 'timePicker' + c.name.toUpperFirst()]
 <Button
-	android:id="@+id/timePicker[c.name.toUpperFirst()/]"
+	android:id="@+id/[name/]"
 	android:layout_width="wrap_content"
 	android:layout_height="wrap_content"
 	android:onClick="showTimePicker[c.name.toUpperFirst()/]Dialog"
-	android:text="[c.getXisTimePickerValue()/]"
+	android:text="[addString(name + '_text', c.getXisTimePickerValue())/]"
 />
+[/let]
 [/template]
 
 [template public writeWebView(c : Class)]
+[let name : String = 'webView' + c.name.toUpperFirst()]
 <WebView xmlns:android="http://schemas.android.com/apk/res/android"
-	android:id="@+id/webView[c.name.toUpperFirst()/]"
+	android:id="@+id/[name/]"
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent"
 />
+[/let]
 [/template]
 
 [template public writeMapView(c : Class)]
+[let name : String = 'mapView' + c.name.toUpperFirst()]
 <com.google.android.maps.MapView
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:id="@+id/mapView[c.name.toUpperFirst()/]"
+	android:id="@+id/[name/]"
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent"
 	android:clickable="true"
 	android:apiKey="Your Maps API Key goes here"
 />
+[/let]
 [/template]
 
 [template public writeListView(c : Class)]
 [if (c.listIsSearchable())]
+[let name : String = 'search' + c.name.toUpperFirst()]
 <EditText
-    android:id="@+id/search[c.name.toUpperFirst()/]"
+    android:id="@+id/[name/]"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:drawableRight="@android:drawable/ic_search_category_default"
     android:ems="10"
-    android:hint="Search..." >
+    android:hint="[addString(name + '_hint', 'Search...')/]" >
     <requestFocus />
 </EditText>
+[/let]
 [/if]
 <ListView
 	android:id="@+id/list[c.name.toUpperFirst()/]"
@@ -456,11 +476,13 @@ mSpinner[c.name.toUpperFirst()/] = (Spinner)findViewById(R.id.spinner[c.name.toU
 [/template]
 
 [template public writeDropdown(c : Class)]
+[let name : String = 'spinner' + c.name.toUpperFirst()]
 <Spinner
-    android:id="@+id/spinner[c.name.toUpperFirst()/]"
+    android:id="@+id/[name/]"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
 />
+[/let]
 [/template]
 
 [template public generateListItem(c : Class)]

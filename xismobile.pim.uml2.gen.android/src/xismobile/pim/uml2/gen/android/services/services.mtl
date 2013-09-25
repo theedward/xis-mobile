@@ -42,6 +42,14 @@
 	invoke('xismobile.pim.uml2.gen.android.services.Services', 'addLibrary(java.lang.String)', Sequence{jar})
 /]
 
+[query public addStringResource(key : String, value : String) : OclAny = 
+	invoke('xismobile.pim.uml2.gen.android.services.Services', 'addStringResource(java.lang.String, java.lang.String)', Sequence{key, value})
+/]
+
+[query public getStringResources(m : Model) : String =
+	invoke('xismobile.pim.uml2.gen.android.services.Services', 'getStringResources(org.eclipse.uml2.uml.Model)', Sequence{m})
+/]
+
 [query public stringContains(s1 : String, s2 : String) : Boolean = 
 	invoke('xismobile.pim.uml2.gen.android.services.Services', 'stringContains(java.lang.String, java.lang.String)', Sequence{s1, s2})
 /]

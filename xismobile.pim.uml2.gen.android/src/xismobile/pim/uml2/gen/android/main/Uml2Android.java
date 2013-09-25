@@ -13,6 +13,7 @@ package xismobile.pim.uml2.gen.android.main;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.eclipse.acceleo.common.IAcceleoConstants;
@@ -53,6 +54,8 @@ public class Uml2Android extends AbstractAcceleoGenerator {
      * The path of the output folder of the generation.
      */
     public static String targetFolderPath;
+    
+    public static HashMap<String, String> stringResources;
     
     /**
      * The list of properties files from the launch parameters (Launch configuration).
@@ -136,6 +139,7 @@ public class Uml2Android extends AbstractAcceleoGenerator {
                 URI modelURI = URI.createFileURI(args[0]);
                 File folder = new File(args[1]);
                 targetFolderPath = args[1];
+                stringResources = new HashMap<String, String>();
                 
                 List<String> arguments = new ArrayList<String>();
                 
