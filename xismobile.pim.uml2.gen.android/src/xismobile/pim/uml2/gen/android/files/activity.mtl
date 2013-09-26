@@ -14,10 +14,11 @@
 [let widgets : Set(Class) = c.getXisWidgets()]
 package [c.getPackagePath()/];
 
-import android.os.Bundle;
 import android.app.Activity;
+import android.os.Bundle;
 [if (c.hasMenu())]
 import android.view.Menu;
+import android.view.MenuItem;
 [/if]
 [let entities : Sequence(Class) = c.getInteractionSpaceReferencedEntities()]
 [if (entities->needsDbHelper())]
