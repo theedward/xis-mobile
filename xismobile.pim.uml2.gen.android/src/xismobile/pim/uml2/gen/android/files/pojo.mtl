@@ -94,7 +94,7 @@ private [p.getXisAttributeTypeAndName()/];
 [/for]
 [/template]
 
-[template public addKeyAndNullableTags(p : Property)]
+[template public addKeyAndNullableTags(p : Property) post (trim())]
 [if (p.isKey())]
 (index = true)
 [elseif (not p.isNullable())]
@@ -130,7 +130,7 @@ public boolean equals(Object obj) {
 		return false;
 	
 	[c.name.toUpperFirst()/] c = ([c.name.toUpperFirst()/]) obj;	
-	return this.id == c.id;[comment][attrs->getEqualsCondition()/];[/comment]
+	return this.id.equals(c.id);[comment][attrs->getEqualsCondition()/];[/comment]
 }
 	
 @Override
@@ -172,7 +172,7 @@ this.[p.getXisEntityAttributeName()/] == c.[p.getXisEntityAttributeName()/]
 [/template]
 
 [template public generateForeingKeyAttributes(c : Class)]
-[for (a : Association | c.getAssociations())]
+[for (a : Association | c.getXisEntityAssociations())]
 [let first : Property = a.memberEnd->at(1)]
 [let second : Property = a.memberEnd->at(2)]
 [if (first.upperBound() = 1 and second.upperBound() = 1)]
@@ -205,7 +205,7 @@ this.[p.getXisEntityAttributeName()/] == c.[p.getXisEntityAttributeName()/]
 [/template]
 
 [template public generateAssociationAttrs(c : Class)]
-[for (a : Association | c.getAssociations())]
+[for (a : Association | c.getXisEntityAssociations())]
 [let first : Property = a.memberEnd->at(1)]
 [let second : Property = a.memberEnd->at(2)]
 [if (not first.isNavigable() and not second.isNavigable() or
@@ -232,17 +232,24 @@ first.isNavigable() and second.isNavigable())]
 [template public processForeignKeyAttr(a : Association, idx : Integer) post (trim())]
 [let p : Property = a.memberEnd->at(idx)]
 @DatabaseField(foreign = true, foreignAutoRefresh = true)
-public [a.endType->at(idx).name/] [p.name/];
+public [a.endType->at(idx).name.toUpperFirst()/] [p.getAssociationAttrName(a.endType->at(idx))/];
 [/let]
 [/template]
-
 
 [template public processAttr(a : Association, idx : Integer) post (trim())]
 [let p : Property = a.memberEnd->at(idx)]
 	[if (p.upperBound() = 1)]
-public [a.endType->at(idx).name/] [p.name/];
+public [a.endType->at(idx).name.toUpperFirst()/] [p.getAssociationAttrName(a.endType->at(idx))/];
 	[elseif (p.upperBound() = -1)]
-public List<[a.endType->at(idx).name/]> [p.name/];
+public List<[a.endType->at(idx).name.toUpperFirst()/]> [p.getAssociationAttrName(a.endType->at(idx))/];
 	[/if]
 [/let]
+[/template]
+
+[template public getAssociationAttrName(p : Property, t : Type) post (trim())]
+[if (not p.name.oclIsUndefined())]
+[p.name.toLowerFirst()/]
+[else]
+[t.name.toLowerFirst()/]
+[/if]
 [/template]
