@@ -22,6 +22,14 @@
 	not c.getXisEntity().oclIsUndefined()
 /]
 
+[query public getXisEntityAssociation(a : Association) : Stereotype =
+	a.getAppliedStereotype('XIS-Mobile::XisEntityAssociation')
+/]
+
+[query public isXisEntityAssociation(a : Association) : Boolean =
+	not a.getXisEntityAssociation().oclIsUndefined()
+/]
+
 [query public isPersistent(el : Element) : Boolean =
 	el.getTaggedValue('XIS-Mobile::XisEntity', 'persistent') = true
 /]
@@ -69,6 +77,10 @@
 [query public getAllXisEntities(m : Model) : OrderedSet(Class) =
 	m.allOwnedElements()->selectByType(Class)->select(
 		c : Class | c.isXisEntity())
+/]
+
+[query public getXisEntityAssociations(c : Class) : Set(Association) = 
+	c.getAssociations()->select(a : Association | a.isXisEntityAssociation())
 /]
 
 [**
