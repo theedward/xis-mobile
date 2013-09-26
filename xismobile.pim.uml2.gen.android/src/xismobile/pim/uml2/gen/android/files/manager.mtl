@@ -36,12 +36,11 @@ public class DomainEntityManager {
 		[c.name.toUpperFirst()/] [c.name.toLowerFirst()/] = null;
 
 		for ([c.name.toUpperFirst()/] [c.name.at(1).toLower()/] : [c.name.toLowerFirst()/]s) {
-			if([c.name.at(1).toLower()/].equals(id)) {
+			if([c.name.at(1).toLower()/].getId().equals(id)) {
 				[c.name.toLowerFirst()/] = [c.name.at(1).toLower()/];
 				break;				
 			}
 		}
- 
 		return [c.name.toLowerFirst()/];
 	}
 
