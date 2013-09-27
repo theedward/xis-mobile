@@ -35,6 +35,8 @@ import [c.getPackagePath()/].domain.[entity.name.toUpperFirst()/];
 [/for]
 [if (entities->needsDbHelper())]
 import [c.getPackagePath()/].domain.OrmLiteHelper;
+[elseif (entities->needsEntityManager())]
+import [c.getPackagePath()/].domain.DomainEntityManager;	
 [/if]
 
 public class [c.name.toUpperFirst()/]Activity extends Activity {
