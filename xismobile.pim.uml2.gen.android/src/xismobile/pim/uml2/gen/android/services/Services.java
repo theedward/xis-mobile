@@ -282,7 +282,7 @@ public class Services {
 	}
 	
 	/**
-	 * Copies the desired library jar to the target generation folder.
+	 * Copies the desired library jar into the target generation folder.
 	 * 
 	 * @param jar the library jar name
 	 */
@@ -290,7 +290,6 @@ public class Services {
 		try {
 			String target = Uml2Android.targetFolderPath + "/libs/";
 			JarFile srcFile = new JarFile("generator.jar");
-//			File srcFile = new File("generator.jar!/libs/" + jar);
 			File destFolder = new File(target);
 			File destFile = new File(target + jar);
 			
@@ -308,15 +307,10 @@ public class Services {
 	            }
 			}
 			
-//			FileChannel src = null;
-//			FileChannel dest = null;
 			InputStream is = null;
 			FileOutputStream os = null;
 			
 			try {
-//				src = new FileInputStream(srcFile).getChannel();
-//				dest = new FileOutputStream(destFile).getChannel();
-//				dest.transferFrom(src, 0, src.size());
 				is = srcFile.getInputStream(entry);
 	            os = new FileOutputStream(destFile);
 	            byte[] buffer = new byte[1024];
@@ -327,12 +321,64 @@ public class Services {
 			} catch (Exception e) {
 				e.printStackTrace();
 			} finally {
-//				if (src != null) {
-//					src.close();
-//				}
-//				if (dest != null) {
-//					dest.close();
-//				}
+				if (is != null) {
+					is.close();
+				}
+				if (os != null) {
+					os.close();
+				}
+				if (srcFile != null) {
+					srcFile.close();
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Copies the desired file into the target generation folder.
+	 * 
+	 * @param fileName the file name
+	 * @param resolution the icon resolution ('low', 'medium', 'high' or 'xhigh')
+	 */
+	public void addDrawable(String fileName, String resolution) {
+		try {
+			String folder = getResolutionFolder(resolution);
+			
+			String target = Uml2Android.targetFolderPath + "/res/" + folder + "/";
+			JarFile srcFile = new JarFile("generator.jar");
+			File destFolder = new File(target);
+			File destFile = new File(target + fileName);
+			
+			if (!destFolder.exists()) {
+				destFolder.mkdirs();
+			}
+			
+			Enumeration<JarEntry> entries = srcFile.entries();
+			JarEntry entry = null;
+			
+			while (entries.hasMoreElements()) {
+				entry = (JarEntry) entries.nextElement();
+				if (entry.getName().equals("icons/" + folder + "/" + fileName)) {
+					break;
+	            }
+			}
+			
+			InputStream is = null;
+			FileOutputStream os = null;
+			
+			try {
+				is = srcFile.getInputStream(entry);
+	            os = new FileOutputStream(destFile);
+	            byte[] buffer = new byte[1024];
+	            int length;
+	            while ((length = is.read(buffer)) > 0) {
+	                os.write(buffer, 0, length);
+	            }
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
 				if (is != null) {
 					is.close();
 				}
@@ -359,10 +405,10 @@ public class Services {
 	}
 	
 	/**
-	 * 
+	 * Retrieves all the string resources to be included in res/values/strings.xml.
 	 * 
 	 * @param m
-	 * @return
+	 * @return the string resources in a XML string
 	 */
 	public String getStringResources(Model m) {
 		StringBuilder sb = new StringBuilder();
@@ -413,6 +459,13 @@ public class Services {
 		return g.getAppliedStereotype("XIS-Mobile::XisInheritance") != null;
 	}
 	
+	/**
+	 * Checks if a string contains the another one specified. 
+	 * 
+	 * @param s1 the string where the search is performed
+	 * @param s2 the string to search for
+	 * @return true if string s1 contains s2, false otherwise
+	 */
 	public boolean stringContains(String s1, String s2) {
 		return s1.contains(s2);
 	}
@@ -421,10 +474,31 @@ public class Services {
 	 * Auxiliary method to put the first letter of a string in upper case.
 	 * 
 	 * @param s The original string 
-	 * 
 	 * @return The string with the first letter in upper case
 	 */
 	private String toUpperFirst(String s) {
 		return s.substring(0, 1).toUpperCase() + s.substring(1);
+	}
+	
+	/**
+	 * Gets the name of the drawable folder according to its resolution.
+	 * 
+	 * @param resolution the resolution of the drawable
+	 * @return the drawable folder name
+	 */
+	private String getResolutionFolder(String resolution) {
+		String folder = "drawable";
+		
+		if (resolution.equalsIgnoreCase("low")) {
+			return folder + "-ldpi";
+		} else if (resolution.equalsIgnoreCase("medium")) {
+			return folder + "-mdpi";
+		} else if (resolution.equalsIgnoreCase("high")) {
+			return folder + "-hdpi";
+		} else if (resolution.equalsIgnoreCase("xhigh")) {
+			return folder + "-xhdpi";
+		} else {
+			return folder;
+		}
 	}
 }
