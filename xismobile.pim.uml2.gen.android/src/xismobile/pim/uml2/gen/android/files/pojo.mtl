@@ -12,11 +12,10 @@
 package [c.getPackagePath()/].domain;
 
 import java.util.*;
-
 [if (persistent)]
+
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
-
 [/if]
 
 [if (persistent)]
