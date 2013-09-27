@@ -4,6 +4,7 @@
 [import xismobile::pim::uml2::gen::android::common::utils /]
 [import xismobile::pim::uml2::gen::android::common::xisMobileUtils /]
 [import xismobile::pim::uml2::gen::android::files::strings /]
+[import xismobile::pim::uml2::gen::android::services::services /]
 
 [template public generateAndroidManifest(m : Model)]
 
@@ -24,7 +25,7 @@
 
     <application
 		android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
+        android:icon="[addIcon('ic_launcher')/]"
         android:label="[addString('app_name', m.name.toUpperFirst())/]" >
 [for (c : Class | m.getAllXisInteractionSpaces())]
 
@@ -47,4 +48,12 @@
 
 </manifest>
 [/file]
+[/template]
+
+[template private addIcon(icon : String) post (trim())]
+[addDrawable(icon + '.png', 'low')/]
+[addDrawable(icon + '.png', 'medium')/]
+[addDrawable(icon + '.png', 'high')/]
+[addDrawable(icon + '.png', 'xhigh')/]
+@drawable/[icon/]
 [/template]
