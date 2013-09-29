@@ -54,6 +54,11 @@
 	invoke('xismobile.pim.uml2.gen.android.services.Services', 'getStringResources(org.eclipse.uml2.uml.Model)', Sequence{m})
 /]
 
+[query public orderWidgetsByPosition(widgets : Sequence(Class)) : Sequence(Class) =
+	invoke('xismobile.pim.uml2.gen.android.services.Services', 'orderWidgetsByPosition(java.util.List)', Sequence{widgets})
+/]
+
+
 [query public stringContains(s1 : String, s2 : String) : Boolean = 
 	invoke('xismobile.pim.uml2.gen.android.services.Services', 'stringContains(java.lang.String, java.lang.String)', Sequence{s1, s2})
 /]

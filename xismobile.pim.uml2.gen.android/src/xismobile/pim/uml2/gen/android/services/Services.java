@@ -425,6 +425,17 @@ public class Services {
 	}
 	
 	/**
+	 * Orders the widgets of a screen according to their position.
+	 * 
+	 * @param widgets list of the widgets to be ordered
+	 * @return ordered list of widgets
+	 */
+	public List<Class> orderWidgetsByPosition(List<Class> widgets) {
+		// TODO: Implement
+		return widgets;
+	}
+	
+	/**
 	 * AUXILIARY METHODS REGION
 	 */
 	private boolean isXisEntity(Type t) {
