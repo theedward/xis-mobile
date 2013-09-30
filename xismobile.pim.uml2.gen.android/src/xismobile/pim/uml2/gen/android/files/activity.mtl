@@ -13,7 +13,7 @@
 [file ('src/' + c.getPackageDirectoryPath() + '/'.concat(c.name.toUpperFirst()).concat('Activity.java'), false, 'UTF-8')]
 [let widgets : Set(Class) = c.getXisWidgets()]
 package [c.getPackagePath()/];
-
+--[orderWidgetsByPosition(c.getXisWidgets()->asSequence())/]
 import android.app.Activity;
 import android.os.Bundle;
 [if (c.hasMenu())]

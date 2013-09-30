@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.jar.JarEntry;
@@ -16,6 +18,7 @@ import org.eclipse.uml2.uml.Interface;
 import org.eclipse.uml2.uml.InterfaceRealization;
 import org.eclipse.uml2.uml.Model;
 import org.eclipse.uml2.uml.Property;
+import org.eclipse.uml2.uml.Stereotype;
 import org.eclipse.uml2.uml.Type;
 
 import xismobile.pim.uml2.gen.android.main.Uml2Android;
@@ -431,8 +434,24 @@ public class Services {
 	 * @return ordered list of widgets
 	 */
 	public List<Class> orderWidgetsByPosition(List<Class> widgets) {
-		// TODO: Implement
+		List<Class> ret = new ArrayList<Class>();
+		System.out.println(widgets.getClass().getName());
+		System.out.println(widgets.size());
+		
+		Collections.sort(widgets, new WidgetComparator());
+		
 		return widgets;
+	}
+	
+	/**
+	 * Checks if a string contains the other one specified. 
+	 * 
+	 * @param s1 the string where the search is performed
+	 * @param s2 the string to search for
+	 * @return true if string s1 contains s2, false otherwise
+	 */
+	public boolean stringContains(String s1, String s2) {
+		return s1.contains(s2);
 	}
 	
 	/**
@@ -471,18 +490,7 @@ public class Services {
 	}
 	
 	/**
-	 * Checks if a string contains the another one specified. 
-	 * 
-	 * @param s1 the string where the search is performed
-	 * @param s2 the string to search for
-	 * @return true if string s1 contains s2, false otherwise
-	 */
-	public boolean stringContains(String s1, String s2) {
-		return s1.contains(s2);
-	}
-	
-	/**
-	 * Auxiliary method to put the first letter of a string in upper case.
+	 * Puts the first letter of a string in upper case and returns it.
 	 * 
 	 * @param s The original string 
 	 * @return The string with the first letter in upper case
@@ -510,6 +518,20 @@ public class Services {
 			return folder + "-xhdpi";
 		} else {
 			return folder;
+		}
+	}
+
+	class WidgetComparator implements Comparator<Class> {
+
+		@Override
+		public int compare(Class c1, Class c2) {
+			Stereotype s1 = ServiceUtils.getWidgetStereotype(c1);
+			Stereotype s2 = ServiceUtils.getWidgetStereotype(c2);
+			int posX1 = ServiceUtils.getPosX(c1, s1);
+			int posX2 = ServiceUtils.getPosX(c2, s2);
+			int posY1 = ServiceUtils.getPosY(c1, s1);
+			int posY2 = ServiceUtils.getPosY(c2, s2);
+			return (posX1 - posX2) + (posY1 - posY2);
 		}
 	}
 }
