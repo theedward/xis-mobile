@@ -3,6 +3,7 @@
 
 [import xismobile::pim::uml2::gen::android::common::xisMobileUtils /]
 [import xismobile::pim::uml2::gen::android::files::widget /]
+[import xismobile::pim::uml2::gen::android::services::services /]
 
 [template public generateLayout(c : Class)]
 
@@ -14,7 +15,7 @@
     android:layout_height="match_parent"
     tools:context=".[c.name.toUpperFirst()/]Activity" >
 
-[for (cl : Class | c.getChildren())]
+[for (cl : Class | c.orderWidgetsByPosition(c.getXisWidgets()->asSequence()))]
 	[cl.writeWidget()/]
 [/for]
 
