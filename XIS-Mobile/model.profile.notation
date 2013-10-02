@@ -386,7 +386,7 @@
       <layoutConstraint xmi:type="notation:Bounds" xmi:id="_52lBix9wEeOZ6al_I843SA"/>
     </children>
     <element xmi:type="uml:Enumeration" href="model.profile.uml#_52bQgB9wEeOZ6al_I843SA"/>
-    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_52bQgh9wEeOZ6al_I843SA" x="5" y="375" width="106" height="76"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_52bQgh9wEeOZ6al_I843SA" x="15" y="365" width="106" height="76"/>
   </children>
   <children xmi:type="notation:Shape" xmi:id="_GiukAB9xEeOZ6al_I843SA" type="1026" fontName="Segoe UI" lineColor="0">
     <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_GiukAh9xEeOZ6al_I843SA" source="ShadowFigure">
