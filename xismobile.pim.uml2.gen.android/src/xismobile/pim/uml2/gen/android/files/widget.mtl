@@ -504,7 +504,7 @@ mSpinner[c.name.toUpperFirst()/] = (Spinner)findViewById(R.id.spinner[c.name.toU
 
 [template public writeMarginPositioning(c : Class)]
 [comment]TODO: value in dp.[/comment]
-android:layout_marginTop="TODO"
+android:layout_marginTop=""
 android:layout_marginBottom=""
 android:layout_marginLeft=""
 android:layout_marginRight=""
@@ -524,4 +524,8 @@ android:layout_alignTop="@+id/"
 android:layout_alignBottom="@+id/"
 android:layout_alignLeft="@+id/"
 android:layout_alignRight="@+id/"
+[/template]
+
+[template public writeCenterHorizontalPositioning(c : Class)]
+android:layout_centerHorizontal="true"
 [/template]
