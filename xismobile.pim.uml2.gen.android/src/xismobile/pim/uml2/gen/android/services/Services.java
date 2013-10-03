@@ -430,6 +430,7 @@ public class Services {
 	/**
 	 * Orders the widgets of a screen according to their position.
 	 * 
+	 * @param space the interaction space
 	 * @param widgets list of the widgets to be ordered
 	 * @return ordered list of widgets
 	 */
@@ -526,20 +527,24 @@ public class Services {
 			int x2 = ServiceUtils.getPosX(c2, s2);
 			int y1 = ServiceUtils.getPosY(c1, s1);
 			int y2 = ServiceUtils.getPosY(c2, s2);
-			double norm1 = normalize(x1, y1);
-			double norm2 = normalize(x2, y2);
-			double posX1 = x1 / norm1;
-			double posX2 = x2 / norm2;
-			double posY1 = y1 / norm1;
-			double posY2 = y2 / norm2;
-			Double res = (posX1 - posX2) + (posY1 - posY2);
-			res *= 100;
-			System.out.println(res.intValue() + " " + c1.getName() + "," + c2.getName());
-			return res.intValue();
+
+			if (y1 < y2) {
+				return -y2;
+			} else if (y1 > y2) {
+				return y1;
+			} else if (x1 < x2) {
+				return -x2;
+			} else if (x1 >= x2) {
+				return x1;
+			} else {
+				return -x2;
+			}
+//			System.out.println(res.intValue() + " " + c1.getName() + "," + c2.getName());
+//			return res.intValue();
 		}
 	}
 	
-	private double normalize(int x, int y) {
-		return Math.sqrt((x*x) + (y*y));
-	}
+//	private double normalize(int x, int y) {
+//		return Math.sqrt((x*x) + (y*y));
+//	}
 }
