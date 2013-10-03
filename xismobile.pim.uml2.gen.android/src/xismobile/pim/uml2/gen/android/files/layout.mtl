@@ -15,7 +15,7 @@
     android:layout_height="match_parent"
     tools:context=".[c.name.toUpperFirst()/]Activity" >
 
-[for (cl : Class | c.orderWidgetsByPosition(c.getXisWidgets()->asSequence()))]
+[for (cl : Class | orderWidgetsByPosition(c.getXisWidgets()->asSequence()))]
 	[cl.writeWidget()/]
 [/for]
 
