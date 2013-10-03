@@ -162,7 +162,7 @@ public class XMLParser {
 	private static Map<String, Element> getWidgetsMap(Document document) {
 		Map<String, Element> widgets = new HashMap<String, Element>();
 
-		addToMap(document.getElementsByTagName("XIS-Mobile:XisCompositeWidget"), widgets);
+		addToMap(document.getElementsByTagName("XIS-Mobile:XisInteractionSpace"), widgets);
 		addToMap(document.getElementsByTagName("XIS-Mobile:XisLabel"), widgets);
 		addToMap(document.getElementsByTagName("XIS-Mobile:XisTextBox"), widgets);
 		addToMap(document.getElementsByTagName("XIS-Mobile:XisCheckBox"), widgets);
@@ -173,7 +173,9 @@ public class XMLParser {
 		addToMap(document.getElementsByTagName("XIS-Mobile:XisTimePicker"), widgets);
 		addToMap(document.getElementsByTagName("XIS-Mobile:XisMapView"), widgets);
 		addToMap(document.getElementsByTagName("XIS-Mobile:XisWebView"), widgets);
-
+		addToMap(document.getElementsByTagName("XIS-Mobile:XisDropdown"), widgets);
+		addToMap(document.getElementsByTagName("XIS-Mobile:XisCompositeWidget"), widgets);
+		
 		return widgets.size() > 0 ? widgets : null;
 	}
 
@@ -216,7 +218,6 @@ public class XMLParser {
 							Integer posY = (bottom + top) / 2;
 							Integer width = right - left;
 							Integer height = bottom - top;
-							Integer size = width * height;
 
 							widgets.get(id).setAttribute("posX",
 									posX.toString());
@@ -226,8 +227,6 @@ public class XMLParser {
 									width.toString());
 							widgets.get(id).setAttribute("height",
 									height.toString());
-							widgets.get(id).setAttribute("size",
-									size.toString());
 							// System.out.println(id+"-"+geometry+widgets.containsKey(id));
 						}
 					}
