@@ -439,6 +439,20 @@ public class Services {
 		return widgets;
 	}
 	
+	public void setWidgetRelativePositioning(List<Class> widgets) {
+		Class space = (Class) widgets.get(0).getOwner();
+		int spaceX = 0;
+		int spaceY = 0;
+		int spaceLeft = 0;
+		int spaceRight = 0;
+		int spaceTop = 0;
+		int spaceBottom = 0;
+		
+		for (Class w : widgets) {
+			// TODO
+		}
+	}
+	
 	/**
 	 * Checks if a string contains the other one specified. 
 	 * 
@@ -517,6 +531,12 @@ public class Services {
 		}
 	}
 
+	/**
+	 * Compares XisWidgets according to their positions.
+	 * 
+	 * @author André Ribeiro
+	 * @see Comparator
+	 */
 	class WidgetComparator implements Comparator<Class> {
 
 		@Override
@@ -539,12 +559,6 @@ public class Services {
 			} else {
 				return -x2;
 			}
-//			System.out.println(res.intValue() + " " + c1.getName() + "," + c2.getName());
-//			return res.intValue();
 		}
 	}
-	
-//	private double normalize(int x, int y) {
-//		return Math.sqrt((x*x) + (y*y));
-//	}
 }
