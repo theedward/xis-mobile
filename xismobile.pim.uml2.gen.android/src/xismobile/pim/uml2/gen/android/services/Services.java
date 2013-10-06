@@ -448,8 +448,39 @@ public class Services {
 		int spaceTop = 0;
 		int spaceBottom = 0;
 		
+		// Left margin 10
+		// Right margin 10
+		// Top margin 35
+		// Bottom margin 10
+		List<Class> predecessors = new ArrayList<Class>();
+		
 		for (Class w : widgets) {
-			// TODO
+			int posX = 0;
+			int posY = 0;
+			int left = 0;
+			int right = 0;
+			int top = 0;
+			int bottom = 0;
+			
+			if (posX == spaceX) {
+				// Center Horizontal
+				if (top >= spaceTop && (top - spaceTop) < 36) {
+					// Align Parent Top
+				} else if (bottom >= spaceBottom && (bottom - spaceBottom) < 11) {
+					// Align Parent Bottom
+				}
+			}
+			
+			if (left >= spaceLeft && (left - spaceLeft) < 11) {
+				
+			} else if (right >= spaceRight && (right - spaceRight) < 11) {
+			
+			} else if (top >= spaceTop && (top - spaceTop) < 36) {
+				
+			} else if (bottom >= spaceBottom && (bottom - spaceBottom) < 11) {
+				
+			}
+			predecessors.add(w);
 		}
 	}
 	
