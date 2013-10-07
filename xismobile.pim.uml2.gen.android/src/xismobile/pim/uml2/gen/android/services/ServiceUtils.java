@@ -1,13 +1,20 @@
 package xismobile.pim.uml2.gen.android.services;
 
+import org.eclipse.uml2.uml.Association;
 import org.eclipse.uml2.uml.Class;
+import org.eclipse.uml2.uml.Generalization;
 import org.eclipse.uml2.uml.Stereotype;
+import org.eclipse.uml2.uml.Type;
 
 public final class ServiceUtils {
 
 	// Suppress default constructor for non-instantiability
 	private ServiceUtils() {
 		throw new AssertionError();
+	}
+	
+	public static Stereotype getXisInteractionSpace(Class c) {
+		return c.getAppliedStereotype("XIS-Mobile::XisInteractionSpace");
 	}
 	
 	public static boolean isXisLabel(Class c) {
@@ -169,5 +176,47 @@ public final class ServiceUtils {
 	public static int getPosY(Class c, Stereotype s) {
 		int posY = (int) c.getValue(s, "posY");
 		return posY;
+	}
+	
+	public static int getWidth(Class c, Stereotype s) {
+		int width = (int) c.getValue(s, "width");
+		return width;
+	}
+	
+	public static int getHeight(Class c, Stereotype s) {
+		int height = (int) c.getValue(s, "height");
+		return height;
+	}
+	
+	public static boolean isXisEntity(Type t) {
+		return t.getAppliedStereotype("XIS-Mobile::XisEntity") != null;
+	}
+	
+	public static boolean isXisDomainAssociation(Association a) {
+		return a.getAppliedStereotype("XIS-Mobile::XisDomainAssociation") != null;
+	}
+	
+//	public static boolean isXisNavigationAssociation(Association a) {
+//		return a.getAppliedStereotype("XIS-Mobile::XisNavigationAssociation") != null;
+//	}
+
+	public static boolean isXisBusinessEntity(Type t) {
+		return t.getAppliedStereotype("XIS-Mobile::XisBusinessEntity") != null;
+	}
+
+	public static boolean isXisMasterAssociation(Association a) {
+		return a.getAppliedStereotype("XIS-Mobile::XisMasterAssociation") != null;
+	}
+
+	public static boolean isXisDetailAssociation(Association a) {
+		return a.getAppliedStereotype("XIS-Mobile::XisDetailAssociation") != null;
+	}
+
+	public static boolean isXisReferenceAssociation(Association a) {
+		return a.getAppliedStereotype("XIS-Mobile::XisReferenceAssociation") != null;
+	}
+	
+	public static boolean isXisInheritance(Generalization g) {
+		return g.getAppliedStereotype("XIS-Mobile::XisInheritance") != null;
 	}
 }
