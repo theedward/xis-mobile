@@ -58,6 +58,10 @@
 	invoke('xismobile.pim.uml2.gen.android.services.Services', 'orderWidgetsByPosition(java.util.List)', Sequence{widgets})
 /]
 
+[query public writeWidgetRelativePositioning(c : Class, widgets : Sequence(Class)) : OclVoid = 
+	invoke('xismobile.pim.uml2.gen.android.services.Services', 'writeWidgetRelativePositioning(org.eclipse.uml2.uml.Class,java.util.List)', Sequence{c, widgets})
+/]
+
 [query public stringContains(s1 : String, s2 : String) : Boolean = 
 	invoke('xismobile.pim.uml2.gen.android.services.Services', 'stringContains(java.lang.String, java.lang.String)', Sequence{s1, s2})
 /]
