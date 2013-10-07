@@ -502,17 +502,77 @@ public class Services {
 				}
 				
 				if (closerTop == spaceTop) {
-					sb.append("android:layout_alignParentTop=\"true\"");
+					sb.append("\n" + "android:layout_alignParentTop=\"true\"");
 				} else {
 //					String id = "";
-					sb.append("android:layout_below=\"@+id/" + toLowerFirst(closer.getName()));
+					sb.append("\n" + "android:layout_below=\"@+id/" + toLowerFirst(closer.getName()));
 				}
 				
 				if (closerMargin > 0) {
-					sb.append("android:layout_marginTop=\"" + closerMargin + "dp\"");
+					sb.append("\n" + "android:layout_marginTop=\"" + closerMargin + "dp\"");
 				}
 			} else {
 				// TODO: Relative positioning for X and Y axis
+				int closerLeft = spaceLeft;
+				int closerTop = spaceTop;
+				int closerMarginX = left - spaceLeft - 10;
+				int closerMarginY = top - spaceTop - 35;
+				Class closerX = null;
+				Class closerY = null;
+				
+				for (Class w : predecessors) {
+					Stereotype wStereo = ServiceUtils.getWidgetStereotype(w);
+					int wLeft = ServiceUtils.getPosX(w, wStereo) - ServiceUtils.getWidth(w, wStereo)/2;
+					int wTop = ServiceUtils.getPosY(w, wStereo) - ServiceUtils.getHeight(w, wStereo)/2;
+					
+					if (wLeft == left) {
+						closerLeft = wLeft;
+						closerMarginX = 0;
+						closerX = w;
+						break;
+					} else if (wLeft < left) {
+						if ((left - wLeft) < closerMarginX) {
+							closerLeft = wLeft;
+							closerMarginX = left - wLeft;
+							closerX = w;
+						}
+					}
+					
+					if (wTop == top) {
+						closerTop = wTop;
+						closerMarginY = 0;
+						closerY = w;
+						break;
+					} else if (wTop < top) {
+						if ((top - wTop) < closerMarginY) {
+							closerTop = wTop;
+							closerMarginY = top - wTop;
+							closerY = w;
+						}
+					}
+				}
+				
+				if (closerLeft == spaceLeft) {
+					sb.append("android:layout_alignParentLeft=\"true\"");
+				} else {
+//					String id = "";
+					sb.append("android:layout_alignLeft=\"@+id/" + toLowerFirst(closerX.getName()));					
+				}
+				
+				if (closerTop == spaceTop) {
+					sb.append("\n" + "android:layout_alignParentTop=\"true\"");
+				} else {
+//					String id = "";
+					sb.append("\n" + "android:layout_below=\"@+id/" + toLowerFirst(closerY.getName()));
+				}
+				
+				if (closerMarginX > 0) {
+					sb.append("\n" + "android:layout_marginLeft=\"" + closerMarginX + "dp\"");
+				}
+				
+				if (closerMarginY > 0) {
+					sb.append("\n" + "android:layout_marginTop=\"" + closerMarginY + "dp\"");
+				}
 			}
 		} else {
 			// Align with parent
@@ -522,13 +582,13 @@ public class Services {
 				int distBottom = spaceBottom - bottom;
 				
 				if (distTop <= distBottom) {
-					sb.append("android:layout_alignParentTop=\"true\"");
+					sb.append("\n" + "android:layout_alignParentTop=\"true\"");
 					if (distTop > 35) {
 						int margin = distTop - 35;
 						sb.append("\n" + "android:layout_marginTop=\"" + margin  + "dp\"");
 					}
 				} else {
-					sb.append("android:layout_alignParentBottom=\"true\"");
+					sb.append("\n" + "android:layout_alignParentBottom=\"true\"");
 					if (distBottom > 10) {
 						int margin = distBottom - 10;
 						sb.append("\n" + "android:layout_marginBottom=\"" + margin  + "dp\"");
@@ -555,13 +615,13 @@ public class Services {
 				}
 				// Set Y positioning
 				if (distTop <= distBottom) {
-					sb.append("android:layout_alignParentTop=\"true\"");
+					sb.append("\n" + "android:layout_alignParentTop=\"true\"");
 					if (distTop > 35) {
 						int margin = distTop - 35;
 						sb.append("\n" + "android:layout_marginTop=\"" + margin  + "dp\"");
 					}
 				} else {
-					sb.append("android:layout_alignParentBottom=\"true\"");
+					sb.append("\n" + "android:layout_alignParentBottom=\"true\"");
 					if (distBottom > 10) {
 						int margin = distBottom - 10;
 						sb.append("\n" + "android:layout_marginBottom=\"" + margin  + "dp\"");
