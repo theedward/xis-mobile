@@ -70,7 +70,7 @@ public class Services {
 		StringBuilder builder = new StringBuilder();
 		List<Generalization> gens = c.getGeneralizations(); 
 
-		if (gens.size() == 1 && isXisInheritance(gens.get(0))) {
+		if (gens.size() == 1 && ServiceUtils.isXisInheritance(gens.get(0))) {
 			Class cl = (Class) gens.get(0).getTargets()
 					.get(0);
 			builder.append(" extends ").append(cl.getName());
@@ -117,12 +117,12 @@ public class Services {
 		Type second = null;
 
 		for (Association a : c.getAssociations()) {
-			if (isXisDomainAssociation(a)) {
+			if (ServiceUtils.isXisDomainAssociation(a)) {
 				first = a.getEndTypes().get(0);
 				second = a.getEndTypes().get(1);
-				if (isXisBusinessEntity(first)) {
+				if (ServiceUtils.isXisBusinessEntity(first)) {
 					bes.add((Class) first);
-				} else if (isXisBusinessEntity(second)) {
+				} else if (ServiceUtils.isXisBusinessEntity(second)) {
 					bes.add((Class) second);
 				}
 			}
@@ -130,12 +130,12 @@ public class Services {
 
 		for (Class cl : bes) {
 			for (Association a : cl.getAssociations()) {
-				if (isXisMasterAssociation(a)) {
+				if (ServiceUtils.isXisMasterAssociation(a)) {
 					first = a.getEndTypes().get(0);
 					second = a.getEndTypes().get(1);
-					if (isXisEntity(first)) {
+					if (ServiceUtils.isXisEntity(first)) {
 						entities.add((Class) first);
-					} else if (isXisEntity(second)) {
+					} else if (ServiceUtils.isXisEntity(second)) {
 						entities.add((Class) second);
 					}
 				}
@@ -151,12 +151,12 @@ public class Services {
 		Type second = null;
 
 		for (Association a : c.getAssociations()) {
-			if (isXisDomainAssociation(a)) {
+			if (ServiceUtils.isXisDomainAssociation(a)) {
 				first = a.getEndTypes().get(0);
 				second = a.getEndTypes().get(1);
-				if (isXisBusinessEntity(first)) {
+				if (ServiceUtils.isXisBusinessEntity(first)) {
 					bes.add((Class) first);
-				} else if (isXisBusinessEntity(second)) {
+				} else if (ServiceUtils.isXisBusinessEntity(second)) {
 					bes.add((Class) second);
 				}
 			}
@@ -164,12 +164,12 @@ public class Services {
 
 		for (Class cl : bes) {
 			for (Association a : cl.getAssociations()) {
-				if (isXisDetailAssociation(a)) {
+				if (ServiceUtils.isXisDetailAssociation(a)) {
 					first = a.getEndTypes().get(0);
 					second = a.getEndTypes().get(1);
-					if (isXisEntity(first)) {
+					if (ServiceUtils.isXisEntity(first)) {
 						entities.add((Class) first);
-					} else if (isXisEntity(second)) {
+					} else if (ServiceUtils.isXisEntity(second)) {
 						entities.add((Class) second);
 					}
 				}
@@ -185,12 +185,12 @@ public class Services {
 		Type second = null;
 
 		for (Association a : c.getAssociations()) {
-			if (isXisDomainAssociation(a)) {
+			if (ServiceUtils.isXisDomainAssociation(a)) {
 				first = a.getEndTypes().get(0);
 				second = a.getEndTypes().get(1);
-				if (isXisBusinessEntity(first)) {
+				if (ServiceUtils.isXisBusinessEntity(first)) {
 					bes.add((Class) first);
-				} else if (isXisBusinessEntity(second)) {
+				} else if (ServiceUtils.isXisBusinessEntity(second)) {
 					bes.add((Class) second);
 				}
 			}
@@ -198,12 +198,12 @@ public class Services {
 
 		for (Class cl : bes) {
 			for (Association a : cl.getAssociations()) {
-				if (isXisReferenceAssociation(a)) {
+				if (ServiceUtils.isXisReferenceAssociation(a)) {
 					first = a.getEndTypes().get(0);
 					second = a.getEndTypes().get(1);
-					if (isXisEntity(first)) {
+					if (ServiceUtils.isXisEntity(first)) {
 						entities.add((Class) first);
-					} else if (isXisEntity(second)) {
+					} else if (ServiceUtils.isXisEntity(second)) {
 						entities.add((Class) second);
 					}
 				}
@@ -220,7 +220,7 @@ public class Services {
 		Type second = null;
 
 		for (Association a : c.getAssociations()) {
-			if (isXisDomainAssociation(a)) {
+			if (ServiceUtils.isXisDomainAssociation(a)) {
 				assocs.add(a);
 			}
 		}
@@ -228,22 +228,22 @@ public class Services {
 		for (Association a : assocs) {
 			first = a.getEndTypes().get(0);
 			second = a.getEndTypes().get(1);
-			if (isXisBusinessEntity(first)) {
+			if (ServiceUtils.isXisBusinessEntity(first)) {
 				bes.add((Class) first);
-			} else if (isXisBusinessEntity(second)) {
+			} else if (ServiceUtils.isXisBusinessEntity(second)) {
 				bes.add((Class) second);
 			}
 		}
 
 		for (Class cl : bes) {
 			for (Association a : cl.getAssociations()) {
-				if (isXisMasterAssociation(a) || isXisDetailAssociation(a)
-						|| isXisReferenceAssociation(a)) {
+				if (ServiceUtils.isXisMasterAssociation(a) || ServiceUtils.isXisDetailAssociation(a)
+						|| ServiceUtils.isXisReferenceAssociation(a)) {
 					first = a.getEndTypes().get(0);
 					second = a.getEndTypes().get(1);
-					if (isXisEntity(first)) {
+					if (ServiceUtils.isXisEntity(first)) {
 						entities.add((Class) first);
-					} else if (isXisEntity(second)) {
+					} else if (ServiceUtils.isXisEntity(second)) {
 						entities.add((Class) second);
 					}
 				}
@@ -439,49 +439,138 @@ public class Services {
 		return widgets;
 	}
 	
-	public void setWidgetRelativePositioning(List<Class> widgets) {
-		Class space = (Class) widgets.get(0).getOwner();
-		int spaceX = 0;
-		int spaceY = 0;
-		int spaceLeft = 0;
-		int spaceRight = 0;
-		int spaceTop = 0;
-		int spaceBottom = 0;
+	public String writeWidgetRelativePositioning(Class c, List<Class> widgets) {
+		StringBuilder sb = new StringBuilder();
+		Class space = (Class) c.getOwner();
+		Stereotype s = ServiceUtils.getXisInteractionSpace(space);
+		int spaceX = ServiceUtils.getPosX(space, s);
+		int spaceY = ServiceUtils.getPosY(space, s);
+		int spaceWidth = ServiceUtils.getWidth(space, s);
+		int spaceHeight = ServiceUtils.getHeight(space, s);
+		int spaceLeft = spaceX - spaceWidth/2;
+		int spaceRight = spaceX + spaceWidth/2;
+		int spaceTop = spaceY - spaceHeight/2;
+		int spaceBottom = spaceY + spaceHeight/2;
 		
-		// Left margin 10
-		// Right margin 10
-		// Top margin 35
-		// Bottom margin 10
+		s = ServiceUtils.getWidgetStereotype(c);
+		int posX = ServiceUtils.getPosX(c, s);
+		int posY = ServiceUtils.getPosY(c, s);
+		int width = ServiceUtils.getWidth(c, s);
+		int height = ServiceUtils.getHeight(c, s);
+		int left = posX - width/2;
+		int right = posX + width/2;
+		int top = posY - height/2;
+		int bottom = posY + height/2;
+		
 		List<Class> predecessors = new ArrayList<Class>();
 		
 		for (Class w : widgets) {
-			int posX = 0;
-			int posY = 0;
-			int left = 0;
-			int right = 0;
-			int top = 0;
-			int bottom = 0;
-			
-			if (posX == spaceX) {
-				// Center Horizontal
-				if (top >= spaceTop && (top - spaceTop) < 36) {
-					// Align Parent Top
-				} else if (bottom >= spaceBottom && (bottom - spaceBottom) < 11) {
-					// Align Parent Bottom
+			if (w.getName().equals(c)) {
+				break;
+			} else {
+				predecessors.add(w);
+			}
+		}
+		
+		if (posX == spaceX) {
+			sb.append("android:layout_centerHorizontal=\"true\"");
+		}
+		
+		if(predecessors.size() > 0) {
+			if (sb.length() > 0) {
+				// only Y is missing
+				int closerTop = spaceTop;
+				int closerMargin = top - spaceTop - 35;
+				Class closer = null;
+				
+				for (Class w : predecessors) {
+					Stereotype wStereo = ServiceUtils.getWidgetStereotype(w);
+					int wTop = ServiceUtils.getPosY(w, wStereo) - ServiceUtils.getHeight(w, wStereo)/2;
+					
+					if (wTop == top) {
+						closerTop = wTop;
+						closerMargin = 0;
+						closer = w;
+						break;
+					} else if (wTop < top) {
+						if ((top - wTop) < closerMargin) {
+							closerTop = wTop;
+							closerMargin = top - wTop;
+							closer = w;
+						}
+					}
+				}
+				
+				if (closerTop == spaceTop) {
+					sb.append("android:layout_alignParentTop=\"true\"");
+				} else {
+//					String id = "";
+					sb.append("android:layout_below=\"@+id/" + toLowerFirst(closer.getName()));
+				}
+				
+				if (closerMargin > 0) {
+					sb.append("android:layout_marginTop=\"" + closerMargin + "dp\"");
+				}
+			} else {
+				// TODO: Relative positioning for X and Y axis
+			}
+		} else {
+			// Align with parent
+			if (sb.length() > 0) {
+				// only Y remaining
+				int distTop = top - spaceTop;
+				int distBottom = spaceBottom - bottom;
+				
+				if (distTop <= distBottom) {
+					sb.append("android:layout_alignParentTop=\"true\"");
+					if (distTop > 35) {
+						int margin = distTop - 35;
+						sb.append("\n" + "android:layout_marginTop=\"" + margin  + "dp\"");
+					}
+				} else {
+					sb.append("android:layout_alignParentBottom=\"true\"");
+					if (distBottom > 10) {
+						int margin = distBottom - 10;
+						sb.append("\n" + "android:layout_marginBottom=\"" + margin  + "dp\"");
+					}
+				}
+			} else {
+				int distLeft = left - spaceLeft;
+				int distRight = right -spaceRight;
+				int distTop = top - spaceTop;
+				int distBottom = spaceBottom - bottom;
+				// Set X positioning
+				if (distLeft <= distRight) {
+					sb.append("android:layout_alignParentLeft=\"true\"");
+					if (distLeft > 10) {
+						int margin = distLeft - 10;
+						sb.append("\n" + "android:layout_marginLeft=\"" + margin  + "dp\"");
+					}
+				} else {
+					sb.append("android:layout_alignParentRight=\"true\"");
+					if (distRight > 10) {
+						int margin = distRight - 10;
+						sb.append("\n" + "android:layout_marginRight=\"" + margin  + "dp\"");
+					}
+				}
+				// Set Y positioning
+				if (distTop <= distBottom) {
+					sb.append("android:layout_alignParentTop=\"true\"");
+					if (distTop > 35) {
+						int margin = distTop - 35;
+						sb.append("\n" + "android:layout_marginTop=\"" + margin  + "dp\"");
+					}
+				} else {
+					sb.append("android:layout_alignParentBottom=\"true\"");
+					if (distBottom > 10) {
+						int margin = distBottom - 10;
+						sb.append("\n" + "android:layout_marginBottom=\"" + margin  + "dp\"");
+					}
 				}
 			}
-			
-			if (left >= spaceLeft && (left - spaceLeft) < 11) {
-				
-			} else if (right >= spaceRight && (right - spaceRight) < 11) {
-			
-			} else if (top >= spaceTop && (top - spaceTop) < 36) {
-				
-			} else if (bottom >= spaceBottom && (bottom - spaceBottom) < 11) {
-				
-			}
-			predecessors.add(w);
 		}
+		sb.append("\n");
+		return sb.toString();
 	}
 	
 	/**
@@ -496,40 +585,9 @@ public class Services {
 	}
 	
 	/**
-	 * AUXILIARY METHODS REGION
+	 * Auxiliary Methods
 	 */
-	private boolean isXisEntity(Type t) {
-		return t.getAppliedStereotype("XIS-Mobile::XisEntity") != null;
-	}
-	
-	private boolean isXisDomainAssociation(Association a) {
-		return a.getAppliedStereotype("XIS-Mobile::XisDomainAssociation") != null;
-	}
-	
-//	private boolean isXisNavigationAssociation(Association a) {
-//		return a.getAppliedStereotype("XIS-Mobile::XisNavigationAssociation") != null;
-//	}
 
-	private boolean isXisBusinessEntity(Type t) {
-		return t.getAppliedStereotype("XIS-Mobile::XisBusinessEntity") != null;
-	}
-
-	private boolean isXisMasterAssociation(Association a) {
-		return a.getAppliedStereotype("XIS-Mobile::XisMasterAssociation") != null;
-	}
-
-	private boolean isXisDetailAssociation(Association a) {
-		return a.getAppliedStereotype("XIS-Mobile::XisDetailAssociation") != null;
-	}
-
-	private boolean isXisReferenceAssociation(Association a) {
-		return a.getAppliedStereotype("XIS-Mobile::XisReferenceAssociation") != null;
-	}
-	
-	private boolean isXisInheritance(Generalization g) {
-		return g.getAppliedStereotype("XIS-Mobile::XisInheritance") != null;
-	}
-	
 	/**
 	 * Puts the first letter of a string in upper case and returns it.
 	 * 
@@ -538,6 +596,16 @@ public class Services {
 	 */
 	private String toUpperFirst(String s) {
 		return s.substring(0, 1).toUpperCase() + s.substring(1);
+	}
+	
+	/**
+	 * Puts the first letter of a string in lower case and returns it.
+	 * 
+	 * @param s The original string 
+	 * @return The string with the first letter in lower case
+	 */
+	private String toLowerFirst(String s) {
+		return s.substring(0, 1).toLowerCase() + s.substring(1);
 	}
 	
 	/**
@@ -561,7 +629,7 @@ public class Services {
 			return folder;
 		}
 	}
-
+	
 	/**
 	 * Compares XisWidgets according to their positions.
 	 * 
