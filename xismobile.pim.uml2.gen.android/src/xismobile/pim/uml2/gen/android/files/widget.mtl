@@ -327,7 +327,6 @@ mSpinner[c.name.toUpperFirst()/] = (Spinner)findViewById(R.id.spinner[c.name.toU
 	android:id="@+id/[name/]"
 	android:layout_width="wrap_content"
 	android:layout_height="wrap_content"
-	android:layout_centerHorizontal="true"
 	android:ems="10"
 	[if (c.getXisTexBoxLines() > 1)]
 	android:inputType="textMultiLine"
@@ -470,7 +469,6 @@ mSpinner[c.name.toUpperFirst()/] = (Spinner)findViewById(R.id.spinner[c.name.toU
 	android:id="@+id/list[c.name.toUpperFirst()/]"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
-	android:layout_alignParentTop="true"
 	android:layout_centerHorizontal="true"
 />
 [/template]
