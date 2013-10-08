@@ -15,9 +15,11 @@
     android:layout_height="match_parent"
     tools:context=".[c.name.toUpperFirst()/]Activity" >
 
-[for (cl : Class | orderWidgetsByPosition(c.getXisWidgets()->asSequence()))]
-	[cl.writeWidget()/]
+[let widgets : Sequence(Class) = orderWidgetsByPosition(c.getXisWidgets()->asSequence())]
+[for (cl : Class | widgets)]
+	[writeWidget(widgets, cl)/]
 [/for]
+[/let]
 
 </RelativeLayout>
 [/file]
