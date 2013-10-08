@@ -439,7 +439,7 @@ public class Services {
 		return widgets;
 	}
 	
-	public String writeWidgetRelativePositioning(Class c, List<Class> widgets) {
+	public String writeWidgetRelativePositioning(List<Class> widgets, Class c) {
 		StringBuilder sb = new StringBuilder();
 		Class space = (Class) c.getOwner();
 		Stereotype s = ServiceUtils.getXisInteractionSpace(space);
@@ -465,7 +465,7 @@ public class Services {
 		List<Class> predecessors = new ArrayList<Class>();
 		
 		for (Class w : widgets) {
-			if (w.getName().equals(c)) {
+			if (w.getName().equals(c.getName())) {
 				break;
 			} else {
 				predecessors.add(w);
