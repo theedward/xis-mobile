@@ -505,8 +505,7 @@ public class Services {
 				if (closerTop == spaceTop) {
 					sb.append(newLine + "android:layout_alignParentTop=\"true\"");
 				} else {
-//					String id = "";
-					sb.append(newLine + "android:layout_below=\"@+id/" + toLowerFirst(closer.getName()));
+					sb.append(newLine + "android:layout_below=\"@+id/" + ServiceUtils.getWidgetName(closer) + "\"");
 				}
 				
 				if (closerMargin > 0) {
@@ -556,15 +555,13 @@ public class Services {
 				if (closerLeft == spaceLeft) {
 					sb.append("android:layout_alignParentLeft=\"true\"");
 				} else {
-//					String id = "";
-					sb.append("android:layout_alignLeft=\"@+id/" + toLowerFirst(closerX.getName()) + "\"");
+					sb.append("android:layout_alignLeft=\"@+id/" + ServiceUtils.getWidgetName(closerX) + "\"");
 				}
 				
 				if (closerTop == spaceTop) {
 					sb.append(newLine + "android:layout_alignParentTop=\"true\"");
 				} else {
-//					String id = "";
-					sb.append(newLine + "android:layout_below=\"@+id/" + toLowerFirst(closerY.getName()) + "\"");
+					sb.append(newLine + "android:layout_below=\"@+id/" + ServiceUtils.getWidgetName(closerY) + "\"");
 				}
 				
 				if (closerMarginX > 0) {
@@ -664,6 +661,7 @@ public class Services {
 	 * @param s The original string 
 	 * @return The string with the first letter in lower case
 	 */
+	@SuppressWarnings("unused")
 	private String toLowerFirst(String s) {
 		return s.substring(0, 1).toLowerCase() + s.substring(1);
 	}
