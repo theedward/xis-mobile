@@ -280,53 +280,55 @@ mSpinner[c.name.toUpperFirst()/] = (Spinner)findViewById(R.id.spinner[c.name.toU
 [/let]
 [/template]
 
-[template public writeWidget(c : Class) post (trim())]
+[template public writeWidget(widgets : Sequence(Class), c : Class) post (trim())]
 [if (c.isXisLabel())]
-[c.writeLabel()/]
+[writeLabel(widgets, c)/]
 [elseif (c.isXisTextBox())]
-[c.writeTextBox()/]
+[writeTextBox(widgets, c)/]
 [elseif (c.isXisCheckBox())]
-[c.writeCheckBox()/]
+[writeCheckBox(widgets, c)/]
 [elseif (c.isXisButton())]
-[c.writeButton()/]
+[writeButton(widgets, c)/]
 [elseif (c.isXisLink())]
-[c.writeLink()/]
+[writeLink(widgets, c)/]
 [elseif (c.isXisImage())]
-[c.writeImageView()/]
+[writeImageView(widgets, c)/]
 [elseif (c.isXisDatePicker())]
-[c.writeDatePicker()/]
+[writeDatePicker(widgets, c)/]
 [elseif (c.isXisTimePicker())]
-[c.writeTimePicker()/]
+[writeTimePicker(widgets, c)/]
 [elseif (c.isXisWebView())]
-[c.writeWebView()/]
+[writeWebView(widgets, c)/]
 [elseif (c.isXisMapView())]
-[c.writeMapView()/]
+[writeMapView(widgets, c)/]
 [elseif (c.isList())]
-[c.writeListView()/]
+[writeListView(c)/]
 [elseif (c.isXisDropdown())]
-[c.writeDropdown()/]
+[writeDropdown(widgets, c)/]
 [/if]
 [/template]
 
-[template public writeLabel(c : Class)]
+[template public writeLabel(widgets : Sequence(Class), c : Class)]
 <TextView
 	android:id="@+id/label[c.name.toUpperFirst()/]"
 	android:layout_width="fill_parent"
 	android:layout_height="wrap_content"
+	[writeWidgetRelativePositioning(widgets, c)/]
 [let value : String = c.getXisWidgetValue(c.getXisLabel())]
 	[if (not value.oclIsUndefined() and not value.stringContains('.'))]
-	android:text="[addString(name + '_text', value)/]"
+	android:text="[addString(c.name + '_text', value)/]"
 	[/if]
 [/let]
 />
 [/template]
 
-[template public writeTextBox(c : Class)]
+[template public writeTextBox(widgets : Sequence(Class), c : Class)]
 <EditText
 [let name : String = 'editText' + c.name.toUpperFirst()]
 	android:id="@+id/[name/]"
 	android:layout_width="wrap_content"
 	android:layout_height="wrap_content"
+	[writeWidgetRelativePositioning(widgets, c)/]
 	android:ems="10"
 	[if (c.getXisTexBoxLines() > 1)]
 	android:inputType="textMultiLine"
@@ -346,11 +348,12 @@ mSpinner[c.name.toUpperFirst()/] = (Spinner)findViewById(R.id.spinner[c.name.toU
 />
 [/template]
 
-[template public writeCheckBox(c : Class)]
+[template public writeCheckBox(widgets : Sequence(Class), c : Class)]
 [let name : String = 'checkBox' + c.name.toUpperFirst()]
 <CheckBox android:id="@+id/[name/]"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+	[writeWidgetRelativePositioning(widgets, c)/]
     [if (c.hasXisAction())]
 	android:onClick="[c.getXisAction().name.toLowerFirst()/]"
 	[/if]
@@ -363,12 +366,13 @@ mSpinner[c.name.toUpperFirst()/] = (Spinner)findViewById(R.id.spinner[c.name.toU
 />
 [/template]
 
-[template public writeButton(c : Class)]
+[template public writeButton(widgets : Sequence(Class), c : Class)]
 [let name : String = 'button' + c.name.toUpperFirst()]
 <Button
 	android:id="@+id/[name/]"
 	android:layout_width="wrap_content"
 	android:layout_height="wrap_content"
+	[writeWidgetRelativePositioning(widgets, c)/]
 	[if (c.hasXisAction())]
 	android:onClick="[c.getXisAction().name.toLowerFirst()/]"
 	[/if]
@@ -381,70 +385,76 @@ mSpinner[c.name.toUpperFirst()/] = (Spinner)findViewById(R.id.spinner[c.name.toU
 [/let]
 [/template]
 
-[template public writeLink(c : Class)]
+[template public writeLink(widgets : Sequence(Class), c : Class)]
 [let name : String = 'button' + c.name.toUpperFirst()]
 <TextView
 	android:id="@+id/link[c.name.toUpperFirst()/]"
 	android:layout_width="fill_parent"
 	android:layout_height="wrap_content"
+	[writeWidgetRelativePositioning(widgets, c)/]
 	android:autolink="web"
 	android:text="[addString(name + '_text', c.getXisLinkURL())/]"
 />
 [/let]
 [/template]
 
-[template public writeImageView(c : Class)]
+[template public writeImageView(widgets : Sequence(Class), c : Class)]
 [let name : String = 'image' + c.name.toUpperFirst()]
 <ImageView
 	android:id="@+id/[name/]"
 	android:layout_width="wrap_content"
 	android:layout_height="wrap_content"
+	[writeWidgetRelativePositioning(widgets, c)/]
 	android:src="[addString(name + '_src', c.getXisImagePath())/]"
 />
 [/let]
 [/template]
 
-[template public writeDatePicker(c : Class)]
+[template public writeDatePicker(widgets : Sequence(Class), c : Class)]
 [let name : String = 'datePicker' + c.name.toUpperFirst()]
 <Button
 	android:id="@+id/[name/]"
 	android:layout_width="wrap_content"
 	android:layout_height="wrap_content"
+	[writeWidgetRelativePositioning(widgets, c)/]
 	android:onClick="showDatePicker[c.name.toUpperFirst()/]Dialog"
 	android:text="[addString(name + '_text', c.getXisDatePickerValue())/]"
 />
 [/let]
 [/template]
 
-[template public writeTimePicker(c : Class)]
+[template public writeTimePicker(widgets : Sequence(Class), c : Class)]
 [let name : String = 'timePicker' + c.name.toUpperFirst()]
 <Button
 	android:id="@+id/[name/]"
 	android:layout_width="wrap_content"
 	android:layout_height="wrap_content"
+	[writeWidgetRelativePositioning(widgets, c)/]
 	android:onClick="showTimePicker[c.name.toUpperFirst()/]Dialog"
 	android:text="[addString(name + '_text', c.getXisTimePickerValue())/]"
 />
 [/let]
 [/template]
 
-[template public writeWebView(c : Class)]
+[template public writeWebView(widgets : Sequence(Class), c : Class)]
 [let name : String = 'webView' + c.name.toUpperFirst()]
 <WebView xmlns:android="http://schemas.android.com/apk/res/android"
 	android:id="@+id/[name/]"
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent"
+	[writeWidgetRelativePositioning(widgets, c)/]
 />
 [/let]
 [/template]
 
-[template public writeMapView(c : Class)]
+[template public writeMapView(widgets : Sequence(Class), c : Class)]
 [let name : String = 'mapView' + c.name.toUpperFirst()]
 <com.google.android.maps.MapView
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:id="@+id/[name/]"
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent"
+	[writeWidgetRelativePositioning(widgets, c)/]
 	android:clickable="true"
 	android:apiKey="Your Maps API Key goes here"
 />
@@ -473,12 +483,13 @@ mSpinner[c.name.toUpperFirst()/] = (Spinner)findViewById(R.id.spinner[c.name.toU
 />
 [/template]
 
-[template public writeDropdown(c : Class)]
+[template public writeDropdown(widgets : Sequence(Class), c : Class)]
 [let name : String = 'spinner' + c.name.toUpperFirst()]
 <Spinner
     android:id="@+id/[name/]"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+	[writeWidgetRelativePositioning(widgets, c)/]
 />
 [/let]
 [/template]
@@ -492,38 +503,12 @@ mSpinner[c.name.toUpperFirst()/] = (Spinner)findViewById(R.id.spinner[c.name.toU
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-[for (cl : Class | c.getChildren())]
-	[cl.writeWidget()/]
+[let widgets : Sequence(Class) = orderWidgetsByPosition(c.getXisWidgets()->asSequence())]
+[for (cl : Class | widgets)]
+	[writeWidget(widgets, cl)/]
 [/for]
+[/let]
 
 </RelativeLayout>
 [/file]
-[/template]
-
-[template public writeMarginPositioning(c : Class)]
-[comment]TODO: value in dp.[/comment]
-android:layout_marginTop=""
-android:layout_marginBottom=""
-android:layout_marginLeft=""
-android:layout_marginRight=""
-[/template]
-
-[template public writeParentPositioning(c : Class)]
-[comment]TODO: value in true or false.[/comment]
-android:layout_alignParentTop=""
-android:layout_alignParentBottom=""
-android:layout_alignParentLeft=""
-android:layout_alignParentRight=""
-[/template]
-
-[template public writeRelativePositioning(c : Class)]
-[comment]TODO: value equals widget id.[/comment]
-android:layout_alignTop="@+id/"
-android:layout_alignBottom="@+id/"
-android:layout_alignLeft="@+id/"
-android:layout_alignRight="@+id/"
-[/template]
-
-[template public writeCenterHorizontalPositioning(c : Class)]
-android:layout_centerHorizontal="true"
 [/template]
