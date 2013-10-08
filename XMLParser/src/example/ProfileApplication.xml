@@ -1,6 +1,6 @@
 <profileApplication xmi:id="_Lp5tIKHFEeKUoPvtuUlduw">
 	<eAnnotations xmi:id="_LqBB4KHFEeKUoPvtuUlduw" source="http://www.eclipse.org/uml2/2.0.0/UML">
-		<references xmi:type="ecore:EPackage" href="../XIS-Mobile/model.profile.uml#_N6yXQR_gEeOzzOY1V7z1oQ" />
+		<references xmi:type="ecore:EPackage" href="../XIS-Mobile/model.profile.uml#_z70vgSxDEeOO4K76AiBnHA"/>
 	</eAnnotations>
 	<appliedProfile href="../XIS-Mobile/model.profile.uml#_EUKFkB9vEeOZ6al_I843SA" />
 </profileApplication>
