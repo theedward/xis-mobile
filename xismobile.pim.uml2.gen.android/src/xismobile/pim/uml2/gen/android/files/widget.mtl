@@ -310,14 +310,16 @@ mSpinner[c.name.toUpperFirst()/] = (Spinner)findViewById(R.id.spinner[c.name.toU
 
 [template public writeLabel(widgets : Sequence(Class), c : Class)]
 <TextView
-	android:id="@+id/label[c.name.toUpperFirst()/]"
+[let name : String = 'label' + c.name.toUpperFirst()]
+	android:id="@+id/[name/]"
 	android:layout_width="fill_parent"
 	android:layout_height="wrap_content"
 	[writeWidgetRelativePositioning(widgets, c)/]
 [let value : String = c.getXisWidgetValue(c.getXisLabel())]
 	[if (not value.oclIsUndefined() and not value.stringContains('.'))]
-	android:text="[addString(c.name + '_text', value)/]"
+	android:text="[addString(name + '_text', value)/]"
 	[/if]
+[/let]
 [/let]
 />
 [/template]
@@ -386,7 +388,7 @@ mSpinner[c.name.toUpperFirst()/] = (Spinner)findViewById(R.id.spinner[c.name.toU
 [/template]
 
 [template public writeLink(widgets : Sequence(Class), c : Class)]
-[let name : String = 'button' + c.name.toUpperFirst()]
+[let name : String = 'link' + c.name.toUpperFirst()]
 <TextView
 	android:id="@+id/link[c.name.toUpperFirst()/]"
 	android:layout_width="fill_parent"
