@@ -188,6 +188,39 @@ public final class ServiceUtils {
 		return height;
 	}
 	
+	public static String getWidgetName(Class c) {
+		String name = null;
+		if (isXisLabel(c)) {
+			name = "label";
+		} else if (isXisTextBox(c)) {
+			name = "editText";
+		} else if (isXisCheckBox(c)) {
+			name = "checkBox";
+		} else if (isXisLink(c)) {
+			name = "link";
+		} else if (isXisButton(c)) {
+			name = "button";
+		} else if (isXisImage(c)) {
+			name = "image";
+		} else if (isXisDatePicker(c)) {
+			name = "datePicker";
+		} else if (isXisTimePicker(c)) {
+			name = "timePicker";
+		} else if (isXisWebView(c)) {
+			name = "webView";
+		} else if (isXisMapView(c)) {
+			name = "mapView";
+		} else if (isXisDropdown(c)) {
+			name = "spinner";
+		} else if (isXisCompositeWidget(c)) {
+			
+		}
+		if (name.length() > 0) {
+			name += toUpperFirst(c.getName());
+		}
+		return name;
+	}
+	
 	public static boolean isXisEntity(Type t) {
 		return t.getAppliedStereotype("XIS-Mobile::XisEntity") != null;
 	}
@@ -218,5 +251,15 @@ public final class ServiceUtils {
 	
 	public static boolean isXisInheritance(Generalization g) {
 		return g.getAppliedStereotype("XIS-Mobile::XisInheritance") != null;
+	}
+	
+	/**
+	 * Puts the first letter of a string in upper case and returns it.
+	 * 
+	 * @param s The original string 
+	 * @return The string with the first letter in upper case
+	 */
+	private static String toUpperFirst(String s) {
+		return s.substring(0, 1).toUpperCase() + s.substring(1);
 	}
 }
