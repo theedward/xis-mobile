@@ -308,6 +308,20 @@ mSpinner[c.name.toUpperFirst()/] = (Spinner)findViewById(R.id.spinner[c.name.toU
 [/if]
 [/template]
 
+[template public writePageTitle(c : Class)]
+<TextView
+[let name : String = 'label' + c.name.toUpperFirst() + 'Title']
+	android:id="@+id/[name/]"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:layout_centerHorizontal="true"
+	[let value : String = c.getTitle()]
+	android:text="[addString(name + '_text', value)/]"
+	[/let]
+[/let]
+/>
+[/template]
+
 [template public writeLabel(widgets : Sequence(Class), c : Class)]
 <TextView
 [let name : String = 'label' + c.name.toUpperFirst()]
