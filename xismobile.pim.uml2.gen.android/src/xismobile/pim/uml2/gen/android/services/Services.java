@@ -445,6 +445,7 @@ public class Services {
 		final int BORDER = 10;
 		StringBuilder sb = new StringBuilder();
 		Class space = (Class) c.getOwner();
+		Class menu = ServiceUtils.geXisInteractionSpacetMenu(space);
 		Stereotype s = ServiceUtils.getXisInteractionSpace(space);
 		int spaceX = ServiceUtils.getPosX(space, s);
 		int spaceY = ServiceUtils.getPosY(space, s);
@@ -453,7 +454,16 @@ public class Services {
 		int spaceLeft = spaceX - spaceWidth/2;
 		int spaceRight = spaceX + spaceWidth/2;
 		int spaceTop = spaceY - spaceHeight/2;
-		int spaceBottom = spaceY + spaceHeight/2;
+		int spaceBottom = 0;
+		
+		if (menu != null) {
+			Stereotype menuS = ServiceUtils.getMenu(menu);
+			int menuY = ServiceUtils.getPosY(menu, menuS);
+			int menuHeight = ServiceUtils.getHeight(menu, menuS);
+			spaceBottom = menuY - menuHeight/2;
+		} else {
+			spaceBottom = spaceY + spaceHeight/2;
+		}
 		
 		s = ServiceUtils.getWidgetStereotype(c);
 		int posX = ServiceUtils.getPosX(c, s);
