@@ -199,39 +199,43 @@ public class XMLParser {
 						.compile("/*[local-name()='XMI']/*[local-name()='Extension']/diagrams/diagram/elements/element");
 				NodeList lst = (NodeList) expr.evaluate(document,
 						XPathConstants.NODESET);
+				
 				if (lst != null) {
 					Element aux = null;
+					Element style2 = null;
 					String id = null;
 					String geometry = null;
+					
 					for (int i = 0; i < lst.getLength(); i++) {
 						aux = (Element) lst.item(i);
 						id = aux.getAttribute("subject");
-						if (widgets.containsKey(id)) {
-							geometry = aux.getAttribute("geometry");
-							String[] pos = geometry.split("=|;");
-							int left = Math.abs(Integer.parseInt(pos[1]));
-							int top = Math.abs(Integer.parseInt(pos[3]));
-							int right = Math.abs(Integer.parseInt(pos[5]));
-							int bottom = Math.abs(Integer.parseInt(pos[7]));
-
-							Integer posX = (left + right) / 2;
-							Integer posY = (bottom + top) / 2;
-							Integer width = right - left;
-							Integer height = bottom - top;
-
-							widgets.get(id).setAttribute("posX",
-									posX.toString());
-							widgets.get(id).setAttribute("posY",
-									posY.toString());
-							widgets.get(id).setAttribute("width",
-									width.toString());
-							widgets.get(id).setAttribute("height",
-									height.toString());
-							// System.out.println(id+"-"+geometry+widgets.containsKey(id));
+						// Ignore NavigationSpace DiagramObjects
+						style2 = (Element) aux.getParentNode().getParentNode().getChildNodes().item(9);
+						
+						if (!style2.getAttribute("value").contains("NavigationSpace")) {
+							if (widgets.containsKey(id)) {
+								geometry = aux.getAttribute("geometry");
+								String[] pos = geometry.split("=|;");
+								int left = Math.abs(Integer.parseInt(pos[1]));
+								int top = Math.abs(Integer.parseInt(pos[3]));
+								int right = Math.abs(Integer.parseInt(pos[5]));
+								int bottom = Math.abs(Integer.parseInt(pos[7]));
+								
+								Integer posX = (left + right) / 2;
+								Integer posY = (bottom + top) / 2;
+								Integer width = right - left;
+								Integer height = bottom - top;
+								
+								Element widget = widgets.get(id);
+								widget.setAttribute("posX", posX.toString());
+								widget.setAttribute("posY", posY.toString());
+								widget.setAttribute("width", width.toString());
+								widget.setAttribute("height", height.toString());
+								// System.out.println(id+"-"+geometry+widgets.containsKey(id));
+							}
 						}
 					}
 				}
-
 			} catch (XPathExpressionException e) {
 				e.printStackTrace();
 			}
