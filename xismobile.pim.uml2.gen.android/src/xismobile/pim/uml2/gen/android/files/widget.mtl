@@ -419,8 +419,12 @@ mSpinner[c.name.toUpperFirst()/] = (Spinner)findViewById(R.id.spinner[c.name.toU
 	android:layout_width="wrap_content"
 	android:layout_height="wrap_content"
 	[writeWidgetRelativePositioning(widgets, c)/]
-	android:onClick="showDatePicker[c.name.toUpperFirst()/]Dialog"
-	android:text="[addString(name + '_text', c.getXisDatePickerValue())/]"
+	android:onClick="showDatePicker[name.toUpperFirst()/]Dialog"
+[let value : String = c.getXisDatePickerValue()]
+	[if (not value.oclIsUndefined() and not value.stringContains('.'))]
+	android:text="[addString(name + '_text', value)/]"
+	[/if]
+[/let]
 />
 [/let]
 [/template]
@@ -432,8 +436,12 @@ mSpinner[c.name.toUpperFirst()/] = (Spinner)findViewById(R.id.spinner[c.name.toU
 	android:layout_width="wrap_content"
 	android:layout_height="wrap_content"
 	[writeWidgetRelativePositioning(widgets, c)/]
-	android:onClick="showTimePicker[c.name.toUpperFirst()/]Dialog"
-	android:text="[addString(name + '_text', c.getXisTimePickerValue())/]"
+	android:onClick="showTimePicker[name.toUpperFirst()/]Dialog"
+[let value : String = c.getXisTimePickerValue()]
+	[if (not value.oclIsUndefined() and not value.stringContains('.'))]
+	android:text="[addString(name + '_text', value)/]"
+	[/if]
+[/let]
 />
 [/let]
 [/template]
