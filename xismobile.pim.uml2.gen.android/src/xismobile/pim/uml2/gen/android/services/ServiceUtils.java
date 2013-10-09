@@ -2,6 +2,8 @@ package xismobile.pim.uml2.gen.android.services;
 
 import org.eclipse.uml2.uml.Association;
 import org.eclipse.uml2.uml.Class;
+import org.eclipse.uml2.uml.Element;
+import org.eclipse.uml2.uml.EnumerationLiteral;
 import org.eclipse.uml2.uml.Generalization;
 import org.eclipse.uml2.uml.Stereotype;
 import org.eclipse.uml2.uml.Type;
@@ -15,6 +17,20 @@ public final class ServiceUtils {
 	
 	public static Stereotype getXisInteractionSpace(Class c) {
 		return c.getAppliedStereotype("XIS-Mobile::XisInteractionSpace");
+	}
+	
+	public static Class geXisInteractionSpacetMenu(Class c) {
+		Class menu = null;
+		for (Element el : c.getOwnedElements()) {
+			if (el instanceof Class) {
+				Class aux = (Class) el;
+				if (getMenu(aux) != null) {
+					menu = aux;
+					break;
+				}
+			}
+		}
+		return menu;
 	}
 	
 	public static boolean isXisLabel(Class c) {
@@ -113,8 +129,18 @@ public final class ServiceUtils {
 		return c.getAppliedStereotype("XIS-Mobile::XisCompositeWidget");
 	}
 	
-	public static boolean isMenu(Class c) {
-		return c.getAppliedStereotype("XIS-Mobile::XisCompositeWidget") != null;
+	public static Stereotype getMenu(Class c) {
+		Stereotype menu = c.getAppliedStereotype("XIS-Mobile::XisCompositeWidget");
+		if (menu != null) {
+			EnumerationLiteral type = (EnumerationLiteral) c.getValue(menu, "type");
+			if (type.getName().equals("Menu")) {
+				return menu;
+			} else {
+				return null; 
+			}
+		} else {
+			return null;
+		}
 	}
 	
 	public static boolean isContextMenu(Class c) {
