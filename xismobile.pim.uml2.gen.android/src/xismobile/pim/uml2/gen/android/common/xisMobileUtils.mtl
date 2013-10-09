@@ -136,6 +136,14 @@
 	el.getTaggedValue('XIS-Mobile::XisInteractionSpace', 'isMainScreen') = true
 /]
 
+[query public hasTitle (c : Class) : Boolean =
+	not c.getValue(c.getXisInteractionSpace(), 'title').oclIsUndefined()
+/]
+
+[query public getTitle (c : Class) : String =
+	c.getValue(c.getXisInteractionSpace(), 'title')
+/]
+
 [query public getXisCompositeWidget(c : Class) : Stereotype =
 	c.getAppliedStereotype('XIS-Mobile::XisCompositeWidget')
 /]
