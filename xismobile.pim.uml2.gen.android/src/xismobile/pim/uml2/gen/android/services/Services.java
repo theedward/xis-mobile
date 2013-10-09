@@ -440,7 +440,9 @@ public class Services {
 	}
 	
 	public String writeWidgetRelativePositioning(List<Class> widgets, Class c) {
-		String newLine = "\n\t";
+		final String newLine = "\n\t";
+		final int TOP = 40;
+		final int BORDER = 10;
 		StringBuilder sb = new StringBuilder();
 		Class space = (Class) c.getOwner();
 		Stereotype s = ServiceUtils.getXisInteractionSpace(space);
@@ -481,7 +483,7 @@ public class Services {
 			if (sb.length() > 0) {
 				// only Y is missing
 				int closerTop = spaceTop;
-				int closerMargin = top - spaceTop - 35;
+				int closerMargin = top - spaceTop - TOP;
 				Class closer = null;
 				
 				for (Class w : predecessors) {
@@ -515,8 +517,8 @@ public class Services {
 				// TODO: Relative positioning for X and Y axis
 				int closerLeft = spaceLeft;
 				int closerTop = spaceTop;
-				int closerMarginX = left - spaceLeft - 10;
-				int closerMarginY = top - spaceTop - 35;
+				int closerMarginX = left - spaceLeft - BORDER;
+				int closerMarginY = top - spaceTop - TOP;
 				Class closerX = null;
 				Class closerY = null;
 				
@@ -576,53 +578,49 @@ public class Services {
 			// Align with parent
 			if (sb.length() > 0) {
 				// only Y remaining
-				int distTop = top - spaceTop;
-				int distBottom = spaceBottom - bottom;
+				int distTop = top - spaceTop - TOP;
+				int distBottom = spaceBottom - bottom - BORDER;
 				
 				if (distTop <= distBottom) {
 					sb.append(newLine + "android:layout_alignParentTop=\"true\"");
-					if (distTop > 35) {
-						int margin = distTop - 35;
-						sb.append(newLine + "android:layout_marginTop=\"" + margin  + "dp\"");
+					if (distTop > 0) {
+						sb.append(newLine + "android:layout_marginTop=\"" + distTop  + "dp\"");
 					}
 				} else {
 					sb.append(newLine + "android:layout_alignParentBottom=\"true\"");
-					if (distBottom > 10) {
-						int margin = distBottom - 10;
-						sb.append(newLine + "android:layout_marginBottom=\"" + margin  + "dp\"");
+					if (distBottom > 0) {
+						sb.append(newLine + "android:layout_marginBottom=\"" + distBottom  + "dp\"");
 					}
 				}
 			} else {
 				int distLeft = left - spaceLeft;
 				int distRight = right -spaceRight;
-				int distTop = top - spaceTop;
-				int distBottom = spaceBottom - bottom;
+				int distTop = top - spaceTop - TOP;
+				int distBottom = spaceBottom - bottom - BORDER;
 				// Set X positioning
 				if (distLeft <= distRight) {
 					sb.append("android:layout_alignParentLeft=\"true\"");
 					if (distLeft > 10) {
-						int margin = distLeft - 10;
+						int margin = distLeft - BORDER;
 						sb.append(newLine + "android:layout_marginLeft=\"" + margin  + "dp\"");
 					}
 				} else {
 					sb.append("android:layout_alignParentRight=\"true\"");
 					if (distRight > 10) {
-						int margin = distRight - 10;
+						int margin = distRight - BORDER;
 						sb.append(newLine + "android:layout_marginRight=\"" + margin  + "dp\"");
 					}
 				}
 				// Set Y positioning
 				if (distTop <= distBottom) {
 					sb.append(newLine + "android:layout_alignParentTop=\"true\"");
-					if (distTop > 35) {
-						int margin = distTop - 35;
-						sb.append(newLine + "android:layout_marginTop=\"" + margin  + "dp\"");
+					if (distTop > 0) {
+						sb.append(newLine + "android:layout_marginTop=\"" + distTop  + "dp\"");
 					}
 				} else {
 					sb.append(newLine + "android:layout_alignParentBottom=\"true\"");
-					if (distBottom > 10) {
-						int margin = distBottom - 10;
-						sb.append(newLine + "android:layout_marginBottom=\"" + margin  + "dp\"");
+					if (distBottom > 0) {
+						sb.append(newLine + "android:layout_marginBottom=\"" + distBottom  + "dp\"");
 					}
 				}
 			}
