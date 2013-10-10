@@ -456,6 +456,12 @@ public class Services {
 		int spaceTop = spaceY - spaceHeight/2;
 		int spaceBottom = 0;
 		
+		if (ServiceUtils.xisInteractionSpaceHasTitle(space)) {
+			spaceTop = spaceY - spaceHeight/2 + TOP;
+		} else {
+			spaceTop = spaceY - spaceHeight/2;
+		}
+		
 		if (menu != null) {
 			Stereotype menuS = ServiceUtils.getMenu(menu);
 			int menuY = ServiceUtils.getPosY(menu, menuS);
