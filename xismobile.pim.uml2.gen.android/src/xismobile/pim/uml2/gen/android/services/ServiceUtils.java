@@ -19,6 +19,16 @@ public final class ServiceUtils {
 		return c.getAppliedStereotype("XIS-Mobile::XisInteractionSpace");
 	}
 	
+	public static boolean xisInteractionSpaceHasTitle(Class c) {
+		Stereotype space = c.getAppliedStereotype("XIS-Mobile::XisInteractionSpace");
+		if (space != null) {
+			String title = (String) c.getValue(space, "title");
+			return title != null && !title.isEmpty();
+		} else {
+			return false;
+		}
+	}
+	
 	public static Class geXisInteractionSpacetMenu(Class c) {
 		Class menu = null;
 		for (Element el : c.getOwnedElements()) {
