@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xmi:XMI xmi:version="20110701" xmlns:xmi="http://www.omg.org/spec/XMI/20110701" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:XISMobile="http:///schemas/XISMobile/_z70vgCxDEeOO4K76AiBnHA/4" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/4.0.0/UML" xsi:schemaLocation="http:///schemas/XISMobile/_z70vgCxDEeOO4K76AiBnHA/4 ../../XIS-Mobile/model.profile.uml#_z70vgSxDEeOO4K76AiBnHA">
+<xmi:XMI xmi:version="20110701" xmlns:xmi="http://www.omg.org/spec/XMI/20110701" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:XISMobile="http:///schemas/XISMobile/_vbrP0DD-EeO8sqSHDrmhDQ/5" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/4.0.0/UML" xsi:schemaLocation="http:///schemas/XISMobile/_vbrP0DD-EeO8sqSHDrmhDQ/5 ../../XIS-Mobile/model.profile.uml#_vbvhQDD-EeO8sqSHDrmhDQ">
   <uml:Model xmi:id="_ZhW94CBFEeO_m-zgIyufMQ" name="Model">
     <packageImport xmi:id="_ZhW94SBFEeO_m-zgIyufMQ">
       <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
@@ -15,7 +15,7 @@
     </packagedElement>
     <profileApplication xmi:id="_eJ7EcCBFEeO_m-zgIyufMQ">
       <eAnnotations xmi:id="_eKE1cCBFEeO_m-zgIyufMQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="../../XIS-Mobile/model.profile.uml#_z70vgSxDEeOO4K76AiBnHA"/>
+        <references xmi:type="ecore:EPackage" href="../../XIS-Mobile/model.profile.uml#_vbvhQDD-EeO8sqSHDrmhDQ"/>
       </eAnnotations>
       <appliedProfile href="../../XIS-Mobile/model.profile.uml#_EUKFkB9vEeOZ6al_I843SA"/>
     </profileApplication>
