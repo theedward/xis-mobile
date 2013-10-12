@@ -456,12 +456,6 @@ public class Services {
 		int spaceTop = spaceY - spaceHeight/2;
 		int spaceBottom = 0;
 		
-		if (ServiceUtils.xisInteractionSpaceHasTitle(space)) {
-			spaceTop = spaceY - spaceHeight/2 + TOP;
-		} else {
-			spaceTop = spaceY - spaceHeight/2;
-		}
-		
 		if (menu != null) {
 			Stereotype menuS = ServiceUtils.getMenu(menu);
 			int menuY = ServiceUtils.getPosY(menu, menuS);
@@ -513,6 +507,7 @@ public class Services {
 						closerMargin = 0;
 						closer = w;
 						break;
+						// TODO: Add Title condition (lesser or equal)
 					} else if (wTop < top) {
 						if ((top - wTop) < closerMargin) {
 							closerTop = wTop;
@@ -550,6 +545,7 @@ public class Services {
 						closerMarginX = 0;
 						closerX = w;
 						break;
+						// TODO: Add Title condition (lesser or equal)
 					} else if (wLeft < left) {
 						if ((left - wLeft) < closerMarginX) {
 							closerLeft = wLeft;
@@ -563,6 +559,7 @@ public class Services {
 						closerMarginY = 0;
 						closerY = w;
 						break;
+						// TODO: Add Title condition (lesser or equal)
 					} else if (wTop < top) {
 						if ((top - wTop) < closerMarginY) {
 							closerTop = wTop;
@@ -594,6 +591,7 @@ public class Services {
 			}
 		} else {
 			// Align with parent
+			// TODO: Add Title condition (lesser or equal)
 			if (sb.length() > 0) {
 				// only Y remaining
 				int distTop = top - spaceTop - TOP;
