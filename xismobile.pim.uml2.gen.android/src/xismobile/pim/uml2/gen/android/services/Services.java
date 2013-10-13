@@ -489,8 +489,6 @@ public class Services {
 			sb.append("android:layout_centerHorizontal=\"true\"");
 		}
 		
-		// FIXME: Test Title condition
-		
 		if(predecessors.size() > 0) {
 			if (sb.length() > 0) {
 				// only Y is missing
