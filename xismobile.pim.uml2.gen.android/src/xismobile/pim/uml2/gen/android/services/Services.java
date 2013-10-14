@@ -455,6 +455,7 @@ public class Services {
 		int spaceRight = spaceX + spaceWidth/2;
 		int spaceTop = spaceY - spaceHeight/2;
 		int spaceBottom = 0;
+		boolean hasTitle = ServiceUtils.xisInteractionSpaceHasTitle(space);
 		
 		if (menu != null) {
 			Stereotype menuS = ServiceUtils.getMenu(menu);
@@ -505,18 +506,39 @@ public class Services {
 						closerMargin = 0;
 						closer = w;
 						break;
-						// TODO: Add Title condition (lesser or equal)
-					} else if (wTop < top) {
-						if ((top - wTop) < closerMargin) {
-							closerTop = wTop;
-							closerMargin = top - wTop;
-							closer = w;
+					} else {
+						if (hasTitle) {
+							int titleTop = spaceTop + TOP;
+							if (top == titleTop) {
+								closerTop = titleTop;
+								closerMargin = 0;
+								closer = null;
+								break;
+							} else if (titleTop < top) {
+								int titleMargin = top - titleTop;
+								if (titleMargin < closerMargin) {
+									closerTop = titleTop;
+									closerMargin = titleMargin;
+									closer = null;
+								}
+							}
+						}
+						
+						if (wTop < top) {
+							int wMargin = top - wTop;
+							if (wMargin < closerMargin) {
+								closerTop = wTop;
+								closerMargin = wMargin;
+								closer = w;
+							}
 						}
 					}
 				}
 				
 				if (closerTop == spaceTop) {
 					sb.append(newLine + "android:layout_alignParentTop=\"true\"");
+				} if (hasTitle && closerTop == (spaceTop + TOP) && closer == null) {
+					sb.append(newLine + "android:layout_below=\"@+id/label" + toUpperFirst(space.getName()) + "Title\"");
 				} else {
 					sb.append(newLine + "android:layout_below=\"@+id/" + ServiceUtils.getWidgetName(closer) + "\"");
 				}
@@ -525,7 +547,6 @@ public class Services {
 					sb.append(newLine + "android:layout_marginTop=\"" + closerMargin + "dp\"");
 				}
 			} else {
-				// TODO: Relative positioning for X and Y axis
 				int closerLeft = spaceLeft;
 				int closerTop = spaceTop;
 				int closerMarginX = left - spaceLeft - BORDER;
@@ -543,7 +564,6 @@ public class Services {
 						closerMarginX = 0;
 						closerX = w;
 						break;
-						// TODO: Add Title condition (lesser or equal)
 					} else if (wLeft < left) {
 						if ((left - wLeft) < closerMarginX) {
 							closerLeft = wLeft;
@@ -557,12 +577,30 @@ public class Services {
 						closerMarginY = 0;
 						closerY = w;
 						break;
-						// TODO: Add Title condition (lesser or equal)
-					} else if (wTop < top) {
-						if ((top - wTop) < closerMarginY) {
-							closerTop = wTop;
-							closerMarginY = top - wTop;
-							closerY = w;
+					} else {
+						if (hasTitle) {
+							int titleTop = spaceTop + TOP;
+							if (top == titleTop) {
+								closerTop = titleTop;
+								closerMarginY = 0;
+								closerY = null;
+								break;
+							} else if (titleTop < top) {
+								int titleMargin = top - titleTop;
+								if (titleMargin < closerMarginY) {
+									closerTop = titleTop;
+									closerMarginY = titleMargin;
+									closerY = null;
+								}
+							}
+						}
+						
+						if (wTop < top) {
+							if ((top - wTop) < closerMarginY) {
+								closerTop = wTop;
+								closerMarginY = top - wTop;
+								closerY = w;
+							}
 						}
 					}
 				}
@@ -575,6 +613,8 @@ public class Services {
 				
 				if (closerTop == spaceTop) {
 					sb.append(newLine + "android:layout_alignParentTop=\"true\"");
+				} else if (hasTitle && closerTop == (spaceTop + TOP) && closerY == null) {
+					sb.append(newLine + "android:layout_below=\"@+id/label" + toUpperFirst(space.getName()) + "Title\"");
 				} else {
 					sb.append(newLine + "android:layout_below=\"@+id/" + ServiceUtils.getWidgetName(closerY) + "\"");
 				}
@@ -589,16 +629,21 @@ public class Services {
 			}
 		} else {
 			// Align with parent
-			// TODO: Add Title condition (lesser or equal)
 			if (sb.length() > 0) {
 				// only Y remaining
 				int distTop = top - spaceTop - TOP;
 				int distBottom = spaceBottom - bottom - BORDER;
+				int distTitleTop = top - spaceTop + TOP;
 				
-				if (distTop <= distBottom) {
+				if (distTop <= distBottom && (!hasTitle || (hasTitle && distTop <= distTitleTop))) {
 					sb.append(newLine + "android:layout_alignParentTop=\"true\"");
 					if (distTop > 0) {
 						sb.append(newLine + "android:layout_marginTop=\"" + distTop  + "dp\"");
+					}
+				} else if(hasTitle && distTitleTop < distTop && distTitleTop < distBottom) {
+					sb.append(newLine + "android:layout_below=\"@+id/label" + toUpperFirst(space.getName()) + "Title\"");
+					if (distTitleTop > 0) {
+						sb.append(newLine + "android:layout_marginTop=\"" + distTitleTop  + "dp\"");
 					}
 				} else {
 					sb.append(newLine + "android:layout_alignParentBottom=\"true\"");
@@ -611,6 +656,7 @@ public class Services {
 				int distRight = right -spaceRight;
 				int distTop = top - spaceTop - TOP;
 				int distBottom = spaceBottom - bottom - BORDER;
+				int distTitleTop = top - spaceTop + TOP;
 				// Set X positioning
 				if (distLeft <= distRight) {
 					sb.append("android:layout_alignParentLeft=\"true\"");
@@ -626,10 +672,15 @@ public class Services {
 					}
 				}
 				// Set Y positioning
-				if (distTop <= distBottom) {
+				if (distTop <= distBottom && (!hasTitle || (hasTitle && distTop <= distTitleTop))) {
 					sb.append(newLine + "android:layout_alignParentTop=\"true\"");
 					if (distTop > 0) {
 						sb.append(newLine + "android:layout_marginTop=\"" + distTop  + "dp\"");
+					}
+				} else if(hasTitle && distTitleTop < distTop && distTitleTop < distBottom) {
+					sb.append(newLine + "android:layout_below=\"@+id/label" + toUpperFirst(space.getName()) + "Title\"");
+					if (distTitleTop > 0) {
+						sb.append(newLine + "android:layout_marginTop=\"" + distTitleTop  + "dp\"");
 					}
 				} else {
 					sb.append(newLine + "android:layout_alignParentBottom=\"true\"");
