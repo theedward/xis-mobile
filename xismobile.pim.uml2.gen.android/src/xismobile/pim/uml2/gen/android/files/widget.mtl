@@ -188,7 +188,7 @@ mSpinner[c.name.toUpperFirst()/] = (Spinner)findViewById(R.id.spinner[c.name.toU
 [let gestures : OrderedSet(Class) = c.getWidgetGestures()]
 [let op : OclAny = c.getDefaultOnTapGesture(s)]
 [if (not op.oclIsUndefined() or gestures->size() > 0)]
-[c.getWidgetName()/].setXisGestureManager(new XisGestureManager() {
+[c.getWidgetName()/].setXisGestureManager(new [c.getXisGestureManager()/]() {
 
 	@Override
 	public void onTapGesture() {
@@ -278,6 +278,32 @@ mSpinner[c.name.toUpperFirst()/] = (Spinner)findViewById(R.id.spinner[c.name.toU
 [/let]
 [/let]
 [/let]
+[/template]
+
+[template public getXisGestureManager(c : Class) post (trim())]
+[if (c.isXisLabel())]
+XisLabelGestureManager
+[elseif (c.isXisTextBox())]
+XisTextBoxGestureManager
+[elseif (c.isXisCheckBox())]
+XisCheckBoxGestureManager
+[elseif (c.isXisButton())]
+XisButtonGestureManager
+[elseif (c.isXisLink())]
+XisLinkGestureManager
+[elseif (c.isXisImage())]
+XisImageGestureManager
+[elseif (c.isXisDatePicker())]
+XisDatePickerGestureManager
+[elseif (c.isXisTimePicker())]
+XisTimePickerGestureManager
+[elseif (c.isXisWebView())]
+XisWebViewGestureManager
+[elseif (c.isXisMapView())]
+XisMapViewGestureManager
+[elseif (c.isXisDropdown())]
+XisDropdownGestureManager
+[/if]
 [/template]
 
 [template public writeWidget(widgets : Sequence(Class), c : Class) post (trim())]
