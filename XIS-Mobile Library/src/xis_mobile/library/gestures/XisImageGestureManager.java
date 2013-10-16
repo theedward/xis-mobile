@@ -10,13 +10,8 @@ public abstract class XisImageGestureManager implements XisGestureManager {
 	
 	public abstract void onSwipe();
 
-	@Override
-	public void onPinch() {
-		// TODO Auto-generated method stub
-	}
+	public abstract void onPinch();
 	
-	@Override
-	public void onStretch() {
-		// TODO Auto-generated method stub
-	}
+	public abstract void onStretch();
+	
 }
