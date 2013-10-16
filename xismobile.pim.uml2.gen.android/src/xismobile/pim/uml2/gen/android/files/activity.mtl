@@ -27,7 +27,7 @@ import com.j256.ormlite.android.apptools.OpenHelperManager;
 [/if]
 [if (widgets->size() > 0)]
 
-import xis_mobile.library.widgets.*;
+import xis_mobile.library.*;
 [/if]
 
 [for (entity : Class | entities)]
@@ -104,25 +104,18 @@ public class [c.name.toUpperFirst()/]Activity extends Activity {
 		[/if]
 	[/if]
 	}
-	[if (widgets->size() > 0)]
+[if (widgets->size() > 0)]
 
 	public void initializeWidgets() {
 		[for (w : Class | widgets)]
 		initialize[w.getWidgetName().toUpperFirst()/]();
 		[/for]
 	}
-
-	[for (w : Class | widgets)]
-	public void initialize[w.getWidgetName().toUpperFirst()/]() {
-		[w.initializeWidget('')/]
-	}
-	[writeWidgetInit(w.getXisWidgets())/]
-	[/for]
-	[/if]
+	[writeWidgetInit(widgets)/]
+[/if]
 [if (c.hasMenu())]
 	[let m : Class = c.getMenu()]
 	[generateMenu(m) /]
-
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -197,15 +190,16 @@ private [w.writeWidgetTypeAndName()/];
 [/if]
 [/template]
 
-[template public writeWidgetInit(widgets : Set(Class)) post (trim())]
-[if (not widgets->oclIsUndefined())]
+[template public writeWidgetInit(widgets : Set(Class))]
 [for (w : Class | widgets)]
+
 public void initialize[w.getWidgetName().toUpperFirst()/]() {
 	[w.initializeWidget('')/]
 }
+[if (not widgets->oclIsUndefined() and w.getXisWidgets()->size() > 0)]
 [writeWidgetInit(w.getXisWidgets())/]
-[/for]
 [/if]
+[/for]
 [/template]
 
 [template public writeWidgetTypeAndName(c : Class) post (trim())]
