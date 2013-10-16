@@ -53,11 +53,11 @@ public class XisGestureOnTouchListener implements OnTouchListener {
 						.show();
 				break;
 			}
+			default: break;
 		}
 	}
 
 	public void setXisGestureManager(XisGestureManager gestureManager) {
 		mListener.setXisGestureManager(gestureManager);
 	}
-
 }
