@@ -115,7 +115,7 @@ public class [c.name.toUpperFirst()/]Activity extends Activity {
 [/if]
 [if (c.hasMenu())]
 	[let m : Class = c.getMenu()]
-	[generateMenu(m) /]
+	[generateMenu(m)/]
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
