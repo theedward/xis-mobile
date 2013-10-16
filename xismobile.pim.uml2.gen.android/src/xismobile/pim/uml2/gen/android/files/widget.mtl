@@ -53,10 +53,13 @@ mCheckBox[c.name.toUpperFirst()/] = (XisCheckBox)findViewById(R.id.checkBox[c.na
 mImage[c.name.toUpperFirst()/] = (XisImage)findViewById(R.id.image[c.name.toUpperFirst()/]);
 [c.writeXisGestureManager()/]
 [elseif (c.isXisDatePicker())]
-mDatePicker[c.name.toUpperFirst()/] = (Button)findViewById(R.id.datePicker[c.name.toUpperFirst()/]);
+mDatePicker[c.name.toUpperFirst()/] = (XisDatePicker)findViewById(R.id.datePicker[c.name.toUpperFirst()/]);
+[c.writeXisGestureManager()/]
+[elseif (c.isXisLabel())]
+mLink[c.name.toUpperFirst()/] = (XisLink)findViewById(R.id.link[c.name.toUpperFirst()/]);
 [c.writeXisGestureManager()/]
 [elseif (c.isXisTimePicker())]
-mTimePicker[c.name.toUpperFirst()/] = (Button)findViewById(R.id.timePicker[c.name.toUpperFirst()/]);
+mTimePicker[c.name.toUpperFirst()/] = (XisTimePicker)findViewById(R.id.timePicker[c.name.toUpperFirst()/]);
 [c.writeXisGestureManager()/]
 [elseif (c.isXisWebView())]
 mWeb[c.name.toUpperFirst()/] = (XisWebView)findViewById(R.id.web[c.name.toUpperFirst()/]);
@@ -75,212 +78,16 @@ mList[c.name.toUpperFirst()/].setAdapter(new TaskAdapter(getApplicationContext()
 [/let]
 [elseif (c.isXisButton())]
 mButton[c.name.toUpperFirst()/] = (XisButton)findViewById(R.id.button[c.name.toUpperFirst()/]);
-[c.writeXisGestureManagerWithDefault(c.getXisButton())/]
+[c.writeXisGestureManager()/]
 [elseif (c.isXisLink())]
 mLink[c.name.toUpperFirst()/] = (XisLink)findViewById(R.id.link[c.name.toUpperFirst()/]);
-[c.writeXisGestureManagerWithDefault(c.getXisLink())/]
+[c.writeXisGestureManager()/]
 [elseif (c.isXisDropdown())]
 mSpinner[c.name.toUpperFirst()/] = (Spinner)findViewById(R.id.spinner[c.name.toUpperFirst()/]);
 [/if]
 [/template]
 
-[template public writeXisGestureManager(c : Class)]
-[let name : String = c.getWidgetName()]
-[let gestures : OrderedSet(Class) = c.getWidgetGestures()]
-[c.getWidgetName()/].setXisGestureManager(new XisGestureManager() {
-
-	@Override
-	public void onTapGesture() {
-	[let taps : OrderedSet(Class) = gestures->select(g : Class | g.isTapGesture())]
-	[if (taps->size() = 1)]
-		[let action : Operation = taps->at(1).getXisAction()]
-		[if (not action.oclIsUndefined())]
-		[action.writeXisAction()/]
-		[/if]
-		[/let]
-	[else]
-		[writeTODO()/]
-	[/if]
-	[/let]
-	}
-	
-	@Override
-	public void onDoubleTapGesture() {
-	[let taps : OrderedSet(Class) = gestures->select(g : Class | g.isDoubleTapGesture())]
-	[if (taps->size() = 1)]
-		[let action : Operation = taps->at(1).getXisAction()]
-		[if (not action.oclIsUndefined())]
-		[action.writeXisAction()/]
-		[/if]
-		[/let]
-	[else]
-		[writeTODO()/]
-	[/if]
-	[/let]
-	}
-
-	@Override
-	public void onLongTapGesture() {
-	[let taps : OrderedSet(Class) = gestures->select(g : Class | g.isLongTapGesture())]
-	[if (taps->size() = 1)]
-		[let action : Operation = taps->at(1).getXisAction()]
-		[if (not action.oclIsUndefined())]
-		[action.writeXisAction()/]
-		[/if]
-		[/let]
-	[else]
-		[writeTODO()/]
-	[/if]
-	[/let]
-	}
-
-	@Override
-	public void onSwipeGesture() {
-	[let taps : OrderedSet(Class) = gestures->select(g : Class | g.isSwipeGesture())]
-	[if (taps->size() = 1)]
-		[let action : Operation = taps->at(1).getXisAction()]
-		[if (not action.oclIsUndefined())]
-		[action.writeXisAction()/]
-		[/if]
-		[/let]
-	[else]
-		[writeTODO()/]
-	[/if]
-	[/let]
-	}
-	
-	@Override
-	public void onStretchGesture() {
-	[let taps : OrderedSet(Class) = gestures->select(g : Class | g.isStretchGesture())]
-	[if (taps->size() = 1)]
-		[let action : Operation = taps->at(1).getXisAction()]
-		[if (not action.oclIsUndefined())]
-		[action.writeXisAction()/]
-		[/if]
-		[/let]
-	[else]
-		[writeTODO()/]
-	[/if]
-	[/let]
-	}
-	
-	@Override
-	public void onPinchGesture() {
-	[let taps : OrderedSet(Class) = gestures->select(g : Class | g.isPinchGesture())]
-	[if (taps->size() = 1)]
-		[let action : Operation = taps->at(1).getXisAction()]
-		[if (not action.oclIsUndefined())]
-		[action.writeXisAction()/]
-		[/if]
-		[/let]
-	[else]
-		[writeTODO()/]
-	[/if]
-	[/let]
-	}
-});
-[/let]
-[/let]
-[/template]
-
-[template public writeXisGestureManagerWithDefault(c : Class, s : Stereotype)]
-[let name : String = c.getWidgetName()]
-[let gestures : OrderedSet(Class) = c.getWidgetGestures()]
-[let op : OclAny = c.getDefaultOnTapGesture(s)]
-[if (not op.oclIsUndefined() or gestures->size() > 0)]
-[c.getWidgetName()/].setXisGestureManager(new [c.getXisGestureManager()/]() {
-
-	@Override
-	public void onTapGesture() {
-	[if (not op.oclIsUndefined())]
-		[op.oclAsType(Operation).writeXisAction()/]
-	[else]
-		[writeTODO()/]
-	[/if]
-	}
-	
-	@Override
-	public void onDoubleTapGesture() {
-	[let taps : OrderedSet(Class) = gestures->select(g : Class | g.isDoubleTapGesture())]
-	[if (taps->size() = 1)]
-		[let action : Operation = taps->at(1).getXisAction()]
-		[if (not action.oclIsUndefined())]
-		[action.writeXisAction()/]
-		[/if]
-		[/let]
-	[else]
-		[writeTODO()/]
-	[/if]
-	[/let]
-	}
-
-	@Override
-	public void onLongTapGesture() {
-	[let taps : OrderedSet(Class) = gestures->select(g : Class | g.isLongTapGesture())]
-	[if (taps->size() = 1)]
-		[let action : Operation = taps->at(1).getXisAction()]
-		[if (not action.oclIsUndefined())]
-		[action.writeXisAction()/]
-		[/if]
-		[/let]
-	[else]
-		[writeTODO()/]
-	[/if]
-	[/let]
-	}
-
-	@Override
-	public void onSwipeGesture() {
-	[let taps : OrderedSet(Class) = gestures->select(g : Class | g.isSwipeGesture())]
-	[if (taps->size() = 1)]
-		[let action : Operation = taps->at(1).getXisAction()]
-		[if (not action.oclIsUndefined())]
-		[action.writeXisAction()/]
-		[/if]
-		[/let]
-	[else]
-		[writeTODO()/]
-	[/if]
-	[/let]
-	}
-	
-	@Override
-	public void onStretchGesture() {
-	[let taps : OrderedSet(Class) = gestures->select(g : Class | g.isStretchGesture())]
-	[if (taps->size() = 1)]
-		[let action : Operation = taps->at(1).getXisAction()]
-		[if (not action.oclIsUndefined())]
-		[action.writeXisAction()/]
-		[/if]
-		[/let]
-	[else]
-		[writeTODO()/]
-	[/if]
-	[/let]
-	}
-	
-	@Override
-	public void onPinchGesture() {
-	[let taps : OrderedSet(Class) = gestures->select(g : Class | g.isPinchGesture())]
-	[if (taps->size() = 1)]
-		[let action : Operation = taps->at(1).getXisAction()]
-		[if (not action.oclIsUndefined())]
-		[action.writeXisAction()/]
-		[/if]
-		[/let]
-	[else]
-		[writeTODO()/]
-	[/if]
-	[/let]
-	}
-});
-[/if]
-[/let]
-[/let]
-[/let]
-[/template]
-
-[template public getXisGestureManager(c : Class) post (trim())]
+[template public getXisGestureManagerName(c : Class) post (trim())]
 [if (c.isXisLabel())]
 XisLabelGestureManager
 [elseif (c.isXisTextBox())]
@@ -304,6 +111,149 @@ XisMapViewGestureManager
 [elseif (c.isXisDropdown())]
 XisDropdownGestureManager
 [/if]
+[/template]
+
+[template public writeXisGestureManager(c : Class)]
+[let gestures : OrderedSet(Class) = c.getWidgetGestures()]
+[c.getWidgetName()/].setXisGestureManager(new [c.getXisGestureManagerName()/]() {
+[if (c.isXisButton() or c.isXisLink())]
+	[writeOnTapDefault(c, gestures)/]
+[else]
+	[writeOnTap(gestures)/]
+[/if]
+	[writeOnDoubleTap(gestures)/]
+	[writeOnLongTap(gestures)/]
+[if (c.isXisTextBox() or c.isXisImage() or c.isXisWebView() or c.isXisMapView())]
+	[writeOnSwipe(gestures)/]
+[/if]
+[if (c.isXisImage() or c.isXisWebView() or c.isXisMapView())]
+	[writeOnStretch(gestures)/]
+	[writeOnPinch(gestures)/]
+[/if]
+});
+[/let]
+[/template]
+
+[template public writeOnTap(gestures : OrderedSet(Class))]
+@Override
+public void onTap() {
+[let taps : OrderedSet(Class) = gestures->select(g : Class | g.isTapGesture())]
+[if (taps->size() = 1)]
+	[let action : Operation = taps->at(1).getXisAction()]
+	[if (not action.oclIsUndefined())]
+	[action.writeXisAction()/]
+	[/if]
+	[/let]
+[else]
+	[writeTODO()/]
+[/if]
+[/let]
+}
+[/template]
+
+[template public writeOnTapDefault(c : Class, gestures : OrderedSet(Class))]
+@Override
+public void onTap() {
+[let s : Stereotype = 
+	if c.isXisButton()
+	then c.getXisButton()
+	else c.getXisLink()
+	endif
+]
+[let op : OclAny = c.getDefaultOnTapGesture(s)]
+[if (not op.oclIsUndefined())]
+	[op.oclAsType(Operation).writeXisAction()/]
+[else]
+	[writeTODO()/]
+[/if]
+[/let]
+[/let]
+}
+[/template]
+	
+[template public writeOnDoubleTap(gestures : OrderedSet(Class))]
+@Override
+public void onDoubleTap() {
+[let taps : OrderedSet(Class) = gestures->select(g : Class | g.isDoubleTapGesture())]
+[if (taps->size() = 1)]
+	[let action : Operation = taps->at(1).getXisAction()]
+	[if (not action.oclIsUndefined())]
+	[action.writeXisAction()/]
+	[/if]
+	[/let]
+[else]
+	[writeTODO()/]
+[/if]
+[/let]
+}
+[/template]
+
+[template public writeOnLongTap(gestures : OrderedSet(Class))]
+@Override
+public void onLongTap() {
+[let taps : OrderedSet(Class) = gestures->select(g : Class | g.isLongTapGesture())]
+[if (taps->size() = 1)]
+	[let action : Operation = taps->at(1).getXisAction()]
+	[if (not action.oclIsUndefined())]
+	[action.writeXisAction()/]
+	[/if]
+	[/let]
+[else]
+	[writeTODO()/]
+[/if]
+[/let]
+}
+[/template]
+
+[template public writeOnSwipe(gestures : OrderedSet(Class))]
+@Override
+public void onStretch() {
+[let taps : OrderedSet(Class) = gestures->select(g : Class | g.isSwipeGesture())]
+[if (taps->size() = 1)]
+	[let action : Operation = taps->at(1).getXisAction()]
+	[if (not action.oclIsUndefined())]
+	[action.writeXisAction()/]
+	[/if]
+	[/let]
+[else]
+	[writeTODO()/]
+[/if]
+[/let]
+}
+[/template]
+
+[template public writeOnStretch(gestures : OrderedSet(Class))]
+@Override
+public void onStretch() {
+[let taps : OrderedSet(Class) = gestures->select(g : Class | g.isStretchGesture())]
+[if (taps->size() = 1)]
+	[let action : Operation = taps->at(1).getXisAction()]
+	[if (not action.oclIsUndefined())]
+	[action.writeXisAction()/]
+	[/if]
+	[/let]
+[else]
+	[writeTODO()/]
+[/if]
+[/let]
+}
+[/template]
+
+[template public writeOnPinch(gestures : OrderedSet(Class))]
+@Override
+public void onPinch() {
+[let taps : OrderedSet(Class) = gestures->select(g : Class | g.isPinchGesture())]
+[if (taps->size() = 1)]
+	[let action : Operation = taps->at(1).getXisAction()]
+	[if (not action.oclIsUndefined())]
+	[action.writeXisAction()/]
+	[/if]
+	[/let]
+[else]
+	[writeTODO()/]
+[/if]
+[/let]
+}
 [/template]
 
 [template public writeWidget(widgets : Sequence(Class), c : Class) post (trim())]
