@@ -21,7 +21,7 @@ public class XisGestureListener extends SimpleOnGestureListener {
 	@Override
 	public boolean onSingleTapConfirmed(MotionEvent e) {
 		if (mGestureManager != null) {
-			mGestureManager.onTapGesture();
+			mGestureManager.onTap();
 		} else {
 			Toast.makeText(mContext, "Tap", Toast.LENGTH_SHORT).show();
 		}
@@ -31,7 +31,7 @@ public class XisGestureListener extends SimpleOnGestureListener {
 	@Override
 	public boolean onDoubleTap(MotionEvent e) {
 		if (mGestureManager != null) {
-			mGestureManager.onDoubleTapGesture();
+			mGestureManager.onDoubleTap();
 		} else {
 			Toast.makeText(mContext, "DoubleTap", Toast.LENGTH_SHORT).show();
 		}
@@ -41,7 +41,7 @@ public class XisGestureListener extends SimpleOnGestureListener {
 	@Override
 	public void onLongPress(MotionEvent e) {
 		if (mGestureManager != null) {
-			mGestureManager.onLongTapGesture();
+			mGestureManager.onLongTap();
 		} else {
 			Toast.makeText(mContext, "LongTap", Toast.LENGTH_SHORT).show();
 		}
@@ -49,46 +49,47 @@ public class XisGestureListener extends SimpleOnGestureListener {
 	}
 
 	@Override
-	public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
-			float velocityY) {
+	public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
 		float dX = e2.getX() - e1.getX();
-
 		float dY = e1.getY() - e2.getY();
 
 		if (Math.abs(dY) < SWIPE_MAX_OFF_PATH &&
-
-		Math.abs(velocityX) >= SWIPE_THRESHOLD_VELOCITY &&
-
-		Math.abs(dX) >= SWIPE_MIN_DISTANCE) {
-
+			Math.abs(velocityX) >= SWIPE_THRESHOLD_VELOCITY &&
+			Math.abs(dX) >= SWIPE_MIN_DISTANCE) {
+			
 			if (dX > 0) {
-
-				Toast.makeText(mContext, "Right Swipe", Toast.LENGTH_SHORT)
-						.show();
+				if (mGestureManager != null) {
+					mGestureManager.onSwipe();
+				} else {
+					Toast.makeText(mContext, "Right Swipe", Toast.LENGTH_SHORT).show();
+				}
 			} else {
-
-				Toast.makeText(mContext, "Left Swipe", Toast.LENGTH_SHORT)
-						.show();
+				if (mGestureManager != null) {
+					mGestureManager.onSwipe();
+				} else {
+					Toast.makeText(mContext, "Left Swipe", Toast.LENGTH_SHORT).show();
+				}
 			}
-
 			return true;
-
 		} else if (Math.abs(dX) < SWIPE_MAX_OFF_PATH &&
-
-		Math.abs(velocityY) >= SWIPE_THRESHOLD_VELOCITY &&
-
-		Math.abs(dY) >= SWIPE_MIN_DISTANCE) {
+			Math.abs(velocityY) >= SWIPE_THRESHOLD_VELOCITY &&
+			Math.abs(dY) >= SWIPE_MIN_DISTANCE) {
 
 			if (dY > 0) {
-				Toast.makeText(mContext, "Up Swipe", Toast.LENGTH_SHORT).show();
+				if (mGestureManager != null) {
+					mGestureManager.onSwipe();
+				} else {
+					Toast.makeText(mContext, "Up Swipe", Toast.LENGTH_SHORT).show();
+				}
 			} else {
-				Toast.makeText(mContext, "Down Swipe", Toast.LENGTH_SHORT).show();
+				if (mGestureManager != null) {
+					mGestureManager.onSwipe();
+				} else {
+					Toast.makeText(mContext, "Down Swipe", Toast.LENGTH_SHORT).show();
+				}
 			}
-
 			return true;
-
 		}
-
 		return false;
 	}
 
@@ -99,5 +100,4 @@ public class XisGestureListener extends SimpleOnGestureListener {
 	public void setXisGestureManager(XisGestureManager gestureManager) {
 		this.mGestureManager = gestureManager;  
 	}
-
 }

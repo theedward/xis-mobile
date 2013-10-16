@@ -2,16 +2,16 @@ package xis_mobile.library.gestures;
 
 public interface XisGestureManager {
 
-	public void onTapGesture();
+	public void onTap();
 	
-	public void onDoubleTapGesture();
+	public void onDoubleTap();
 	
-	public void onLongTapGesture();
+	public void onLongTap();
 	
-	public void onSwipeGesture();
+	public void onSwipe();
 	
-	public void onPinchGesture();
+	public void onPinch();
 	
-	public void onStretchGesture();
+	public void onStretch();
 
 }

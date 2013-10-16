@@ -9,17 +9,17 @@ public abstract class XisCheckBoxGestureManager implements XisGestureManager {
 	public abstract void onLongTapGesture();
 
 	@Override
-	public void onPinchGesture() {
+	public void onPinch() {
 		// TODO Auto-generated method stub
 	}
 	
 	@Override
-	public void onStretchGesture() {
+	public void onStretch() {
 		// TODO Auto-generated method stub
 	}
 	
 	@Override
-	public void onSwipeGesture() {
+	public void onSwipe() {
 		// TODO Auto-generated method stub
 	}
 }

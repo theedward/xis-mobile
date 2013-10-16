@@ -2,21 +2,21 @@ package xis_mobile.library.gestures;
 
 public abstract class XisTextBoxGestureManager implements XisGestureManager {
 
-	public abstract void onTapGesture();
+	public abstract void onTap();
 	
-	public abstract void onDoubleTapGesture();
+	public abstract void onDoubleTap();
 	
-	public abstract void onLongTapGesture();
+	public abstract void onLongTap();
 	
-	public abstract void onSwipeGesture();
+	public abstract void onSwipe();
 
 	@Override
-	public void onPinchGesture() {
+	public void onPinch() {
 		// TODO Auto-generated method stub
 	}
 	
 	@Override
-	public void onStretchGesture() {
+	public void onStretch() {
 		// TODO Auto-generated method stub
 	}
 }
