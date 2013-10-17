@@ -2,31 +2,28 @@ package xis_mobile.library.widgets;
 
 import xis_mobile.library.gestures.XisGestureManager;
 import xis_mobile.library.gestures.XisGestureOnTouchListener;
-import android.content.Context;
-import android.util.AttributeSet;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
-import com.google.android.maps.MapView;
+import com.google.android.gms.maps.SupportMapFragment;
 
-public class XisMapView extends MapView {
+public class XisMapView extends SupportMapFragment {
 
 	private XisGestureOnTouchListener listener;
 	
-	public XisMapView(Context context, AttributeSet attrs) {
-		super(context, attrs);
-		listener = new XisGestureOnTouchListener(context);
-		setOnTouchListener(listener);
+	public XisMapView() {
+		super();
 	}
 	
-	public XisMapView(Context context, AttributeSet attrs, int defStyle) {
-		super(context, attrs, defStyle);
-		listener = new XisGestureOnTouchListener(context);
-		setOnTouchListener(listener);
-	}
-	
-	public XisMapView(Context context, String apiKey) {
-		super(context, apiKey);
-		listener = new XisGestureOnTouchListener(context);
-		setOnTouchListener(listener);
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+		View v = super.onCreateView(inflater, container, savedInstanceState);
+		listener = new XisGestureOnTouchListener(null);
+		v.setOnTouchListener(listener);
+		return v;
 	}
 	
 	public void setXisGestureManager(XisGestureManager xisGestureManager) {
