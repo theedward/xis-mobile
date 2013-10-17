@@ -251,7 +251,7 @@ public final class ServiceUtils {
 		} else if (isXisCompositeWidget(c)) {
 			
 		}
-		if (name.length() > 0) {
+		if (name != null && name.length() > 0) {
 			name += toUpperFirst(c.getName());
 		}
 		return name;
