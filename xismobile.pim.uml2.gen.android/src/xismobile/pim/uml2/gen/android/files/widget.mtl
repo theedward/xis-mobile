@@ -83,7 +83,7 @@ mButton[c.name.toUpperFirst()/] = (XisButton)findViewById(R.id.button[c.name.toU
 mLink[c.name.toUpperFirst()/] = (XisLink)findViewById(R.id.link[c.name.toUpperFirst()/]);
 [c.writeXisGestureManager()/]
 [elseif (c.isXisDropdown())]
-mSpinner[c.name.toUpperFirst()/] = (Spinner)findViewById(R.id.spinner[c.name.toUpperFirst()/]);
+mSpinner[c.name.toUpperFirst()/] = (XisDropdown)findViewById(R.id.spinner[c.name.toUpperFirst()/]);
 [/if]
 [/template]
 
@@ -299,7 +299,7 @@ public void onPinch() {
 [/template]
 
 [template public writeLabel(widgets : Sequence(Class), c : Class)]
-<TextView
+<xis_mobile.library.widgets.XisLabel
 [let name : String = 'label' + c.name.toUpperFirst()]
 	android:id="@+id/[name/]"
 	android:layout_width="fill_parent"
@@ -315,7 +315,7 @@ public void onPinch() {
 [/template]
 
 [template public writeTextBox(widgets : Sequence(Class), c : Class)]
-<EditText
+<xis_mobile.library.widgets.XisTextBox
 [let name : String = 'editText' + c.name.toUpperFirst()]
 	android:id="@+id/[name/]"
 	android:layout_width="wrap_content"
@@ -342,7 +342,7 @@ public void onPinch() {
 
 [template public writeCheckBox(widgets : Sequence(Class), c : Class)]
 [let name : String = 'checkBox' + c.name.toUpperFirst()]
-<CheckBox android:id="@+id/[name/]"
+<xis_mobile.library.widgets.XisCheckBox android:id="@+id/[name/]"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
 	[writeWidgetRelativePositioning(widgets, c)/]
@@ -360,7 +360,7 @@ public void onPinch() {
 
 [template public writeButton(widgets : Sequence(Class), c : Class)]
 [let name : String = 'button' + c.name.toUpperFirst()]
-<Button
+<xis_mobile.library.widgets.XisButton
 	android:id="@+id/[name/]"
 	android:layout_width="wrap_content"
 	android:layout_height="wrap_content"
@@ -392,7 +392,7 @@ public void onPinch() {
 
 [template public writeImageView(widgets : Sequence(Class), c : Class)]
 [let name : String = 'image' + c.name.toUpperFirst()]
-<ImageView
+<xis_mobile.library.widgets.XisImage
 	android:id="@+id/[name/]"
 	android:layout_width="wrap_content"
 	android:layout_height="wrap_content"
@@ -438,7 +438,7 @@ public void onPinch() {
 
 [template public writeWebView(widgets : Sequence(Class), c : Class)]
 [let name : String = 'webView' + c.name.toUpperFirst()]
-<WebView xmlns:android="http://schemas.android.com/apk/res/android"
+<xis_mobile.library.widgets.XisWebView
 	android:id="@+id/[name/]"
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent"
@@ -483,7 +483,7 @@ public void onPinch() {
 
 [template public writeDropdown(widgets : Sequence(Class), c : Class)]
 [let name : String = 'spinner' + c.name.toUpperFirst()]
-<Spinner
+<xis_mobile.library.widgets.XisDropdown
     android:id="@+id/[name/]"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
