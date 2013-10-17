@@ -17,6 +17,7 @@ public class XisMapView extends SupportMapFragment {
 		super();
 	}
 	
+	// FIXME: Review XisGestureOnTouchListener creation
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
