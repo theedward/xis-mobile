@@ -12,6 +12,7 @@
 	[addLibrary('android-support-v4.jar')/]
 	[addLibrary('ormlite-core-4.45.jar')/]
 	[addLibrary('ormlite-android-4.45.jar')/]
+	[addLibrary('google-play-services_lib.jar')/]
 [/template]
 
 [template private generateSettings(m : Model)]
