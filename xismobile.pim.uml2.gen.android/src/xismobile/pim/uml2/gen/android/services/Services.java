@@ -537,7 +537,7 @@ public class Services {
 				
 				if (closerTop == spaceTop) {
 					sb.append(newLine + "android:layout_alignParentTop=\"true\"");
-				} if (hasTitle && closerTop == (spaceTop + TOP) && closer == null) {
+				} else if (hasTitle && closerTop == (spaceTop + TOP) && closer == null) {
 					sb.append(newLine + "android:layout_below=\"@+id/label" + toUpperFirst(space.getName()) + "Title\"");
 				} else {
 					sb.append(newLine + "android:layout_below=\"@+id/" + ServiceUtils.getWidgetName(closer) + "\"");
