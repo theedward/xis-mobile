@@ -449,14 +449,12 @@ public void onPinch() {
 
 [template public writeMapView(widgets : Sequence(Class), c : Class)]
 [let name : String = 'mapView' + c.name.toUpperFirst()]
-<com.google.android.maps.MapView
-	xmlns:android="http://schemas.android.com/apk/res/android"
+<fragment
 	android:id="@+id/[name/]"
+	android:name="xis_mobile.library.widgets.XisMapView"
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent"
 	[writeWidgetRelativePositioning(widgets, c)/]
-	android:clickable="true"
-	android:apiKey="Your Maps API Key goes here"
 />
 [/let]
 [/template]
