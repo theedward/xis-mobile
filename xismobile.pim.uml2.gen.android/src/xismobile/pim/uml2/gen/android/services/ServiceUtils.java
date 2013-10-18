@@ -229,7 +229,7 @@ public final class ServiceUtils {
 		if (isXisLabel(c)) {
 			name = "label";
 		} else if (isXisTextBox(c)) {
-			name = "editText";
+			name = "textBox";
 		} else if (isXisCheckBox(c)) {
 			name = "checkBox";
 		} else if (isXisLink(c)) {
@@ -247,9 +247,9 @@ public final class ServiceUtils {
 		} else if (isXisMapView(c)) {
 			name = "mapView";
 		} else if (isXisDropdown(c)) {
-			name = "spinner";
+			name = "dropdown";
 		} else if (isXisCompositeWidget(c)) {
-			
+			// TODO: Check what cases should be considered
 		}
 		if (name != null && name.length() > 0) {
 			name += toUpperFirst(c.getName());
