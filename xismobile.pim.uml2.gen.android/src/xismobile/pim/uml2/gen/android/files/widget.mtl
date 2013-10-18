@@ -11,7 +11,7 @@
 [if (c.isXisLabel())]
 mLabel[c.name.toUpperFirst()/]
 [elseif (c.isXisTextBox())]
-mEditText[c.name.toUpperFirst()/]
+mTextBox[c.name.toUpperFirst()/]
 [elseif (c.isXisCheckBox())]
 mCheckBox[c.name.toUpperFirst()/]
 [elseif (c.isXisButton())]
@@ -31,7 +31,7 @@ mMapView[c.name.toUpperFirst()/]
 [elseif (c.isXisCompositeWidget() and c.isList())]
 mList[c.name.toUpperFirst()/]
 [elseif (c.isXisDropdown())]
-mSpinner[c.name.toUpperFirst()/]
+mDropdown[c.name.toUpperFirst()/]
 [/if]
 [/template]
 
@@ -44,7 +44,7 @@ mLabel.setText(value);
 [/if]
 [c.writeXisGestureManager()/]
 [elseif (c.isXisTextBox())]
-mEditText[c.name.toUpperFirst()/] = (XisTextBox)findViewById(R.id.editText[c.name.toUpperFirst()/]);
+mTextBox[c.name.toUpperFirst()/] = (XisTextBox)findViewById(R.id.textBox[c.name.toUpperFirst()/]);
 [c.writeXisGestureManager()/]
 [elseif (c.isXisCheckBox())]
 mCheckBox[c.name.toUpperFirst()/] = (XisCheckBox)findViewById(R.id.checkBox[c.name.toUpperFirst()/]);
@@ -83,7 +83,7 @@ mButton[c.name.toUpperFirst()/] = (XisButton)findViewById(R.id.button[c.name.toU
 mLink[c.name.toUpperFirst()/] = (XisLink)findViewById(R.id.link[c.name.toUpperFirst()/]);
 [c.writeXisGestureManager()/]
 [elseif (c.isXisDropdown())]
-mSpinner[c.name.toUpperFirst()/] = (XisDropdown)findViewById(R.id.spinner[c.name.toUpperFirst()/]);
+mDropdown[c.name.toUpperFirst()/] = (XisDropdown)findViewById(R.id.dropdown[c.name.toUpperFirst()/]);
 [/if]
 [/template]
 
@@ -207,7 +207,7 @@ public void onLongTap() {
 
 [template public writeOnSwipe(gestures : OrderedSet(Class))]
 @Override
-public void onStretch() {
+public void onSwipe() {
 [let taps : OrderedSet(Class) = gestures->select(g : Class | g.isSwipeGesture())]
 [if (taps->size() = 1)]
 	[let action : Operation = taps->at(1).getXisAction()]
@@ -316,7 +316,7 @@ public void onPinch() {
 
 [template public writeTextBox(widgets : Sequence(Class), c : Class)]
 <xis_mobile.library.widgets.XisTextBox
-[let name : String = 'editText' + c.name.toUpperFirst()]
+[let name : String = 'textBox' + c.name.toUpperFirst()]
 	android:id="@+id/[name/]"
 	android:layout_width="wrap_content"
 	android:layout_height="wrap_content"
@@ -482,7 +482,7 @@ public void onPinch() {
 [/template]
 
 [template public writeDropdown(widgets : Sequence(Class), c : Class)]
-[let name : String = 'spinner' + c.name.toUpperFirst()]
+[let name : String = 'dropdown' + c.name.toUpperFirst()]
 <xis_mobile.library.widgets.XisDropdown
     android:id="@+id/[name/]"
     android:layout_width="match_parent"
