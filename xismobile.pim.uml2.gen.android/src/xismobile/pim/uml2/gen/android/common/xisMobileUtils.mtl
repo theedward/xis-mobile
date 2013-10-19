@@ -607,6 +607,14 @@
 	c.getAppliedStereotype('XIS-Mobile::XisGesture')
 /]
 
+[query public isXisLocationProvider(c : Class) : Boolean = 
+	not c.getAppliedStereotype('XIS-Mobile::XisLocationProvider').oclIsUndefined()
+/]
+
+[query public getXisLocationProvider(c : Class) : Stereotype = 
+	c.getAppliedStereotype('XIS-Mobile::XisLocationProvider')
+/]
+
 [**
  * Checks if the application needs Internet to work properly.
  * Searches for WebService actions, MapView or WebView widgets. 
@@ -616,6 +624,11 @@
 	acts : Collection(Operation) = m.allOwnedElements()->selectByType(Operation)  in
 	cls->select(c : Class | c.isXisMapView() or c.isXisWebView())->size() > 0 or
 	acts->select(o : Operation | o.isWebServiceAction())->size() > 0
+/]
+
+[query public needsLocation(m : Model) : Boolean = 
+	m.allOwnedElements()->selectByType(Class)->select(
+		c : Class | c.isXisLocationProvider())->size() > 0
 /]
 
 [query public getEnumValue(el : OclAny) : OclAny =
