@@ -62,10 +62,10 @@ mLink[c.name.toUpperFirst()/] = (XisLink)findViewById(R.id.link[c.name.toUpperFi
 mTimePicker[c.name.toUpperFirst()/] = (XisTimePicker)findViewById(R.id.timePicker[c.name.toUpperFirst()/]);
 [c.writeXisGestureManager()/]
 [elseif (c.isXisWebView())]
-mWeb[c.name.toUpperFirst()/] = (XisWebView)findViewById(R.id.web[c.name.toUpperFirst()/]);
+mWebView[c.name.toUpperFirst()/] = (XisWebView)findViewById(R.id.web[c.name.toUpperFirst()/]);
 [c.writeXisGestureManager()/]
 [elseif (c.isXisMapView())]
-mMap[c.name.toUpperFirst()/] = (XisMapView)findViewById(R.id.map[c.name.toUpperFirst()/]);
+mMapView[c.name.toUpperFirst()/] = (XisMapView)getSupportFragmentManager().findFragmentById(R.id.map[c.name.toUpperFirst()/]);
 [c.writeXisGestureManager()/]
 [elseif (c.isXisCompositeWidget() and c.isList())]
 mList[c.name.toUpperFirst()/] = (ListView)findViewById(R.id.list[c.name.toUpperFirst()/]);
