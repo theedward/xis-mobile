@@ -23,6 +23,10 @@
 
 	<uses-permission android:name="android.permission.INTERNET"/>
 	[/if]
+	[if (m.needsLocation())]
+	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+	[/if]
 	[if (m.hasMapViews())]
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
