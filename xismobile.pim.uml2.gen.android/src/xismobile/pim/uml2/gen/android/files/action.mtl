@@ -22,22 +22,28 @@ Intent intent = new Intent(this, [navigation/]Activity.class);
 [if (o.isCreateAction())]
 [let entity : String = o.getXisArgumentValueByName('entityName')]
 [entity.toUpperFirst()/] [entity.toLowerFirst()/] = new [entity.toUpperFirst()/]();
+[comment @TODO
+// Check parent
+// if menu or IS get (master entity)
+// if form (check entity type)
+// check persistency
+/]
 [/let]
 [elseif (o.isReadAction())]
 [let entity : String = o.getXisArgumentValueByName('entityName')]
-[entity.toLowerFirst()/] = helper.get[entity.toUpperFirst()/]ById(String id);
+[entity.toLowerFirst()/] = [comment][getDao()/][/comment].get[entity.toUpperFirst()/]ById(String id);
 [/let]
 [elseif (o.isUpdateAction())]
 [let entity : String = o.getXisArgumentValueByName('entityName')]
-helper.update[entity.toUpperFirst()/]([entity.toLowerFirst()/]);
+[comment][getDao()/][/comment].update[entity.toUpperFirst()/]([entity.toLowerFirst()/]);
 [/let]
 [elseif (o.isDeleteteAction())]
 [let entity : String = o.getXisArgumentValueByName('entityName')]
-helper.delete[entity.toUpperFirst()/]([entity.toLowerFirst()/]);
+[comment][getDao()/][/comment].delete[entity.toUpperFirst()/]([entity.toLowerFirst()/]);
 [/let]
 [elseif (o.isDeleteteAllAction())]
 [let entity : String = o.getXisArgumentValueByName('entityName')]
-helper.deleteAll[entity.toUpperFirst()/]s();
+[comment][getDao()/][/comment].deleteAll[entity.toUpperFirst()/]s();
 [/let]
 [elseif (o.isWebServiceAction())]
 	[if (o.XisArgumentExists('url', 'value'))]
@@ -52,6 +58,14 @@ helper.deleteAll[entity.toUpperFirst()/]s();
 startActivity(intent);
 	[/if]
 [/let]
+[/if]
+[/template]
+
+[template public getDao(c : Class) post (trim())]
+[if (c.isPersistent())]
+helper
+[else]
+manager
 [/if]
 [/template]
 
