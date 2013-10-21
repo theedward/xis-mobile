@@ -20,30 +20,41 @@ finish();
 Intent intent = new Intent(this, [navigation/]Activity.class);
 	[/if]
 [if (o.isCreateAction())]
-[let entity : String = o.getXisArgumentValueByName('entityName')]
-[entity.toUpperFirst()/] [entity.toLowerFirst()/] = new [entity.toUpperFirst()/]();
+[let name : String = o.getXisArgumentValueByName('entityName')]
+[let entity : Class = getModel().getXisEntityByName(name)]
+[name.toUpperFirst()/] [name.toLowerFirst()/] = new [name.toUpperFirst()/]();
 [comment @TODO
 // Check parent
 // if menu or IS get (master entity)
 // if form (check entity type)
 // check persistency
 /]
+[entity.getDao()/].create[name.toUpperFirst()/]([name.toLowerFirst()/]);
+[/let]
 [/let]
 [elseif (o.isReadAction())]
-[let entity : String = o.getXisArgumentValueByName('entityName')]
-[entity.toLowerFirst()/] = [comment][getDao()/][/comment].get[entity.toUpperFirst()/]ById(String id);
+[let name : String = o.getXisArgumentValueByName('entityName')]
+[let entity : Class = getModel().getXisEntityByName(name)]
+[name.toLowerFirst()/] = [entity.getDao()/].get[name.toUpperFirst()/]ById(String id);
+[/let]
 [/let]
 [elseif (o.isUpdateAction())]
-[let entity : String = o.getXisArgumentValueByName('entityName')]
-[comment][getDao()/][/comment].update[entity.toUpperFirst()/]([entity.toLowerFirst()/]);
+[let name : String = o.getXisArgumentValueByName('entityName')]
+[let entity : Class = getModel().getXisEntityByName(name)]
+[entity.getDao()/].update[name.toUpperFirst()/]([name.toLowerFirst()/]);
+[/let]
 [/let]
 [elseif (o.isDeleteteAction())]
-[let entity : String = o.getXisArgumentValueByName('entityName')]
-[comment][getDao()/][/comment].delete[entity.toUpperFirst()/]([entity.toLowerFirst()/]);
+[let name : String = o.getXisArgumentValueByName('entityName')]
+[let entity : Class = getModel().getXisEntityByName(name)]
+[entity.getDao()/].delete[name.toUpperFirst()/]([name.toLowerFirst()/]);
+[/let]
 [/let]
 [elseif (o.isDeleteteAllAction())]
-[let entity : String = o.getXisArgumentValueByName('entityName')]
-[comment][getDao()/][/comment].deleteAll[entity.toUpperFirst()/]s();
+[let name : String = o.getXisArgumentValueByName('entityName')]
+[let entity : Class = getModel().getXisEntityByName(name)]
+[entity.getDao()/].deleteAll[name.toUpperFirst()/]s();
+[/let]
 [/let]
 [elseif (o.isWebServiceAction())]
 	[if (o.XisArgumentExists('url', 'value'))]
