@@ -28,10 +28,12 @@ mTimePicker[c.name.toUpperFirst()/]
 mWebView[c.name.toUpperFirst()/]
 [elseif (c.isXisMapView())]
 mMapView[c.name.toUpperFirst()/]
-[elseif (c.isXisCompositeWidget() and c.isList())]
-mList[c.name.toUpperFirst()/]
 [elseif (c.isXisDropdown())]
 mDropdown[c.name.toUpperFirst()/]
+[elseif (c.isXisCompositeWidget() and c.isForm())]
+mForm[c.name.toUpperFirst()/]
+[elseif (c.isXisCompositeWidget() and c.isList())]
+mList[c.name.toUpperFirst()/]
 [/if]
 [/template]
 
@@ -49,14 +51,17 @@ mTextBox[c.name.toUpperFirst()/] = (XisTextBox)findViewById(R.id.textBox[c.name.
 [elseif (c.isXisCheckBox())]
 mCheckBox[c.name.toUpperFirst()/] = (XisCheckBox)findViewById(R.id.checkBox[c.name.toUpperFirst()/]);
 [c.writeXisGestureManager()/]
+[elseif (c.isXisButton())]
+mButton[c.name.toUpperFirst()/] = (XisButton)findViewById(R.id.button[c.name.toUpperFirst()/]);
+[c.writeXisGestureManager()/]
+[elseif (c.isXisLink())]
+mLink[c.name.toUpperFirst()/] = (XisLink)findViewById(R.id.link[c.name.toUpperFirst()/]);
+[c.writeXisGestureManager()/]
 [elseif (c.isXisImage())]
 mImage[c.name.toUpperFirst()/] = (XisImage)findViewById(R.id.image[c.name.toUpperFirst()/]);
 [c.writeXisGestureManager()/]
 [elseif (c.isXisDatePicker())]
 mDatePicker[c.name.toUpperFirst()/] = (XisDatePicker)findViewById(R.id.datePicker[c.name.toUpperFirst()/]);
-[c.writeXisGestureManager()/]
-[elseif (c.isXisLabel())]
-mLink[c.name.toUpperFirst()/] = (XisLink)findViewById(R.id.link[c.name.toUpperFirst()/]);
 [c.writeXisGestureManager()/]
 [elseif (c.isXisTimePicker())]
 mTimePicker[c.name.toUpperFirst()/] = (XisTimePicker)findViewById(R.id.timePicker[c.name.toUpperFirst()/]);
@@ -67,6 +72,9 @@ mWebView[c.name.toUpperFirst()/] = (XisWebView)findViewById(R.id.web[c.name.toUp
 [elseif (c.isXisMapView())]
 mMapView[c.name.toUpperFirst()/] = (XisMapView)getSupportFragmentManager().findFragmentById(R.id.map[c.name.toUpperFirst()/]);
 [c.writeXisGestureManager()/]
+[elseif (c.isXisDropdown())]
+mDropdown[c.name.toUpperFirst()/] = (XisDropdown)findViewById(R.id.dropdown[c.name.toUpperFirst()/]);
+[comment @TODO: Check supported gestures /]
 [elseif (c.isXisCompositeWidget() and c.isList())]
 mList[c.name.toUpperFirst()/] = (ListView)findViewById(R.id.list[c.name.toUpperFirst()/]);
 [let entity : Class = c.getListEntity()]
@@ -76,14 +84,6 @@ mList[c.name.toUpperFirst()/].setAdapter(new TaskAdapter(getApplicationContext()
 [c.generateAdapter(entity)/]
 [/let]
 [/let]
-[elseif (c.isXisButton())]
-mButton[c.name.toUpperFirst()/] = (XisButton)findViewById(R.id.button[c.name.toUpperFirst()/]);
-[c.writeXisGestureManager()/]
-[elseif (c.isXisLink())]
-mLink[c.name.toUpperFirst()/] = (XisLink)findViewById(R.id.link[c.name.toUpperFirst()/]);
-[c.writeXisGestureManager()/]
-[elseif (c.isXisDropdown())]
-mDropdown[c.name.toUpperFirst()/] = (XisDropdown)findViewById(R.id.dropdown[c.name.toUpperFirst()/]);
 [/if]
 [/template]
 
@@ -489,6 +489,20 @@ public void onPinch() {
     android:layout_height="wrap_content"
 	[writeWidgetRelativePositioning(widgets, c)/]
 />
+[/let]
+[/template]
+
+[template public writeForm(widgets : Sequence(Class), c : Class)]
+[let name : String = 'form' + c.name.toUpperFirst()]
+<RelativeLayout
+        android:id="@+id/[name/]"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+		[writeWidgetRelativePositioning(widgets, c)/]
+        android:background="@drawable/form_border" >
+[comment @TODO: Write children /]
+
+</RelativeLayout>
 [/let]
 [/template]
 
