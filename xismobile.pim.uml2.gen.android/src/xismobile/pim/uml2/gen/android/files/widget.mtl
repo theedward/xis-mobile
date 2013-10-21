@@ -74,6 +74,9 @@ mMapView[c.name.toUpperFirst()/] = (XisMapView)getSupportFragmentManager().findF
 [c.writeXisGestureManager()/]
 [elseif (c.isXisDropdown())]
 mDropdown[c.name.toUpperFirst()/] = (XisDropdown)findViewById(R.id.dropdown[c.name.toUpperFirst()/]);
+ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item);
+adapter.add("TODO");
+mDropdown.setPrompt("Select [c.name/]...");
 [comment @TODO: Check supported gestures /]
 [elseif (c.isXisCompositeWidget() and c.isList())]
 mList[c.name.toUpperFirst()/] = (ListView)findViewById(R.id.list[c.name.toUpperFirst()/]);
