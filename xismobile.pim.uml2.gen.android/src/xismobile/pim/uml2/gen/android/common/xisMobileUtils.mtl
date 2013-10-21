@@ -22,6 +22,11 @@
 	not c.getXisEntity().oclIsUndefined()
 /]
 
+[query public getXisEntityByName(m : Model, entityName : String) : Class = 
+	m.allOwnedElements()->selectByType(Class)->
+		select(c : Class | c.isXisEntity() and c.name = entityName)
+/]
+
 [query public getXisEntityAssociation(a : Association) : Stereotype =
 	a.getAppliedStereotype('XIS-Mobile::XisEntityAssociation')
 /]
