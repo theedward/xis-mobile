@@ -44,40 +44,30 @@ mLabel[c.name.toUpperFirst()/] = (XisLabel)findViewById(R.id.label[c.name.toUppe
 String value = String.valueOf(<entity>.<attribute>);
 mLabel.setText(value);
 [/if]
-[c.writeXisGestureManager()/]
 [elseif (c.isXisTextBox())]
 mTextBox[c.name.toUpperFirst()/] = (XisTextBox)findViewById(R.id.textBox[c.name.toUpperFirst()/]);
-[c.writeXisGestureManager()/]
 [elseif (c.isXisCheckBox())]
 mCheckBox[c.name.toUpperFirst()/] = (XisCheckBox)findViewById(R.id.checkBox[c.name.toUpperFirst()/]);
-[c.writeXisGestureManager()/]
 [elseif (c.isXisButton())]
 mButton[c.name.toUpperFirst()/] = (XisButton)findViewById(R.id.button[c.name.toUpperFirst()/]);
-[c.writeXisGestureManager()/]
 [elseif (c.isXisLink())]
 mLink[c.name.toUpperFirst()/] = (XisLink)findViewById(R.id.link[c.name.toUpperFirst()/]);
-[c.writeXisGestureManager()/]
 [elseif (c.isXisImage())]
 mImage[c.name.toUpperFirst()/] = (XisImage)findViewById(R.id.image[c.name.toUpperFirst()/]);
-[c.writeXisGestureManager()/]
 [elseif (c.isXisDatePicker())]
 mDatePicker[c.name.toUpperFirst()/] = (XisDatePicker)findViewById(R.id.datePicker[c.name.toUpperFirst()/]);
-[c.writeXisGestureManager()/]
 [elseif (c.isXisTimePicker())]
 mTimePicker[c.name.toUpperFirst()/] = (XisTimePicker)findViewById(R.id.timePicker[c.name.toUpperFirst()/]);
-[c.writeXisGestureManager()/]
 [elseif (c.isXisWebView())]
 mWebView[c.name.toUpperFirst()/] = (XisWebView)findViewById(R.id.web[c.name.toUpperFirst()/]);
-[c.writeXisGestureManager()/]
 [elseif (c.isXisMapView())]
 mMapView[c.name.toUpperFirst()/] = (XisMapView)getSupportFragmentManager().findFragmentById(R.id.map[c.name.toUpperFirst()/]);
-[c.writeXisGestureManager()/]
 [elseif (c.isXisDropdown())]
 mDropdown[c.name.toUpperFirst()/] = (XisDropdown)findViewById(R.id.dropdown[c.name.toUpperFirst()/]);
 ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item);
+[comment @TODO Add Items to XisDropdown  /]
 adapter.add("TODO");
 mDropdown.setPrompt("Select [c.name/]...");
-[comment @TODO: Check supported gestures /]
 [elseif (c.isXisCompositeWidget() and c.isList())]
 mList[c.name.toUpperFirst()/] = (ListView)findViewById(R.id.list[c.name.toUpperFirst()/]);
 [let entity : Class = c.getListEntity()]
@@ -88,6 +78,30 @@ mList[c.name.toUpperFirst()/].setAdapter(new TaskAdapter(getApplicationContext()
 [/let]
 [/let]
 [/if]
+[if (not c.isXisCompositeWidget())]
+[c.writeGestureBinding()/]
+[/if]
+[/template]
+
+[template public writeGestureBinding(c : Class) post (trim())]
+[let gestures : OrderedSet(Class) = c.getWidgetGestures()]
+[if (gestures->size() > 0)]
+	[if (gestures->select(g : Class | g.isTapGesture())->size() = 1)]
+		[if (c.isXisButton() or c.isXisLink())]
+[c.writeOnTapDefault()/]
+		[else]
+[c.writeOnTap(gestures)/]
+		[/if]
+	[/if]
+	[if (gestures->select(g : Class | g.isLongTapGesture())->size() = 1)]
+[c.writeOnLongTap(gestures)/]
+	[/if]
+	[if (gestures->select(g : Class |
+		not g.isTapGesture() and not g.isLongTapGesture())->size() > 0)]
+[c.writeXisGestureManager(gestures)/]
+	[/if]
+[/if]
+[/let]
 [/template]
 
 [template public getXisGestureManagerName(c : Class) post (trim())]
@@ -116,16 +130,9 @@ XisDropdownGestureManager
 [/if]
 [/template]
 
-[template public writeXisGestureManager(c : Class)]
-[let gestures : OrderedSet(Class) = c.getWidgetGestures()]
+[template public writeXisGestureManager(c : Class, gestures : OrderedSet(Class))]
 [c.getWidgetName()/].setXisGestureManager(new [c.getXisGestureManagerName()/]() {
-[if (c.isXisButton() or c.isXisLink())]
-	[writeOnTapDefault(c, gestures)/]
-[else]
-	[writeOnTap(gestures)/]
-[/if]
 	[writeOnDoubleTap(gestures)/]
-	[writeOnLongTap(gestures)/]
 [if (c.isXisTextBox() or c.isXisImage() or c.isXisWebView() or c.isXisMapView())]
 	[writeOnSwipe(gestures)/]
 [/if]
@@ -134,44 +141,43 @@ XisDropdownGestureManager
 	[writeOnPinch(gestures)/]
 [/if]
 });
-[/let]
 [/template]
 
-[template public writeOnTap(gestures : OrderedSet(Class))]
-@Override
-public void onTap() {
-[let taps : OrderedSet(Class) = gestures->select(g : Class | g.isTapGesture())]
-[if (taps->size() = 1)]
-	[let action : Operation = taps->at(1).getXisAction()]
-	[if (not action.oclIsUndefined())]
-	[action.writeXisAction()/]
+[template public writeOnTap(c : Class, gestures : OrderedSet(Class))]
+[c.getWidgetName()/].setOnClickListener(new OnClickListener() {
+	@Override
+	public void onClick(View v) {
+	[let taps : OrderedSet(Class) = gestures->select(g : Class | g.isTapGesture())]
+	[if (taps->size() = 1)]
+		[let action : Operation = taps->at(1).getXisAction()]
+		[if (not action.oclIsUndefined())]
+		[action.writeXisAction()/]
+		[/if]
+		[/let]
 	[/if]
 	[/let]
-[else]
-	[writeTODO()/]
-[/if]
-[/let]
-}
+	}
+});
 [/template]
 
-[template public writeOnTapDefault(c : Class, gestures : OrderedSet(Class))]
-@Override
-public void onTap() {
-[let s : Stereotype = 
-	if c.isXisButton()
-	then c.getXisButton()
-	else c.getXisLink()
-	endif
-]
-[let op : OclAny = c.getDefaultOnTapGesture(s)]
-[if (not op.oclIsUndefined())]
-	[op.oclAsType(Operation).writeXisAction()/]
-[else]
-	[writeTODO()/]
-[/if]
-[/let]
-[/let]
-}
+[template public writeOnTapDefault(c : Class)]
+[c.getWidgetName()/].setOnClickListener(new OnClickListener() {
+	@Override
+	public void onClick(View v) {
+	[let s : Stereotype = 
+		if c.isXisButton()
+		then c.getXisButton()
+		else c.getXisLink()
+		endif
+	]
+		[let op : OclAny = c.getDefaultOnTapGesture(s)]
+		[if (not op.oclIsUndefined())]
+			[op.oclAsType(Operation).writeXisAction()/]
+		[/if]
+		[/let]
+	[/let]
+	}
+});
 [/template]
 	
 [template public writeOnDoubleTap(gestures : OrderedSet(Class))]
@@ -191,21 +197,21 @@ public void onDoubleTap() {
 }
 [/template]
 
-[template public writeOnLongTap(gestures : OrderedSet(Class))]
-@Override
-public void onLongTap() {
-[let taps : OrderedSet(Class) = gestures->select(g : Class | g.isLongTapGesture())]
-[if (taps->size() = 1)]
-	[let action : Operation = taps->at(1).getXisAction()]
-	[if (not action.oclIsUndefined())]
-	[action.writeXisAction()/]
+[template public writeOnLongTap(c : Class, gestures : OrderedSet(Class))]
+[c.getWidgetName()/].setOnLongClickListener(new OnLongClickListener() {
+	@Override
+	public void onLongClick(View v) {
+	[let taps : OrderedSet(Class) = gestures->select(g : Class | g.isLongTapGesture())]
+	[if (taps->size() = 1)]
+		[let action : Operation = taps->at(1).getXisAction()]
+		[if (not action.oclIsUndefined())]
+		[action.writeXisAction()/]
+		[/if]
+		[/let]
 	[/if]
 	[/let]
-[else]
-	[writeTODO()/]
-[/if]
-[/let]
-}
+	}
+});
 [/template]
 
 [template public writeOnSwipe(gestures : OrderedSet(Class))]
@@ -503,7 +509,7 @@ public void onPinch() {
         android:layout_height="wrap_content"
 		[writeWidgetRelativePositioning(widgets, c)/]
         android:background="@drawable/form_border" >
-[comment @TODO: Write children /]
+[comment @TODO Write children /]
 
 </RelativeLayout>
 [/let]
