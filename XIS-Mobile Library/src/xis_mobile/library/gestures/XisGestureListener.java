@@ -9,12 +9,12 @@ public class XisGestureListener extends SimpleOnGestureListener {
 	private static final int SWIPE_MIN_DISTANCE = 15;
 	private static final int SWIPE_MAX_OFF_PATH = 100;
 	private static final int SWIPE_THRESHOLD_VELOCITY = 10;
-	private Context mContext;
+//	private Context mContext;
 	private XisGestureManager mGestureManager;
 
 	public XisGestureListener(Context context) {
 		super();
-		this.mContext = context;
+//		this.mContext = context;
 	}
 
 	@Override
