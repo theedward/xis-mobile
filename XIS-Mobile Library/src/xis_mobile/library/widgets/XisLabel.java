@@ -8,27 +8,27 @@ import android.widget.TextView;
 
 public class XisLabel extends TextView {
 
-	private XisGestureOnTouchListener listener;
+	private XisGestureOnTouchListener mXisGestureOnTouchListener;
 	
 	public XisLabel(Context context) {
 		super(context);
-		listener = new XisGestureOnTouchListener(context);
-		setOnTouchListener(listener);
+		mXisGestureOnTouchListener = new XisGestureOnTouchListener(context);
+		setOnTouchListener(mXisGestureOnTouchListener);
 	}
 	
 	public XisLabel(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		listener = new XisGestureOnTouchListener(context);
-		setOnTouchListener(listener);
+		mXisGestureOnTouchListener = new XisGestureOnTouchListener(context);
+		setOnTouchListener(mXisGestureOnTouchListener);
 	}
 	
 	public XisLabel(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
-		listener = new XisGestureOnTouchListener(context);
-		setOnTouchListener(listener);
+		mXisGestureOnTouchListener = new XisGestureOnTouchListener(context);
+		setOnTouchListener(mXisGestureOnTouchListener);
 	}
 
 	public void setXisGestureManager(XisLabelGestureManager manager) {
-		listener.setXisGestureManager(manager);
+		mXisGestureOnTouchListener.setXisGestureManager(manager);
 	}
 }

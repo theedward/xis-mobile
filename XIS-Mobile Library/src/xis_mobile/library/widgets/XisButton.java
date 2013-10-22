@@ -8,27 +8,27 @@ import android.widget.Button;
 
 public class XisButton extends Button {
 
-	private XisGestureOnTouchListener listener;
+	private XisGestureOnTouchListener mXisGestureOnTouchListener;
 	
 	public XisButton(Context context) {
 		super(context);
-		listener = new XisGestureOnTouchListener(context);
-		setOnTouchListener(listener);
+		mXisGestureOnTouchListener = new XisGestureOnTouchListener(context);
+		setOnTouchListener(mXisGestureOnTouchListener);
 	}
 	
 	public XisButton(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		listener = new XisGestureOnTouchListener(context);
-		setOnTouchListener(listener);
+		mXisGestureOnTouchListener = new XisGestureOnTouchListener(context);
+		setOnTouchListener(mXisGestureOnTouchListener);
 	}
 	
 	public XisButton(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
-		listener = new XisGestureOnTouchListener(context);
-		setOnTouchListener(listener);
+		mXisGestureOnTouchListener = new XisGestureOnTouchListener(context);
+		setOnTouchListener(mXisGestureOnTouchListener);
 	}
 
 	public void setXisGestureManager(XisButtonGestureManager manager) {
-		listener.setXisGestureManager(manager);
+		mXisGestureOnTouchListener.setXisGestureManager(manager);
 	}
 }

@@ -8,27 +8,27 @@ import android.widget.Spinner;
 
 public class XisDropdown extends Spinner {
 
-	private XisGestureOnTouchListener listener;
+	private XisGestureOnTouchListener mXisGestureOnTouchListener;
 	
 	public XisDropdown(Context context) {
 		super(context);
-		listener = new XisGestureOnTouchListener(context);
-		setOnTouchListener(listener);
+		mXisGestureOnTouchListener = new XisGestureOnTouchListener(context);
+		setOnTouchListener(mXisGestureOnTouchListener);
 	}
 	
 	public XisDropdown(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		listener = new XisGestureOnTouchListener(context);
-		setOnTouchListener(listener);
+		mXisGestureOnTouchListener = new XisGestureOnTouchListener(context);
+		setOnTouchListener(mXisGestureOnTouchListener);
 	}
 	
 	public XisDropdown(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
-		listener = new XisGestureOnTouchListener(context);
-		setOnTouchListener(listener);
+		mXisGestureOnTouchListener = new XisGestureOnTouchListener(context);
+		setOnTouchListener(mXisGestureOnTouchListener);
 	}
-
+	
 	public void setXisGestureManager(XisDropdownGestureManager manager) {
-		listener.setXisGestureManager(manager);
+		mXisGestureOnTouchListener.setXisGestureManager(manager);
 	}
 }

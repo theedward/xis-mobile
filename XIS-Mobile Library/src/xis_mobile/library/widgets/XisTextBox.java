@@ -8,27 +8,27 @@ import android.widget.EditText;
 
 public class XisTextBox extends EditText {
 
-	private XisGestureOnTouchListener listener;
+	private XisGestureOnTouchListener mXisGestureOnTouchListener;
 	
 	public XisTextBox(Context context) {
 		super(context);
-		listener = new XisGestureOnTouchListener(context);
-		setOnTouchListener(listener);
+		mXisGestureOnTouchListener = new XisGestureOnTouchListener(context);
+		setOnTouchListener(mXisGestureOnTouchListener);
 	}
 	
 	public XisTextBox(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		listener = new XisGestureOnTouchListener(context);
-		setOnTouchListener(listener);
+		mXisGestureOnTouchListener = new XisGestureOnTouchListener(context);
+		setOnTouchListener(mXisGestureOnTouchListener);
 	}
 	
 	public XisTextBox(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
-		listener = new XisGestureOnTouchListener(context);
-		setOnTouchListener(listener);
+		mXisGestureOnTouchListener = new XisGestureOnTouchListener(context);
+		setOnTouchListener(mXisGestureOnTouchListener);
 	}
 
 	public void setXisGestureManager(XisTextBoxGestureManager manager) {
-		listener.setXisGestureManager(manager);
+		mXisGestureOnTouchListener.setXisGestureManager(manager);
 	}
 }

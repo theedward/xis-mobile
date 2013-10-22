@@ -9,30 +9,30 @@ import android.webkit.WebViewClient;
 
 public class XisWebView extends WebView {
 
-	private XisGestureOnTouchListener listener;
+	private XisGestureOnTouchListener mXisGestureOnTouchListener;
 	
 	public XisWebView(Context context) {
 		super(context);
-		listener = new XisGestureOnTouchListener(context);
-		setOnTouchListener(listener);
+		mXisGestureOnTouchListener = new XisGestureOnTouchListener(context);
+		setOnTouchListener(mXisGestureOnTouchListener);
 		setWebViewClient(new WebViewClient());
 	}
 	
 	public XisWebView(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		listener = new XisGestureOnTouchListener(context);
-		setOnTouchListener(listener);
+		mXisGestureOnTouchListener = new XisGestureOnTouchListener(context);
+		setOnTouchListener(mXisGestureOnTouchListener);
 		setWebViewClient(new WebViewClient());
 	}
 	
 	public XisWebView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
-		listener = new XisGestureOnTouchListener(context);
-		setOnTouchListener(listener);
+		mXisGestureOnTouchListener = new XisGestureOnTouchListener(context);
+		setOnTouchListener(mXisGestureOnTouchListener);
 		setWebViewClient(new WebViewClient());
 	}
 
 	public void setXisGestureManager(XisGestureManager xisGestureManager) {
-		listener.setXisGestureManager(xisGestureManager);
+		mXisGestureOnTouchListener.setXisGestureManager(xisGestureManager);
 	}
 }
