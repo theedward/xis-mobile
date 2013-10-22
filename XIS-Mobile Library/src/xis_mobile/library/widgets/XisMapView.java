@@ -11,7 +11,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 
 public class XisMapView extends SupportMapFragment {
 
-	private XisGestureOnTouchListener listener;
+	private XisGestureOnTouchListener mXisGestureOnTouchListener;
 	
 	public XisMapView() {
 		super();
@@ -22,12 +22,12 @@ public class XisMapView extends SupportMapFragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View v = super.onCreateView(inflater, container, savedInstanceState);
-		listener = new XisGestureOnTouchListener(null);
-		v.setOnTouchListener(listener);
+		mXisGestureOnTouchListener = new XisGestureOnTouchListener(getActivity());
+		v.setOnTouchListener(mXisGestureOnTouchListener);
 		return v;
 	}
 	
 	public void setXisGestureManager(XisGestureManager xisGestureManager) {
-		listener.setXisGestureManager(xisGestureManager);
+		mXisGestureOnTouchListener.setXisGestureManager(xisGestureManager);
 	}
 }
