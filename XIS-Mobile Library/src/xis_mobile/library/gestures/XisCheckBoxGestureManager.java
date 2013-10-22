@@ -1,12 +1,8 @@
 package xis_mobile.library.gestures;
 
 public abstract class XisCheckBoxGestureManager implements XisGestureManager {
-
-	public abstract void onTapGesture();
 	
-	public abstract void onDoubleTapGesture();
-	
-	public abstract void onLongTapGesture();
+	public abstract void onDoubleTap();
 
 	@Override
 	public void onPinch() {
