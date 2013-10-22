@@ -22,8 +22,7 @@ public class XisGestureOnTouchListener implements OnTouchListener {
 
 	@Override
 	public boolean onTouch(View v, MotionEvent event) {
-		mGestureDetector.onTouchEvent(event);
-		return true;
+		return mGestureDetector.onTouchEvent(event);
 	}
 
 	public void onPinchOrStretch(MotionEvent event) {
