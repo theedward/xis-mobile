@@ -10,19 +10,19 @@ import android.widget.Toast;
 public class XisGestureOnTouchListener implements OnTouchListener {
 
 	private Context mContext;
-	private XisGestureListener mListener;
-	private GestureDetector mDetector;
+	private XisGestureListener mXisGestureListener;
+	private GestureDetector mGestureDetector;
 
 	public XisGestureOnTouchListener(Context context) {
 		super();
 		this.mContext = context;
-		this.mListener = new XisGestureListener(mContext);
-		this.mDetector = new GestureDetector(mContext, mListener);
+		this.mXisGestureListener = new XisGestureListener(mContext);
+		this.mGestureDetector = new GestureDetector(mContext, mXisGestureListener);
 	}
 
 	@Override
 	public boolean onTouch(View v, MotionEvent event) {
-		mDetector.onTouchEvent(event);
+		mGestureDetector.onTouchEvent(event);
 		return true;
 	}
 
@@ -58,6 +58,6 @@ public class XisGestureOnTouchListener implements OnTouchListener {
 	}
 
 	public void setXisGestureManager(XisGestureManager gestureManager) {
-		mListener.setXisGestureManager(gestureManager);
+		mXisGestureListener.setXisGestureManager(gestureManager);
 	}
 }
