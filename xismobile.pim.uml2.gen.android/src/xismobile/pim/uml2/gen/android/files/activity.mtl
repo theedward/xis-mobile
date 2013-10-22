@@ -27,7 +27,8 @@ import com.j256.ormlite.android.apptools.OpenHelperManager;
 [/if]
 [if (widgets->size() > 0)]
 
-import xis_mobile.library.*;
+import xis_mobile.library.gestures.*;
+import xis_mobile.library.widgets.*;
 [/if]
 
 [for (entity : Class | entities)]
