@@ -53,7 +53,6 @@
 			</intent-filter>
 		[/if]
 		</activity>
-
 [/for]
 	[if (m.hasMapViews())]
 		<!-- Google Maps API Key -->
