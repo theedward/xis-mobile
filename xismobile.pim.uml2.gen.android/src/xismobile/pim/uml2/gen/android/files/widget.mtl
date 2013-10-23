@@ -84,14 +84,24 @@ mList[c.name.toUpperFirst()/].setAdapter(new TaskAdapter(getApplicationContext()
 [/template]
 
 [template public writeGestureBinding(c : Class) post (trim())]
+[if (c.isXisButton() or c.isXisLink())]
+[let s : Stereotype = 
+	if c.isXisButton()
+	then c.getXisButton()
+	else c.getXisLink()
+	endif
+]
+[let op : Operation = c.getDefaultOnTapGesture(s)]
+	[if (not op.oclIsUndefined())]
+[c.writeOnTapDefault(op)/]
+	[/if]
+[/let]
+[/let]
+[/if]
 [let gestures : OrderedSet(Class) = c.getWidgetGestures()]
 [if (gestures->size() > 0)]
 	[if (gestures->select(g : Class | g.isTapGesture())->size() = 1)]
-		[if (c.isXisButton() or c.isXisLink())]
-[c.writeOnTapDefault()/]
-		[else]
 [c.writeOnTap(gestures)/]
-		[/if]
 	[/if]
 	[if (gestures->select(g : Class | g.isLongTapGesture())->size() = 1)]
 [c.writeOnLongTap(gestures)/]
@@ -160,22 +170,11 @@ XisDropdownGestureManager
 });
 [/template]
 
-[template public writeOnTapDefault(c : Class)]
+[template public writeOnTapDefault(c : Class, op : Operation)]
 [c.getWidgetName()/].setOnClickListener(new OnClickListener() {
 	@Override
 	public void onClick(View v) {
-	[let s : Stereotype = 
-		if c.isXisButton()
-		then c.getXisButton()
-		else c.getXisLink()
-		endif
-	]
-		[let op : OclAny = c.getDefaultOnTapGesture(s)]
-		[if (not op.oclIsUndefined())]
-			[op.oclAsType(Operation).writeXisAction()/]
-		[/if]
-		[/let]
-	[/let]
+		[op.writeXisAction()/]
 	}
 });
 [/template]
