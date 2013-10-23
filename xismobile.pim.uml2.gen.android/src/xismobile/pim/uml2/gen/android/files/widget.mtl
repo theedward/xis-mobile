@@ -293,22 +293,23 @@ public void onPinch() {
 [/template]
 
 [template public writePageTitle(c : Class)]
-<TextView
 [let name : String = 'label' + c.name.toUpperFirst() + 'Title']
+<TextView
 	android:id="@+id/[name/]"
-	android:layout_width="fill_parent"
+	android:layout_width="wrap_content"
 	android:layout_height="wrap_content"
 	android:layout_centerHorizontal="true"
 	[let value : String = c.getTitle()]
 	android:text="[addString(name + '_text', value)/]"
 	[/let]
-[/let]
+	android:textAppearance="?android:attr/textAppearanceLarge"
 />
+[/let]
 [/template]
 
 [template public writeLabel(widgets : Sequence(Class), c : Class)]
-<xis_mobile.library.widgets.XisLabel
 [let name : String = 'label' + c.name.toUpperFirst()]
+<xis_mobile.library.widgets.XisLabel
 	android:id="@+id/[name/]"
 	android:layout_width="fill_parent"
 	android:layout_height="wrap_content"
@@ -318,13 +319,13 @@ public void onPinch() {
 	android:text="[addString(name + '_text', value)/]"
 	[/if]
 [/let]
-[/let]
 />
+[/let]
 [/template]
 
 [template public writeTextBox(widgets : Sequence(Class), c : Class)]
-<xis_mobile.library.widgets.XisTextBox
 [let name : String = 'textBox' + c.name.toUpperFirst()]
+<xis_mobile.library.widgets.XisTextBox
 	android:id="@+id/[name/]"
 	android:layout_width="wrap_content"
 	android:layout_height="wrap_content"
@@ -344,13 +345,14 @@ public void onPinch() {
 	android:text="[addString(name + '_text', value)/]"
 	[/if]
 [/let]
-[/let]
 />
+[/let]
 [/template]
 
 [template public writeCheckBox(widgets : Sequence(Class), c : Class)]
 [let name : String = 'checkBox' + c.name.toUpperFirst()]
-<xis_mobile.library.widgets.XisCheckBox android:id="@+id/[name/]"
+<xis_mobile.library.widgets.XisCheckBox
+	android:id="@+id/[name/]"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
 	[writeWidgetRelativePositioning(widgets, c)/]
@@ -362,8 +364,8 @@ public void onPinch() {
 	android:text="[addString(name + '_text', value)/]"
 	[/if]
 [/let]
-[/let]
 />
+[/let]
 [/template]
 
 [template public writeButton(widgets : Sequence(Class), c : Class)]
