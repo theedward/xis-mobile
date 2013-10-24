@@ -18,8 +18,13 @@ import java.util.List;
 
 import android.app.Activity;
 import android.os.Bundle;
-[if (c.hasMenu())]
+[if (c.hasOptionsMenu())]
 import android.view.Menu;
+[/if]
+[if (c.hasContextMenu())]
+import android.view.ContextMenu;
+[/if]
+[if (c.hasOptionsMenu() or c.hasContextMenu())]
 import android.view.MenuItem;
 [/if]
 import android.view.View;
@@ -119,9 +124,9 @@ public class [c.name.toUpperFirst()/]Activity extends Activity {
 	}
 	[writeWidgetInit(widgets)/]
 [/if]
-[if (c.hasMenu())]
-	[let m : Class = c.getMenu()]
-	[generateMenu(m)/]
+[if (c.hasOptionsMenu())]
+	[let m : Class = c.getOwnedOptionsMenu()]
+	[generateOptionsMenu(m)/]
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -132,7 +137,7 @@ public class [c.name.toUpperFirst()/]Activity extends Activity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-		[for (it : Class | m.getItems())]
+		[for (it : Class | m.getXisMenuItems())]
 			case R.id.[it.name.toLowerCase()/]_item:
 			[if (it.hasXisAction())]
 				[let op : Operation = it.getXisAction()]
@@ -229,7 +234,7 @@ XisTimePicker mTimePicker[c.name.toUpperFirst()/]
 XisWebView mWeb[c.name.toUpperFirst()/]
 [elseif (c.isXisMapView())]
 XisMapView mMap[c.name.toUpperFirst()/]
-[elseif (c.isList())]
+[elseif (c.isXisList())]
 ListView mList[c.name.toUpperFirst()/]
 [elseif (c.isXisDropdown())]
 XisDropdown mDropdown[c.name.toUpperFirst()/]
