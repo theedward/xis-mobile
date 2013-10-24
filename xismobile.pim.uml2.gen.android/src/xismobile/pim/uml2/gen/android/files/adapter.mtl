@@ -107,7 +107,7 @@ public class [entity.name.toUpperFirst()/]Adapter extends ArrayAdapter<[entity.n
 (XisWebView)findViewById(R.id.web[c.name.toUpperFirst()/]);
 [elseif (c.isXisMapView())]
 (XisMapView)findViewById(R.id.map[c.name.toUpperFirst()/]);
-[elseif (c.isList())]
+[elseif (c.isXisList())]
 (ListView)findViewById(R.id.list[c.name.toUpperFirst()/]);
 [/if]
 [/template]
@@ -133,7 +133,7 @@ XisTimePicker
 XisWebView
 [elseif (c.isXisMapView())]
 XisMapView
-[elseif (c.isList())]
+[elseif (c.isXisList())]
 ListView
 [elseif (c.isXisDropdown())]
 Spinner

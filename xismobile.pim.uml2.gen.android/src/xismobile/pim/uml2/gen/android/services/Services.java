@@ -445,7 +445,7 @@ public class Services {
 		final int BORDER = 10;
 		StringBuilder sb = new StringBuilder();
 		Class space = (Class) c.getOwner();
-		Class menu = ServiceUtils.geXisInteractionSpacetMenu(space);
+		Class menu = ServiceUtils.geXisISOptionsMenu(space);
 		Stereotype s = ServiceUtils.getXisInteractionSpace(space);
 		int spaceX = ServiceUtils.getPosX(space, s);
 		int spaceY = ServiceUtils.getPosY(space, s);
@@ -458,7 +458,7 @@ public class Services {
 		boolean hasTitle = ServiceUtils.xisInteractionSpaceHasTitle(space);
 		
 		if (menu != null) {
-			Stereotype menuS = ServiceUtils.getMenu(menu);
+			Stereotype menuS = ServiceUtils.getOptionsMenu(menu);
 			int menuY = ServiceUtils.getPosY(menu, menuS);
 			int menuHeight = ServiceUtils.getHeight(menu, menuS);
 			spaceBottom = menuY - menuHeight/2;

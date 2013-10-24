@@ -29,12 +29,12 @@ public final class ServiceUtils {
 		}
 	}
 	
-	public static Class geXisInteractionSpacetMenu(Class c) {
+	public static Class geXisISOptionsMenu(Class c) {
 		Class menu = null;
 		for (Element el : c.getOwnedElements()) {
 			if (el instanceof Class) {
 				Class aux = (Class) el;
-				if (getMenu(aux) != null) {
+				if (getOptionsMenu(aux) != null) {
 					menu = aux;
 					break;
 				}
@@ -139,11 +139,19 @@ public final class ServiceUtils {
 		return c.getAppliedStereotype("XIS-Mobile::XisCompositeWidget");
 	}
 	
-	public static Stereotype getMenu(Class c) {
-		Stereotype menu = c.getAppliedStereotype("XIS-Mobile::XisCompositeWidget");
+	public static Stereotype getXisMenu(Class c) {
+		return c.getAppliedStereotype("XIS-Mobile::XisMenu");
+	}
+	
+	public static boolean isXisMenu(Class c) {
+		return getXisMenu(c) != null;
+	}
+	
+	public static Stereotype getOptionsMenu(Class c) {
+		Stereotype menu = c.getAppliedStereotype("XIS-Mobile::XisMenu");
 		if (menu != null) {
 			EnumerationLiteral type = (EnumerationLiteral) c.getValue(menu, "type");
-			if (type.getName().equals("Menu")) {
+			if (type.getName().equals("OptionsMenu")) {
 				return menu;
 			} else {
 				return null; 
@@ -153,24 +161,30 @@ public final class ServiceUtils {
 		}
 	}
 	
-	public static boolean isContextMenu(Class c) {
-		return c.getAppliedStereotype("XIS-Mobile::XisCompositeWidget") != null;
+	public static Stereotype getContextMenu(Class c) {
+		Stereotype menu = c.getAppliedStereotype("XIS-Mobile::XisMenu");
+		if (menu != null) {
+			EnumerationLiteral type = (EnumerationLiteral) c.getValue(menu, "type");
+			if (type.getName().equals("ContextMenu")) {
+				return menu;
+			} else {
+				return null; 
+			}
+		} else {
+			return null;
+		}
 	}
 	
-	public static boolean isList(Class c) {
-		return c.getAppliedStereotype("XIS-Mobile::XisCompositeWidget") != null;
+	public static Stereotype getXisList(Class c) {
+		return c.getAppliedStereotype("XIS-Mobile::XisList");
 	}
 	
-	public static boolean isItem(Class c) {
-		return c.getAppliedStereotype("XIS-Mobile::XisCompositeWidget") != null;
+	public static boolean isXisList(Class c) {
+		return getXisList(c) != null;
 	}
 	
-	public static boolean isForm(Class c) {
-		return c.getAppliedStereotype("XIS-Mobile::XisCompositeWidget") != null;
-	}
-	
-	public static boolean isTab(Class c) {
-		return c.getAppliedStereotype("XIS-Mobile::XisCompositeWidget") != null;
+	public static boolean isXisListItem(Class c) {
+		return c.getAppliedStereotype("XIS-Mobile::XisListItem") != null;
 	}
 	
 	public static Stereotype getWidgetStereotype(Class c) {
@@ -198,6 +212,8 @@ public final class ServiceUtils {
 			s = getXisMapView(c);
 		} else if (isXisDropdown(c)) {
 			s = getXisDropdown(c);
+		} else if (isXisList(c)) {
+			s = getXisList(c);
 		} else if (isXisCompositeWidget(c)) {
 			s = getXisCompositeWidget(c);
 		}

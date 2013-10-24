@@ -157,40 +157,67 @@
 	not c.getXisCompositeWidget().oclIsUndefined()
 /]
 
-[query public isList(c : Class) : Boolean =
-	getEnumValue(c.getValue(
-		c.getXisCompositeWidget(), 'type')
-	) = 'List'
+[query public getXisMenu(c : Class) : Stereotype =
+	c.getAppliedStereotype('XIS-Mobile::XisMenu')
 /]
 
-[query public isMenu(c : Class) : Boolean =
+[query public isXisMenu(c : Class) : Boolean =
+	not c.getXisMenu().oclIsUndefined()
+/]
+
+[query public isOptionsMenu(c : Class) : Boolean =
 	getEnumValue(c.getValue(
-		c.getXisCompositeWidget(), 'type')
-	) = 'Menu'
+		c.getXisMenu(), 'type')
+	) = 'OptionsMenu'
 /]
 
 [query public isContextMenu(c : Class) : Boolean =
 	getEnumValue(c.getValue(
-		c.getXisCompositeWidget(), 'type')
+		c.getXisMenu(), 'type')
 	) = 'ContextMenu'
 /]
 
-[query public isGroup(c : Class) : Boolean =
-	getEnumValue(c.getValue(
-		c.getXisCompositeWidget(), 'type')
-	) = 'Group'
+[query public getXisMenuGroup(c : Class) : Stereotype =
+	c.getAppliedStereotype('XIS-Mobile::XisMenuGroup')
+/]
+
+[query public isXisMenuGroup(c : Class) : Boolean =
+	not c.getXisMenuGroup().oclIsUndefined()
+/]
+
+[query public getXisMenuItem(c : Class) : Stereotype =
+	c.getAppliedStereotype('XIS-Mobile::XisMenuItem')
+/]
+
+[query public isXisMenuItem(c : Class) : Boolean =
+	not c.getXisMenuItem().oclIsUndefined()
+/]
+
+[query public getXisList(c : Class) : Stereotype =
+	c.getAppliedStereotype('XIS-Mobile::XisList')
+/]
+
+[query public isXisList(c : Class) : Boolean =
+	not c.getXisList().oclIsUndefined()
+/]
+
+[query public getXisListItem(c : Class) : Stereotype =
+	c.getAppliedStereotype('XIS-Mobile::XisListItem')
+/]
+
+[query public isXisListItem(c : Class) : Boolean =
+	not c.getXisListItem().oclIsUndefined()
+/]
+
+[query public getXisListItems(c : Class) : OrderedSet(Class) = 
+	c.ownedElement->selectByType(Class)->select(
+		i : Class | i.isXisListItem())
 /]
 
 [query public isForm(c : Class) : Boolean =
 	getEnumValue(c.getValue(
 		c.getXisCompositeWidget(), 'type')
 	) = 'Form'
-/]
-
-[query public isItem(c : Class) : Boolean =
-	getEnumValue(c.getValue(
-		c.getXisCompositeWidget(), 'type')
-	) = 'Item'
 /]
 
 [query public isTab(c : Class) : Boolean =
@@ -434,23 +461,24 @@
 	getEnumValue(c.getValue(c.getXisGesture(), 'type')) = 'Pinch'
 /]
 
-[query public hasMenu(c : Class) : Boolean = 
+[query public hasOptionsMenu(c : Class) : Boolean = 
 	let menu : Collection(Class) = c.ownedElement->selectByType(Class) in
-	menu->select(m : Class | m.isXisCompositeWidget() and m.isMenu())->size() = 1
+	menu->select(m : Class | m.isXisMenu() and m.isOptionsMenu())->size() = 1
 /]
 
-[query public getMenus(c : Class) : OrderedSet(Class) =
+[query public hasContextMenu(c : Class) : Boolean = 
+	let menu : Collection(Class) = c.ownedElement->selectByType(Class) in
+	menu->select(m : Class | m.isXisMenu() and m.isContextMenu())->size() = 1
+/]
+
+[query public getOwnedOptionsMenu(c : Class) : Class =
 	c.ownedElement->selectByType(Class)->select(
-		m : Class | m.isXisCompositeWidget() and m.isMenu())
+		m : Class | m.isXisMenu() and m.isOptionsMenu())
 /]
 
-[query public getMenu(c : Class) : Class = 
-	c.getMenus()->at(1)
-/]
-
-[query public getItems(c : Class) : OrderedSet(Class) = 
+[query public getXisMenuItems(c : Class) : OrderedSet(Class) = 
 	c.ownedElement->selectByType(Class)->select(
-		i : Class | i.isXisCompositeWidget() and i.isItem())
+		i : Class | i.isXisMenuItem())
 /]
 
 [query public getXisWidget(c : Class) : Stereotype =
@@ -458,8 +486,10 @@
 /]
 
 [query public getXisWidgets(c : Class) : Set(Class) =
-	c.ownedElement->selectByKind(Class)->select(w : Class | not w.isXisCompositeWidget() or
-	(w.isXisCompositeWidget() and (not w.isMenu() and not w.isItem())))
+	c.ownedElement->selectByKind(Class)->select(w : Class |
+	not w.isXisCompositeWidget() and not c.isXisMenu()
+	and not w.isXisMenuGroup() and not w.isXisMenuItem()
+	and not w.isXisListItem())
 /]
 
 [query public getXisLabel(c : Class) : Stereotype =

@@ -3,21 +3,21 @@
 
 [import xismobile::pim::uml2::gen::android::common::xisMobileUtils /]
 
-[template public generateMenu(c : Class) post (trim())]
+[template public generateOptionsMenu(c : Class) post (trim())]
 
-[if (c.isXisCompositeWidget() and c.isMenu())]
+[if (c.isXisMenu() and c.isOptionsMenu())]
 [file ('res/menu/' + c.name.toLowerCase() + '_menu.xml', false, 'UTF-8')]
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
 [for (el : Class | c.getChildren())]
-	[if (el.isGroup())]
+	[if (el.isXisMenuGroup())]
 	<group android:id="@+id/group_[el.name.toLowerCase()/]">
 	[for (it : Class | el.getChildren())]
 		[it.writeMenuItem()/]
 	[/for]
 	</group>
-	[elseif (el.isItem())]
+	[elseif (el.isXisMenuItem())]
 		[el.writeMenuItem()/]
 	[/if]
 [/for]
@@ -30,20 +30,20 @@
 [template public generateContextMenu(c : Class)]
 
 [for (cl : Class | c.getChildren())]
-	[if (cl.isXisCompositeWidget()
-		and cl.isMenu())]
+	[if (cl.isXisMenu()
+		and cl.isContextMenu())]
 [file ('res/menu/' + c.name.toLowerCase() + '_menu.xml', false, 'UTF-8')]
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
 [for (el : Class | cl.getChildren())]
-	[if (el.isGroup())]
+	[if (el.isXisMenuGroup())]
 	<group android:id="@+id/group_[el.name.toLowerCase()/]">
 	[for (it : Class | el.getChildren())]
 		[it.writeMenuItem()/]
 	[/for]
 	</group>
-	[elseif (el.isItem())]
+	[elseif (el.isXisMenuItem())]
 	[el.writeMenuItem()/]
 	[/if]
 [/for]
