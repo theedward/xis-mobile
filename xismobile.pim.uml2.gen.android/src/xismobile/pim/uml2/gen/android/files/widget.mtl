@@ -470,7 +470,7 @@ public void onPinch() {
 [/template]
 
 [template public writeListView(c : Class)]
-[if (c.listIsSearchable())]
+[if (c.xisListIsSearchable())]
 [let name : String = 'search' + c.name.toUpperFirst()]
 <EditText
     android:id="@+id/[name/]"
