@@ -67,7 +67,9 @@ public class [c.name.toUpperFirst()/]Activity extends Activity {
 	private List<[master.name.toUpperFirst()/]> [master.name.toLowerFirst()/]s;
 	[/for]
 	[else]
-	// get referenced entities
+	[let assocs : Sequence(Association) = c.getInboundNavigationAssociations()]
+	[comment  @TODO Process Inbound Navigation Associations/]
+	[/let]
 	[/if]
 [/if]
 
