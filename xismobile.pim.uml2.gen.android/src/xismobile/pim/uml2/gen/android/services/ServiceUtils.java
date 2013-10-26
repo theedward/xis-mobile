@@ -281,9 +281,9 @@ public final class ServiceUtils {
 		return a.getAppliedStereotype("XIS-Mobile::XisDomainAssociation") != null;
 	}
 	
-//	public static boolean isXisNavigationAssociation(Association a) {
-//		return a.getAppliedStereotype("XIS-Mobile::XisNavigationAssociation") != null;
-//	}
+	public static boolean isXisNavigationAssociation(Association a) {
+		return a.getAppliedStereotype("XIS-Mobile::XisNavigationAssociation") != null;
+	}
 
 	public static boolean isXisBusinessEntity(Type t) {
 		return t.getAppliedStereotype("XIS-Mobile::XisBusinessEntity") != null;
