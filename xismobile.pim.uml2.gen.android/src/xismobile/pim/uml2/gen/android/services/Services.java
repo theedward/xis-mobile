@@ -253,31 +253,26 @@ public class Services {
 		return entities;
 	}
 	
-	public List<Class> getInboundNavigationReferencedEntities(Class c) {
-		List<Class> entities = new ArrayList<>();
-//		Property first = null;
-//		Property second = null;
-//		Type endType = null;
-//		
-////		Element el = c.getOwner();
-//		
-//		for (Association a : c.getAssociations()) {
-//			if (isXisNavigationAssociation(a)) {
-//				first = a.getMemberEnds().get(0);
-//				second = a.getMemberEnds().get(1);
-//				if (first.isNavigable()) {
-//					if (a.getEndTypes().get(0).getName().compareTo(c.getName()) != 0) {
-////						result.add(first);
-//					}
-//				}
-//				else {
-//					if (a.getEndTypes().get(1).getName().compareTo(c.getName()) != 0) {
-////						result.add(first);
-//					}
-//				}
-//			}
-//		}
-		return entities;
+	public List<Association> getInboundNavigationAssociations(Class c) {
+		List<Association> associations = new ArrayList<Association>();
+
+		for (Association a : c.getAssociations()) {
+			if (ServiceUtils.isXisNavigationAssociation(a)) {
+				Property first = a.getMemberEnds().get(0);
+				Property second = a.getMemberEnds().get(1);
+				if (first.isNavigable()) {
+					if (a.getEndTypes().get(0).getName().equals(c.getName())) {
+						associations.add(a);
+					}
+				}
+				else if (second.isNavigable()) {
+					if (a.getEndTypes().get(1).getName().equals(c.getName())) {
+						associations.add(a);
+					}
+				}
+			}
+		}
+		return associations;
 	}
 
 	public String getEntityAttributeOfWidget(String value) {
