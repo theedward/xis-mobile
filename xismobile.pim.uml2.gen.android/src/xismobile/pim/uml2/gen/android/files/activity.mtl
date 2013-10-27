@@ -68,7 +68,7 @@ public class [c.name.toUpperFirst()/]Activity extends Activity {
 	[/for]
 	[else]
 	[let assocs : Sequence(Association) = c.getInboundNavigationAssociations()]
-	[comment  @TODO Process Inbound Navigation Associations/]
+	[comment @TODO Process Inbound Navigation Associations/]
 	[/let]
 	[/if]
 [/if]
