@@ -15,16 +15,25 @@ import android.content.Context;
 
 public class DomainEntityManager {
 	
+	private static DomainEntityManager instance = null;
+
 	private Context context; 
 	[for (c : Class | entities)]
 	private Set<[c.name.toUpperFirst()/]> [c.name.toLowerFirst()/]s;
 	[/for]
 	
-	public DomainEntityManager(Context context) {
+	protected DomainEntityManager(Context context) {
 		this.context = context;
 		[for (c : Class | entities)]
 		[c.name.toLowerFirst()/]s = new HashSet<[c.name.toUpperFirst()/]>();
 		[/for]
+	}
+
+	public static DomainEntityManager getManager(Context context) {
+		if (instance == null) {
+			instance = new DomainEntityManager(context);
+		}
+		return instance;
 	}
 
 	[for (c : Class | entities)]
