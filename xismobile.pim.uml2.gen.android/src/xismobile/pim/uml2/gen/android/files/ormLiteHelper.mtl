@@ -29,6 +29,7 @@ public class OrmLiteHelper extends OrmLiteSqliteOpenHelper {
 	private static final String TAG = "OrmLiteHelper";
 	private static final String DB_NAME = "OrmDummy.db";[comment]TODO: App Name[/comment]
 	private static final int DB_VERSION = 1;
+	private static OrmLiteHelper instance = null;
 
 	private Context context;
 [let assocs : Sequence(String) = entities.getManyToManyAssociations()]
@@ -39,9 +40,16 @@ public class OrmLiteHelper extends OrmLiteSqliteOpenHelper {
 	private Dao<[s/], Integer> [s.toLowerFirst()/]Dao = null;
 	[/for]
  
-	public OrmLiteHelper(Context context) {
+	protected OrmLiteHelper(Context context) {
 		super(context, DB_NAME, null, DB_VERSION);
 		this.context = context;
+	}
+
+	public static OrmLiteHelper getHelper(Context context) {
+		if (instance == null) {
+			instance = new OrmLiteHelper(context);
+		}
+		return instance;
 	}
  
 	[for (c : Class | entities) separator ('\n')]
