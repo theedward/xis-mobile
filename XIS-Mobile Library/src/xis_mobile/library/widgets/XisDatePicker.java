@@ -5,7 +5,6 @@ import java.util.Calendar;
 import xis_mobile.library.gestures.XisDatePickerGestureManager;
 import xis_mobile.library.gestures.XisGestureOnTouchListener;
 import android.app.DatePickerDialog;
-import android.app.DatePickerDialog.OnDateSetListener;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
@@ -23,6 +22,12 @@ public class XisDatePicker extends Button {
 		mContext = context;
 		mXisGestureOnTouchListener = new XisGestureOnTouchListener(context);
 		setOnTouchListener(mXisGestureOnTouchListener);
+		setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				setDate();
+			}
+		});
 	}
 	
 	public XisDatePicker(Context context, AttributeSet attrs) {
@@ -30,6 +35,12 @@ public class XisDatePicker extends Button {
 		mContext = context;
 		mXisGestureOnTouchListener = new XisGestureOnTouchListener(context);
 		setOnTouchListener(mXisGestureOnTouchListener);
+		setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				setDate();
+			}
+		});
 	}
 	
 	public XisDatePicker(Context context, AttributeSet attrs, int defStyle) {
@@ -37,20 +48,16 @@ public class XisDatePicker extends Button {
 		mContext = context;
 		mXisGestureOnTouchListener = new XisGestureOnTouchListener(context);
 		setOnTouchListener(mXisGestureOnTouchListener);
-	}
-
-	public void setXisGestureManager(XisDatePickerGestureManager manager) {
-		mXisGestureOnTouchListener.setXisGestureManager(manager);
-	}
-	
-	@Override
-	public void setOnClickListener(OnClickListener l) {
-		super.setOnClickListener(new OnClickListener() {
+		setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				setDate();
 			}
 		});
+	}
+
+	public void setXisGestureManager(XisDatePickerGestureManager manager) {
+		mXisGestureOnTouchListener.setXisGestureManager(manager);
 	}
 	
 	private void setDate()
@@ -59,7 +66,7 @@ public class XisDatePicker extends Button {
 		int monthC = mCalendar.get(Calendar.MONTH);
 		int dayC = mCalendar.get(Calendar.DAY_OF_MONTH);
 		
-		new DatePickerDialog(mContext, new OnDateSetListener() {
+		new DatePickerDialog(mContext, new DatePickerDialog.OnDateSetListener() {
 			@Override
 			public void onDateSet(DatePicker view, int year, int monthOfYear,
 				int dayOfMonth) {
