@@ -5,7 +5,6 @@ import java.util.Calendar;
 import xis_mobile.library.gestures.XisGestureOnTouchListener;
 import xis_mobile.library.gestures.XisTimePickerGestureManager;
 import android.app.TimePickerDialog;
-import android.app.TimePickerDialog.OnTimeSetListener;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
@@ -23,29 +22,7 @@ public class XisTimePicker extends Button {
 		mContext = context;
 		mXisGestureOnTouchListener = new XisGestureOnTouchListener(context);
 		setOnTouchListener(mXisGestureOnTouchListener);
-	}
-	
-	public XisTimePicker(Context context, AttributeSet attrs) {
-		super(context, attrs);
-		mContext = context;
-		mXisGestureOnTouchListener = new XisGestureOnTouchListener(context);
-		setOnTouchListener(mXisGestureOnTouchListener);
-	}
-	
-	public XisTimePicker(Context context, AttributeSet attrs, int defStyle) {
-		super(context, attrs, defStyle);
-		mContext = context;
-		mXisGestureOnTouchListener = new XisGestureOnTouchListener(context);
-		setOnTouchListener(mXisGestureOnTouchListener);
-	}
-
-	public void setXisGestureManager(XisTimePickerGestureManager manager) {
-		mXisGestureOnTouchListener.setXisGestureManager(manager);
-	}
-	
-	@Override
-	public void setOnClickListener(OnClickListener l) {
-		super.setOnClickListener(new OnClickListener() {
+		setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				setTime();
@@ -53,17 +30,48 @@ public class XisTimePicker extends Button {
 		});
 	}
 	
+	public XisTimePicker(Context context, AttributeSet attrs) {
+		super(context, attrs);
+		mContext = context;
+		mXisGestureOnTouchListener = new XisGestureOnTouchListener(context);
+		setOnTouchListener(mXisGestureOnTouchListener);
+		setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				setTime();
+			}
+		});
+	}
+	
+	public XisTimePicker(Context context, AttributeSet attrs, int defStyle) {
+		super(context, attrs, defStyle);
+		mContext = context;
+		mXisGestureOnTouchListener = new XisGestureOnTouchListener(context);
+		setOnTouchListener(mXisGestureOnTouchListener);
+		setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				setTime();
+			}
+		});
+	}
+
+	public void setXisGestureManager(XisTimePickerGestureManager manager) {
+		mXisGestureOnTouchListener.setXisGestureManager(manager);
+	}
+	
 	private void setTime()
 	{
 		int hourC = mCalendar.get(Calendar.HOUR_OF_DAY);
 		int minuteC = mCalendar.get(Calendar.MINUTE);
 		
-		new TimePickerDialog(mContext, new OnTimeSetListener() {
+		new TimePickerDialog(mContext, new TimePickerDialog.OnTimeSetListener() {
 			@Override
 			public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 				setText(String.format("%s:%s", hourOfDay, minute));
-				mCalendar.set(hourOfDay, minute);
+				mCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+				mCalendar.set(Calendar.MINUTE, minute);
 			}
-		}, hourC, minuteC, true);
+		}, hourC, minuteC, true).show();
 	}
 }
