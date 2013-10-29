@@ -414,12 +414,11 @@ public void onPinch() {
 
 [template public writeDatePicker(widgets : Sequence(Class), c : Class)]
 [let name : String = 'datePicker' + c.name.toUpperFirst()]
-<Button
+<xis_mobile.library.widgets.XisDatePicker
 	android:id="@+id/[name/]"
 	android:layout_width="wrap_content"
 	android:layout_height="wrap_content"
 	[writeWidgetRelativePositioning(widgets, c)/]
-	android:onClick="showDatePicker[name.toUpperFirst()/]Dialog"
 [let value : String = c.getXisDatePickerValue()]
 	[if (not value.oclIsUndefined() and not value.stringContains('.'))]
 	android:text="[addString(name + '_text', value)/]"
@@ -431,12 +430,11 @@ public void onPinch() {
 
 [template public writeTimePicker(widgets : Sequence(Class), c : Class)]
 [let name : String = 'timePicker' + c.name.toUpperFirst()]
-<Button
+<xis_mobile.library.widgets.XisTimePicker
 	android:id="@+id/[name/]"
 	android:layout_width="wrap_content"
 	android:layout_height="wrap_content"
 	[writeWidgetRelativePositioning(widgets, c)/]
-	android:onClick="showTimePicker[name.toUpperFirst()/]Dialog"
 [let value : String = c.getXisTimePickerValue()]
 	[if (not value.oclIsUndefined() and not value.stringContains('.'))]
 	android:text="[addString(name + '_text', value)/]"
