@@ -80,14 +80,14 @@ public class [c.name.toUpperFirst()/]Activity extends Activity {
 		setContentView(R.layout.[c.name.toLowerCase()/]);
 	[if (entities->size() > 0)]
 		[if (dbNeeded)]
-		initDbHelper();
+		helper = OrmLiteHelper.getHelper(getApplicationContext());
 		[if (c.isMainScreen())]
 		[for (ent : Class | c.getMasterEntities())]
 		[ent.name.toLowerFirst()/]s = helper.getAll[ent.name.toUpperFirst()/]s();
 		[/for]
 		[/if]
 		[elseif (managerNeeded)]
-		initManager();
+		manager = DomainEntityManager.getManager(getApplicationContext());
 		[if (c.isMainScreen())]
 		[for (ent : Class | c.getMasterEntities())]
 		[ent.name.toLowerFirst()/]s = manager.getAll[ent.name.toUpperFirst()/]s();
@@ -166,23 +166,6 @@ public class [c.name.toUpperFirst()/]Activity extends Activity {
 	[cls->writeCustomActionArea()/]
 	[/if]
 [/let]
-[if (dbNeeded)]
-
-	private OrmLiteHelper initDbHelper() {
-		if (helper == null) {
-			helper = OpenHelperManager.getHelper(getApplicationContext(), OrmLiteHelper.class); 
-		}
-		return helper;
-	}
-[elseif (managerNeeded)]
-
-	private DomainEntityManager initManager() {
-		if (manager == null) {
-			manager = new DomainEntityManager(getApplicationContext());  
-		}
-		return manager;
-	}	
-[/if]
 }
 [/let]
 [/let]
