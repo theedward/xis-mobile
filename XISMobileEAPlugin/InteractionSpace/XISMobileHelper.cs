@@ -1,5 +1,6 @@
 ﻿
 using System.Windows.Forms;
+using System;
 namespace XISMobileEAPlugin.InteractionSpace
 {
     class XISMobileHelper
@@ -207,6 +208,165 @@ namespace XISMobileEAPlugin.InteractionSpace
             return composite;
         }
 
+        public static EA.Element CreateXisMenu(EA.Element parent, string name, MenuType type)
+        {
+            EA.Element menu = parent.Elements.AddNew(name, "Class");
+            menu.Stereotype = "XisMenu";
+            menu.Update();
+
+            foreach (EA.TaggedValue tv in menu.TaggedValues)
+            {
+                switch (tv.Name)
+                {
+                    case "name":
+                        tv.Value = name;
+                        break;
+                    case "type":
+                        tv.Value = type.ToString();
+                        break;
+                    default:
+                        break;
+                }
+                tv.Update();
+            }
+            parent.Update();
+
+            return menu;
+        }
+
+        public static EA.Element CreateXisMenu(EA.Package package, string name, MenuType type)
+        {
+            EA.Element menu = package.Elements.AddNew(name, "Class");
+            menu.Stereotype = "XisMenu";
+            menu.Update();
+
+            foreach (EA.TaggedValue tv in menu.TaggedValues)
+            {
+                switch (tv.Name)
+                {
+                    case "name":
+                        tv.Value = name;
+                        break;
+                    case "type":
+                        tv.Value = type.ToString();
+                        break;
+                    default:
+                        break;
+                }
+                tv.Update();
+            }
+            package.Update();
+
+            return menu;
+        }
+
+        public static EA.Element CreateXisMenuGroup(EA.Element parent, string name)
+        {
+            EA.Element group = parent.Elements.AddNew(name, "Class");
+            group.Stereotype = "XisMenuGroup";
+            group.Update();
+
+            foreach (EA.TaggedValue tv in group.TaggedValues)
+            {
+                switch (tv.Name)
+                {
+                    case "name":
+                        tv.Value = name;
+                        break;
+                    default:
+                        break;
+                }
+                tv.Update();
+            }
+            parent.Update();
+
+            return group;
+        }
+
+        public static EA.Element CreateXisMenuItem(EA.Element parent, string name, string onTap)
+        {
+            EA.Element item = parent.Elements.AddNew(name, "Class");
+            item.Stereotype = "XisMenuItem";
+            item.Update();
+
+            foreach (EA.TaggedValue tv in item.TaggedValues)
+            {
+                switch (tv.Name)
+                {
+                    case "name":
+                        tv.Value = name;
+                        break;
+                    case "onTap":
+                        tv.Value = onTap;
+                        break;
+                    default:
+                        break;
+                }
+                tv.Update();
+            }
+            parent.Update();
+
+            return item;
+        }
+
+        public static EA.Element CreateXisList(EA.Element parent, string name, string searchBy = null, string orderBy = null)
+        {
+            EA.Element list = parent.Elements.AddNew(name, "Class");
+            list.Stereotype = "XisList";
+            list.Update();
+
+            foreach (EA.TaggedValue tv in list.TaggedValues)
+            {
+                switch (tv.Name)
+                {
+                    case "name":
+                        tv.Value = name;
+                        break;
+                    case "searchBy":
+                        tv.Value = searchBy;
+                        break;
+                    case "orderBy":
+                        tv.Value = orderBy;
+                        break;
+                    default:
+                        break;
+                }
+                tv.Update();
+            }
+            parent.Update();
+
+            return list;
+        }
+
+        public static EA.Element CreateXisListItem(EA.Element parent, string name, string onTap = null, string onLongTap = null)
+        {
+            EA.Element item = parent.Elements.AddNew(name, "Class");
+            item.Stereotype = "XisListItem";
+            item.Update();
+
+            foreach (EA.TaggedValue tv in item.TaggedValues)
+            {
+                switch (tv.Name)
+                {
+                    case "name":
+                        tv.Value = name;
+                        break;
+                    case "onTap":
+                        tv.Value = onTap;
+                        break;
+                    case "onLongTap":
+                        tv.Value = onLongTap;
+                        break;
+                    default:
+                        break;
+                }
+                tv.Update();
+            }
+            parent.Update();
+
+            return item;
+        }
+
         public static XisWidget ProcessXisAttribute(EA.Repository repository, EA.Diagram diagram,
             XisWidget parent, EA.Attribute attribute, string entityName)
         {
@@ -225,7 +385,7 @@ namespace XISMobileEAPlugin.InteractionSpace
                     widget = new XisDropdown(repository, parent, diagram, attribute.Name + "Dropdown", attribute.Name);
                     break;
                 case "date":
-                    //widget = CreateXisDatePicker(parent, attribute.Name + "DatePicker");
+                    widget = new XisDatePicker(repository, parent, diagram, attribute.Name + "DatePicker");
                     break;
                 case "time":
                     //widget = CreateXisTimePicker(parent, attribute.Name + "TimePicker");
@@ -374,32 +534,32 @@ namespace XISMobileEAPlugin.InteractionSpace
             return timePicker;
         }
 
-        public static EA.Method CreateXisAction(EA.Element parent, string name, ActionType type, string navigation = null)
+        public static EA.Method CreateXisAction(EA.Repository repository, EA.Element parent, string name, ActionType type, string navigation = null)
         {
             EA.Method action = null;
 
             switch (type)
 	        {
 		        case ActionType.Cancel:
-                    action = parent.Methods.AddNew("cancel" + name, "void");
+                    action = parent.Methods.AddNew(name, "");
                     break;
                 case ActionType.Save:
-                    action = parent.Methods.AddNew("save" + name, "void");
+                    action = parent.Methods.AddNew(name, "");
                     break;
                 case ActionType.Create:
-                    action = parent.Methods.AddNew("create" + name, "void");
+                    action = parent.Methods.AddNew(name, "");
                     break;
                 case ActionType.Read:
-                    action = parent.Methods.AddNew("view" + name, "void");
+                    action = parent.Methods.AddNew(name, "");
                     break;
                 case ActionType.Update:
-                    action = parent.Methods.AddNew("edit" + name, "void");
+                    action = parent.Methods.AddNew(name, "");
                     break;
                 case ActionType.Delete:
-                    action = parent.Methods.AddNew("delete" + name, "void");
+                    action = parent.Methods.AddNew(name, "");
                     break;
                 case ActionType.DeleteAll:
-                    action = parent.Methods.AddNew("deleteAll" + name, "void");
+                    action = parent.Methods.AddNew(name, "");
                     break;
                 case ActionType.ZoomIn:
                     break;
@@ -412,26 +572,31 @@ namespace XISMobileEAPlugin.InteractionSpace
 	        }
 
             action.Stereotype = "XisAction";
+            action.StereotypeEx = "XIS-Mobile::XisAction";
+            action.ClassifierID = "0";
             action.Update();
 
-            foreach (EA.MethodTag tv in action.TaggedValues)
-        	{
-                switch (tv.Name)
-	            {
-                    case "name":
-                        tv.Value = name;
-                        break;
-                    case "type":
-                        tv.Value = type.ToString();
-                        break;
-                    case "navigation":
-                        tv.Value = navigation;
-                        break;
-                    default:
-                        break;
-                }
-                tv.Update();
-	        }
+            //repository.Execute("insert into t_xref (XrefID, Name, Type, Visibility, Partition, Description, Client, Supplier) values " +
+            //    "('{" + Guid.NewGuid() + "}', 'Stereotypes', 'operation property', 'Public', 0, '@STEREO;Name=XisAction;FQName=XIS-Mobile::XisAction;@ENDSTEREO;', '" + action.MethodGUID + "', '&lt;none&gt;');");
+            //MessageBox.Show(Guid.NewGuid() + "");
+            //foreach (EA.MethodTag tv in action.TaggedValues)
+            //{
+            //    switch (tv.Name)
+            //    {
+            //        case "name":
+            //            tv.Value = name;
+            //            break;
+            //        case "type":
+            //            tv.Value = type.ToString();
+            //            break;
+            //        case "navigation":
+            //            tv.Value = navigation;
+            //            break;
+            //        default:
+            //            break;
+            //    }
+            //    tv.Update();
+            //}
             parent.Update();
 
             return action;
@@ -440,11 +605,14 @@ namespace XISMobileEAPlugin.InteractionSpace
 
     enum CompositeWidgetType
     {
-        List,
-        Menu,
-        ContextMenu,
-        Item,
+        Form,
         Tab
+    }
+
+    enum MenuType
+    {
+        OptionsMenu,
+        ContextMenu
     }
 
     enum GestureType
@@ -459,6 +627,7 @@ namespace XISMobileEAPlugin.InteractionSpace
 
     enum ActionType
     {
+        OK,
         Cancel,
         Save,
         Create,

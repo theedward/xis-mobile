@@ -23,5 +23,18 @@ namespace XISMobileEAPlugin.InteractionSpace
                 comp.Widgets.Add(this);
             }
         }
+
+        public void SetLabel(string label)
+        {
+            foreach (EA.TaggedValue tv in Element.TaggedValues)
+            {
+                if (tv.Name == "label")
+                {
+                    tv.Value = label;
+                    tv.Update();
+                    return;
+                }
+            }
+        }
     }
 }

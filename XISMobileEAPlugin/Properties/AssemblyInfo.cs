@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("IST")]
 [assembly: AssemblyProduct("XISMobileEAPlugin")]
-[assembly: AssemblyCopyright("Copyright © André Ribeiro IST 2013")]
+[assembly: AssemblyCopyright("Copyright © 2013 André Ribeiro - Instituto Superior Técnico (IST) ")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

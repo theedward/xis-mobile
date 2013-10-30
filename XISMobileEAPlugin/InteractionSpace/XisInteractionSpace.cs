@@ -8,8 +8,8 @@ namespace XISMobileEAPlugin.InteractionSpace
 {
     class XisInteractionSpace : XisWidget
     {
-        public XisCompositeWidget Menu { get; set; }
-        public XisCompositeWidget ContextMenu { get; set; }
+        public XisMenu Menu { get; set; }
+        public XisMenu ContextMenu { get; set; }
         public List<XisWidget> Widgets { get; set; }
         public bool IsMainScreen;
         public bool IsFirstSubScreen;

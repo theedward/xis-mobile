@@ -212,13 +212,22 @@ namespace XISMobileEAPlugin
             EA.Package rootModel = (EA.Package)Repository.Models.GetAt(0);
             EA.Package rootPackage = (EA.Package)rootModel.Packages.GetAt(0);
             EA.Package useCaseView = null;
+            EA.Package navigationView = null;
+            EA.Package interactionView = null;
 
             foreach (EA.Package package in rootPackage.Packages)
             {
-                if (package.StereotypeEx == "Use Case View")
+                if (package.StereotypeEx == "InteractionSpace View")
+                {
+                    interactionView = package;
+                }
+                else if (package.StereotypeEx == "NavigationSpace View")
+                {
+                    navigationView = package;
+                }
+                else if (package.StereotypeEx == "UseCases View")
                 {
                     useCaseView = package;
-                    break;
                 }
             }
 
@@ -254,7 +263,7 @@ namespace XISMobileEAPlugin
                         //{
                             //MessageBox.Show(element.Name);
                             //M2MTransformer.ProcessUseCase(Repository, rootPackage, element);
-                            M2MTransformer.ProcessUseCase(Repository, rootPackage, useCases);
+                        M2MTransformer.ProcessUseCase(Repository, navigationView, interactionView, useCases);
                         //}
                     }
                 }
@@ -265,6 +274,15 @@ namespace XISMobileEAPlugin
         {
             //MessageBox.Show("Generate Code!!! " + Location);
             new GenerationForm(Repository).Show();
+            //"select * from t_xref where type = 'operation property';");
+            //string query1 = "select * from t_xref where type = 'operation property';";
+            //string query2 = "select * from t_operation inner join t_object on xrefid = ea_guid where type = 'operation property';";
+            //string asd = Repository.SQLQuery("select * from t_operation;");
+            //MessageBox.Show(asd);
+            //System.IO.File.Create("C:/Users/User/Desktop/asd.txt").Close();
+            //System.IO.TextWriter t = System.IO.File.AppendText("C:/Users/User/Desktop/asd.txt");
+            //t.WriteLine(asd);
+            //t.Close();
         }
  
         ///

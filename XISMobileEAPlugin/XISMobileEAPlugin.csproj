@@ -55,6 +55,12 @@
     <Compile Include="GenerationForm.Designer.cs">
       <DependentUpon>GenerationForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="InteractionSpace\XisMenuGroup.cs" />
+    <Compile Include="InteractionSpace\XisListItem.cs" />
+    <Compile Include="InteractionSpace\XisMenuItem.cs" />
+    <Compile Include="InteractionSpace\XisMenu.cs" />
+    <Compile Include="InteractionSpace\XisList.cs" />
+    <Compile Include="InteractionSpace\XisDatePicker.cs" />
     <Compile Include="InteractionSpace\XisButton.cs" />
     <Compile Include="InteractionSpace\XisDropdown.cs" />
     <Compile Include="InteractionSpace\XisCompositeWidget.cs" />

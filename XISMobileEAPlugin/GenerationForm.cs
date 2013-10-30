@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Diagnostics;
 using System.IO;
+using System.Runtime.Remoting.Messaging;
 
 namespace XISMobileEAPlugin
 {
@@ -16,6 +17,8 @@ namespace XISMobileEAPlugin
         string platformType = null;
         const string noPath = "Select a folder...";
         private EA.Repository repository;
+
+        private delegate string ExecuteCommandDelegate(string command);
 
         public GenerationForm(EA.Repository repository)
         {
@@ -76,12 +79,30 @@ namespace XISMobileEAPlugin
                 string umlPath = textBoxPath.Text + "\\" + projectName + ".uml";
 
                 project.ExportPackageXMI(package.PackageGUID, EA.EnumXMIType.xmiEA21, 1, -1, 1, 0, xmiPath);
+
+                //ExecuteCommandDelegate del = new ExecuteCommandDelegate(StringToUpperFirst);
+                //del.BeginInvoke("test", PrintResult, null);
+
                 ExecuteCommand("C:\\Users\\User\\Desktop\\XMLParser.jar " + xmiPath + " " + projectName);
                 ExecuteCommand("C:\\Users\\User\\Desktop\\generator.jar " + umlPath + " " + textBoxPath.Text + "\\src-gen2");
+                Close();
             }
         }
 
-        static void ExecuteCommand(string command)
+        private void PrintResult(IAsyncResult result)
+        {
+            ExecuteCommandDelegate del = (ExecuteCommandDelegate)((AsyncResult)result).AsyncDelegate;
+            string s = del.EndInvoke(result);
+            MessageBox.Show("Result: " + s);
+            Close();
+        }
+
+        private string StringToUpperFirst(string s)
+        {
+            return s.Substring(0, 1).ToUpper() + s.Substring(1, s.Length-1);
+        }
+
+        private void ExecuteCommand(string command)
         {
             ProcessStartInfo processInfo = new ProcessStartInfo("java.exe", "-jar " + command);
             processInfo.CreateNoWindow = true;
@@ -100,8 +121,8 @@ namespace XISMobileEAPlugin
             int exitCode = process.ExitCode;
 
             MessageBox.Show("output>>" + (String.IsNullOrEmpty(output) ? "(none)" : output));
-            /*Console.WriteLine("error>>" + (String.IsNullOrEmpty(error) ? "(none)" : error));
-            Console.WriteLine("ExitCode: " + exitCode.ToString(), "ExecuteCommand");*/
+            MessageBox.Show("error>>" + (String.IsNullOrEmpty(error) ? "(none)" : error));
+            //Console.WriteLine("ExitCode: " + exitCode.ToString(), "ExecuteCommand");
             process.Close();
         }
     }
