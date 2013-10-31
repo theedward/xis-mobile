@@ -6,12 +6,13 @@ using System.Windows.Forms;
 
 namespace XISMobileEAPlugin.InteractionSpace
 {
-    class XisList : XisWidget
+    class XisList : XisCompositeWidget
     {
         public List<XisListItem> Items { get; set; }
 
         public XisList(EA.Repository repository, EA.Diagram diagram,
-            XisInteractionSpace parent, string name, string searchBy = null, string orderBy = null) : base(repository)
+            XisInteractionSpace parent, string name, string searchBy = null, string orderBy = null)
+            : base(repository, parent)
         {
             Element = XISMobileHelper.CreateXisList(parent.Element, name, searchBy, orderBy);
             Items = new List<XisListItem>();

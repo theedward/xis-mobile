@@ -574,24 +574,7 @@ namespace XISMobileEAPlugin
             }
         }
 
-        private static void ComputePositions(XisCompositeWidget comp, EA.Diagram diagram)
-        {
-            if (comp.Widgets.Count > 0)
-            {
-                EA.DiagramObject obj = comp.GetDiagramObject(diagram);
-                ComputePositions(comp.Widgets.First(), diagram, obj, null);
-                obj = comp.Widgets.First().GetDiagramObject(diagram);
-
-                for (int i = 1; i < comp.Widgets.Count; i++)
-                {
-                    ComputePositions(comp.Widgets[i], diagram, null, obj);
-                    obj = comp.Widgets[i].GetDiagramObject(diagram);
-                }
-                EA.DiagramObject spaceObj = comp.GetDiagramObject(diagram);
-                comp.SetPosition(diagram, spaceObj.left, spaceObj.right, -spaceObj.top, -obj.bottom + 10, spaceObj.Sequence + 1);
-            }
-        }
-
+        // Use on Context Menus
         private static void ComputePositions(XisMenu comp, EA.Diagram diagram)
         {
             if (comp.Items.Count > 0)
@@ -607,6 +590,44 @@ namespace XISMobileEAPlugin
                 }
                 EA.DiagramObject spaceObj = comp.GetDiagramObject(diagram);
                 comp.SetPosition(diagram, spaceObj.left, spaceObj.right, -spaceObj.top, -obj.bottom + 10, spaceObj.Sequence + 1);
+            }
+        }
+
+        private static void ComputePositions(XisMenu menu, EA.Diagram diagram, EA.DiagramObject parent, EA.DiagramObject sibling)
+        {
+            EA.DiagramObject obj = null;
+
+            if (parent != null)
+            {
+                menu.Element.Methods.Refresh();
+                obj = menu.SetPosition(diagram,
+                    parent.left + 10, parent.right - 10, -parent.top + 40, -parent.top + 90 + 30 * menu.Element.Methods.Count,
+                    parent.Sequence - 1);
+            }
+            else if (sibling != null)
+            {
+                menu.Element.Methods.Refresh();
+                obj = menu.SetPosition(diagram,
+                    sibling.left, sibling.right, -sibling.bottom + 10, -sibling.top + 60 + 30 * menu.Element.Methods.Count,
+                    sibling.Sequence);
+            }
+
+            if (obj != null)
+            {
+                if (menu.Items.Count > 0)
+                {
+                    ComputePositions(menu.Items.First(), diagram, obj, null);
+                    EA.DiagramObject aux = menu.Items.First().GetDiagramObject(diagram);
+
+                    for (int i = 1; i < menu.Items.Count; i++)
+                    {
+                        ComputePositions(menu.Items[i], diagram, null, aux);
+                        aux = menu.Items[i].GetDiagramObject(diagram);
+                    }
+
+                    aux = menu.Items.Last().GetDiagramObject(diagram);
+                    menu.SetPosition(diagram, obj.left, obj.right, -obj.top, -aux.bottom + 10, obj.Sequence);
+                }
             }
         }
 
@@ -650,35 +671,19 @@ namespace XISMobileEAPlugin
 
         private static void ComputePositions(XisWidget widget, EA.Diagram diagram, EA.DiagramObject parent, EA.DiagramObject sibling)
         {
-            if (widget is XisCompositeWidget && ((XisCompositeWidget)widget).Widgets.Count > 0)
+            if (parent != null)
             {
-                XisCompositeWidget comp = widget as XisCompositeWidget;
-
-                if (parent != null)
-                {
-                    ComputePositions(comp, diagram, parent, null);
-                }
-                else if (sibling != null)
-                {
-                    ComputePositions(comp, diagram, null, sibling);
-                }
+                widget.Element.Methods.Refresh();
+                widget.SetPosition(diagram,
+                    parent.left + 10, parent.right - 10, -parent.top + 40, -parent.top + 90 + 30 * widget.Element.Methods.Count,
+                    parent.Sequence - 1);
             }
-            else
+            else if (sibling != null)
             {
-                if (parent != null)
-                {
-                    widget.Element.Methods.Refresh();
-                    widget.SetPosition(diagram,
-                        parent.left + 10, parent.right - 10, -parent.top + 40, -parent.top + 90 + 30 * widget.Element.Methods.Count,
-                        parent.Sequence - 1);
-                }
-                else if (sibling != null)
-                {
-                    widget.Element.Methods.Refresh();
-                    widget.SetPosition(diagram,
-                        sibling.left, sibling.right, -sibling.bottom + 10, -sibling.bottom + 60 + 30 * widget.Element.Methods.Count,
-                        sibling.Sequence);
-                }
+                widget.Element.Methods.Refresh();
+                widget.SetPosition(diagram,
+                    sibling.left, sibling.right, -sibling.bottom + 10, -sibling.bottom + 60 + 30 * widget.Element.Methods.Count,
+                    sibling.Sequence);
             }
         }
 

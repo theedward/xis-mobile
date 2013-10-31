@@ -8,7 +8,8 @@ namespace XISMobileEAPlugin.InteractionSpace
 {
     class XisMenuItem : XisWidget
     {
-        public XisMenuItem(EA.Repository repository, EA.Diagram diagram, XisWidget parent, string name, string onTap = null) : base(repository)
+        public XisMenuItem(EA.Repository repository, EA.Diagram diagram, XisWidget parent, string name, string onTap = null)
+            : base(repository)
         {
             Element = XISMobileHelper.CreateXisMenuItem(parent.Element, name, onTap);
 

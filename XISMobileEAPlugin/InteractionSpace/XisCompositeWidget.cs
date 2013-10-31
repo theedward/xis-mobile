@@ -6,15 +6,12 @@ using System.Windows.Forms;
 
 namespace XISMobileEAPlugin.InteractionSpace
 {
-    class XisCompositeWidget : XisWidget
+    abstract class XisCompositeWidget : XisWidget
     {
         public List<XisWidget> Widgets { get; set; }
 
-        public XisCompositeWidget(EA.Repository repository, EA.Diagram diagram,
-            XisWidget parent, string name, CompositeWidgetType type, string onTap = null, string onLongTap = null,
-            string searchBy = null, string orderBy = null) : base(repository)
+        public XisCompositeWidget(EA.Repository repository, XisWidget parent) : base(repository)
         {
-            Element = XISMobileHelper.CreateXisCompositeWidget(parent.Element, name, type, onTap, onLongTap, searchBy, orderBy);
             Widgets = new List<XisWidget>();
 
             if (parent is XisInteractionSpace)
@@ -29,39 +26,9 @@ namespace XISMobileEAPlugin.InteractionSpace
             }
         }
 
-        public XisCompositeWidget(EA.Repository repository, EA.Diagram diagram,
-            EA.Package package, string name, CompositeWidgetType type, string onTap = null, string onLongTap = null,
-            string searchBy = null, string orderBy = null)
-            : base(repository)
+        public XisCompositeWidget(EA.Repository repository) : base(repository)
         {
-            Element = XISMobileHelper.CreateXisCompositeWidget(package, name, type, onTap, onLongTap, searchBy, orderBy);
             Widgets = new List<XisWidget>();
-        }
-
-        public void SetOnTapAction(string onTap)
-        {
-            foreach (EA.TaggedValue tv in Element.TaggedValues)
-            {
-                if (tv.Name == "onTap")
-                {
-                    tv.Value = onTap;
-                    tv.Update();
-                    return;
-                }
-            }
-        }
-
-        public void SetSearchBy(string searchBy)
-        {
-            foreach (EA.TaggedValue tv in Element.TaggedValues)
-            {
-                if (tv.Name == "searchBy")
-                {
-                    tv.Value = searchBy;
-                    tv.Update();
-                    return;
-                }
-            }
         }
     }
 }

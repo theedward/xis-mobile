@@ -6,11 +6,12 @@ using System.Windows.Forms;
 
 namespace XISMobileEAPlugin.InteractionSpace
 {
-    class XisMenuGroup : XisWidget
+    class XisMenuGroup : XisCompositeWidget
     {
         public List<XisMenuItem> Items { get; set; }
 
-        public XisMenuGroup(EA.Repository repository, EA.Diagram diagram, XisMenu parent, string name) : base(repository)
+        public XisMenuGroup(EA.Repository repository, EA.Diagram diagram, XisMenu parent, string name)
+            : base(repository, parent)
         {
             Element = XISMobileHelper.CreateXisMenuGroup(parent.Element, name);
             Items = new List<XisMenuItem>();

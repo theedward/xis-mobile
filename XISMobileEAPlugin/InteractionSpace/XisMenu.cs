@@ -6,12 +6,13 @@ using System.Windows.Forms;
 
 namespace XISMobileEAPlugin.InteractionSpace
 {
-    class XisMenu : XisWidget
+    class XisMenu : XisCompositeWidget
     {
         public List<XisMenuGroup> Groups { get; set; }
         public List<XisMenuItem> Items { get; set; }
 
-        public XisMenu(EA.Repository repository, EA.Diagram diagram, XisWidget parent, string name, MenuType type) : base(repository)
+        public XisMenu(EA.Repository repository, EA.Diagram diagram, XisWidget parent, string name, MenuType type)
+            : base(repository, parent)
         {
             Element = XISMobileHelper.CreateXisMenu(parent.Element, name, type);
             Groups = new List<XisMenuGroup>();
@@ -29,12 +30,18 @@ namespace XISMobileEAPlugin.InteractionSpace
             }
         }
 
-        public XisMenu(EA.Repository repository, EA.Diagram diagram,
-            EA.Package package, string name, MenuType type)
+        public XisMenu(EA.Repository repository, EA.Diagram diagram, EA.Package package, string name, MenuType type)
             : base(repository)
         {
-            Element = XISMobileHelper.CreateXisMenu(package, name, type);
-            Items = new List<XisMenuItem>();
+            if (type == MenuType.ContextMenu)
+            {
+                Element = XISMobileHelper.CreateXisMenu(package, name, type);
+                Items = new List<XisMenuItem>();
+            }
+            else
+            {
+                throw new Exception("Unsupported constructor for XisMenu of type: " + type.ToString());
+            }
         }
     }
 }
