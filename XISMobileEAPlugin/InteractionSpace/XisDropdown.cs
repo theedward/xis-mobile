@@ -5,7 +5,7 @@ using System.Text;
 
 namespace XISMobileEAPlugin.InteractionSpace
 {
-    class XisDropdown : XisWidget
+    class XisDropdown : XisSimpleWidget
     {
         public XisDropdown(EA.Repository repository, XisWidget parent, EA.Diagram diagram,
             string name, string label) : base(repository)

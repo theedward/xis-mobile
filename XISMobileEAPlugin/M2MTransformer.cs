@@ -186,18 +186,18 @@ namespace XISMobileEAPlugin
                 {
                     string actionName = "view" + list.Element.Name;
                     XisMenuItem contextItem = new XisMenuItem(repository, listDiagram, context, "View" + list.Element.Name, actionName);
-                    XisInteractionSpace detailIS = CreateMasterDetailIS(repository, package, master, listIS, Mode.View, be);
-                    XISMobileHelper.CreateXisAction(repository, contextItem.Element, actionName, ActionType.Read, detailIS.Element.Name);
-                    CreateXisNavigationAssociation(repository, actionName, listIS, detailIS);
+                    //XisInteractionSpace detailIS = CreateMasterDetailIS(repository, package, master, listIS, Mode.View, be);
+                    //XISMobileHelper.CreateXisAction(repository, contextItem.Element, actionName, ActionType.Read, detailIS.Element.Name);
+                    //CreateXisNavigationAssociation(repository, actionName, listIS, detailIS);
                 }
                 
                 if (ContainsUpdate(useCase))
                 {
                     string actionName = "edit" + list.Element.Name;
                     XisMenuItem contextItem = new XisMenuItem(repository, listDiagram, context, "Edit" + list.Element.Name, actionName);
-                    XisInteractionSpace detailIS = CreateMasterDetailIS(repository, package, master, listIS, Mode.Edit, be);
-                    XISMobileHelper.CreateXisAction(repository, contextItem.Element, actionName, ActionType.Update, detailIS.Element.Name);
-                    CreateXisNavigationAssociation(repository, actionName, listIS, detailIS);
+                    //XisInteractionSpace detailIS = CreateMasterDetailIS(repository, package, master, listIS, Mode.Edit, be);
+                    //XISMobileHelper.CreateXisAction(repository, contextItem.Element, actionName, ActionType.Update, detailIS.Element.Name);
+                    //CreateXisNavigationAssociation(repository, actionName, listIS, detailIS);
                 }
 
                 if (ContainsDelete(useCase))
@@ -228,9 +228,9 @@ namespace XISMobileEAPlugin
                 {
                     string actionName = "create" + list.Element.Name;
                     XisMenuItem menuItem = new XisMenuItem(repository, listDiagram, menu, "Create" + list.Element.Name, actionName);
-                    XisInteractionSpace detailIS = CreateMasterDetailIS(repository, package, master, listIS, Mode.Create, be);
-                    XISMobileHelper.CreateXisAction(repository, menuItem.Element, actionName, ActionType.Create, detailIS.Element.Name);
-                    CreateXisNavigationAssociation(repository, actionName, listIS, detailIS);
+                    //XisInteractionSpace detailIS = CreateMasterDetailIS(repository, package, master, listIS, Mode.Create, be);
+                    //XISMobileHelper.CreateXisAction(repository, menuItem.Element, actionName, ActionType.Create, detailIS.Element.Name);
+                    //CreateXisNavigationAssociation(repository, actionName, listIS, detailIS);
                 }
 
                 if (ContainsDelete(useCase))
@@ -593,6 +593,44 @@ namespace XISMobileEAPlugin
             }
         }
 
+        private static void ComputePositions(XisList list, EA.Diagram diagram, EA.DiagramObject parent, EA.DiagramObject sibling)
+        {
+            EA.DiagramObject obj = null;
+
+            if (parent != null)
+            {
+                list.Element.Methods.Refresh();
+                obj = list.SetPosition(diagram,
+                    parent.left + 10, parent.right - 10, -parent.top + 40, -parent.top + 90 + 30 * list.Element.Methods.Count,
+                    parent.Sequence - 1);
+            }
+            else if (sibling != null)
+            {
+                list.Element.Methods.Refresh();
+                obj = list.SetPosition(diagram,
+                    sibling.left, sibling.right, -sibling.bottom + 10, -sibling.top + 60 + 30 * list.Element.Methods.Count,
+                    sibling.Sequence);
+            }
+
+            if (obj != null)
+            {
+                if (list.Items.Count > 0)
+                {
+                    ComputePositions(list.Items.First(), diagram, obj, null);
+                    EA.DiagramObject aux = list.Items.First().GetDiagramObject(diagram);
+
+                    for (int i = 1; i < list.Items.Count; i++)
+                    {
+                        ComputePositions(list.Items[i], diagram, null, aux);
+                        aux = list.Widgets[i].GetDiagramObject(diagram);
+                    }
+
+                    aux = list.Widgets.Last().GetDiagramObject(diagram);
+                    list.SetPosition(diagram, obj.left, obj.right, -obj.top, -aux.bottom + 10, obj.Sequence);
+                }
+            }
+        }
+
         private static void ComputePositions(XisMenu menu, EA.Diagram diagram, EA.DiagramObject parent, EA.DiagramObject sibling)
         {
             EA.DiagramObject obj = null;
@@ -622,54 +660,54 @@ namespace XISMobileEAPlugin
                     for (int i = 1; i < menu.Items.Count; i++)
                     {
                         ComputePositions(menu.Items[i], diagram, null, aux);
-                        aux = menu.Items[i].GetDiagramObject(diagram);
+                        aux = menu.Widgets[i].GetDiagramObject(diagram);
                     }
 
-                    aux = menu.Items.Last().GetDiagramObject(diagram);
+                    aux = menu.Widgets.Last().GetDiagramObject(diagram);
                     menu.SetPosition(diagram, obj.left, obj.right, -obj.top, -aux.bottom + 10, obj.Sequence);
                 }
             }
         }
 
-        private static void ComputePositions(XisCompositeWidget comp, EA.Diagram diagram, EA.DiagramObject parent, EA.DiagramObject sibling)
+        private static void ComputePositions(XisListItem item, EA.Diagram diagram, EA.DiagramObject parent, EA.DiagramObject sibling)
         {
             EA.DiagramObject obj = null;
 
             if (parent != null)
 	        {
-                comp.Element.Methods.Refresh();
-                obj = comp.SetPosition(diagram,
-                    parent.left + 10, parent.right - 10, -parent.top + 40, -parent.top + 90 + 30 * comp.Element.Methods.Count,
+                item.Element.Methods.Refresh();
+                obj = item.SetPosition(diagram,
+                    parent.left + 10, parent.right - 10, -parent.top + 40, -parent.top + 90 + 30 * item.Element.Methods.Count,
                     parent.Sequence - 1);
 	        }
             else if (sibling != null)
 	        {
-                comp.Element.Methods.Refresh();
-                obj = comp.SetPosition(diagram,
-                    sibling.left, sibling.right, -sibling.bottom + 10, -sibling.top + 60 + 30 * comp.Element.Methods.Count,
+                item.Element.Methods.Refresh();
+                obj = item.SetPosition(diagram,
+                    sibling.left, sibling.right, -sibling.bottom + 10, -sibling.top + 60 + 30 * item.Element.Methods.Count,
                     sibling.Sequence);
 	        }
 
             if (obj != null)
 	        {
-                if (comp.Widgets.Count > 0)
+                if (item.Widgets.Count > 0)
                 {
-                    ComputePositions(comp.Widgets.First(), diagram, obj, null);
-                    EA.DiagramObject aux = comp.Widgets.First().GetDiagramObject(diagram);
+                    ComputePositions(item.Widgets.First(), diagram, obj, null);
+                    EA.DiagramObject aux = item.Widgets.First().GetDiagramObject(diagram);
 
-                    for (int i = 1; i < comp.Widgets.Count; i++)
+                    for (int i = 1; i < item.Widgets.Count; i++)
                     {
-                        ComputePositions(comp.Widgets[i], diagram, null, aux);
-                        aux = comp.Widgets[i].GetDiagramObject(diagram);
+                        ComputePositions(item.Widgets[i], diagram, null, aux);
+                        aux = item.Widgets[i].GetDiagramObject(diagram);
                     }
-                    
-                    aux = comp.Widgets.Last().GetDiagramObject(diagram);
-                    comp.SetPosition(diagram, obj.left, obj.right, -obj.top, -aux.bottom + 10, obj.Sequence);
+                                
+                    aux = item.Widgets.Last().GetDiagramObject(diagram);
+                    item.SetPosition(diagram, obj.left, obj.right, -obj.top, -aux.bottom + 10, obj.Sequence);
                 }
 	        }
         }
 
-        private static void ComputePositions(XisWidget widget, EA.Diagram diagram, EA.DiagramObject parent, EA.DiagramObject sibling)
+        private static void ComputePositions(XisSimpleWidget widget, EA.Diagram diagram, EA.DiagramObject parent, EA.DiagramObject sibling)
         {
             if (parent != null)
             {

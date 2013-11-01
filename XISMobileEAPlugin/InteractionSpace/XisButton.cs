@@ -5,7 +5,7 @@ using System.Text;
 
 namespace XISMobileEAPlugin.InteractionSpace
 {
-    class XisButton : XisWidget
+    class XisButton : XisSimpleWidget
     {
         public XisButton(EA.Repository repository, XisWidget parent, EA.Diagram diagram,
             string name, string onTap = null) : base(repository)

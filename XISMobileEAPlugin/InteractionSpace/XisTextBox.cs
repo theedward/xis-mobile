@@ -5,7 +5,7 @@ using System.Text;
 
 namespace XISMobileEAPlugin.InteractionSpace
 {
-    class XisTextBox : XisWidget
+    class XisTextBox : XisSimpleWidget
     {
         public XisTextBox(EA.Repository repository, XisWidget parent, EA.Diagram diagram,
             string name, string label = null, string hint = null, int lines = 1) : base(repository)

@@ -8,14 +8,11 @@ namespace XISMobileEAPlugin.InteractionSpace
 {
     class XisListItem : XisCompositeWidget
     {
-        public List<XisWidget> Widgets { get; set; }
-
         public XisListItem(EA.Repository repository, EA.Diagram diagram,
             XisList parent, string name, string onTap = null, string onLongTap = null)
             : base(repository, parent)
         {
             Element = XISMobileHelper.CreateXisListItem(parent.Element, name, onTap, onLongTap);
-            Widgets = new List<XisWidget>();
             parent.Items.Add(this);
         }
 

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace XISMobileEAPlugin.InteractionSpace
 {
-    class XisDatePicker : XisWidget
+    class XisDatePicker : XisSimpleWidget
     {
         public XisDatePicker(EA.Repository repository, XisWidget parent, EA.Diagram diagram,
             string name, string timezone = null) : base(repository)

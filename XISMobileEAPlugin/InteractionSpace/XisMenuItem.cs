@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace XISMobileEAPlugin.InteractionSpace
 {
-    class XisMenuItem : XisWidget
+    class XisMenuItem : XisSimpleWidget
     {
         public XisMenuItem(EA.Repository repository, EA.Diagram diagram, XisWidget parent, string name, string onTap = null)
             : base(repository)
