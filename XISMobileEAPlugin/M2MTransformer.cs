@@ -151,6 +151,7 @@ namespace XISMobileEAPlugin
             // List Creation
             XisList list = new XisList(repository, listDiagram, listIS, master.Element.Name + "List");
 
+            MessageBox.Show("Space" + listIS.Widgets.Count);
             //if (ContainsSearch(operations))
             //{
             //    string searchBy = "";
@@ -564,9 +565,15 @@ namespace XISMobileEAPlugin
                 ComputePositions(space.Widgets.First(), diagram, obj, null);
                 obj = space.Widgets.First().GetDiagramObject(diagram);
 
+                MessageBox.Show("Count:" + space.Widgets.Count);
+
+                for (int i = 0; i < space.Widgets.Count; i++)
+                {
+                    MessageBox.Show(space.Widgets[i].Element.Name);
+                }
+
                 for (int i = 1; i < space.Widgets.Count; i++)
                 {
-                    MessageBox.Show("Before " + space.Widgets[i].Element.Name);
                     ComputePositions(space.Widgets[i], diagram, null, obj);
                     obj = space.Widgets[i].GetDiagramObject(diagram);
                 }
@@ -579,14 +586,17 @@ namespace XISMobileEAPlugin
         {
             if (widget is XisMenu)
             {
+                //MessageBox.Show("MENU " + widget.Element.Name);
                 ComputePositions(widget as XisMenu, diagram, parent, sibling);
             }
             else if (widget is XisList)
             {
+                //MessageBox.Show("LIST " + widget.Element.Name);
                 ComputePositions(widget as XisList, diagram, parent, sibling);
             }
             else if (widget is XisSimpleWidget)
             {
+                //MessageBox.Show("SIMPLE " + widget.Element.Name);
                 ComputePositions(widget as XisSimpleWidget, diagram, parent, sibling);
             }
         }
@@ -639,10 +649,10 @@ namespace XISMobileEAPlugin
                     for (int i = 1; i < list.Items.Count; i++)
                     {
                         ComputePositions(list.Items[i], diagram, null, aux);
-                        aux = list.Widgets[i].GetDiagramObject(diagram);
+                        aux = list.Items[i].GetDiagramObject(diagram);
                     }
 
-                    aux = list.Widgets.Last().GetDiagramObject(diagram);
+                    aux = list.Items.Last().GetDiagramObject(diagram);
                     list.SetPosition(diagram, obj.left, obj.right, -obj.top, -aux.bottom + 10, obj.Sequence);
                 }
             }
@@ -711,14 +721,16 @@ namespace XISMobileEAPlugin
                 {
                     ComputePositions(menu.Items.First(), diagram, obj, null);
                     EA.DiagramObject aux = menu.Items.First().GetDiagramObject(diagram);
+                    MessageBox.Show(menu.Items.First().Element.Name + " " + menu.Items.Count);
 
                     for (int i = 1; i < menu.Items.Count; i++)
                     {
+                        MessageBox.Show(menu.Items[i].Element.Name);
                         ComputePositions(menu.Items[i], diagram, null, aux);
-                        aux = menu.Widgets[i].GetDiagramObject(diagram);
+                        aux = menu.Items[i].GetDiagramObject(diagram);
                     }
 
-                    aux = menu.Widgets.Last().GetDiagramObject(diagram);
+                    aux = menu.Items.Last().GetDiagramObject(diagram);
                     menu.SetPosition(diagram, obj.left, obj.right, -obj.top, -aux.bottom + 10, obj.Sequence);
                 }
             }
@@ -770,7 +782,6 @@ namespace XISMobileEAPlugin
                         obj = source.SetPosition(nsDiagram,
                             last.left + across, last.right + across, -last.top, -last.bottom);
                     }
-
 
                     if (target.GetDiagramObject(nsDiagram) == null)
                     {
