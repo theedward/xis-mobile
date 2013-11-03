@@ -17,17 +17,6 @@ namespace XISMobileEAPlugin.InteractionSpace
             Element = XISMobileHelper.CreateXisMenu(parent.Element, name, type);
             Groups = new List<XisMenuGroup>();
             Items = new List<XisMenuItem>();
-
-            if (parent is XisInteractionSpace)
-            {
-                XisInteractionSpace it = parent as XisInteractionSpace;
-                it.Widgets.Add(this);
-            }
-            else if (parent is XisCompositeWidget)
-            {
-                XisCompositeWidget comp = parent as XisCompositeWidget;
-                comp.Widgets.Add(this);
-            }
         }
 
         public XisMenu(EA.Repository repository, EA.Diagram diagram, EA.Package package, string name, MenuType type)

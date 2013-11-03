@@ -16,8 +16,6 @@ namespace XISMobileEAPlugin.InteractionSpace
         {
             Element = XISMobileHelper.CreateXisList(parent.Element, name, searchBy, orderBy);
             Items = new List<XisListItem>();
-            parent.Widgets.Add(this);
-            MessageBox.Show("List Constructor: " + name);
         }
 
         public void SetSearchBy(string searchBy)

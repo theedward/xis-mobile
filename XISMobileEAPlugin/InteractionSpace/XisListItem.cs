@@ -13,7 +13,6 @@ namespace XISMobileEAPlugin.InteractionSpace
             : base(repository, parent)
         {
             Element = XISMobileHelper.CreateXisListItem(parent.Element, name, onTap, onLongTap);
-            parent.Items.Add(this);
         }
 
         public void SetOnTapAction(string onTap)
