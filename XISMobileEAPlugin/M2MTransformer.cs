@@ -565,13 +565,6 @@ namespace XISMobileEAPlugin
                 ComputePositions(space.Widgets.First(), diagram, obj, null);
                 obj = space.Widgets.First().GetDiagramObject(diagram);
 
-                MessageBox.Show("Count:" + space.Widgets.Count);
-
-                for (int i = 0; i < space.Widgets.Count; i++)
-                {
-                    MessageBox.Show(space.Widgets[i].Element.Name);
-                }
-
                 for (int i = 1; i < space.Widgets.Count; i++)
                 {
                     ComputePositions(space.Widgets[i], diagram, null, obj);
@@ -721,11 +714,9 @@ namespace XISMobileEAPlugin
                 {
                     ComputePositions(menu.Items.First(), diagram, obj, null);
                     EA.DiagramObject aux = menu.Items.First().GetDiagramObject(diagram);
-                    MessageBox.Show(menu.Items.First().Element.Name + " " + menu.Items.Count);
 
                     for (int i = 1; i < menu.Items.Count; i++)
                     {
-                        MessageBox.Show(menu.Items[i].Element.Name);
                         ComputePositions(menu.Items[i], diagram, null, aux);
                         aux = menu.Items[i].GetDiagramObject(diagram);
                     }
