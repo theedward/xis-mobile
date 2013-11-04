@@ -150,8 +150,8 @@ namespace XISMobileEAPlugin
 
             // List Creation
             XisList list = new XisList(repository, listDiagram, listIS, master.Element.Name + "List");
+            list.SetValue(master.Element.Name);
 
-            MessageBox.Show("Space" + listIS.Widgets.Count);
             //if (ContainsSearch(operations))
             //{
             //    string searchBy = "";
@@ -177,6 +177,21 @@ namespace XISMobileEAPlugin
             //}
 
             XisListItem item = new XisListItem(repository, listDiagram, list, list.Element.Name + "Item");
+
+            if (master.Element.Attributes.Count > 1)
+            {
+                EA.Attribute first = master.Element.Attributes.GetAt(0);
+                EA.Attribute second = master.Element.Attributes.GetAt(1);
+                XisLabel lbl1 = new XisLabel(repository, item, listDiagram, first.Name + "Lbl");
+                lbl1.SetValue(master.Element.Name + "." + first.Name);
+                XisLabel lbl2 = new XisLabel(repository, item, listDiagram, second.Name + "Lbl");
+                lbl2.SetValue(master.Element.Name + "." + second.Name);
+            }
+            else if (master.Element.Attributes.Count == 1)
+            {
+                EA.Attribute attr = master.Element.Attributes.GetAt(0);
+                item.SetValue(master.Element.Name + "." + attr.Name);
+            }
 
             #region Create Context Menu
             if (ContainsRead(useCase) || ContainsUpdate(useCase) || ContainsDelete(useCase))
