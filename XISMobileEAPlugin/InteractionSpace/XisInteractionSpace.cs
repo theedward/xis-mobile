@@ -15,10 +15,10 @@ namespace XISMobileEAPlugin.InteractionSpace
         public bool IsFirstSubScreen;
 
         public XisInteractionSpace(EA.Repository repository, EA.Package package, EA.Diagram diagram,
-            string name, bool isMainScreen = false, bool isFirstSubScreen = false)
+            string name, string title, bool isMainScreen = false, bool isFirstSubScreen = false)
             : base(repository)
         {
-            Element = XISMobileHelper.CreateXisInteractionSpace(package, diagram, name, isMainScreen);
+            Element = XISMobileHelper.CreateXisInteractionSpace(package, diagram, name, title, isMainScreen);
             Widgets = new List<XisWidget>();
             IsMainScreen = isMainScreen;
             IsFirstSubScreen = isFirstSubScreen;

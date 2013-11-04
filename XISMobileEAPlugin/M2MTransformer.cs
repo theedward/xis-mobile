@@ -141,7 +141,7 @@ namespace XISMobileEAPlugin
             EA.Diagram listDiagram = XISMobileHelper.CreateDiagram(package, master.Element.Name + "ListIS Diagram",
                 "XIS-Mobile_Diagrams::InteractionSpaceViewModel");
             XisInteractionSpace listIS = new XisInteractionSpace(repository, package, listDiagram,
-                master.Element.Name + "ListIS", isStartingUC, !isStartingUC);
+                master.Element.Name + "ListIS", "Manage " + master.Element.Name + "s", isStartingUC, !isStartingUC);
 
             if (isStartingUC)
             {
@@ -270,7 +270,7 @@ namespace XISMobileEAPlugin
             EA.Diagram detailDiagram = XISMobileHelper.CreateDiagram(package, master.Element.Name + "DetailIS Diagram",
                 "XIS-Mobile_Diagrams::InteractionSpaceViewModel");
             XisInteractionSpace detailIS = new XisInteractionSpace(repository, package, detailDiagram,
-                master.Element.Name + "DetailIS", isStartingUC, !isStartingUC);
+                master.Element.Name + "DetailIS", null, isStartingUC, !isStartingUC);
 
             if (isStartingUC)
             {
@@ -402,7 +402,7 @@ namespace XISMobileEAPlugin
         {
             EA.Diagram diagram = XISMobileHelper.CreateDiagram(package, mode + master.Element.Name + "IS Diagram",
                 "XIS-Mobile_Diagrams::InteractionSpaceViewModel");
-            XisInteractionSpace detailIS = new XisInteractionSpace(repository, package, diagram, mode + master.Element.Name + "IS");
+            XisInteractionSpace detailIS = new XisInteractionSpace(repository, package, diagram, mode + master.Element.Name + "IS", null);
 
             #region Process Master attributes
             if (!string.IsNullOrEmpty(master.Filter))
@@ -517,7 +517,7 @@ namespace XISMobileEAPlugin
         {
             EA.Diagram diagram = XISMobileHelper.CreateDiagram(package, entity.Element.Name + mode + "IS Diagram",
                 "XIS-Mobile_Diagrams::InteractionSpaceViewModel");
-            XisInteractionSpace detailIS = new XisInteractionSpace(repository, package, diagram, mode + entity.Element.Name + "IS");
+            XisInteractionSpace detailIS = new XisInteractionSpace(repository, package, diagram, mode + entity.Element.Name + "IS", null);
 
             if (!string.IsNullOrEmpty(entity.Filter))
             {

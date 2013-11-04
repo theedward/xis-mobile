@@ -75,7 +75,8 @@ namespace XISMobileEAPlugin.InteractionSpace
             return diagObj;
         }
 
-        public static EA.Element CreateXisInteractionSpace(EA.Package package, EA.Diagram diagram, string name, bool isMainScreen = false)
+        public static EA.Element CreateXisInteractionSpace(EA.Package package, EA.Diagram diagram,
+            string name, string title, bool isMainScreen = false)
         {
             EA.Element element = package.Elements.AddNew(name, "Class");
             element.Stereotype = "XisInteractionSpace";
@@ -90,6 +91,9 @@ namespace XISMobileEAPlugin.InteractionSpace
                         break;
                     case "name":
                         tv.Value = name;
+                        break;
+                    case "title":
+                        tv.Value = title;
                         break;
                     default:
                         break;
