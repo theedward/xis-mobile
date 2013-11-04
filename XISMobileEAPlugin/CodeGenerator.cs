@@ -273,7 +273,7 @@ namespace XISMobileEAPlugin
         private void GenerateCode(EA.Repository Repository)
         {
             //MessageBox.Show("Generate Code!!! " + Location);
-            new GenerationForm(Repository).Show();
+            new CodeGenerationForm(Repository).Show();
             //"select * from t_xref where type = 'operation property';");
             //string query1 = "select * from t_xref where type = 'operation property';";
             //string query2 = "select * from t_operation inner join t_object on xrefid = ea_guid where type = 'operation property';";

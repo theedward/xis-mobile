@@ -1,6 +1,6 @@
 ﻿namespace XISMobileEAPlugin
 {
-    partial class GenerationForm
+    partial class CodeGenerationForm
     {
         /// <summary>
         /// Required designer variable.

@@ -12,7 +12,7 @@ using System.Runtime.Remoting.Messaging;
 
 namespace XISMobileEAPlugin
 {
-    public partial class GenerationForm : Form
+    public partial class CodeGenerationForm : Form
     {
         string platformType = null;
         const string noPath = "Select a folder...";
@@ -20,7 +20,7 @@ namespace XISMobileEAPlugin
 
         private delegate string ExecuteCommandDelegate(string command);
 
-        public GenerationForm(EA.Repository repository)
+        public CodeGenerationForm(EA.Repository repository)
         {
             InitializeComponent();
             this.repository = repository;

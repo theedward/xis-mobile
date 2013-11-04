@@ -49,11 +49,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CodeGenerator.cs" />
-    <Compile Include="GenerationForm.cs">
+    <Compile Include="CodeGenerationForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GenerationForm.Designer.cs">
-      <DependentUpon>GenerationForm.cs</DependentUpon>
+    <Compile Include="CodeGenerationForm.Designer.cs">
+      <DependentUpon>CodeGenerationForm.cs</DependentUpon>
     </Compile>
     <Compile Include="InteractionSpace\XisLabel.cs" />
     <Compile Include="InteractionSpace\XisSimpleWidget.cs" />
@@ -81,8 +81,8 @@
     <Compile Include="XisEntity.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="GenerationForm.resx">
-      <DependentUpon>GenerationForm.cs</DependentUpon>
+    <EmbeddedResource Include="CodeGenerationForm.resx">
+      <DependentUpon>CodeGenerationForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
