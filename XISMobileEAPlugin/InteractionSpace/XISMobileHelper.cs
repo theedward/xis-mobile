@@ -402,6 +402,29 @@ namespace XISMobileEAPlugin.InteractionSpace
             return widget;
         }
 
+        public static EA.Element CreateXisLabel(EA.Element parent, string name)
+        {
+            EA.Element label = parent.Elements.AddNew(name, "Class");
+            label.Stereotype = "XisLabel";
+            label.Update();
+
+            foreach (EA.TaggedValue tv in label.TaggedValues)
+            {
+                switch (tv.Name)
+                {
+                    case "name":
+                        tv.Value = name;
+                        break;
+                    default:
+                        break;
+                }
+                tv.Update();
+            }
+            parent.Update();
+
+            return label;
+        }
+
         public static EA.Element CreateXisTextBox(EA.Element parent, string name, string label, string hint, int lines = 1)
         {
             EA.Element textBox = parent.Elements.AddNew(name, "Class");

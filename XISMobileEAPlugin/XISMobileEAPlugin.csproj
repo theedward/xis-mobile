@@ -55,6 +55,7 @@
     <Compile Include="GenerationForm.Designer.cs">
       <DependentUpon>GenerationForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="InteractionSpace\XisLabel.cs" />
     <Compile Include="InteractionSpace\XisSimpleWidget.cs" />
     <Compile Include="InteractionSpace\XisMenuGroup.cs" />
     <Compile Include="InteractionSpace\XisListItem.cs" />
