@@ -599,32 +599,17 @@ namespace XISMobileEAPlugin.InteractionSpace
 	        }
 
             action.Stereotype = "XisAction";
-            action.StereotypeEx = "XIS-Mobile::XisAction";
-            action.ClassifierID = "0";
             action.Update();
 
-            //repository.Execute("insert into t_xref (XrefID, Name, Type, Visibility, Partition, Description, Client, Supplier) values " +
-            //    "('{" + Guid.NewGuid() + "}', 'Stereotypes', 'operation property', 'Public', 0, '@STEREO;Name=XisAction;FQName=XIS-Mobile::XisAction;@ENDSTEREO;', '" + action.MethodGUID + "', '&lt;none&gt;');");
-            //MessageBox.Show(Guid.NewGuid() + "");
-            //foreach (EA.MethodTag tv in action.TaggedValues)
-            //{
-            //    switch (tv.Name)
-            //    {
-            //        case "name":
-            //            tv.Value = name;
-            //            break;
-            //        case "type":
-            //            tv.Value = type.ToString();
-            //            break;
-            //        case "navigation":
-            //            tv.Value = navigation;
-            //            break;
-            //        default:
-            //            break;
-            //    }
-            //    tv.Update();
-            //}
-            parent.Update();
+            //EA.MethodTag nameTv = action.TaggedValues.AddNew("name", "String");
+            //nameTv.Value = name;
+            //nameTv.Update();
+            //EA.MethodTag typeTv = action.TaggedValues.AddNew("type", "XIS-Mobile::ActionType");
+            //typeTv.Value = type.ToString();
+            //typeTv.Update();
+            //EA.MethodTag navigationTv = action.TaggedValues.AddNew("navigation", "String");
+            //navigationTv.Value = navigation;
+            //navigationTv.Update();
 
             return action;
         }
