@@ -30,12 +30,12 @@ namespace XISMobileEAPlugin.InteractionSpace
                     diagObj.right = right.Value;
                     diagObj.top = -top.Value;
                     diagObj.bottom = -bottom.Value;
-                    diagObj.Sequence = sequence;
                     SetPositionTaggedValues(left.Value, right.Value, top.Value, bottom.Value);
-                    diagObj.Update();
                     //diagram.Update();
                     //Repository.ReloadDiagram(diagram.DiagramID);
                 }
+                diagObj.Sequence = sequence;
+                diagObj.Update();
             }
             else
             {
@@ -51,8 +51,9 @@ namespace XISMobileEAPlugin.InteractionSpace
                 }
 
                 diagObj.Sequence = sequence;
+                //diagObj.ElementID = Element.ElementID;
                 diagObj.Update();
-                diagram.Update();
+                //diagram.Update();
                 //Repository.ReloadDiagram(diagram.DiagramID);
                 string query = "update t_diagramobjects set Object_ID = " + Element.ElementID + " where Diagram_ID = "
                     + diagram.DiagramID + " and Object_ID = 0";
