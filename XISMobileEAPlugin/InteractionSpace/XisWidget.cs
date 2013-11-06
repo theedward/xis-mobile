@@ -34,7 +34,7 @@ namespace XISMobileEAPlugin.InteractionSpace
                     diagObj.Sequence = sequence;
                     diagObj.Update();
                     diagram.Update();
-                    //Repository.ReloadDiagram(diagram.DiagramID);
+                    Repository.ReloadDiagram(diagram.DiagramID);
                 }
             }
             else
@@ -54,10 +54,10 @@ namespace XISMobileEAPlugin.InteractionSpace
                 //diagObj.ElementID = Element.ElementID;
                 diagObj.Update();
                 diagram.Update();
-                //Repository.ReloadDiagram(diagram.DiagramID);
                 string query = "update t_diagramobjects set Object_ID = " + Element.ElementID + " where Diagram_ID = "
                     + diagram.DiagramID + " and Object_ID = 0";
                 Repository.Execute(query);
+                Repository.ReloadDiagram(diagram.DiagramID);
             }
             diagram.DiagramObjects.Refresh();
             return diagObj;
