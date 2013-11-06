@@ -16,6 +16,18 @@ namespace XISMobileEAPlugin.InteractionSpace
             parent.Items.Add(this);
         }
 
+        public string GetOnTapAction()
+        {
+            foreach (EA.TaggedValue tv in Element.TaggedValues)
+            {
+                if (tv.Name == "onTap")
+                {
+                    return tv.Value;
+                }
+            }
+            return null;
+        }
+
         public void SetOnTapAction(string onTap)
         {
             foreach (EA.TaggedValue tv in Element.TaggedValues)
