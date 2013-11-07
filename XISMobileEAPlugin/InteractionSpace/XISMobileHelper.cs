@@ -26,7 +26,7 @@ namespace XISMobileEAPlugin.InteractionSpace
         //}
 
         public static EA.DiagramObject SetPosition(EA.Repository repository, EA.Diagram diagram, EA.Element element,
-            int? left = null, int? right = null, int? top = null, int? bottom = null, int sequence = 0)
+            int left, int right, int top, int bottom, int sequence = 0)
         {
             //try
             //{
@@ -37,15 +37,12 @@ namespace XISMobileEAPlugin.InteractionSpace
 
                 if (obj.ElementID == element.ElementID)
                 {
-                    if (left.HasValue && right.HasValue && top.HasValue && bottom.HasValue)
-                    {
-                        obj.left = left.Value;
-                        obj.right = right.Value;
-                        obj.top = top.Value * -1;
-                        obj.bottom = top.Value * -1;
-                        obj.Sequence = sequence;
-                        obj.Update();
-                    }
+                    obj.left = left;
+                    obj.right = right;
+                    obj.top = -top;
+                    obj.bottom = -bottom;
+                    obj.Sequence = sequence;
+                    obj.Update();
                     return obj;
                 }
             }
@@ -56,22 +53,15 @@ namespace XISMobileEAPlugin.InteractionSpace
             //}
 
             EA.DiagramObject diagObj = diagram.DiagramObjects.AddNew(element.Name, "Class");
-            
-            if (left.HasValue && right.HasValue && top.HasValue && bottom.HasValue)
-            {
-                diagObj.left = left.Value;
-                diagObj.right = right.Value;
-                diagObj.top = top.Value * -1;
-                diagObj.bottom = bottom.Value * -1;
-            }
+            diagObj.ElementID = element.ElementID;
+            diagObj.Update();
+
+            diagObj.left = left;
+            diagObj.right = right;
+            diagObj.top = -top;
+            diagObj.bottom = -bottom;
             diagObj.Sequence = sequence;
             diagObj.Update();
-            diagram.Update();
-            diagram.DiagramObjects.Refresh();
-            string query = "update t_diagramobjects set Object_ID = " + element.ElementID + " where Diagram_ID = "
-                + diagram.DiagramID + " and Object_ID = 0";
-            repository.Execute(query);
-
             return diagObj;
         }
 
