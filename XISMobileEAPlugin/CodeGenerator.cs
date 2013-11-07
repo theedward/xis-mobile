@@ -259,12 +259,7 @@ namespace XISMobileEAPlugin
                     
                     if (useCases.Count > 0)
                     {
-                        //foreach (EA.Element element in useCases)
-                        //{
-                            //MessageBox.Show(element.Name);
-                            //M2MTransformer.ProcessUseCase(Repository, rootPackage, element);
                         M2MTransformer.ProcessUseCase(Repository, navigationView, interactionView, useCases);
-                        //}
                     }
                 }
             }
