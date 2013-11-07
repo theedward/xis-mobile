@@ -55,6 +55,8 @@
     <Compile Include="CodeGenerationForm.Designer.cs">
       <DependentUpon>CodeGenerationForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="InteractionSpace\XisVisibilityBoundary.cs" />
+    <Compile Include="InteractionSpace\XisTimePicker.cs" />
     <Compile Include="InteractionSpace\XisLabel.cs" />
     <Compile Include="InteractionSpace\XisSimpleWidget.cs" />
     <Compile Include="InteractionSpace\XisMenuGroup.cs" />
