@@ -16,50 +16,42 @@ namespace XISMobileEAPlugin.InteractionSpace
             Repository = repository;
         }
 
-        public EA.DiagramObject SetPosition(EA.Diagram diagram, int? left = null, int? right = null, int? top = null, int? bottom = null,
+        public EA.DiagramObject SetPosition(EA.Diagram diagram, int left, int right, int top, int bottom,
             int sequence = 0)
         {
             EA.DiagramObject diagObj = GetDiagramObject(diagram);
-            diagram.DiagramObjects.Refresh();
 
             if (diagObj != null)
             {
-                if (left.HasValue && right.HasValue && top.HasValue && bottom.HasValue)
-                {
-                    diagObj.left = left.Value;
-                    diagObj.right = right.Value;
-                    diagObj.top = -top.Value;
-                    diagObj.bottom = -bottom.Value;
-                    SetPositionTaggedValues(left.Value, right.Value, top.Value, bottom.Value);
-                    diagObj.Sequence = sequence;
-                    diagObj.Update();
-                    diagram.Update();
-                    Repository.ReloadDiagram(diagram.DiagramID);
-                }
+                diagObj.left = left;
+                diagObj.right = right;
+                diagObj.top = -top;
+                diagObj.bottom = -bottom;
+                diagObj.Sequence = sequence;
+                diagObj.Update();
+                SetPositionTaggedValues(left, right, top, bottom);
             }
             else
             {
                 diagObj = diagram.DiagramObjects.AddNew(Element.Name, "Class");
-
-                if (left.HasValue && right.HasValue && top.HasValue && bottom.HasValue)
-                {
-                    diagObj.left = left.Value;
-                    diagObj.right = right.Value;
-                    diagObj.top = -top.Value;
-                    diagObj.bottom = -bottom.Value;
-                    SetPositionTaggedValues(left.Value, right.Value, top.Value, bottom.Value);
-                }
-
-                diagObj.Sequence = sequence;
-                //diagObj.ElementID = Element.ElementID;
+                diagObj.ElementID = Element.ElementID;
                 diagObj.Update();
-                diagram.Update();
-                string query = "update t_diagramobjects set Object_ID = " + Element.ElementID + " where Diagram_ID = "
-                    + diagram.DiagramID + " and Object_ID = 0";
-                Repository.Execute(query);
-                Repository.ReloadDiagram(diagram.DiagramID);
+
+                diagObj.left = left;
+                diagObj.right = right;
+                diagObj.top = -top;
+                diagObj.bottom = -bottom;
+                diagObj.Sequence = sequence;
+                diagObj.Update();
+                SetPositionTaggedValues(left, right, top, bottom);
             }
-            diagram.DiagramObjects.Refresh();
+
+            if (diagObj.Sequence != sequence)
+            {
+                string query = "update t_diagramobjects set Sequence = " + sequence + " where Object_ID = "
+                    + diagObj.ElementID;
+                Repository.Execute(query);
+            }
             return diagObj;
         }
 
