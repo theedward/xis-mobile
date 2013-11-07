@@ -297,7 +297,7 @@ namespace XISMobileEAPlugin
             {
                 EA.DiagramObject obj = listIS.GetDiagramObject(listDiagram);
                 int center = (obj.top + obj.bottom) / -2;
-                listIS.ContextMenu.SetPosition(listDiagram, obj.right + 50, obj.right + 330, -obj.top, -obj.top + 70);
+                listIS.ContextMenu.SetPosition(listDiagram, obj.right + 50, obj.right + 330, -obj.top, -obj.top + 70, 2);
                 ComputePositions(listIS.ContextMenu, listDiagram);
             }
 
@@ -612,7 +612,7 @@ namespace XISMobileEAPlugin
                 EA.DiagramObject spaceObj = space.GetDiagramObject(diagram);
                 ComputePositions(space.Widgets.First(), diagram, spaceObj, null);
                 EA.DiagramObject obj = space.Widgets.First().GetDiagramObject(diagram);
-                MessageBox.Show(space.Element.Name + spaceObj.Sequence + "-" + obj.Sequence + "_" + obj.ElementID);
+                //MessageBox.Show(space.Element.Name + spaceObj.Sequence + "-" + obj.Sequence + "_" + obj.ElementID);
 
                 for (int i = 1; i < space.Widgets.Count; i++)
                 {
@@ -657,8 +657,8 @@ namespace XISMobileEAPlugin
                     ComputePositions(menu.Items[i], diagram, null, obj);
                     obj = menu.Items[i].GetDiagramObject(diagram);
                 }
-                //menuObj = menu.GetDiagramObject(diagram);
-                menu.SetPosition(diagram, menuObj.left, menuObj.right, -menuObj.top, -obj.bottom + 10, menuObj.Sequence);// + 1);
+
+                menu.SetPosition(diagram, menuObj.left, menuObj.right, -menuObj.top, -obj.bottom + 10, menuObj.Sequence);
             }
         }
 
@@ -695,7 +695,7 @@ namespace XISMobileEAPlugin
                     }
 
                     list.SetPosition(diagram, obj.left, obj.right, -obj.top, -aux.bottom + 10, obj.Sequence);
-                    MessageBox.Show(list.Element.Name + obj.Sequence + "-" + parent.Sequence);
+                    //MessageBox.Show(list.Element.Name + obj.Sequence + "-" + parent.Sequence);
                 }
             }
         }
@@ -733,7 +733,7 @@ namespace XISMobileEAPlugin
                     }
                                 
                     item.SetPosition(diagram, obj.left, obj.right, -obj.top, -aux.bottom + 10, obj.Sequence);
-                    MessageBox.Show(item.Element.Name + obj.Sequence + "-" + parent.Sequence);
+                    //MessageBox.Show(item.Element.Name + obj.Sequence + "-" + parent.Sequence);
                 }
 	        }
         }
@@ -755,7 +755,7 @@ namespace XISMobileEAPlugin
                 obj = menu.SetPosition(diagram,
                     sibling.left, sibling.right, -sibling.bottom + 10, -sibling.top + 60 + 30 * menu.Element.Methods.Count,
                     sibling.Sequence);
-                MessageBox.Show(menu.Element.Name + obj.Sequence + "-" + sibling.Sequence);
+                //MessageBox.Show(menu.Element.Name + obj.Sequence + "-" + sibling.Sequence);
             }
 
             if (obj != null)
@@ -781,12 +781,12 @@ namespace XISMobileEAPlugin
             if (parent != null)
             {
                 widget.Element.Methods.Refresh();
-                //EA.Element pElem = repository.GetElementByID(parent.ElementID);
-                int pMethodDist = 0;//pElem.Methods.Count > 0 ? 15 + pElem.Methods.Count * 20 : 0;
+                EA.Element pElem = repository.GetElementByID(parent.ElementID);
+                int pMethodDist = pElem.Methods.Count > 0 ? 15 + pElem.Methods.Count * 20 : 0;
                 EA.DiagramObject obj = widget.SetPosition(diagram,
                     parent.left + 10, parent.right - 10, -parent.top + 40 + pMethodDist,
                     -parent.top + 90 + 30 * widget.Element.Methods.Count + pMethodDist, parent.Sequence - 1);
-                MessageBox.Show(widget.Element.Name + obj.Sequence + "-" + parent.Sequence);
+                //MessageBox.Show(widget.Element.Name + obj.Sequence + "-" + parent.Sequence);
             }
             else if (sibling != null)
             {
