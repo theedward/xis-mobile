@@ -23,7 +23,7 @@ namespace XISMobileEAPlugin.InteractionSpace
             IsMainScreen = isMainScreen;
             IsFirstSubScreen = isFirstSubScreen;
             // Set Default IS size, position and z-order
-            SetPosition(diagram, 217, 642, 10, 540, 10);
+            SetPosition(diagram, 217, 642, 10, 540);
         }
     }
 }
