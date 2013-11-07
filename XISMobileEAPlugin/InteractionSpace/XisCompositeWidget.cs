@@ -14,7 +14,6 @@ namespace XISMobileEAPlugin.InteractionSpace
         {
             Widgets = new List<XisWidget>();
 
-
             // TODO: Review this addition!
             if (parent is XisInteractionSpace)
             {

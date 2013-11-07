@@ -90,8 +90,6 @@ namespace XISMobileEAPlugin.InteractionSpace
                 }
                 tv.Update();
             }
-            package.Update();
-
             return element;
         }
 
@@ -158,8 +156,6 @@ namespace XISMobileEAPlugin.InteractionSpace
                 }
                 tv.Update();
             }
-            package.Update();
-
             return composite;
         }
 
@@ -197,8 +193,6 @@ namespace XISMobileEAPlugin.InteractionSpace
                 }
                 tv.Update();
             }
-            parent.Update();
-
             return composite;
         }
 
@@ -223,8 +217,6 @@ namespace XISMobileEAPlugin.InteractionSpace
                 }
                 tv.Update();
             }
-            parent.Update();
-
             return menu;
         }
 
@@ -249,8 +241,6 @@ namespace XISMobileEAPlugin.InteractionSpace
                 }
                 tv.Update();
             }
-            package.Update();
-
             return menu;
         }
 
@@ -272,8 +262,6 @@ namespace XISMobileEAPlugin.InteractionSpace
                 }
                 tv.Update();
             }
-            parent.Update();
-
             return group;
         }
 
@@ -298,8 +286,6 @@ namespace XISMobileEAPlugin.InteractionSpace
                 }
                 tv.Update();
             }
-            parent.Update();
-
             return item;
         }
 
@@ -327,8 +313,6 @@ namespace XISMobileEAPlugin.InteractionSpace
                 }
                 tv.Update();
             }
-            parent.Update();
-
             return list;
         }
 
@@ -356,8 +340,6 @@ namespace XISMobileEAPlugin.InteractionSpace
                 }
                 tv.Update();
             }
-            parent.Update();
-
             return item;
         }
 
@@ -382,7 +364,7 @@ namespace XISMobileEAPlugin.InteractionSpace
                     widget = new XisDatePicker(repository, parent, diagram, attribute.Name + "DatePicker");
                     break;
                 case "time":
-                    //widget = CreateXisTimePicker(parent, attribute.Name + "TimePicker");
+                    widget = new XisTimePicker(repository, parent, diagram, attribute.Name + "TimePicker");
                     break;
                 default:
                     break;
@@ -410,8 +392,6 @@ namespace XISMobileEAPlugin.InteractionSpace
                 }
                 tv.Update();
             }
-            parent.Update();
-
             return label;
         }
 
@@ -442,8 +422,6 @@ namespace XISMobileEAPlugin.InteractionSpace
                 }
                 tv.Update();
             }
-            parent.Update();
-
             return textBox;
         }
 
@@ -468,8 +446,6 @@ namespace XISMobileEAPlugin.InteractionSpace
                 }
                 tv.Update();
             }
-            parent.Update();
-
             return button;
         }
 
@@ -494,8 +470,6 @@ namespace XISMobileEAPlugin.InteractionSpace
                 }
                 tv.Update();
             }
-            parent.Update();
-
             return dropdown;
         }
 
@@ -520,8 +494,6 @@ namespace XISMobileEAPlugin.InteractionSpace
                 }
                 tv.Update();
             }
-            parent.Update();
-
             return datePicker;
         }
 
@@ -546,9 +518,38 @@ namespace XISMobileEAPlugin.InteractionSpace
                 }
                 tv.Update();
             }
-            parent.Update();
-
             return timePicker;
+        }
+
+        public static EA.Element CreateXisVisibilityBoundary(EA.Element parent, string name,
+            bool create = false, bool edit = false, bool view = false)
+        {
+            EA.Element boundary = parent.Elements.AddNew(name, "Boundary");
+            boundary.Stereotype = "XisVisibilityBoundary";
+            boundary.Update();
+
+            foreach (EA.TaggedValue tv in boundary.TaggedValues)
+            {
+                switch (tv.Name)
+                {
+                    case "name":
+                        tv.Value = name;
+                        break;
+                    case "create":
+                        tv.Value = create.ToString();
+                        break;
+                    case "edit":
+                        tv.Value = edit.ToString();
+                        break;
+                    case "view":
+                        tv.Value = view.ToString();
+                        break;
+                    default:
+                        break;
+                }
+                tv.Update();
+            }
+            return boundary;
         }
 
         public static EA.Method CreateXisAction(EA.Repository repository, EA.Element parent, string name, ActionType type, string navigation = null)

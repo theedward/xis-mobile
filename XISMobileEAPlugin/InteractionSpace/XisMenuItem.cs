@@ -11,17 +11,25 @@ namespace XISMobileEAPlugin.InteractionSpace
         public XisMenuItem(EA.Repository repository, EA.Diagram diagram, XisWidget parent, string name, string onTap = null)
             : base(repository)
         {
-            Element = XISMobileHelper.CreateXisMenuItem(parent.Element, name, onTap);
-
             if (parent is XisMenu)
             {
+                Element = XISMobileHelper.CreateXisMenuItem(parent.Element, name, onTap);
                 XisMenu menu = parent as XisMenu;
                 menu.Items.Add(this);
+                menu.Widgets.Add(this);
             }
             else if (parent is XisMenuGroup)
             {
+                Element = XISMobileHelper.CreateXisMenuItem(parent.Element, name, onTap);
                 XisMenuGroup group = parent as XisMenuGroup;
                 group.Items.Add(this);
+                group.Widgets.Add(this);
+            }
+            else if (parent is XisVisibilityBoundary)
+            {
+                XisVisibilityBoundary boundary = parent as XisVisibilityBoundary;
+                Element = XISMobileHelper.CreateXisMenuItem(boundary.Parent.Element, name, onTap);
+                boundary.Widgets.Add(this);
             }
         }
 

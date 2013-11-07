@@ -206,7 +206,7 @@ namespace XISMobileEAPlugin
             }
 
             // Read, Update, Create
-            List<XisMenuItem> detailModes = new List<XisMenuItem>(3);
+            Dictionary<ActionType, XisMenuItem> detailModes = new Dictionary<ActionType, XisMenuItem>(3);
 
             #region Create Context Menu
             if (ContainsRead(useCase) || ContainsUpdate(useCase) || ContainsDelete(useCase))
@@ -218,7 +218,7 @@ namespace XISMobileEAPlugin
                     string actionName = "view" + master.Element.Name;
                     XisMenuItem contextItem = new XisMenuItem(repository, listDiagram, context,
                         "View" + master.Element.Name + "Item", actionName);
-                    detailModes.Add(contextItem);
+                    detailModes.Add(ActionType.Read, contextItem);
                 }
                 
                 if (ContainsUpdate(useCase))
@@ -226,7 +226,7 @@ namespace XISMobileEAPlugin
                     string actionName = "edit" + master.Element.Name;
                     XisMenuItem contextItem = new XisMenuItem(repository, listDiagram, context,
                         "Edit" + master.Element.Name + "Item", actionName);
-                    detailModes.Add(contextItem);
+                    detailModes.Add(ActionType.Update, contextItem);
                 }
 
                 if (ContainsDelete(useCase))
@@ -259,7 +259,7 @@ namespace XISMobileEAPlugin
                     string actionName = "create" + master.Element.Name;
                     XisMenuItem menuItem = new XisMenuItem(repository, listDiagram, menu,
                         "Create" + master.Element.Name + "Item", actionName);
-                    detailModes.Add(menuItem);
+                    detailModes.Add(ActionType.Create, menuItem);
                 }
 
                 if (ContainsDelete(useCase))
@@ -275,11 +275,12 @@ namespace XISMobileEAPlugin
 
             if (detailModes.Count > 0 || item.GetOnTapAction() != null)
             {
-                XisInteractionSpace detailIS = CreateMasterDetailIS(repository, package, master, listIS, Mode.Edit, be);
-                foreach (XisMenuItem mItem in detailModes)
+                XisInteractionSpace detailIS = CreateMasterDetailIS(repository, package, master, listIS, detailModes, be);
+                foreach (ActionType key in detailModes.Keys)
                 {
+                    XisMenuItem mItem = detailModes[key];
                     XISMobileHelper.CreateXisAction(repository, mItem.Element, mItem.GetOnTapAction(),
-                        ActionType.Update, detailIS.Element.Name);
+                        key, detailIS.Element.Name);
                     CreateXisNavigationAssociation(repository, mItem.GetOnTapAction(), listIS, detailIS);
                 }
 
@@ -445,7 +446,7 @@ namespace XISMobileEAPlugin
         }
 
         private static XisInteractionSpace CreateMasterDetailIS(EA.Repository repository, EA.Package package, XisEntity master,
-            XisInteractionSpace previousIS, Mode mode, EA.Element be)
+            XisInteractionSpace previousIS, Dictionary<ActionType, XisMenuItem> modes, EA.Element be)
         {
             EA.Diagram diagram = XISMobileHelper.CreateDiagram(package, master.Element.Name + "EditorIS Diagram",
                 "XIS-Mobile_Diagrams::InteractionSpaceViewModel");
@@ -540,10 +541,12 @@ namespace XISMobileEAPlugin
 
             XisMenu menu = new XisMenu(repository, diagram, detailIS, detailIS.Element.Name + "Menu", MenuType.OptionsMenu);
 
-            if (mode == Mode.Create || mode == Mode.Edit)
+            XisVisibilityBoundary boundary = new XisVisibilityBoundary(repository, diagram, menu, "MyBoundary");
+
+            if (modes.ContainsKey(ActionType.Create) || modes.ContainsKey(ActionType.Update))
             {
                 string actionName = "save" + master.Element.Name;
-                XisMenuItem menuItem = new XisMenuItem(repository, diagram, menu, "Save" + master.Element.Name, actionName);
+                XisMenuItem menuItem = new XisMenuItem(repository, diagram, boundary, "Save" + master.Element.Name, actionName);
                 XISMobileHelper.CreateXisAction(repository, menuItem.Element, actionName, ActionType.Save, previousIS.Element.Name);
                 CreateXisNavigationAssociation(repository, actionName, detailIS, previousIS);
             }
@@ -554,6 +557,7 @@ namespace XISMobileEAPlugin
             CreateXisNavigationAssociation(repository, cancelAction, detailIS, previousIS);
 
             ComputePositions(detailIS, diagram);
+
             // Associate BE
             AssociateBEtoIS(repository, diagram, detailIS, be);
 
@@ -640,6 +644,11 @@ namespace XISMobileEAPlugin
             {
                 //MessageBox.Show("SIMPLE " + widget.Element.Name);
                 ComputePositions(widget as XisSimpleWidget, diagram, parent, sibling);
+            }
+            else if (widget is XisCompositeWidget)
+            {
+                //MessageBox.Show("COMPOSITE " + widget.Element.Name);
+                ComputePositions(widget as XisCompositeWidget, diagram, parent, sibling);
             }
         }
 
@@ -757,18 +766,55 @@ namespace XISMobileEAPlugin
 
             if (obj != null)
             {
-                if (menu.Items.Count > 0)
+                if (menu.Widgets.Count > 0)
                 {
-                    ComputePositions(menu.Items.First(), diagram, obj, null);
-                    EA.DiagramObject aux = menu.Items.First().GetDiagramObject(diagram);
+                    ComputePositions(menu.Widgets.First(), diagram, obj, null);
+                    EA.DiagramObject aux = menu.Widgets.First().GetDiagramObject(diagram);
 
-                    for (int i = 1; i < menu.Items.Count; i++)
+                    for (int i = 1; i < menu.Widgets.Count; i++)
                     {
-                        ComputePositions(menu.Items[i], diagram, null, aux);
-                        aux = menu.Items[i].GetDiagramObject(diagram);
+                        ComputePositions(menu.Widgets[i], diagram, null, aux);
+                        aux = menu.Widgets[i].GetDiagramObject(diagram);
                     }
 
                     menu.SetPosition(diagram, obj.left, obj.right, -obj.top, -aux.bottom + 10, obj.Sequence);
+                }
+            }
+        }
+
+        private static void ComputePositions(XisCompositeWidget comp, EA.Diagram diagram, EA.DiagramObject parent, EA.DiagramObject sibling)
+        {
+            EA.DiagramObject obj = null;
+
+            if (parent != null)
+            {
+                comp.Element.Methods.Refresh();
+                obj = comp.SetPosition(diagram,
+                    parent.left + 10, parent.right - 10, -parent.top + 40, -parent.top + 90 + 30 * comp.Element.Methods.Count,
+                    parent.Sequence - 1);
+            }
+            else if (sibling != null)
+            {
+                comp.Element.Methods.Refresh();
+                obj = comp.SetPosition(diagram,
+                    sibling.left, sibling.right, -sibling.bottom + 10, -sibling.top + 60 + 30 * comp.Element.Methods.Count,
+                    sibling.Sequence);
+            }
+
+            if (obj != null)
+            {
+                if (comp.Widgets.Count > 0)
+                {
+                    ComputePositions(comp.Widgets.First(), diagram, obj, null);
+                    EA.DiagramObject aux = comp.Widgets.First().GetDiagramObject(diagram);
+
+                    for (int i = 1; i < comp.Widgets.Count; i++)
+                    {
+                        ComputePositions(comp.Widgets[i], diagram, null, aux);
+                        aux = comp.Widgets[i].GetDiagramObject(diagram);
+                    }
+
+                    comp.SetPosition(diagram, obj.left, obj.right, -obj.top, -aux.bottom + 10, obj.Sequence);
                 }
             }
         }
