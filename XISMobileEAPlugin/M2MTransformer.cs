@@ -315,10 +315,10 @@ namespace XISMobileEAPlugin
         public static void ProcessDetailUseCase(EA.Repository repository, EA.Package package, XisEntity master,
             EA.Element useCase, EA.Element be, bool isStartingUC, List<EA.Element> useCases = null)
         {
-            EA.Diagram detailDiagram = XISMobileHelper.CreateDiagram(package, master.Element.Name + "DetailIS Diagram",
+            EA.Diagram detailDiagram = XISMobileHelper.CreateDiagram(package, master.Element.Name + "EditorIS Diagram",
                 "XIS-Mobile_Diagrams::InteractionSpaceViewModel");
             XisInteractionSpace detailIS = new XisInteractionSpace(repository, package, detailDiagram,
-                master.Element.Name + "DetailIS", null, isStartingUC, !isStartingUC);
+                master.Element.Name + "EditorIS", null, isStartingUC, !isStartingUC);
 
             if (isStartingUC)
             {
@@ -423,9 +423,15 @@ namespace XISMobileEAPlugin
             if (ContainsUpdate(useCase))
             {
                 XisMenu menu = new XisMenu(repository, detailDiagram, detailIS, detailIS.Element.Name + "Menu", MenuType.OptionsMenu);
+                XisWidget parent = menu;
+
+                if (ContainsRead(useCase))
+                {
+                    parent = new XisVisibilityBoundary(repository, detailDiagram, menu, "MyBoundary", false, true, false);
+                }
 
                 string actionName = "save" + master.Element.Name;
-                XisMenuItem menuItem = new XisMenuItem(repository, detailDiagram, menu, "Save" + master.Element.Name, actionName);
+                XisMenuItem menuItem = new XisMenuItem(repository, detailDiagram, parent, "Save" + master.Element.Name, actionName);
                 XISMobileHelper.CreateXisAction(repository, menuItem.Element, actionName, ActionType.Save); 
             }
 
