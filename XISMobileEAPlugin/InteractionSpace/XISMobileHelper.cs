@@ -535,14 +535,14 @@ namespace XISMobileEAPlugin.InteractionSpace
                     case "name":
                         tv.Value = name;
                         break;
-                    case "create":
-                        tv.Value = create.ToString();
+                    case "Create":
+                        tv.Value = create.ToString().ToLower();
                         break;
-                    case "edit":
-                        tv.Value = edit.ToString();
+                    case "Edit":
+                        tv.Value = edit.ToString().ToLower();
                         break;
-                    case "view":
-                        tv.Value = view.ToString();
+                    case "View":
+                        tv.Value = view.ToString().ToLower();
                         break;
                     default:
                         break;

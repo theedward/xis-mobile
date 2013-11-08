@@ -32,9 +32,9 @@ namespace XISMobileEAPlugin.InteractionSpace
         {
             foreach (EA.TaggedValue tv in Element.TaggedValues)
             {
-                if (tv.Name == "create")
+                if (tv.Name == "Create")
                 {
-                    tv.Value = create.ToString();
+                    tv.Value = create.ToString().ToLower();
                     tv.Update();
                     return;
                 }
@@ -45,9 +45,9 @@ namespace XISMobileEAPlugin.InteractionSpace
         {
             foreach (EA.TaggedValue tv in Element.TaggedValues)
             {
-                if (tv.Name == "edit")
+                if (tv.Name == "Edit")
                 {
-                    tv.Value = edit.ToString();
+                    tv.Value = edit.ToString().ToLower();
                     tv.Update();
                     return;
                 }
@@ -58,9 +58,9 @@ namespace XISMobileEAPlugin.InteractionSpace
         {
             foreach (EA.TaggedValue tv in Element.TaggedValues)
             {
-                if (tv.Name == "view")
+                if (tv.Name == "View")
                 {
-                    tv.Value = view.ToString();
+                    tv.Value = view.ToString().ToLower();
                     tv.Update();
                     return;
                 }
