@@ -541,12 +541,18 @@ namespace XISMobileEAPlugin
 
             XisMenu menu = new XisMenu(repository, diagram, detailIS, detailIS.Element.Name + "Menu", MenuType.OptionsMenu);
 
-            XisVisibilityBoundary boundary = new XisVisibilityBoundary(repository, diagram, menu, "MyBoundary");
-
             if (modes.ContainsKey(ActionType.Create) || modes.ContainsKey(ActionType.Update))
             {
                 string actionName = "save" + master.Element.Name;
-                XisMenuItem menuItem = new XisMenuItem(repository, diagram, boundary, "Save" + master.Element.Name, actionName);
+                XisWidget parent = menu;
+
+                if (modes.ContainsKey(ActionType.Read))
+                {
+                    parent = new XisVisibilityBoundary(repository, diagram, menu, "MyBoundary",
+                        modes.ContainsKey(ActionType.Create), modes.ContainsKey(ActionType.Update));
+                }
+
+                XisMenuItem menuItem = new XisMenuItem(repository, diagram, parent, "Save" + master.Element.Name, actionName);
                 XISMobileHelper.CreateXisAction(repository, menuItem.Element, actionName, ActionType.Save, previousIS.Element.Name);
                 CreateXisNavigationAssociation(repository, actionName, detailIS, previousIS);
             }
