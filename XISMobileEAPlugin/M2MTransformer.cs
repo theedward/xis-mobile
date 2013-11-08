@@ -179,12 +179,12 @@ namespace XISMobileEAPlugin
             //}
 
             XisListItem item = new XisListItem(repository, listDiagram, list, list.Element.Name + "Item");
-            if (ContainsUpdate(useCase))
+            if (ContainsUpdateMaster(useCase))
             {
                 string actionName = "edit" + master.Element.Name;
                 item.SetOnTapAction(actionName);
             }
-            else if (ContainsRead(useCase))
+            else if (ContainsReadMaster(useCase))
             {
                 string actionName = "view" + list.Element.Name;
                 item.SetOnTapAction(actionName);
@@ -209,11 +209,11 @@ namespace XISMobileEAPlugin
             Dictionary<ActionType, XisMenuItem> detailModes = new Dictionary<ActionType, XisMenuItem>(3);
 
             #region Create Context Menu
-            if (ContainsRead(useCase) || ContainsUpdate(useCase) || ContainsDelete(useCase))
+            if (ContainsReadMaster(useCase) || ContainsUpdateMaster(useCase) || ContainsDeleteMaster(useCase))
             {
                 XisMenu context = new XisMenu(repository, listDiagram, package, list.Element.Name + "ContextMenu", MenuType.ContextMenu);
 
-                if (ContainsRead(useCase))
+                if (ContainsReadMaster(useCase))
                 {
                     string actionName = "view" + master.Element.Name;
                     XisMenuItem contextItem = new XisMenuItem(repository, listDiagram, context,
@@ -221,7 +221,7 @@ namespace XISMobileEAPlugin
                     detailModes.Add(ActionType.Read, contextItem);
                 }
                 
-                if (ContainsUpdate(useCase))
+                if (ContainsUpdateMaster(useCase))
                 {
                     string actionName = "edit" + master.Element.Name;
                     XisMenuItem contextItem = new XisMenuItem(repository, listDiagram, context,
@@ -229,7 +229,7 @@ namespace XISMobileEAPlugin
                     detailModes.Add(ActionType.Update, contextItem);
                 }
 
-                if (ContainsDelete(useCase))
+                if (ContainsDeleteMaster(useCase))
                 {
                     string actionName = "delete" + master.Element.Name;
                     XisMenuItem contextItem = new XisMenuItem(repository, listDiagram, context,
@@ -250,11 +250,11 @@ namespace XISMobileEAPlugin
             }
 
             #region Create Options Menu
-            if (ContainsCreate(useCase) || ContainsDelete(useCase))
+            if (ContainsCreateMaster(useCase) || ContainsDeleteMaster(useCase))
             {
                 XisMenu menu = new XisMenu(repository, listDiagram, listIS, listIS.Element.Name + "Menu", MenuType.OptionsMenu);
 
-                if (ContainsCreate(useCase))
+                if (ContainsCreateMaster(useCase))
                 {
                     string actionName = "create" + master.Element.Name;
                     XisMenuItem menuItem = new XisMenuItem(repository, listDiagram, menu,
@@ -262,7 +262,7 @@ namespace XISMobileEAPlugin
                     detailModes.Add(ActionType.Create, menuItem);
                 }
 
-                if (ContainsDelete(useCase))
+                if (ContainsDeleteMaster(useCase))
                 {
                     string actionName = "deleteAll" + master.Element.Name + "s";
                     XisMenuItem menuItem = new XisMenuItem(repository, listDiagram, menu,
@@ -420,12 +420,12 @@ namespace XISMobileEAPlugin
                 }
             }
 
-            if (ContainsUpdate(useCase))
+            if (ContainsUpdateMaster(useCase))
             {
                 XisMenu menu = new XisMenu(repository, detailDiagram, detailIS, detailIS.Element.Name + "Menu", MenuType.OptionsMenu);
                 XisWidget parent = menu;
 
-                if (ContainsRead(useCase))
+                if (ContainsReadMaster(useCase))
                 {
                     parent = new XisVisibilityBoundary(repository, detailDiagram, menu, "MyBoundary", false, true, false);
                 }
@@ -1063,68 +1063,64 @@ namespace XISMobileEAPlugin
             return null;
         }
 
-        private static bool ContainsCreate(EA.Element useCase)
+        private static bool ContainsCreateMaster(EA.Element useCase)
         {
-        //    if (operations != null)
-        //    {
-        //        foreach (string op in operations)
-        //        {
-        //            if (op.ToLower() == "c" || op.ToLower() == "create")
-        //            {
-        //                return true;
-        //            }
-        //        } 
-        //    }
-        //    return false;
             return Boolean.Parse(GetTaggedValue(useCase.TaggedValues, "CreateMaster").Value);
         }
 
-        private static bool ContainsRead(EA.Element useCase)
+        private static bool ContainsReadMaster(EA.Element useCase)
         {
-        //    if (operations != null)
-        //    {
-        //        foreach (string op in operations)
-        //        {
-        //            if (op.ToLower() == "r" || op.ToLower() == "read")
-        //            {
-        //                return true;
-        //            }
-        //        } 
-        //    }
-        //    return false;
             return Boolean.Parse(GetTaggedValue(useCase.TaggedValues, "ReadMaster").Value);
         }
 
-        private static bool ContainsUpdate(EA.Element useCase)
+        private static bool ContainsUpdateMaster(EA.Element useCase)
         {
-        //    if (operations != null)
-        //    {
-        //        foreach (string op in operations)
-        //        {
-        //            if (op.ToLower() == "u" || op.ToLower() == "update")
-        //            {
-        //                return true;
-        //            }
-        //        } 
-        //    }
-        //    return false;
             return Boolean.Parse(GetTaggedValue(useCase.TaggedValues, "UpdateMaster").Value);
         }
 
-        private static bool ContainsDelete(EA.Element useCase)
+        private static bool ContainsDeleteMaster(EA.Element useCase)
         {
-        //    if (operations != null)
-        //    {
-        //        foreach (string op in operations)
-        //        {
-        //            if (op.ToLower() == "d" || op.ToLower() == "delete")
-        //            {
-        //                return true;
-        //            }
-        //        } 
-        //    }
-        //    return false;
             return Boolean.Parse(GetTaggedValue(useCase.TaggedValues, "DeleteMaster").Value);
+        }
+
+        private static bool ContainsCreateDetail(EA.Element useCase)
+        {
+            return Boolean.Parse(GetTaggedValue(useCase.TaggedValues, "CreateDetail").Value);
+        }
+
+        private static bool ContainsReadDetail(EA.Element useCase)
+        {
+            return Boolean.Parse(GetTaggedValue(useCase.TaggedValues, "ReadDetail").Value);
+        }
+
+        private static bool ContainsUpdateDetail(EA.Element useCase)
+        {
+            return Boolean.Parse(GetTaggedValue(useCase.TaggedValues, "UpdateDetail").Value);
+        }
+
+        private static bool ContainsDeleteDetail(EA.Element useCase)
+        {
+            return Boolean.Parse(GetTaggedValue(useCase.TaggedValues, "DeleteDetail").Value);
+        }
+
+        private static bool ContainsCreateReference(EA.Element useCase)
+        {
+            return Boolean.Parse(GetTaggedValue(useCase.TaggedValues, "CreateReference").Value);
+        }
+
+        private static bool ContainsReadReference(EA.Element useCase)
+        {
+            return Boolean.Parse(GetTaggedValue(useCase.TaggedValues, "ReadReference").Value);
+        }
+
+        private static bool ContainsUpdateReference(EA.Element useCase)
+        {
+            return Boolean.Parse(GetTaggedValue(useCase.TaggedValues, "UpdateReference").Value);
+        }
+
+        private static bool ContainsDeleteReference(EA.Element useCase)
+        {
+            return Boolean.Parse(GetTaggedValue(useCase.TaggedValues, "DeleteReference").Value);
         }
 
         //private static bool ContainsSearch(string[] operations)
