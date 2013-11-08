@@ -346,15 +346,54 @@ namespace XISMobileEAPlugin
             #region Process Details info
             foreach (XisEntity d in master.Details)
             {
-                if (d.Cardinality != "*" && d.Element.Attributes.Count < 4)
+                if (d.Cardinality == "*")
                 {
+                    // Needs Manager screen
+                    string actionName = "view" + d.Element.Name;
+                    XisButton btn = new XisButton(repository, detailIS, detailDiagram, d.Element.Name + "ManagerButton", actionName);
+                    btn.SetValue("Manage " + d.Element.Name);
+                    XisInteractionSpace viewIS = CreateDetailOrRefIS(repository, package, d, detailIS, Mode.View, be);
+                    XISMobileHelper.CreateXisAction(repository, btn.Element, actionName, ActionType.Read, detailIS.Element.Name);
+                    CreateXisNavigationAssociation(repository, actionName, detailIS, viewIS);
+                }
+                else
+                {
+                    List<EA.Attribute> filtered = new List<EA.Attribute>();
+
                     if (!string.IsNullOrEmpty(d.Filter))
                     {
-                        List<EA.Attribute> filtered = GetFilteredAttributeList(d);
-                        foreach (EA.Attribute attr in filtered)
+                        filtered = GetFilteredAttributeList(d);
+                    }
+
+                    if (filtered.Count > 0)
+                    {
+                        if (filtered.Count > 3)
                         {
-                            XISMobileHelper.ProcessXisAttribute(repository, detailDiagram, detailIS, attr, d.Element.Name);
+                            // Needs Editor screen
+                            string actionName = "view" + d.Element.Name;
+                            XisButton btn = new XisButton(repository, detailIS, detailDiagram, d.Element.Name + "ManagerButton", actionName);
+                            btn.SetValue("Manage " + d.Element.Name);
+                            XisInteractionSpace viewIS = CreateDetailOrRefIS(repository, package, d, detailIS, Mode.View, be);
+                            XISMobileHelper.CreateXisAction(repository, btn.Element, actionName, ActionType.Read, detailIS.Element.Name);
+                            CreateXisNavigationAssociation(repository, actionName, detailIS, viewIS);
                         }
+                        else
+                        {
+                            foreach (EA.Attribute attr in filtered)
+                            {
+                                XISMobileHelper.ProcessXisAttribute(repository, detailDiagram, detailIS, attr, d.Element.Name);
+                            }
+                        }
+                    }
+                    else if (d.Element.Attributes.Count > 3)
+                    {
+                        // Needs Editor screen
+                        string actionName = "view" + d.Element.Name;
+                        XisButton btn = new XisButton(repository, detailIS, detailDiagram, d.Element.Name + "ManagerButton", actionName);
+                        btn.SetValue("Manage " + d.Element.Name);
+                        XisInteractionSpace viewIS = CreateDetailOrRefIS(repository, package, d, detailIS, Mode.View, be);
+                        XISMobileHelper.CreateXisAction(repository, btn.Element, actionName, ActionType.Read, detailIS.Element.Name);
+                        CreateXisNavigationAssociation(repository, actionName, detailIS, viewIS);
                     }
                     else
                     {
@@ -363,16 +402,6 @@ namespace XISMobileEAPlugin
                             XISMobileHelper.ProcessXisAttribute(repository, detailDiagram, detailIS, attr, d.Element.Name);
                         }
                     }
-                }
-                else
-                {
-                    // TODO: Create Button for detail
-                    string actionName = "view" + d.Element.Name;
-                    XisButton btn = new XisButton(repository, detailIS, detailDiagram, d.Element.Name + "DetailButton", actionName);
-                    btn.SetValue(d.Element.Name);
-                    XisInteractionSpace viewIS = CreateDetailOrRefIS(repository, package, d, detailIS, Mode.View, be);
-                    XISMobileHelper.CreateXisAction(repository, btn.Element, actionName, ActionType.Read, detailIS.Element.Name);
-                    CreateXisNavigationAssociation(repository, actionName, detailIS, viewIS);
                 }
             }
             #endregion
