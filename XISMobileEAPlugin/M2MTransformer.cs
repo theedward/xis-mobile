@@ -370,7 +370,7 @@ namespace XISMobileEAPlugin
                         if (filtered.Count > 3)
                         {
                             // Needs Editor screen
-                            string actionName = "view" + d.Element.Name;
+                            string actionName = "goTo" + d.Element.Name;
                             XisButton btn = new XisButton(repository, detailIS, detailDiagram, d.Element.Name + "EditorButton", actionName);
                             btn.SetValue("Manage " + d.Element.Name + "s");
                             XisInteractionSpace viewIS = CreateDetailOrRefIS(repository, package, d, detailIS, Mode.View, be);
@@ -401,7 +401,7 @@ namespace XISMobileEAPlugin
                         {
                             if (ContainsReadDetail(useCase))
                             {
-                                
+                                       
                             }
                             else if (ContainsUpdateDetail(useCase))
                             {
