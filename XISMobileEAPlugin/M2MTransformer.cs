@@ -353,7 +353,7 @@ namespace XISMobileEAPlugin
                     XisButton btn = new XisButton(repository, detailIS, detailDiagram, d.Element.Name + "ManagerButton", actionName);
                     btn.SetValue("Manage " + d.Element.Name);
                     XisInteractionSpace viewIS = CreateDetailOrRefIS(repository, package, d, detailIS, Mode.View, be);
-                    XISMobileHelper.CreateXisAction(repository, btn.Element, actionName, ActionType.Read, detailIS.Element.Name);
+                    XISMobileHelper.CreateXisAction(repository, btn.Element, actionName, ActionType.Read, viewIS.Element.Name);
                     CreateXisNavigationAssociation(repository, actionName, detailIS, viewIS);
                 }
                 else
@@ -369,13 +369,12 @@ namespace XISMobileEAPlugin
                     {
                         if (filtered.Count > 3)
                         {
-                            // Needs Editor screen
-                            string actionName = "goTo" + d.Element.Name;
+                            string actionName = "goTo" + d.Element.Name + "EditorIS";
                             XisButton btn = new XisButton(repository, detailIS, detailDiagram, d.Element.Name + "EditorButton", actionName);
-                            btn.SetValue("Manage " + d.Element.Name + "s");
-                            XisInteractionSpace viewIS = CreateDetailOrRefIS(repository, package, d, detailIS, Mode.View, be);
-                            XISMobileHelper.CreateXisAction(repository, btn.Element, actionName, ActionType.Read, detailIS.Element.Name);
-                            CreateXisNavigationAssociation(repository, actionName, detailIS, viewIS);
+                            btn.SetValue(d.Element.Name);
+                            //XisInteractionSpace viewIS = CreateDetailOrRefIS(repository, package, d, detailIS, Mode.Create, be);
+                            XISMobileHelper.CreateXisAction(repository, btn.Element, actionName, ActionType.Read); //editorIS.Element.Name);
+                            //CreateXisNavigationAssociation(repository, actionName, detailIS, viewIS);
                         }
                         else
                         {
@@ -384,69 +383,35 @@ namespace XISMobileEAPlugin
                                 XISMobileHelper.ProcessXisAttribute(repository, detailDiagram, detailIS, attr, d.Element.Name);
                             }
 
-                            // Boundary
-
-                            if (ContainsCreateDetail(useCase) || ContainsUpdateDetail(useCase))
+                            if (ContainsReadDetail(useCase))
+                            {
+                                if (ContainsCreateDetail(useCase) || ContainsUpdateDetail(useCase))
+                                {
+                                    XisVisibilityBoundary b = new XisVisibilityBoundary(repository, detailDiagram, detailIS,
+                                        "Save" + d.Element.Name, ContainsCreateDetail(useCase), ContainsUpdateDetail(useCase), false);
+                                    string actionName = "save" + d.Element.Name;
+                                    XisButton btn = new XisButton(repository, b, detailDiagram, d.Element.Name + "SaveButton", actionName);
+                                    btn.SetValue("Save " + d.Element.Name);
+                                    XISMobileHelper.CreateXisAction(repository, btn.Element, actionName, ActionType.OK);
+                                }
+                            }
+                            else if (ContainsCreateDetail(useCase) || ContainsUpdateDetail(useCase))
                             {
                                 string actionName = "save" + d.Element.Name;
-                                XisButton btn = new XisButton(repository, detailIS, detailDiagram, d.Element.Name + "EditorButton", actionName);
+                                XisButton btn = new XisButton(repository, detailIS, detailDiagram, d.Element.Name + "SaveButton", actionName);
                                 btn.SetValue("Save " + d.Element.Name);
-                                XISMobileHelper.CreateXisAction(repository, btn.Element, actionName, ActionType.Read);
+                                XISMobileHelper.CreateXisAction(repository, btn.Element, actionName, ActionType.OK);
                             }
                         }
                     }
                     else if (d.Element.Attributes.Count > 3)
                     {
-                        if (ContainsCreateDetail(useCase))
-                        {
-                            if (ContainsReadDetail(useCase))
-                            {
-                                       
-                            }
-                            else if (ContainsUpdateDetail(useCase))
-                            {
-
-                            }
-                            else
-                            {
-                                string actionName = "create" + d.Element.Name;
-                                XisButton btn = new XisButton(repository, detailIS, detailDiagram, d.Element.Name + "EditorButton", actionName);
-                                btn.SetValue("Create " + d.Element.Name);
-                                XisInteractionSpace viewIS = CreateDetailOrRefIS(repository, package, d, detailIS, Mode.Create, be);
-                                XISMobileHelper.CreateXisAction(repository, btn.Element, actionName, ActionType.Read, detailIS.Element.Name);
-                                CreateXisNavigationAssociation(repository, actionName, detailIS, viewIS);
-                            }
-                        }
-                        else if (ContainsReadDetail(useCase))
-                        {
-                            if (ContainsUpdateDetail(useCase))
-                            {
-                                string actionName = "view" + d.Element.Name;
-                                XisButton btn = new XisButton(repository, detailIS, detailDiagram, d.Element.Name + "EditorButton", actionName);
-                                btn.SetValue(d.Element.Name + "s");
-                                XisInteractionSpace viewIS = CreateDetailOrRefIS(repository, package, d, detailIS, Mode.View, be);
-                                XISMobileHelper.CreateXisAction(repository, btn.Element, actionName, ActionType.Read, detailIS.Element.Name);
-                                CreateXisNavigationAssociation(repository, actionName, detailIS, viewIS);
-                            }
-                            else
-                            {
-                                string actionName = "view" + d.Element.Name;
-                                XisButton btn = new XisButton(repository, detailIS, detailDiagram, d.Element.Name + "EditorButton", actionName);
-                                btn.SetValue("View " + d.Element.Name);
-                                XisInteractionSpace viewIS = CreateDetailOrRefIS(repository, package, d, detailIS, Mode.View, be);
-                                XISMobileHelper.CreateXisAction(repository, btn.Element, actionName, ActionType.Read, detailIS.Element.Name);
-                                CreateXisNavigationAssociation(repository, actionName, detailIS, viewIS);
-                            }
-                        }
-                        else if (ContainsUpdateDetail(useCase))
-                        {
-                            string actionName = "edit" + d.Element.Name;
-                            XisButton btn = new XisButton(repository, detailIS, detailDiagram, d.Element.Name + "EditorButton", actionName);
-                            btn.SetValue("Edit " + d.Element.Name);
-                            XisInteractionSpace viewIS = CreateDetailOrRefIS(repository, package, d, detailIS, Mode.Edit, be);
-                            XISMobileHelper.CreateXisAction(repository, btn.Element, actionName, ActionType.Read, detailIS.Element.Name);
-                            CreateXisNavigationAssociation(repository, actionName, detailIS, viewIS);
-                        }
+                        string actionName = "goTo" + d.Element.Name + "EditorIS";
+                        XisButton btn = new XisButton(repository, detailIS, detailDiagram, d.Element.Name + "EditorButton", actionName);
+                        btn.SetValue(d.Element.Name);
+                        //XisInteractionSpace viewIS = CreateDetailOrRefIS(repository, package, d, detailIS, Mode.Create, be);
+                        XISMobileHelper.CreateXisAction(repository, btn.Element, actionName, ActionType.Read); //editorIS.Element.Name);
+                        //CreateXisNavigationAssociation(repository, actionName, detailIS, viewIS);
                     }
                     else
                     {
@@ -455,14 +420,24 @@ namespace XISMobileEAPlugin
                             XISMobileHelper.ProcessXisAttribute(repository, detailDiagram, detailIS, attr, d.Element.Name);
                         }
 
-                        // Boundary
-
-                        if (ContainsCreateDetail(useCase) || ContainsUpdateDetail(useCase))
+                        if (ContainsReadDetail(useCase))
+                        {
+                            if (ContainsCreateDetail(useCase) || ContainsUpdateDetail(useCase))
+                            {
+                                XisVisibilityBoundary b = new XisVisibilityBoundary(repository, detailDiagram, detailIS,
+                                    "Save" + d.Element.Name, ContainsCreateDetail(useCase), ContainsUpdateDetail(useCase), false);
+                                string actionName = "save" + d.Element.Name;
+                                XisButton btn = new XisButton(repository, b, detailDiagram, d.Element.Name + "SaveButton", actionName);
+                                btn.SetValue("Save " + d.Element.Name);
+                                XISMobileHelper.CreateXisAction(repository, btn.Element, actionName, ActionType.OK);
+                            }
+                        }
+                        else if (ContainsCreateDetail(useCase) || ContainsUpdateDetail(useCase))
                         {
                             string actionName = "save" + d.Element.Name;
-                            XisButton btn = new XisButton(repository, detailIS, detailDiagram, d.Element.Name + "EditorButton", actionName);
+                            XisButton btn = new XisButton(repository, detailIS, detailDiagram, d.Element.Name + "SaveButton", actionName);
                             btn.SetValue("Save " + d.Element.Name);
-                            XISMobileHelper.CreateXisAction(repository, btn.Element, actionName, ActionType.Read);
+                            XISMobileHelper.CreateXisAction(repository, btn.Element, actionName, ActionType.OK);
                         }
                     }
                 }
