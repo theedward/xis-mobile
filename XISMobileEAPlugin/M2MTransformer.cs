@@ -762,7 +762,6 @@ namespace XISMobileEAPlugin
                 EA.DiagramObject spaceObj = space.GetDiagramObject(diagram);
                 ComputePositions(space.Widgets.First(), diagram, spaceObj, null);
                 EA.DiagramObject obj = space.Widgets.First().GetDiagramObject(diagram);
-                //MessageBox.Show(space.Element.Name + spaceObj.Sequence + "-" + obj.Sequence + "_" + obj.ElementID);
 
                 for (int i = 1; i < space.Widgets.Count; i++)
                 {
