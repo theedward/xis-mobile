@@ -558,6 +558,9 @@ namespace XISMobileEAPlugin.InteractionSpace
 
             switch (type)
 	        {
+                case ActionType.OK:
+                    action = parent.Methods.AddNew(name, "");
+                    break;
 		        case ActionType.Cancel:
                     action = parent.Methods.AddNew(name, "");
                     break;
