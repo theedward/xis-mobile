@@ -51,6 +51,8 @@ namespace XISMobileEAPlugin.InteractionSpace
                 string query = "update t_diagramobjects set Sequence = " + sequence + " where Object_ID = "
                     + diagObj.ElementID;
                 Repository.Execute(query);
+                //diagObj.Sequence = sequence;
+                diagObj = GetDiagramObject(diagram);
             }
             return diagObj;
         }
