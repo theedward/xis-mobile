@@ -275,7 +275,7 @@ namespace XISMobileEAPlugin
 
             if (detailModes.Count > 0 || item.GetOnTapAction() != null)
             {
-                XisInteractionSpace detailIS = CreateMasterEditorIS(repository, package, master, listIS, detailModes, be);
+                XisInteractionSpace detailIS = CreateMasterEditorIS(repository, package, master, listIS, useCase, be);
                 foreach (ActionType key in detailModes.Keys)
                 {
                     XisMenuItem mItem = detailModes[key];
