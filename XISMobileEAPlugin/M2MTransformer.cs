@@ -554,18 +554,20 @@ namespace XISMobileEAPlugin
                 }
             }
 
-            if (ContainsUpdateMaster(useCase))
+            if (ContainsCreateMaster(useCase) || ContainsUpdateMaster(useCase))
             {
-                XisMenu menu = new XisMenu(repository, detailDiagram, detailIS, detailIS.Element.Name + "Menu", MenuType.OptionsMenu);
-                XisWidget parent = menu;
+                XisWidget parent = detailIS;
 
                 if (ContainsReadMaster(useCase))
                 {
-                    parent = new XisVisibilityBoundary(repository, detailDiagram, menu, "MyBoundary", false, true, false);
+                    parent = new XisVisibilityBoundary(repository, detailDiagram, detailIS, "Save" + master.Element.Name + "Boundary",
+                        ContainsCreateMaster(useCase), ContainsUpdateMaster(useCase));
                 }
 
+                XisMenu menu = new XisMenu(repository, detailDiagram, parent, detailIS.Element.Name + "Menu", MenuType.OptionsMenu);
+
                 string actionName = "save" + master.Element.Name;
-                XisMenuItem menuItem = new XisMenuItem(repository, detailDiagram, parent, "Save" + master.Element.Name, actionName);
+                XisMenuItem menuItem = new XisMenuItem(repository, detailDiagram, menu, "Save" + master.Element.Name, actionName);
                 XISMobileHelper.CreateXisAction(repository, menuItem.Element, actionName, ActionType.Save); 
             }
 
@@ -688,7 +690,7 @@ namespace XISMobileEAPlugin
 
                 if (modes.ContainsKey(ActionType.Read))
                 {
-                    parent = new XisVisibilityBoundary(repository, diagram, menu, "MyBoundary",
+                    parent = new XisVisibilityBoundary(repository, diagram, menu, "Save" + master.Element.Name + "Boundary",
                         modes.ContainsKey(ActionType.Create), modes.ContainsKey(ActionType.Update));
                 }
 
