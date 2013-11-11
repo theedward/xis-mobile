@@ -769,7 +769,7 @@ namespace XISMobileEAPlugin
                     obj = space.Widgets[i].GetDiagramObject(diagram);
                 }
                 
-                space.SetPosition(diagram, spaceObj.left, spaceObj.right, -spaceObj.top, -obj.bottom + 10, spaceObj.Sequence + 1);
+                space.SetPosition(diagram, spaceObj.left, spaceObj.right, -spaceObj.top, -obj.bottom + 10, spaceObj.Sequence);
             }
         }
 
