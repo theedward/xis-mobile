@@ -522,7 +522,7 @@ namespace XISMobileEAPlugin.InteractionSpace
         }
 
         public static EA.Element CreateXisVisibilityBoundary(EA.Element parent, string name,
-            bool create = false, bool edit = false, bool view = false)
+            bool create = false, bool view = false, bool edit = false, bool delete = false)
         {
             EA.Element boundary = parent.Elements.AddNew(name, "Boundary");
             boundary.Stereotype = "XisVisibilityBoundary";
@@ -538,11 +538,14 @@ namespace XISMobileEAPlugin.InteractionSpace
                     case "Create":
                         tv.Value = create.ToString().ToLower();
                         break;
+                    case "View":
+                        tv.Value = view.ToString().ToLower();
+                        break;
                     case "Edit":
                         tv.Value = edit.ToString().ToLower();
                         break;
-                    case "View":
-                        tv.Value = view.ToString().ToLower();
+                    case "Delete":
+                        tv.Value = delete.ToString().ToLower();
                         break;
                     default:
                         break;

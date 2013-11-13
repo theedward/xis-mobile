@@ -10,10 +10,10 @@ namespace XISMobileEAPlugin.InteractionSpace
         public XisWidget Parent { get; set; }
 
         public XisVisibilityBoundary(EA.Repository repository, EA.Diagram diagram, XisWidget parent, string name,
-            bool create = false, bool edit = false, bool view = false)
+            bool create = false, bool view = false, bool edit = false, bool delete = false)
             : base(repository)
         {
-            Element = XISMobileHelper.CreateXisVisibilityBoundary(parent.Element, name, create, edit, view);
+            Element = XISMobileHelper.CreateXisVisibilityBoundary(parent.Element, name, create, view, edit, delete);
             Parent = parent;
 
             if (parent is XisInteractionSpace)
