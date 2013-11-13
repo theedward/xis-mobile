@@ -388,7 +388,7 @@ namespace XISMobileEAPlugin
                                 if (ContainsCreateDetail(useCase) || ContainsUpdateDetail(useCase))
                                 {
                                     XisVisibilityBoundary b = new XisVisibilityBoundary(repository, detailDiagram, detailIS,
-                                        "Save" + d.Element.Name, ContainsCreateDetail(useCase), ContainsUpdateDetail(useCase), false);
+                                        "Save" + d.Element.Name, ContainsCreateDetail(useCase), false, ContainsUpdateDetail(useCase));
                                     string actionName = "save" + d.Element.Name;
                                     XisButton btn = new XisButton(repository, b, detailDiagram, d.Element.Name + "SaveButton", actionName);
                                     btn.SetValue("Save " + d.Element.Name);
@@ -425,7 +425,7 @@ namespace XISMobileEAPlugin
                             if (ContainsCreateDetail(useCase) || ContainsUpdateDetail(useCase))
                             {
                                 XisVisibilityBoundary b = new XisVisibilityBoundary(repository, detailDiagram, detailIS,
-                                    "Save" + d.Element.Name, ContainsCreateDetail(useCase), ContainsUpdateDetail(useCase), false);
+                                    "Save" + d.Element.Name, ContainsCreateDetail(useCase), false, ContainsUpdateDetail(useCase));
                                 string actionName = "save" + d.Element.Name;
                                 XisButton btn = new XisButton(repository, b, detailDiagram, d.Element.Name + "SaveButton", actionName);
                                 btn.SetValue("Save " + d.Element.Name);
@@ -489,7 +489,7 @@ namespace XISMobileEAPlugin
                                 if (ContainsCreateReference(useCase) || ContainsUpdateReference(useCase))
                                 {
                                     XisVisibilityBoundary b = new XisVisibilityBoundary(repository, detailDiagram, detailIS,
-                                        "Save" + r.Element.Name, ContainsCreateReference(useCase), ContainsUpdateReference(useCase), false);
+                                        "Save" + r.Element.Name, ContainsCreateReference(useCase), false, ContainsUpdateReference(useCase));
                                     string actionName = "save" + r.Element.Name;
                                     XisButton btn = new XisButton(repository, b, detailDiagram, r.Element.Name + "SaveButton", actionName);
                                     btn.SetValue("Save " + r.Element.Name);
@@ -526,7 +526,7 @@ namespace XISMobileEAPlugin
                             if (ContainsCreateReference(useCase) || ContainsUpdateReference(useCase))
                             {
                                 XisVisibilityBoundary b = new XisVisibilityBoundary(repository, detailDiagram, detailIS,
-                                    "Save" + r.Element.Name, ContainsCreateReference(useCase), ContainsUpdateReference(useCase), false);
+                                    "Save" + r.Element.Name, ContainsCreateReference(useCase), false, ContainsUpdateReference(useCase));
                                 string actionName = "save" + r.Element.Name;
                                 XisButton btn = new XisButton(repository, b, detailDiagram, r.Element.Name + "SaveButton", actionName);
                                 btn.SetValue("Save " + r.Element.Name);
@@ -561,7 +561,7 @@ namespace XISMobileEAPlugin
                 if (ContainsReadMaster(useCase))
                 {
                     parent = new XisVisibilityBoundary(repository, detailDiagram, detailIS, "Save" + master.Element.Name + "Boundary",
-                        ContainsCreateMaster(useCase), ContainsUpdateMaster(useCase));
+                        ContainsCreateMaster(useCase), false, ContainsUpdateMaster(useCase));
                 }
 
                 XisMenu menu = new XisMenu(repository, detailDiagram, parent, detailIS.Element.Name + "Menu", MenuType.OptionsMenu);
@@ -691,7 +691,7 @@ namespace XISMobileEAPlugin
                 if (ContainsReadMaster(useCase))
                 {
                     parent = new XisVisibilityBoundary(repository, diagram, menu, "Save" + master.Element.Name + "Boundary",
-                        ContainsCreateMaster(useCase), ContainsUpdateMaster(useCase));
+                        ContainsCreateMaster(useCase), false, ContainsUpdateMaster(useCase));
                 }
 
                 XisMenuItem menuItem = new XisMenuItem(repository, diagram, parent, "Save" + master.Element.Name, actionName);
@@ -809,7 +809,8 @@ namespace XISMobileEAPlugin
                 XISMobileHelper.CreateXisAction(repository, menuItem.Element, actionName, ActionType.Create);
             }
 
-            if (ContainsDeleteDetail(useCase))
+            if (isDetail && (ContainsDeleteDetail(useCase))
+                || !isDetail && (ContainsDeleteReference(useCase)))
             {
                 string actionName = "deleteAll" + entity.Element.Name + "s";
                 XisMenuItem menuItem = new XisMenuItem(repository, diagram, menu,
