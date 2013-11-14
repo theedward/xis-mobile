@@ -259,7 +259,14 @@ namespace XISMobileEAPlugin
                     
                     if (useCases.Count > 0)
                     {
-                        M2MTransformer.ProcessUseCase(Repository, navigationView, interactionView, useCases);
+                        if (useCases.Count < 2)
+                        {
+                            M2MTransformer.ProcessUseCase(Repository, navigationView, interactionView, useCases);
+                        }
+                        else
+                        {
+                            // TODO: Show Windows Form
+                        }
                     }
                 }
             }
