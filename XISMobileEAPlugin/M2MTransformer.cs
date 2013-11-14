@@ -777,25 +777,63 @@ namespace XISMobileEAPlugin
                 lbl1.SetValue(entity.Element.Name + "." + first.Name);
                 XisLabel lbl2 = new XisLabel(repository, item, diagram, second.Name + "Lbl");
                 lbl2.SetValue(entity.Element.Name + "." + second.Name);
-
-                if ((isDetail && ContainsUpdateDetail(useCase))
-                    || (!isDetail && ContainsUpdateReference(useCase)))
-                {
-                    string actionName = "edit" + entity.Element.Name;
-                    item.SetOnTapAction(actionName);
-                }
-                if ((isDetail && ContainsReadDetail(useCase))
-                    || (!isDetail && ContainsReadReference(useCase)))
-                {
-                    string actionName = "view" + entity.Element.Name;
-                    item.SetOnTapAction(actionName);
-                }
             }
             else if (entity.Element.Attributes.Count == 1)
             {
                 EA.Attribute attr = entity.Element.Attributes.GetAt(0);
                 item.SetValue(entity.Element.Name + "." + attr.Name);
             }
+
+            if ((isDetail && ContainsUpdateDetail(useCase))
+                    || (!isDetail && ContainsUpdateReference(useCase)))
+            {
+                string actionName = "edit" + entity.Element.Name;
+                item.SetOnTapAction(actionName);
+            }
+            if ((isDetail && ContainsReadDetail(useCase))
+                || (!isDetail && ContainsReadReference(useCase)))
+            {
+                string actionName = "view" + entity.Element.Name;
+                item.SetOnTapAction(actionName);
+            }
+
+            Dictionary<ActionType, XisMenuItem> detailModes = new Dictionary<ActionType, XisMenuItem>();
+
+            #region Create Context Menu
+            if (isDetail && (ContainsReadDetail(useCase) || ContainsUpdateDetail(useCase) || ContainsDeleteDetail(useCase))
+                || !isDetail && (ContainsReadReference(useCase) || ContainsUpdateReference(useCase) || ContainsDeleteReference(useCase)))
+            {
+                XisMenu context = new XisMenu(repository, diagram, package, list.Element.Name + "ContextMenu", MenuType.ContextMenu);
+
+                if (isDetail && ContainsReadDetail(useCase)
+                    || !isDetail && ContainsReadReference(useCase))
+                {
+                    string actionName = "view" + entity.Element.Name;
+                    XisMenuItem contextItem = new XisMenuItem(repository, diagram, context,
+                        "View" + entity.Element.Name + "Item", actionName);
+                    detailModes.Add(ActionType.Read, contextItem);
+                }
+
+                if (isDetail && ContainsUpdateDetail(useCase)
+                    || !isDetail && ContainsUpdateReference(useCase))
+                {
+                    string actionName = "edit" + entity.Element.Name;
+                    XisMenuItem contextItem = new XisMenuItem(repository, diagram, context,
+                        "Edit" + entity.Element.Name + "Item", actionName);
+                    detailModes.Add(ActionType.Update, contextItem);
+                }
+
+                if (isDetail && ContainsUpdateDetail(useCase)
+                    || !isDetail && ContainsUpdateReference(useCase))
+                {
+                    string actionName = "delete" + entity.Element.Name;
+                    XisMenuItem contextItem = new XisMenuItem(repository, diagram, context,
+                        "Delete" + entity.Element.Name + "Item", actionName);
+                    XISMobileHelper.CreateXisAction(repository, contextItem.Element, actionName, ActionType.Delete);
+                }
+                managerIS.ContextMenu = context;
+            }
+            #endregion
 
             #region Create Options Menu
             XisMenu menu = new XisMenu(repository, diagram, managerIS, managerIS.Element.Name + "Menu", MenuType.OptionsMenu);
@@ -806,7 +844,7 @@ namespace XISMobileEAPlugin
                 string actionName = "create" + entity.Element.Name;
                 XisMenuItem menuItem = new XisMenuItem(repository, diagram, menu,
                     "Create" + entity.Element.Name + "Item", actionName);
-                XISMobileHelper.CreateXisAction(repository, menuItem.Element, actionName, ActionType.Create);
+                detailModes.Add(ActionType.Create, menuItem);
             }
 
             if (isDetail && (ContainsDeleteDetail(useCase))
@@ -827,7 +865,35 @@ namespace XISMobileEAPlugin
             managerIS.Menu = menu;
             #endregion
 
+            if (detailModes.Count > 0 || item.GetOnTapAction() != null)
+            {
+                XisInteractionSpace detailIS = CreateDetailOrRefEditorIS(repository, package, entity, managerIS, useCase, isDetail, be);
+                foreach (ActionType key in detailModes.Keys)
+                {
+                    XisMenuItem mItem = detailModes[key];
+                    XISMobileHelper.CreateXisAction(repository, mItem.Element, mItem.GetOnTapAction(),
+                        key, detailIS.Element.Name);
+                    CreateXisNavigationAssociation(repository, mItem.GetOnTapAction(), managerIS, detailIS);
+                }
+
+                if (item.GetOnTapAction() != null)
+                {
+                    XISMobileHelper.CreateXisAction(repository, item.Element, item.GetOnTapAction(),
+                        ActionType.Update, detailIS.Element.Name);
+                    CreateXisNavigationAssociation(repository, item.GetOnTapAction(), managerIS, detailIS);
+                }
+            }
+
             ComputePositions(managerIS, diagram);
+
+            if (managerIS.ContextMenu != null)
+            {
+                EA.DiagramObject obj = managerIS.GetDiagramObject(diagram);
+                int center = (obj.top + obj.bottom) / -2;
+                managerIS.ContextMenu.SetPosition(diagram, obj.right + 50, obj.right + 330, -obj.top, -obj.top + 70);
+                ComputePositions(managerIS.ContextMenu, diagram);
+            }
+
             // Associate BE
             AssociateBEtoIS(repository, diagram, managerIS, be);
 
