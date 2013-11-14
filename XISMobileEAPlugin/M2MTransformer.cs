@@ -372,9 +372,9 @@ namespace XISMobileEAPlugin
                             string actionName = "goTo" + d.Element.Name + "EditorIS";
                             XisButton btn = new XisButton(repository, detailIS, detailDiagram, d.Element.Name + "EditorButton", actionName);
                             btn.SetValue(d.Element.Name);
-                            //XisInteractionSpace viewIS = CreateDetailOrRefIS(repository, package, d, detailIS, Mode.Create, be);
-                            XISMobileHelper.CreateXisAction(repository, btn.Element, actionName, ActionType.Read); //editorIS.Element.Name);
-                            //CreateXisNavigationAssociation(repository, actionName, detailIS, viewIS);
+                            XisInteractionSpace editorIS = CreateDetailOrRefEditorIS(repository, package, d, detailIS, useCase, true, be);
+                            XISMobileHelper.CreateXisAction(repository, btn.Element, actionName, ActionType.Read, editorIS.Element.Name);
+                            CreateXisNavigationAssociation(repository, actionName, detailIS, editorIS);
                         }
                         else
                         {
@@ -409,9 +409,9 @@ namespace XISMobileEAPlugin
                         string actionName = "goTo" + d.Element.Name + "EditorIS";
                         XisButton btn = new XisButton(repository, detailIS, detailDiagram, d.Element.Name + "EditorButton", actionName);
                         btn.SetValue(d.Element.Name);
-                        //XisInteractionSpace viewIS = CreateDetailOrRefIS(repository, package, d, detailIS, Mode.Create, be);
-                        XISMobileHelper.CreateXisAction(repository, btn.Element, actionName, ActionType.Read); //editorIS.Element.Name);
-                        //CreateXisNavigationAssociation(repository, actionName, detailIS, viewIS);
+                        XisInteractionSpace editorIS = CreateDetailOrRefEditorIS(repository, package, d, detailIS, useCase, true, be);
+                        XISMobileHelper.CreateXisAction(repository, btn.Element, actionName, ActionType.Read, editorIS.Element.Name);
+                        CreateXisNavigationAssociation(repository, actionName, detailIS, editorIS);
                     }
                     else
                     {
