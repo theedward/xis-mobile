@@ -593,7 +593,7 @@ namespace XISMobileEAPlugin
             EA.Diagram diagram = XISMobileHelper.CreateDiagram(package, master.Element.Name + "EditorIS Diagram",
                 "XIS-Mobile_Diagrams::InteractionSpaceViewModel");
             XisInteractionSpace detailIS = new XisInteractionSpace(repository, package, diagram, master.Element.Name + "EditorIS",
-                master.Element.Name + " Editor");
+                master.Element.Name + " Editor", false, true);
 
             #region Process Master attributes
             if (!string.IsNullOrEmpty(master.Filter))
@@ -1280,59 +1280,83 @@ namespace XISMobileEAPlugin
 
                 if (source.GetDiagramObject(nsDiagram) == null)
                 {
-                    last = nsDiagram.DiagramObjects.GetAt(index);
-                    EA.DiagramObject obj = null;
-
-                    if ((last.right + across) > 800)
+                    if (source.IsMainScreen)
                     {
-                        obj = source.SetPosition(nsDiagram,
-                            last.left - across * 3, last.right - across * 3, -last.top + down, -last.bottom + down);
+                        source.SetPosition(nsDiagram, 355, 445, 10, 80);
                     }
                     else
                     {
-                        obj = source.SetPosition(nsDiagram,
-                            last.left + across, last.right + across, -last.top, -last.bottom);
-                    }
+                        last = nsDiagram.DiagramObjects.GetAt(index);
+                        EA.DiagramObject obj = null;
 
-                    if (target.GetDiagramObject(nsDiagram) == null)
-                    {
-                        target.SetPosition(nsDiagram,
-                            obj.left + across, obj.right + across, -obj.top, -obj.bottom);
+                        if ((last.right + across) > 800)
+                        {
+                            obj = source.SetPosition(nsDiagram,
+                                last.left - across * 3, last.right - across * 3, -last.top + down, -last.bottom + down);
+                        }
+                        else
+                        {
+                            obj = source.SetPosition(nsDiagram,
+                                last.left + across, last.right + across, -last.top, -last.bottom);
+                        }
+
+                        if (target.GetDiagramObject(nsDiagram) == null)
+                        {
+                            target.SetPosition(nsDiagram,
+                                obj.left + across, obj.right + across, -obj.top, -obj.bottom);
+                        } 
                     }
                 }
                 else if (target.GetDiagramObject(nsDiagram) == null)
                 {
-                    last = nsDiagram.DiagramObjects.GetAt(index);
-
-                    if ((last.right + across) > 800)
+                    if (target.IsMainScreen)
                     {
-                        target.SetPosition(nsDiagram,
-                            last.left - across * 3, last.right - across * 3, -last.top + down, -last.bottom + down);
+                        target.SetPosition(nsDiagram, 355, 445, 10, 80);
                     }
                     else
                     {
-                        target.SetPosition(nsDiagram,
-                            last.left + across, last.right + across, -last.top, -last.bottom);
+                        last = nsDiagram.DiagramObjects.GetAt(index);
+
+                        if ((last.right + across) > 800)
+                        {
+                            target.SetPosition(nsDiagram,
+                                last.left - across * 3, last.right - across * 3, -last.top + down, -last.bottom + down);
+                        }
+                        else
+                        {
+                            target.SetPosition(nsDiagram,
+                                last.left + across, last.right + across, -last.top, -last.bottom);
+                        } 
                     }
                 }
             }
             else
             {
-                if (source.IsMainScreen || source.IsFirstSubScreen)
+                if (source.IsMainScreen)
                 {
                     EA.DiagramObject obj = source.SetPosition(nsDiagram, 355, 445, 10, 80);
                     target.SetPosition(nsDiagram, obj.left - across, obj.right - across, -obj.top + down, -obj.bottom + down);
                 }
-                else if (target.IsMainScreen || target.IsFirstSubScreen)
+                else if (target.IsMainScreen)
                 {
                     EA.DiagramObject obj = target.SetPosition(nsDiagram, 355, 445, 10, 80);
                     source.SetPosition(nsDiagram, obj.left - across, obj.right - across, -obj.top + down, -obj.bottom + down);
                 }
-                else
+                else if (source.IsFirstSubScreen)
                 {
                     //MessageBox.Show(source.Element.Name + "->" + target.Element.Name);
-                    EA.DiagramObject obj = target.SetPosition(nsDiagram, 355, 445, 10, 80);
-                    source.SetPosition(nsDiagram, obj.left - across, obj.right - across, -obj.top + down, -obj.bottom + down);
+                    EA.DiagramObject obj = source.SetPosition(nsDiagram, 95, 185, 190, 260);
+                    target.SetPosition(nsDiagram, obj.left + across, obj.right + across, -obj.top, -obj.bottom);
+                }
+                else if (target.IsFirstSubScreen)
+                {
+                    EA.DiagramObject obj = target.SetPosition(nsDiagram, 95, 185, 190, 260);
+                    source.SetPosition(nsDiagram, obj.left + across, obj.right + across, -obj.top, -obj.bottom);
+                }
+                else
+                {
+                    EA.DiagramObject obj = source.SetPosition(nsDiagram, 355, 445, 190, 260);
+                    target.SetPosition(nsDiagram, obj.left + across, obj.right + across, -obj.top, -obj.bottom);
                 }
             } 
             #endregion
