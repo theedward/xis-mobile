@@ -1328,6 +1328,12 @@ namespace XISMobileEAPlugin
                     EA.DiagramObject obj = target.SetPosition(nsDiagram, 355, 445, 10, 80);
                     source.SetPosition(nsDiagram, obj.left - across, obj.right - across, -obj.top + down, -obj.bottom + down);
                 }
+                else
+                {
+                    //MessageBox.Show(source.Element.Name + "->" + target.Element.Name);
+                    EA.DiagramObject obj = target.SetPosition(nsDiagram, 355, 445, 10, 80);
+                    source.SetPosition(nsDiagram, obj.left - across, obj.right - across, -obj.top + down, -obj.bottom + down);
+                }
             } 
             #endregion
 
