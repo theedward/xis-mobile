@@ -10,18 +10,20 @@ The XIS-Mobile language reuses some of the best concepts used in the XIS UML pro
 - **UseCases View -** Describes the operations a user can perform in the context of a business entity and/or an external service;
 - **InteractionSpace View -** Describes each application's screen, known as interaction space, namely the UI layout, the events a certain UI component can trigger and the gestures that can be performed;
 - **NavigationSpaced View -** Describes the navigation flow between the several interaction spaces with which the user interacts;
-- **Architectural View -** Describes the interactions between the mobile application and other external entities (internal providers, mobile apps or remote servers);
+- **Architectural View -** Describes the interactions between the mobile application and other external entities (such as, internal providers, mobile apps or remote servers);
 
 The XIS-Mobile Framework aims to:
 
 1. Allow the specification of mobile applications using XIS-Mobile language through a visual editor;
 2. Check the quality of the produced model;
-3. Generate source code from it for Android and Windows Phone applications.
+3. Generate UserInteface views from the other views;
+4. Generate source code from it for different platforms (Android and Windows Phone).
 
-To accomplish these goals are being developed three modules:
+To accomplish these goals are being developed four modules:
 
-1. Visual Editor based on [Papyrus](http://www.eclipse.org/papyrus/). In the new release, [Sparx Enterprise Architect (EA)](http://www.sparxsystems.com/) will be used as the Visual Editor;
-2. Model Validator using the [Epsilon Validation Language (EVL)](http://www.eclipse.org/epsilon/doc/evl/). In the new release, the validation will be performed using the EA Validation API;
-3. Code Generator based on [Acceleo](http://www.eclipse.org/acceleo/) which allows model-to-text transformations with the guidance of code templates.
+1. Visual Editor based on [Sparx's Enterprise Architect (EA)](http://www.sparxsystems.com);
+2. Model Validator using  [EA Validation API](http://www.sparxsystems.com/enterprise_architect_user_guide/10/automation_and_scripting/model_validation_example.html);
+3. Model Generator based on [EA Model Driven Generation (MDG) Technologies](http://www.sparxsystems.com/enterprise_architect_user_guide/9.2/standard_uml_models/mdgtechnologies.html);
+4. Code Generator based on [Acceleo](http://www.eclipse.org/acceleo) which allows model-to-text transformations with the guidance of code templates.
 
 **© 2013 André Ribeiro - Instituto Superior Técnico**
