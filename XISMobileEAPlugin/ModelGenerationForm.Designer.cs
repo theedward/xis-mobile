@@ -28,9 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.labelPatterns = new System.Windows.Forms.Label();
             this.comboBoxPatterns = new System.Windows.Forms.ComboBox();
             this.buttonGenerate = new System.Windows.Forms.Button();
+            this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
             // 
             // labelPatterns
@@ -54,6 +57,7 @@
             this.comboBoxPatterns.Name = "comboBoxPatterns";
             this.comboBoxPatterns.Size = new System.Drawing.Size(121, 21);
             this.comboBoxPatterns.TabIndex = 1;
+            this.comboBoxPatterns.SelectedIndexChanged += new System.EventHandler(this.comboBoxPatterns_SelectedIndexChanged);
             // 
             // buttonGenerate
             // 
@@ -64,6 +68,11 @@
             this.buttonGenerate.Text = "Generate!";
             this.buttonGenerate.UseVisualStyleBackColor = true;
             this.buttonGenerate.Click += new System.EventHandler(this.buttonGenerate_Click);
+            // 
+            // errorProvider1
+            // 
+            this.errorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            this.errorProvider.ContainerControl = this;
             // 
             // ModelGenerationForm
             // 
@@ -78,6 +87,7 @@
             this.MinimizeBox = false;
             this.Name = "ModelGenerationForm";
             this.Text = "Generate Models...";
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -88,5 +98,6 @@
         private System.Windows.Forms.Label labelPatterns;
         private System.Windows.Forms.ComboBox comboBoxPatterns;
         private System.Windows.Forms.Button buttonGenerate;
+        private System.Windows.Forms.ErrorProvider errorProvider;
     }
 }

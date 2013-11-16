@@ -11,6 +11,8 @@ namespace XISMobileEAPlugin
 {
     public partial class ModelGenerationForm : Form
     {
+        string patternType = null;
+
         public ModelGenerationForm()
         {
             InitializeComponent();
@@ -18,7 +20,29 @@ namespace XISMobileEAPlugin
 
         private void buttonGenerate_Click(object sender, EventArgs e)
         {
-            // TODO: Generate Models
+            bool valid = true;
+
+            if (!string.IsNullOrEmpty(patternType))
+            {
+                errorProvider.SetError(comboBoxPatterns, string.Empty);
+            }
+            else
+            {
+                errorProvider.SetError(comboBoxPatterns, "A Pattern must be specified!");
+                valid = false;
+            }
+
+            if (valid)
+            {
+                MessageBox.Show("Valid");
+                // TODO: Generate Models
+            }
+        }
+
+        private void comboBoxPatterns_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            patternType = comboBoxPatterns.SelectedItem as String;
+            errorProvider.SetError(comboBoxPatterns, string.Empty);
         }
     }
 }
