@@ -86,7 +86,7 @@
             this.comboBoxTarget.Items.AddRange(new object[] {
             "Android",
             "Windows Phone",
-            "Both"});
+            "All"});
             this.comboBoxTarget.Location = new System.Drawing.Point(106, 43);
             this.comboBoxTarget.Name = "comboBoxTarget";
             this.comboBoxTarget.Size = new System.Drawing.Size(121, 21);
@@ -119,6 +119,8 @@
             this.Controls.Add(this.labelDestination);
             this.Controls.Add(this.buttonBrowse);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "GenerationForm";
             this.Text = "Generate Code...";
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
