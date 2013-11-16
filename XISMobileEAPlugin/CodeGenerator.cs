@@ -265,7 +265,7 @@ namespace XISMobileEAPlugin
                         }
                         else
                         {
-                            // TODO: Show Windows Form
+                            new ModelGenerationForm().Show();
                         }
                     }
                 }
