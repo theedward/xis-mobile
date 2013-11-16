@@ -15,5 +15,10 @@ namespace XISMobileEAPlugin
         {
             InitializeComponent();
         }
+
+        private void buttonGenerate_Click(object sender, EventArgs e)
+        {
+            // TODO: Generate Models
+        }
     }
 }
