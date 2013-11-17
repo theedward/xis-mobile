@@ -265,7 +265,7 @@ namespace XISMobileEAPlugin
                         }
                         else
                         {
-                            new ModelGenerationForm().Show();
+                            new ModelGenerationForm(Repository, navigationView, interactionView, useCases).Show();
                         }
                     }
                 }
