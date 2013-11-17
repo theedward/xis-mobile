@@ -11,11 +11,20 @@ namespace XISMobileEAPlugin
 {
     public partial class ModelGenerationForm : Form
     {
-        string patternType = null;
+        private string patternType = null;
+        private EA.Repository repository;
+        private EA.Package navigationPackage;
+        private EA.Package interactionPackage;
+        private List<EA.Element> useCases;
 
-        public ModelGenerationForm()
+        public ModelGenerationForm(EA.Repository repository, EA.Package navigationPackage, EA.Package interactionPackage,
+            List<EA.Element> useCases)
         {
             InitializeComponent();
+            this.repository = repository;
+            this.navigationPackage = navigationPackage;
+            this.interactionPackage = interactionPackage;
+            this.useCases = useCases;
         }
 
         private void buttonGenerate_Click(object sender, EventArgs e)
@@ -34,8 +43,7 @@ namespace XISMobileEAPlugin
 
             if (valid)
             {
-                MessageBox.Show("Valid");
-                // TODO: Generate Models
+                M2MTransformer.ProcessUseCaseWithPattern(repository, navigationPackage, interactionPackage, useCases, patternType);
             }
         }
 
