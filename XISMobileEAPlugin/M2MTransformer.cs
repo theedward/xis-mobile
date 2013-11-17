@@ -12,7 +12,8 @@ namespace XISMobileEAPlugin
         private static EA.Diagram nsDiagram;
         private static EA.Repository repository;
 
-        public static void ProcessUseCase(EA.Repository rep, EA.Package navigationPackage, EA.Package interactionPackage, List<EA.Element> useCases)
+        public static void ProcessUseCase(EA.Repository rep, EA.Package navigationPackage, EA.Package interactionPackage,
+            List<EA.Element> useCases)
         {
             nsDiagram = XISMobileHelper.CreateDiagram(navigationPackage, "Navigation Space",
                 "XIS-Mobile_Diagrams::NavigationSpaceViewModel");
@@ -134,6 +135,13 @@ namespace XISMobileEAPlugin
                 }
                 isStartingUC = false;
             }
+        }
+
+        public static void ProcessUseCaseWithPattern(EA.Repository repository, EA.Package navigationPackage, EA.Package interactionPackage,
+            List<EA.Element> useCases, string patternType)
+        {
+            // TODO: Generate Home Screen based on Pattern
+            throw new NotImplementedException();
         }
 
         public static void ProcessManagerUseCase(EA.Repository repository, EA.Package package, XisEntity master,
