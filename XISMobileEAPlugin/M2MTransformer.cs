@@ -9,6 +9,7 @@ namespace XISMobileEAPlugin
     static class M2MTransformer
     {
         private static XisInteractionSpace homeIS;
+        private static EA.Diagram homeDiagram;
         private static EA.Diagram nsDiagram;
         private static EA.Repository repository;
 
@@ -19,6 +20,13 @@ namespace XISMobileEAPlugin
                 "XIS-Mobile_Diagrams::NavigationSpaceViewModel");
             repository = rep;
             bool isStartingUC = true;
+
+            if (patternType != null)
+            {
+                homeDiagram = XISMobileHelper.CreateDiagram(interactionPackage, "HomeIS Diagram",
+                    "XIS-Mobile_Diagrams::InteractionSpaceViewModel");
+                homeIS = new XisInteractionSpace(repository, interactionPackage, homeDiagram, "HomeIS", "Home", true);
+            }
 
             foreach (EA.Element useCase in useCases)
             {
@@ -110,7 +118,7 @@ namespace XISMobileEAPlugin
                                     if (isStartingUC && useCases.Count > 1)
                                     {
                                         ProcessManagerUseCase(interactionPackage, master, useCase, be, isStartingUC,
-                                            useCases.GetRange(1, useCases.Count-1));
+                                            useCases.GetRange(1, useCases.Count-1), patternType);
                                     }
                                     else
                                     {
@@ -122,7 +130,7 @@ namespace XISMobileEAPlugin
                                     if (isStartingUC && useCases.Count > 1)
                                     {
                                         ProcessDetailUseCase(interactionPackage, master, useCase, be, isStartingUC,
-                                            useCases.GetRange(1, useCases.Count - 1));
+                                            useCases.GetRange(1, useCases.Count - 1), patternType);
                                     }
                                     else
                                     {
@@ -137,25 +145,8 @@ namespace XISMobileEAPlugin
             }
         }
 
-        public static void GenerateHomeISByPattern(string patternType)
-        {
-            switch (patternType)
-            {
-                case "Springboard":
-
-                    break;
-                case "List Menu":
-
-                    break;
-                case "Tab Menu":
-                    break;
-                default:
-                    break;
-            }
-        }
-
         public static void ProcessManagerUseCase(EA.Package package, XisEntity master,
-            EA.Element useCase, EA.Element be, bool isStartingUC, List<EA.Element> useCases = null)
+            EA.Element useCase, EA.Element be, bool isStartingUC, List<EA.Element> useCases = null, String patternType = null)
         {
             // Create IS Diagram
             EA.Diagram listDiagram = XISMobileHelper.CreateDiagram(package, master.Element.Name + "ListIS Diagram",
@@ -163,7 +154,7 @@ namespace XISMobileEAPlugin
             XisInteractionSpace listIS = new XisInteractionSpace(repository, package, listDiagram,
                 master.Element.Name + "ListIS", "Manage " + master.Element.Name + "s", isStartingUC, !isStartingUC);
 
-            if (isStartingUC)
+            if (isStartingUC && patternType == null)
             {
                 homeIS = listIS;
             }
@@ -258,8 +249,15 @@ namespace XISMobileEAPlugin
             }
             #endregion
 
-            // Navigation between main UC and the others
-            if (isStartingUC)
+            // Navigation between home UC and the others
+            if (patternType != null)
+            {
+                String actionName = "goTo" + listIS.Element.Name;
+                XisButton b = new XisButton(repository, homeIS, homeDiagram, useCase.Name, actionName);
+                XISMobileHelper.CreateXisAction(repository, b.Element, actionName, ActionType.Read, listIS.Element.Name); 
+                CreateXisNavigationAssociation(actionName, homeIS, listIS);
+            }
+            else if (isStartingUC)
             {
                 if (useCases != null)
                 {
@@ -331,14 +329,14 @@ namespace XISMobileEAPlugin
         }
 
         public static void ProcessDetailUseCase(EA.Package package, XisEntity master,
-            EA.Element useCase, EA.Element be, bool isStartingUC, List<EA.Element> useCases = null)
+            EA.Element useCase, EA.Element be, bool isStartingUC, List<EA.Element> useCases = null, String patternType = null)
         {
             EA.Diagram detailDiagram = XISMobileHelper.CreateDiagram(package, master.Element.Name + "EditorIS Diagram",
                 "XIS-Mobile_Diagrams::InteractionSpaceViewModel");
             XisInteractionSpace detailIS = new XisInteractionSpace(repository, package, detailDiagram,
                 master.Element.Name + "EditorIS", null, isStartingUC, !isStartingUC);
 
-            if (isStartingUC)
+            if (isStartingUC && patternType == null)
             {
                 homeIS = detailIS;
             }
@@ -564,7 +562,14 @@ namespace XISMobileEAPlugin
             #endregion
 
             // Navigation between main UC and the others
-            if (isStartingUC)
+            if (patternType != null)
+            {
+                String actionName = "goTo" + detailIS.Element.Name;
+                XisButton b = new XisButton(repository, homeIS, homeDiagram, useCase.Name, actionName);
+                XISMobileHelper.CreateXisAction(repository, b.Element, actionName, ActionType.Read, detailIS.Element.Name);
+                CreateXisNavigationAssociation(actionName, homeIS, detailIS);
+            }
+            else if (isStartingUC)
             {
                 if (useCases != null)
                 {
