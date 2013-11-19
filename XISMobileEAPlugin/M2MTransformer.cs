@@ -122,7 +122,7 @@ namespace XISMobileEAPlugin
                                     }
                                     else
                                     {
-                                        ProcessManagerUseCase(interactionPackage, master, useCase, be, isStartingUC);
+                                        ProcessManagerUseCase(interactionPackage, master, useCase, be, isStartingUC, null, patternType);
                                     }
                                 }
                                 else if (ucType.Value == "Detail")
@@ -134,7 +134,7 @@ namespace XISMobileEAPlugin
                                     }
                                     else
                                     {
-                                        ProcessDetailUseCase(interactionPackage, master, useCase, be, isStartingUC);
+                                        ProcessDetailUseCase(interactionPackage, master, useCase, be, isStartingUC, null, patternType);
                                     }
                                 }
                             }
@@ -142,6 +142,10 @@ namespace XISMobileEAPlugin
                     }
                 }
                 isStartingUC = false;
+            }
+            if (patternType != null)
+            {
+                ComputePositions(homeIS, homeDiagram);
             }
         }
 
@@ -591,6 +595,7 @@ namespace XISMobileEAPlugin
             #endregion
 
             // Navigation between main UC and the others
+            MessageBox.Show(patternType + " " + detailIS.Element.Name + " " + useCase.Name);
             if (patternType != null)
             {
                 AddToHomeISByPattern(useCase, detailIS, patternType);
