@@ -145,6 +145,38 @@ namespace XISMobileEAPlugin
             }
         }
 
+        private static void AddToHomeISByPattern(EA.Element useCase, XisInteractionSpace targetIS, string patternType) {
+            String actionName = "goTo" + targetIS.Element.Name;
+
+            switch (patternType)
+            {
+                case "Springboard":
+                    XisButton b = new XisButton(repository, homeIS, homeDiagram, useCase.Name, actionName);
+                    XISMobileHelper.CreateXisAction(repository, b.Element, actionName, ActionType.Read, targetIS.Element.Name);
+                    CreateXisNavigationAssociation(actionName, homeIS, targetIS);
+                    break;
+                case "List Menu":
+                    XisList list = null;
+                    if (homeIS.Widgets.Count > 0)
+                    {
+                        list = homeIS.Widgets.First() as XisList;
+                    }
+                    else
+                    {
+                        list = new XisList(repository, homeDiagram, homeIS, homeIS.Element.Name + "List");
+                    }
+                    XisListItem item = new XisListItem(repository, homeDiagram, list, useCase.Name, actionName);
+                    XISMobileHelper.CreateXisAction(repository, item.Element, actionName, ActionType.Read, targetIS.Element.Name);
+                    CreateXisNavigationAssociation(actionName, homeIS, targetIS);
+                    break;
+                case "Tab Menu":
+                    // TODO: Implement Tab
+                    break;
+                default:
+                    break;
+            }
+        }
+
         public static void ProcessManagerUseCase(EA.Package package, XisEntity master,
             EA.Element useCase, EA.Element be, bool isStartingUC, List<EA.Element> useCases = null, String patternType = null)
         {
@@ -252,10 +284,7 @@ namespace XISMobileEAPlugin
             // Navigation between home UC and the others
             if (patternType != null)
             {
-                String actionName = "goTo" + listIS.Element.Name;
-                XisButton b = new XisButton(repository, homeIS, homeDiagram, useCase.Name, actionName);
-                XISMobileHelper.CreateXisAction(repository, b.Element, actionName, ActionType.Read, listIS.Element.Name); 
-                CreateXisNavigationAssociation(actionName, homeIS, listIS);
+                AddToHomeISByPattern(useCase, listIS, patternType);
             }
             else if (isStartingUC)
             {
@@ -564,10 +593,7 @@ namespace XISMobileEAPlugin
             // Navigation between main UC and the others
             if (patternType != null)
             {
-                String actionName = "goTo" + detailIS.Element.Name;
-                XisButton b = new XisButton(repository, homeIS, homeDiagram, useCase.Name, actionName);
-                XISMobileHelper.CreateXisAction(repository, b.Element, actionName, ActionType.Read, detailIS.Element.Name);
-                CreateXisNavigationAssociation(actionName, homeIS, detailIS);
+                AddToHomeISByPattern(useCase, detailIS, patternType);
             }
             else if (isStartingUC)
             {
