@@ -595,7 +595,6 @@ namespace XISMobileEAPlugin
             #endregion
 
             // Navigation between main UC and the others
-            MessageBox.Show(patternType + " " + detailIS.Element.Name + " " + useCase.Name);
             if (patternType != null)
             {
                 AddToHomeISByPattern(useCase, detailIS, patternType);
