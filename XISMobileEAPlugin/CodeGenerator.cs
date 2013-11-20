@@ -274,17 +274,7 @@ namespace XISMobileEAPlugin
 
         private void GenerateCode(EA.Repository Repository)
         {
-            //MessageBox.Show("Generate Code!!! " + Location);
             new CodeGenerationForm(Repository).Show();
-            //"select * from t_xref where type = 'operation property';");
-            //string query1 = "select * from t_xref where type = 'operation property';";
-            //string query2 = "select * from t_operation inner join t_object on xrefid = ea_guid where type = 'operation property';";
-            //string asd = Repository.SQLQuery("select * from t_operation;");
-            //MessageBox.Show(asd);
-            //System.IO.File.Create("C:/Users/User/Desktop/asd.txt").Close();
-            //System.IO.TextWriter t = System.IO.File.AppendText("C:/Users/User/Desktop/asd.txt");
-            //t.WriteLine(asd);
-            //t.Close();
         }
  
         ///
