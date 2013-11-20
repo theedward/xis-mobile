@@ -1165,7 +1165,7 @@ namespace XISMobileEAPlugin
             {
                 list.Element.Methods.Refresh();
                 obj = list.SetPosition(diagram,
-                    sibling.left, sibling.right, -sibling.bottom + 10, -sibling.top + 60 + 30 * list.Element.Methods.Count,
+                    sibling.left, sibling.right, -sibling.bottom + 10, -sibling.bottom + 60 + 30 * list.Element.Methods.Count,
                     sibling.Sequence);
             }
 
@@ -1202,7 +1202,7 @@ namespace XISMobileEAPlugin
 	        {
                 item.Element.Methods.Refresh();
                 obj = item.SetPosition(diagram,
-                    sibling.left, sibling.right, -sibling.bottom + 10, -sibling.top + 60 + 30 * item.Element.Methods.Count,
+                    sibling.left, sibling.right, -sibling.bottom + 10, -sibling.bottom + 60 + 30 * item.Element.Methods.Count,
                     sibling.Sequence);
 	        }
 
@@ -1239,7 +1239,7 @@ namespace XISMobileEAPlugin
             {
                 menu.Element.Methods.Refresh();
                 obj = menu.SetPosition(diagram,
-                    sibling.left, sibling.right, -sibling.bottom + 10, -sibling.top + 60 + 30 * menu.Element.Methods.Count,
+                    sibling.left, sibling.right, -sibling.bottom + 10, -sibling.bottom + 60 + 30 * menu.Element.Methods.Count,
                     sibling.Sequence);
             }
 
@@ -1276,7 +1276,7 @@ namespace XISMobileEAPlugin
             {
                 comp.Element.Methods.Refresh();
                 obj = comp.SetPosition(diagram,
-                    sibling.left, sibling.right, -sibling.bottom + 10, -sibling.top + 60 + 30 * comp.Element.Methods.Count,
+                    sibling.left, sibling.right, -sibling.bottom + 10, -sibling.bottom + 60 + 30 * comp.Element.Methods.Count,
                     sibling.Sequence);
             }
 
