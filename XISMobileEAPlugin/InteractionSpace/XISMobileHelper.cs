@@ -559,36 +559,19 @@ namespace XISMobileEAPlugin.InteractionSpace
             switch (type)
 	        {
                 case ActionType.OK:
-                    action = parent.Methods.AddNew(name, "");
-                    break;
-		        case ActionType.Cancel:
-                    action = parent.Methods.AddNew(name, "");
-                    break;
+                case ActionType.Cancel:
                 case ActionType.Save:
-                    action = parent.Methods.AddNew(name, "");
-                    break;
                 case ActionType.Create:
-                    action = parent.Methods.AddNew(name, "");
-                    break;
                 case ActionType.Read:
-                    action = parent.Methods.AddNew(name, "");
-                    break;
                 case ActionType.Update:
-                    action = parent.Methods.AddNew(name, "");
-                    break;
                 case ActionType.Delete:
-                    action = parent.Methods.AddNew(name, "");
-                    break;
                 case ActionType.DeleteAll:
-                    action = parent.Methods.AddNew(name, "");
-                    break;
                 case ActionType.ZoomIn:
-                    break;
                 case ActionType.ZoomOut:
-                    break;
                 case ActionType.WebService:
-                    break;
+                case ActionType.Navigate:
                 case ActionType.Custom:
+                    action = parent.Methods.AddNew(name, "");
                     break;
 	        }
 
@@ -644,6 +627,7 @@ namespace XISMobileEAPlugin.InteractionSpace
         ZoomIn,
         ZoomOut,
         WebService,
+        Navigate,
         Custom
     }
 

@@ -156,7 +156,7 @@ namespace XISMobileEAPlugin
             {
                 case "Springboard":
                     XisButton b = new XisButton(repository, homeIS, homeDiagram, useCase.Name, actionName);
-                    XISMobileHelper.CreateXisAction(repository, b.Element, actionName, ActionType.Read, targetIS.Element.Name);
+                    XISMobileHelper.CreateXisAction(repository, b.Element, actionName, ActionType.Navigate, targetIS.Element.Name);
                     CreateXisNavigationAssociation(actionName, homeIS, targetIS);
                     break;
                 case "List Menu":
@@ -170,7 +170,7 @@ namespace XISMobileEAPlugin
                         list = new XisList(repository, homeDiagram, homeIS, homeIS.Element.Name + "List");
                     }
                     XisListItem item = new XisListItem(repository, homeDiagram, list, useCase.Name, actionName);
-                    XISMobileHelper.CreateXisAction(repository, item.Element, actionName, ActionType.Read, targetIS.Element.Name);
+                    XISMobileHelper.CreateXisAction(repository, item.Element, actionName, ActionType.Navigate, targetIS.Element.Name);
                     CreateXisNavigationAssociation(actionName, homeIS, targetIS);
                     break;
                 case "Tab Menu":
