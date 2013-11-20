@@ -44,6 +44,7 @@ namespace XISMobileEAPlugin
             if (valid)
             {
                 M2MTransformer.ProcessUseCase(repository, navigationPackage, interactionPackage, useCases, patternType);
+                Close();
             }
         }
 
