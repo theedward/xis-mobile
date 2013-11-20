@@ -636,7 +636,7 @@ namespace XISMobileEAPlugin
             if (!isStartingUC)
             {
                 // TODO: Link subspaces
-                CreateXisNavigationAssociation("goTo" + detailIS.Element.Name, homeIS, detailIS);
+                //CreateXisNavigationAssociation("goTo" + detailIS.Element.Name, homeIS, detailIS);
             }
         }
 
