@@ -587,6 +587,7 @@ namespace XISMobileEAPlugin.InteractionSpace
             //EA.MethodTag navigationTv = action.TaggedValues.AddNew("navigation", "String");
             //navigationTv.Value = navigation;
             //navigationTv.Update();
+            parent.Methods.Refresh();
 
             return action;
         }
