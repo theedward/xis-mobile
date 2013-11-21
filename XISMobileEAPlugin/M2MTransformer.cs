@@ -160,16 +160,23 @@ namespace XISMobileEAPlugin
         {
             EA.DiagramObject spaceObj = homeIS.GetDiagramObject(homeDiagram);
             EA.DiagramObject obj = null;
-            int width = spaceObj.right - spaceObj.left - 20 -10;
+            XisWidget w = homeIS.Widgets.First();
+            int width = spaceObj.right - spaceObj.left - 20;
+            
+            if (homeIS.Widgets.Count % 2 == 0)
+            {
+                width -= 10;    
+            }
 
             if (homeIS.Widgets.Count > 9)
             {
                 // 4 buttons in the horizontal
                 int buttonW = width / 4;
-                XisWidget w = homeIS.Widgets.First();
+                
                 obj = w.SetPosition(homeDiagram,
                     spaceObj.left + 10, spaceObj.left + 10 + buttonW, -spaceObj.top + 40,
                     -spaceObj.top + 90 + 30 * w.Element.Methods.Count, spaceObj.Sequence - 1);
+                int height = -obj.bottom + obj.top;
 
                 for (int i = 1; i < homeIS.Widgets.Count; i++)
                 {
@@ -178,8 +185,8 @@ namespace XISMobileEAPlugin
                     if (aux > spaceObj.right - 10)
                     {
                         // restart on bottom
-                        obj = w.SetPosition(homeDiagram, spaceObj.left + 10, obj.left + 10 + buttonW,
-                            -obj.top + 10, -obj.top + 90 + 30 * w.Element.Methods.Count, obj.Sequence);
+                        obj = w.SetPosition(homeDiagram, spaceObj.left + 10, spaceObj.left + 10 + buttonW,
+                            -obj.bottom + 10, -obj.bottom + 10 + height, obj.Sequence);
                     }
                     else
                     {
@@ -190,7 +197,6 @@ namespace XISMobileEAPlugin
             else
             {
                 // 3 buttons in the horizontal
-                XisWidget w = homeIS.Widgets.First();
                 int buttonW = 0;
 
                 if (homeIS.Widgets.Count < 3)
@@ -210,16 +216,17 @@ namespace XISMobileEAPlugin
                     buttonW = width / 3;
                     obj = w.SetPosition(homeDiagram, spaceObj.left + 10, spaceObj.left + 10 + buttonW, -spaceObj.top + 40,
                         -spaceObj.top + 90 + 30 * w.Element.Methods.Count, spaceObj.Sequence - 1);
-                    
+                    int height = -obj.bottom + obj.top;
+
                     for (int i = 1; i < homeIS.Widgets.Count; i++)
                     {
                         w = homeIS.Widgets[i];
                         int aux = obj.right + 10 + buttonW;
-                        if (aux > spaceObj.right - 10)
+                        if (aux > spaceObj.right)
                         {
                             // restart on bottom
-                            obj = w.SetPosition(homeDiagram, spaceObj.left + 10, obj.left + 10 + buttonW,
-                                -obj.top + 10, -obj.top + 90 + 30 * w.Element.Methods.Count, obj.Sequence);
+                            obj = w.SetPosition(homeDiagram, spaceObj.left + 10, spaceObj.left + 10 + buttonW,
+                                -obj.bottom + 10, -obj.bottom + 10 + height, obj.Sequence);
                         }
                         else
                         {
