@@ -162,15 +162,11 @@ namespace XISMobileEAPlugin
             EA.DiagramObject obj = null;
             XisWidget w = homeIS.Widgets.First();
             int width = spaceObj.right - spaceObj.left - 20;
-            
-            if (homeIS.Widgets.Count % 2 == 0)
-            {
-                width -= 10;    
-            }
 
             if (homeIS.Widgets.Count > 9)
             {
                 // 4 buttons in the horizontal
+                width -= 30;
                 int buttonW = width / 4;
                 
                 obj = w.SetPosition(homeDiagram,
@@ -201,6 +197,7 @@ namespace XISMobileEAPlugin
 
                 if (homeIS.Widgets.Count < 3)
                 {
+                    width -= 10 * (homeIS.Widgets.Count - 1);
                     buttonW = width / homeIS.Widgets.Count;
                     obj = w.SetPosition(homeDiagram, spaceObj.left + 10, spaceObj.left + 10 + buttonW, -spaceObj.top + 40,
                         -spaceObj.top + 90 + 30 * w.Element.Methods.Count, spaceObj.Sequence - 1);
@@ -213,6 +210,7 @@ namespace XISMobileEAPlugin
                 }
                 else
                 {
+                    width -= 20;
                     buttonW = width / 3;
                     obj = w.SetPosition(homeDiagram, spaceObj.left + 10, spaceObj.left + 10 + buttonW, -spaceObj.top + 40,
                         -spaceObj.top + 90 + 30 * w.Element.Methods.Count, spaceObj.Sequence - 1);
