@@ -578,15 +578,12 @@ namespace XISMobileEAPlugin.InteractionSpace
             action.Stereotype = "XisAction";
             action.Update();
 
-            //EA.MethodTag nameTv = action.TaggedValues.AddNew("name", "String");
-            //nameTv.Value = name;
-            //nameTv.Update();
-            //EA.MethodTag typeTv = action.TaggedValues.AddNew("type", "XIS-Mobile::ActionType");
-            //typeTv.Value = type.ToString();
-            //typeTv.Update();
-            //EA.MethodTag navigationTv = action.TaggedValues.AddNew("navigation", "String");
-            //navigationTv.Value = navigation;
-            //navigationTv.Update();
+            EA.MethodTag typeTv = action.TaggedValues.AddNew("type", "XIS-Mobile::ActionType");
+            typeTv.Value = type.ToString();
+            typeTv.Update();
+            EA.MethodTag navigationTv = action.TaggedValues.AddNew("navigation", "String");
+            navigationTv.Value = navigation;
+            navigationTv.Update();
             parent.Methods.Refresh();
 
             return action;
