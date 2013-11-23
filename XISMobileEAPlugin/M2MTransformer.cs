@@ -489,7 +489,7 @@ namespace XISMobileEAPlugin
                     XisButton btn = new XisButton(repository, detailIS, detailDiagram, d.Element.Name + "ManagerButton", actionName);
                     btn.SetValue("Manage " + d.Element.Name);
                     XisInteractionSpace managerIS = CreateDetailOrRefManagerIS(package, d, detailIS, useCase, true, be);
-                    XISMobileHelper.CreateXisAction(repository, btn.Element, actionName, ActionType.Read, managerIS.Element.Name);
+                    XISMobileHelper.CreateXisAction(repository, btn.Element, actionName, ActionType.Navigate, managerIS.Element.Name);
                     CreateXisNavigationAssociation(actionName, detailIS, managerIS);
                 }
                 else
@@ -509,7 +509,7 @@ namespace XISMobileEAPlugin
                             XisButton btn = new XisButton(repository, detailIS, detailDiagram, d.Element.Name + "EditorButton", actionName);
                             btn.SetValue(d.Element.Name);
                             XisInteractionSpace editorIS = CreateDetailOrRefEditorIS(package, d, detailIS, useCase, true, be);
-                            XISMobileHelper.CreateXisAction(repository, btn.Element, actionName, ActionType.Read, editorIS.Element.Name);
+                            XISMobileHelper.CreateXisAction(repository, btn.Element, actionName, ActionType.Navigate, editorIS.Element.Name);
                             CreateXisNavigationAssociation(actionName, detailIS, editorIS);
                         }
                         else
@@ -546,7 +546,7 @@ namespace XISMobileEAPlugin
                         XisButton btn = new XisButton(repository, detailIS, detailDiagram, d.Element.Name + "EditorButton", actionName);
                         btn.SetValue(d.Element.Name);
                         XisInteractionSpace editorIS = CreateDetailOrRefEditorIS(package, d, detailIS, useCase, true, be);
-                        XISMobileHelper.CreateXisAction(repository, btn.Element, actionName, ActionType.Read, editorIS.Element.Name);
+                        XISMobileHelper.CreateXisAction(repository, btn.Element, actionName, ActionType.Navigate, editorIS.Element.Name);
                         CreateXisNavigationAssociation(actionName, detailIS, editorIS);
                     }
                     else
@@ -590,7 +590,7 @@ namespace XISMobileEAPlugin
                     XisButton btn = new XisButton(repository, detailIS, detailDiagram, r.Element.Name + "ManagerButton", actionName);
                     btn.SetValue("Manage " + r.Element.Name);
                     XisInteractionSpace viewIS = CreateDetailOrRefManagerIS(package, r, detailIS, useCase, false, be);
-                    XISMobileHelper.CreateXisAction(repository, btn.Element, actionName, ActionType.Read, viewIS.Element.Name);
+                    XISMobileHelper.CreateXisAction(repository, btn.Element, actionName, ActionType.Navigate, viewIS.Element.Name);
                     CreateXisNavigationAssociation(actionName, detailIS, viewIS);
                 }
                 else
@@ -610,7 +610,7 @@ namespace XISMobileEAPlugin
                             XisButton btn = new XisButton(repository, detailIS, detailDiagram, r.Element.Name + "EditorButton", actionName);
                             btn.SetValue(r.Element.Name);
                             XisInteractionSpace editorIS = CreateDetailOrRefEditorIS(package, r, detailIS, useCase, false, be);
-                            XISMobileHelper.CreateXisAction(repository, btn.Element, actionName, ActionType.Read, editorIS.Element.Name);
+                            XISMobileHelper.CreateXisAction(repository, btn.Element, actionName, ActionType.Navigate, editorIS.Element.Name);
                             CreateXisNavigationAssociation(actionName, detailIS, editorIS);
                         }
                         else
@@ -647,7 +647,7 @@ namespace XISMobileEAPlugin
                         XisButton btn = new XisButton(repository, detailIS, detailDiagram, r.Element.Name + "EditorButton", actionName);
                         btn.SetValue(r.Element.Name);
                         XisInteractionSpace editorIS = CreateDetailOrRefEditorIS(package, r, detailIS, useCase, false, be);
-                        XISMobileHelper.CreateXisAction(repository, btn.Element, actionName, ActionType.Read, editorIS.Element.Name);
+                        XISMobileHelper.CreateXisAction(repository, btn.Element, actionName, ActionType.Navigate, editorIS.Element.Name);
                         CreateXisNavigationAssociation(actionName, detailIS, editorIS);
                     }
                     else
