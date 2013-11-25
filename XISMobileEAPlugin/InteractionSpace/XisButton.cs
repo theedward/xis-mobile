@@ -19,7 +19,7 @@ namespace XISMobileEAPlugin.InteractionSpace
             else if (parent is XisVisibilityBoundary)
             {
                 XisVisibilityBoundary boundary = parent as XisVisibilityBoundary;
-                Element = XISMobileHelper.CreateXisButton(boundary.Parent.Element, name, onTap);
+                Element = XISMobileHelper.CreateXisButton(boundary.Element, name, onTap);
                 boundary.Widgets.Add(this);
             }
             else if (parent is XisCompositeWidget)
