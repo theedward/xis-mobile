@@ -14,16 +14,7 @@ namespace XISMobileEAPlugin.InteractionSpace
         public XisMenu(EA.Repository repository, EA.Diagram diagram, XisWidget parent, string name, MenuType type)
             : base(repository, parent)
         {
-            if (parent is XisVisibilityBoundary)
-            {
-                XisVisibilityBoundary boundary = parent as XisVisibilityBoundary;
-                Element = XISMobileHelper.CreateXisMenu(boundary.Parent.Element, name, type);
-            }
-            else
-            {
-                Element = XISMobileHelper.CreateXisMenu(parent.Element, name, type);
-            }
-
+            Element = XISMobileHelper.CreateXisMenu(parent.Element, name, type);
             Groups = new List<XisMenuGroup>();
             Items = new List<XisMenuItem>();
         }

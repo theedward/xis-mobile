@@ -28,7 +28,7 @@ namespace XISMobileEAPlugin.InteractionSpace
             else if (parent is XisVisibilityBoundary)
             {
                 XisVisibilityBoundary boundary = parent as XisVisibilityBoundary;
-                Element = XISMobileHelper.CreateXisMenuItem(boundary.Parent.Element, name, onTap);
+                Element = XISMobileHelper.CreateXisMenuItem(boundary.Element, name, onTap);
                 boundary.Widgets.Add(this);
             }
         }

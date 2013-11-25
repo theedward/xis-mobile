@@ -524,7 +524,7 @@ namespace XISMobileEAPlugin.InteractionSpace
         public static EA.Element CreateXisVisibilityBoundary(EA.Element parent, string name,
             bool create = false, bool view = false, bool edit = false)
         {
-            EA.Element boundary = parent.Elements.AddNew(name, "Boundary");
+            EA.Element boundary = parent.Elements.AddNew(name, "Class");
             boundary.Stereotype = "XisVisibilityBoundary";
             boundary.Update();
 
