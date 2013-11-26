@@ -67,7 +67,7 @@ namespace XISMobileEAPlugin
                 valid = false;
             }*/
             
-            textBoxPath.Text = "C:\\Users\\User\\Desktop";
+            //textBoxPath.Text = "C:\\Users\\User\\Desktop";
 
             if (valid)
             {
@@ -83,8 +83,8 @@ namespace XISMobileEAPlugin
                 //ExecuteCommandDelegate del = new ExecuteCommandDelegate(StringToUpperFirst);
                 //del.BeginInvoke("test", PrintResult, null);
 
-                ExecuteCommand("C:\\Users\\User\\Desktop\\XMLParser.jar " + xmiPath + " " + projectName);
-                ExecuteCommand("C:\\Users\\User\\Desktop\\generator.jar " + umlPath + " " + textBoxPath.Text + "\\src-gen2");
+                ExecuteCommand("XMLParser.jar " + xmiPath + " " + projectName);
+                ExecuteCommand("Generator.jar " + umlPath + " " + textBoxPath.Text + "\\src-gen2");
                 Close();
             }
         }
