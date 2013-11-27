@@ -524,7 +524,7 @@ namespace XISMobileEAPlugin
                                 if (ContainsCreateDetail(useCase) || ContainsUpdateDetail(useCase))
                                 {
                                     XisVisibilityBoundary b = new XisVisibilityBoundary(repository, detailDiagram, detailIS,
-                                        "Save" + d.Element.Name, ContainsCreateDetail(useCase), false, ContainsUpdateDetail(useCase));
+                                        "Save" + d.Element.Name + "Boundary", ContainsCreateDetail(useCase), false, ContainsUpdateDetail(useCase));
                                     string actionName = "save" + d.Element.Name;
                                     XisButton btn = new XisButton(repository, b, detailDiagram, d.Element.Name + "SaveButton", actionName);
                                     btn.SetValue("Save " + d.Element.Name);
@@ -561,7 +561,7 @@ namespace XISMobileEAPlugin
                             if (ContainsCreateDetail(useCase) || ContainsUpdateDetail(useCase))
                             {
                                 XisVisibilityBoundary b = new XisVisibilityBoundary(repository, detailDiagram, detailIS,
-                                    "Save" + d.Element.Name, ContainsCreateDetail(useCase), false, ContainsUpdateDetail(useCase));
+                                    "Save" + d.Element.Name + "Boundary", ContainsCreateDetail(useCase), false, ContainsUpdateDetail(useCase));
                                 string actionName = "save" + d.Element.Name;
                                 XisButton btn = new XisButton(repository, b, detailDiagram, d.Element.Name + "SaveButton", actionName);
                                 btn.SetValue("Save " + d.Element.Name);
@@ -625,7 +625,7 @@ namespace XISMobileEAPlugin
                                 if (ContainsCreateReference(useCase) || ContainsUpdateReference(useCase))
                                 {
                                     XisVisibilityBoundary b = new XisVisibilityBoundary(repository, detailDiagram, detailIS,
-                                        "Save" + r.Element.Name, ContainsCreateReference(useCase), false, ContainsUpdateReference(useCase));
+                                        "Save" + r.Element.Name + "Boundary", ContainsCreateReference(useCase), false, ContainsUpdateReference(useCase));
                                     string actionName = "save" + r.Element.Name;
                                     XisButton btn = new XisButton(repository, b, detailDiagram, r.Element.Name + "SaveButton", actionName);
                                     btn.SetValue("Save " + r.Element.Name);
@@ -662,7 +662,7 @@ namespace XISMobileEAPlugin
                             if (ContainsCreateReference(useCase) || ContainsUpdateReference(useCase))
                             {
                                 XisVisibilityBoundary b = new XisVisibilityBoundary(repository, detailDiagram, detailIS,
-                                    "Save" + r.Element.Name, ContainsCreateReference(useCase), false, ContainsUpdateReference(useCase));
+                                    "Save" + r.Element.Name + "Boundary", ContainsCreateReference(useCase), false, ContainsUpdateReference(useCase));
                                 string actionName = "save" + r.Element.Name;
                                 XisButton btn = new XisButton(repository, b, detailDiagram, r.Element.Name + "SaveButton", actionName);
                                 btn.SetValue("Save " + r.Element.Name);
@@ -798,7 +798,7 @@ namespace XISMobileEAPlugin
                                 if (ContainsCreateDetail(useCase) || ContainsUpdateDetail(useCase))
                                 {
                                     XisVisibilityBoundary b = new XisVisibilityBoundary(repository, diagram, detailIS,
-                                        "Save" + d.Element.Name, ContainsCreateDetail(useCase), false, ContainsUpdateDetail(useCase));
+                                        "Save" + d.Element.Name + "Boundary", ContainsCreateDetail(useCase), false, ContainsUpdateDetail(useCase));
                                     string actionName = "save" + d.Element.Name;
                                     XisButton btn = new XisButton(repository, b, diagram, d.Element.Name + "SaveButton", actionName);
                                     btn.SetValue("Save " + d.Element.Name);
@@ -835,7 +835,7 @@ namespace XISMobileEAPlugin
                             if (ContainsCreateDetail(useCase) || ContainsUpdateDetail(useCase))
                             {
                                 XisVisibilityBoundary b = new XisVisibilityBoundary(repository, diagram, detailIS,
-                                    "Save" + d.Element.Name, ContainsCreateDetail(useCase), false, ContainsUpdateDetail(useCase));
+                                    "Save" + d.Element.Name + "Boundary", ContainsCreateDetail(useCase), false, ContainsUpdateDetail(useCase));
                                 string actionName = "save" + d.Element.Name;
                                 XisButton btn = new XisButton(repository, b, diagram, d.Element.Name + "SaveButton", actionName);
                                 btn.SetValue("Save " + d.Element.Name);
@@ -899,7 +899,7 @@ namespace XISMobileEAPlugin
                                 if (ContainsCreateReference(useCase) || ContainsUpdateReference(useCase))
                                 {
                                     XisVisibilityBoundary b = new XisVisibilityBoundary(repository, diagram, detailIS,
-                                        "Save" + r.Element.Name, ContainsCreateReference(useCase), false, ContainsUpdateReference(useCase));
+                                        "Save" + r.Element.Name + "Boundary", ContainsCreateReference(useCase), false, ContainsUpdateReference(useCase));
                                     string actionName = "save" + r.Element.Name;
                                     XisButton btn = new XisButton(repository, b, diagram, r.Element.Name + "SaveButton", actionName);
                                     btn.SetValue("Save " + r.Element.Name);
@@ -936,7 +936,7 @@ namespace XISMobileEAPlugin
                             if (ContainsCreateReference(useCase) || ContainsUpdateReference(useCase))
                             {
                                 XisVisibilityBoundary b = new XisVisibilityBoundary(repository, diagram, detailIS,
-                                    "Save" + r.Element.Name, ContainsCreateReference(useCase), false, ContainsUpdateReference(useCase));
+                                    "Save" + r.Element.Name + "Boundary", ContainsCreateReference(useCase), false, ContainsUpdateReference(useCase));
                                 string actionName = "save" + r.Element.Name;
                                 XisButton btn = new XisButton(repository, b, diagram, r.Element.Name + "SaveButton", actionName);
                                 btn.SetValue("Save " + r.Element.Name);
