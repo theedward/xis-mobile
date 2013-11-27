@@ -3,9 +3,9 @@
 	<Fragment>
 		<DirectoryRef Id="TARGETDIR">
 			<Directory Id="ProgramFilesFolder" Name="PFiles">
-				<Directory Id="INSTALLDIR" Name="Your Application">
-					<Component Id="MyComponent" Guid="81A733BA-8264-46B7-AA02-40DC57B8AD66" DiskId="1">
-						<File Id="LicenseFile" Name="license.rtf" Source="license.rtf"/>
+				<Directory Id="INSTALLDIR" Name="XISMobileEAPlugin">
+					<Component Id="XISMobileEAPluginFiles" Guid="81A733BA-8264-46B7-AA02-40DC57B8AD66" DiskId="1">
+						<File Id="LicenseFile" Name="license.rtf" Source="license.rtf" />
 					</Component>
 				</Directory>
 			</Directory>

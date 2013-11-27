@@ -23,7 +23,7 @@
 		         Title="XIS-Mobile EA Plugin"
 		         Description="XIS-Mobile Framework allows the generation of Mobile Applications code from UML models."
 		         Level="1">
-		         <ComponentRef Id="MyComponent"/>
+		         <ComponentRef Id="XISMobileEAPluginFiles"/>
 		</Feature>
 		
 		<!--
