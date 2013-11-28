@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using System.IO;
 using System.Runtime.Remoting.Messaging;
+using System.Reflection;
 
 namespace XISMobileEAPlugin
 {
@@ -66,8 +67,8 @@ namespace XISMobileEAPlugin
                 errorProvider.SetError(comboBoxTarget, "A Target must be specified!");
                 valid = false;
             }*/
-            
-            //textBoxPath.Text = "C:\\Users\\User\\Desktop";
+
+            textBoxPath.Text = "C:\\Users\\User\\Desktop";
 
             if (valid)
             {
@@ -82,9 +83,10 @@ namespace XISMobileEAPlugin
 
                 //ExecuteCommandDelegate del = new ExecuteCommandDelegate(StringToUpperFirst);
                 //del.BeginInvoke("test", PrintResult, null);
+                string exePath = "\"" + Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
-                ExecuteCommand("XMLParser.jar " + xmiPath + " " + projectName);
-                ExecuteCommand("Generator.jar " + umlPath + " " + textBoxPath.Text + "\\src-gen2");
+                ExecuteCommand(exePath + "\\XMLParser.jar\" " + xmiPath + " " + projectName);
+                ExecuteCommand(exePath + "\\Generator.jar\" " + umlPath + " " + textBoxPath.Text + "\\src-gen2");
                 Close();
             }
         }
