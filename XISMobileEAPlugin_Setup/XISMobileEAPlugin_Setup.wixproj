@@ -10,7 +10,7 @@
     <WixTargetsPath Condition=" '$(WixTargetsPath)' == '' AND '$(MSBuildExtensionsPath32)' != '' ">$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets</WixTargetsPath>
     <WixTargetsPath Condition=" '$(WixTargetsPath)' == '' ">$(MSBuildExtensionsPath)\Microsoft\WiX\v3.x\Wix.targets</WixTargetsPath>
     <SupressIces>ICE45</SupressIces>
-    <WixVariables>WixUILicenseRtf=license.rtf</WixVariables>
+    <WixVariables>WixUILicenseRtf=License.rtf</WixVariables>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Platform)' == 'AnyCPU' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -35,7 +35,7 @@
     <Compile Include="Setup.wxs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="license.rtf" />
+    <None Include="License.rtf" />
   </ItemGroup>
   <Import Project="$(WixTargetsPath)" />
 </Project>
