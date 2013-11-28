@@ -25,6 +25,7 @@
 		         Level="1">
 		         <ComponentRef Id="XISMobileEAPluginFiles"/>
 				 <ComponentRef Id="XISMobileEAPluginRegEntries"/>
+				 <ComponentRef Id="XISMobileMDGFiles"/>
 		</Feature>
 		
 		<!--
