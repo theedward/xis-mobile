@@ -429,7 +429,7 @@ public class Uml2Android extends AbstractAcceleoGenerator {
     protected URI createTemplateURI(String entry) {
     	if (entry.contains("rsrc:")) {
 			entry = entry.replace("rsrc:", "");
-			entry = "jar:file:/" + System.getProperty("user.dir") + "/generator.jar!/" + entry;
+			entry = "jar:file:/" + System.getProperty("user.dir") + "/Generator.jar!/" + entry;
 		}
     	
     	System.out.println("CENAS: " + entry);
