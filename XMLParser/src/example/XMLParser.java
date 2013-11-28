@@ -135,7 +135,7 @@ public class XMLParser {
 		xmiElement.setAttribute("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance");
 		xmiElement.setAttribute("xmlns:ecore", "http://www.eclipse.org/emf/2002/Ecore");
 		String schemaLocation = "http:///schemas/XISMobile/_z70vgCxDEeOO4K76AiBnHA/4";
-		schemaLocation += " jar:file:/" + System.getProperty("user.dir") + "/generator.jar!/XIS-Mobile/model.profile.uml#_z70vgSxDEeOO4K76AiBnHA";
+		schemaLocation += " jar:file:/" + System.getProperty("user.dir") + "/Generator.jar!/XIS-Mobile/model.profile.uml#_z70vgSxDEeOO4K76AiBnHA";
 		xmiElement.setAttribute("xsi:schemaLocation", schemaLocation);
 	}
 
