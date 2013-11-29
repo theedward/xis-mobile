@@ -436,6 +436,17 @@ namespace XISMobileEAPlugin
                 int center = (obj.top + obj.bottom) / -2;
                 listIS.ContextMenu.SetPosition(listDiagram, obj.right + 50, obj.right + 330, -obj.top, -obj.top + 70);
                 ComputePositions(listIS.ContextMenu, listDiagram);
+                
+                // Create XisMenuAssociation
+                EA.DiagramObject sourceObj = item.GetDiagramObject(listDiagram);
+                EA.Connector c = item.Element.Connectors.AddNew("", "Association");
+                c.ClientID = item.Element.ElementID;
+                c.SupplierID = listIS.ContextMenu.Element.ElementID;
+                c.Direction = "Source -> Destination";
+                c.Stereotype = "XisMenuAssociation";
+                c.Update();
+                item.Element.Update();
+                item.Element.Connectors.Refresh();
             }
 
             // Associate BE
@@ -1168,6 +1179,17 @@ namespace XISMobileEAPlugin
                 int center = (obj.top + obj.bottom) / -2;
                 managerIS.ContextMenu.SetPosition(diagram, obj.right + 50, obj.right + 330, -obj.top, -obj.top + 70);
                 ComputePositions(managerIS.ContextMenu, diagram);
+
+                // Create XisMenuAssociation
+                EA.DiagramObject sourceObj = item.GetDiagramObject(diagram);
+                EA.Connector c = item.Element.Connectors.AddNew("", "Association");
+                c.ClientID = item.Element.ElementID;
+                c.SupplierID = managerIS.ContextMenu.Element.ElementID;
+                c.Direction = "Source -> Destination";
+                c.Stereotype = "XisMenuAssociation";
+                c.Update();
+                item.Element.Update();
+                item.Element.Connectors.Refresh();
             }
 
             // Associate BE
