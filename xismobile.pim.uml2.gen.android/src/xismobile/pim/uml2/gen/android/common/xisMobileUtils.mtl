@@ -157,6 +157,14 @@
 	not c.getXisCompositeWidget().oclIsUndefined()
 /]
 
+[query public getXisDialog(c : Class) : Stereotype =
+	c.getAppliedStereotype('XIS-Mobile::XisDialog')
+/]
+
+[query public isXisDialog(c : Class) : Boolean =
+	not c.getXisDialog().oclIsUndefined()
+/]
+
 [query public getXisMenu(c : Class) : Stereotype =
 	c.getAppliedStereotype('XIS-Mobile::XisMenu')
 /]
