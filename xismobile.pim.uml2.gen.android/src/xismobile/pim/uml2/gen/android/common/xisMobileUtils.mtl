@@ -165,6 +165,14 @@
 	not c.getXisDialog().oclIsUndefined()
 /]
 
+[query public getXisDialogAssociation(a : Association) : Stereotype =
+	a.getAppliedStereotype('XIS-Mobile::XisDialogAssociation')
+/]
+
+[query public isXisDialogAssociation(a : Association) : Boolean =
+	not a.getXisDialogAssociation().oclIsUndefined()
+/]
+
 [query public getXisMenu(c : Class) : Stereotype =
 	c.getAppliedStereotype('XIS-Mobile::XisMenu')
 /]
@@ -183,6 +191,14 @@
 	getEnumValue(c.getValue(
 		c.getXisMenu(), 'type')
 	) = 'ContextMenu'
+/]
+
+[query public getXisMenuAssociation(a : Association) : Stereotype =
+	a.getAppliedStereotype('XIS-Mobile::XisMenuAssociation')
+/]
+
+[query public isXisMenuAssociation(a : Association) : Boolean =
+	not a.getXisMenuAssociation().oclIsUndefined()
 /]
 
 [query public getXisMenuGroup(c : Class) : Stereotype =
