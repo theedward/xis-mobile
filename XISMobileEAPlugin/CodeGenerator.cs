@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using XISMobileEAPlugin.InteractionSpace;
 using System.Reflection;
 using System.IO;
+using System.Xml;
 
 namespace XISMobileEAPlugin
 {
@@ -205,23 +206,24 @@ namespace XISMobileEAPlugin
         public String EA_OnInitializeTechnologies(EA.Repository Repository)
         {
             string technology = "";
-            string mdgPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            mdgPath += "\\XIS-Mobile MDG\\XIS-Mobile Technology.xml";
+            string dir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\XIS-Mobile MDG";
+            string mdgPath = dir + "\\XIS-Mobile Technology.xml";
             Assembly assem = this.GetType().Assembly;
 
-            using (Stream stream = File.OpenRead(mdgPath))
+            try
             {
-                try
+                string text = File.ReadAllText(mdgPath);
+                
+                if (text.Contains("%PATH%"))
                 {
-                    using (StreamReader reader = new StreamReader(stream))
-                    {
-                        technology = reader.ReadToEnd();
-                    }
+                    text = text.Replace("%PATH%", dir + "\\XIS-Mobile_Template.xml");
+                    File.WriteAllText(mdgPath, text);
                 }
-                catch(Exception e)
-                {
-                    MessageBox.Show("Error initializing XIS-Mobile MDG Technology " + e.Message);
-                }
+                technology = text;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Error initializing XIS-Mobile MDG Technology: " + e.Message);
             }
             return technology;
         }
