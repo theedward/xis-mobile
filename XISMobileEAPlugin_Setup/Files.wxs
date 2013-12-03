@@ -57,7 +57,9 @@
 							<File Id="InteractionSpaceViewToolbox.xml" Name="InteractionSpaceViewToolbox.xml" Source="..\XISMobileEAPlugin\bin\Release\XIS-Mobile MDG\InteractionSpaceViewToolbox.xml" />
 							<File Id="NavigationSpaceViewToolbox.xml" Name="NavigationSpaceViewToolbox.xml" Source="..\XISMobileEAPlugin\bin\Release\XIS-Mobile MDG\NavigationSpaceViewToolbox.xml" />
 							<File Id="UseCasesViewToolbox.xml" Name="UseCasesViewToolbox.xml" Source="..\XISMobileEAPlugin\bin\Release\XIS-Mobile MDG\UseCasesViewToolbox.xml" />
-							<File Id="XIS_Mobile_Technology.xml" Name="XIS-Mobile Technology.xml" Source="..\XISMobileEAPlugin\bin\Release\XIS-Mobile MDG\XIS-Mobile Technology.xml" />
+							<File Id="XIS_Mobile_Technology.xml" Name="XIS-Mobile Technology.xml" Source="..\XISMobileEAPlugin\bin\Release\XIS-Mobile MDG\XIS-Mobile Technology.xml">
+								<Permission ChangePermission="yes" GenericAll="yes" User="Everyone"/>
+							</File>
 							<File Id="XIS_Mobile.mts" Name="XIS-Mobile.mts" Source="..\XISMobileEAPlugin\bin\Release\XIS-Mobile MDG\XIS-Mobile.mts" />
 							<File Id="XIS_Mobile.xml" Name="XIS-Mobile.xml" Source="..\XISMobileEAPlugin\bin\Release\XIS-Mobile MDG\XIS-Mobile.xml" />
 							<File Id="XIS_Mobile_Diagrams.xml" Name="XIS-Mobile_Diagrams.xml" Source="..\XISMobileEAPlugin\bin\Release\XIS-Mobile MDG\XIS-Mobile_Diagrams.xml" />
