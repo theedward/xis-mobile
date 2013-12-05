@@ -1,0 +1,73 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity" >
+
+    <TextView
+        android:id="@+id/areaNameLbl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="Lisbon"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <ImageView
+        android:id="@+id/imageViewPOI"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/areaNameLbl"
+		android:layout_centerHorizontal="true"
+        android:src="@drawable/lisbon_wallpaper" />
+
+    <LinearLayout
+	    android:id="@+id/buttonArea"
+	    android:layout_width="match_parent"
+	    android:layout_height="50dp"
+	    android:layout_below="@+id/imageViewPOI"
+	    android:layout_marginTop="10dp"
+	    android:background="@color/common_action_bar_splitter"
+	    android:gravity="bottom|right"
+	    android:orientation="horizontal" >
+	
+	     <TextView
+	        android:id="@+id/buttonMap"
+	        android:layout_width="wrap_content"
+	        android:layout_height="fill_parent"
+	        android:layout_weight="0.25"
+	        android:gravity="center"
+	        android:text="Map" />
+
+	    <TextView
+	        android:id="@+id/buttonSearch"
+	        android:layout_width="wrap_content"
+	        android:layout_height="fill_parent"
+	        android:layout_weight="0.25"
+	        android:gravity="center"
+        	android:text="Search" />
+
+	    <TextView
+	        android:id="@+id/buttonSync"
+	        android:layout_width="wrap_content"
+	        android:layout_height="fill_parent"
+	        android:layout_weight="0.25"
+	        android:gravity="center"
+	        android:text="Sync" />
+	
+	    <TextView
+	        android:id="@+id/buttonFav"
+	        android:layout_width="wrap_content"
+	        android:layout_height="fill_parent"
+	        android:layout_weight="0.25"
+	        android:gravity="center"
+	        android:text="Favourites" />
+	</LinearLayout>
+    
+    <ListView
+        android:id="@+id/listViewCat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/buttonArea">
+    </ListView>
+    
+</RelativeLayout>

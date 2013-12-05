@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="xismobile.example.xistodoapp"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="17" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <application
+        android:allowBackup="false"
+        android:icon="@drawable/ic_launcher"
+        android:label="To-Do List App" >
+        <activity
+            android:name="xismobile.example.todolistapp.TaskListActivity"
+            android:label="To-Do List App" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="xismobile.example.todolistapp.EditTaskActivity"
+            android:label="To-Do List App" >
+        </activity>
+        <activity
+            android:name="xismobile.example.todolistapp.NoteListActivity"
+            android:label="To-Do List App" >
+        </activity>
+    </application>
+
+</manifest>

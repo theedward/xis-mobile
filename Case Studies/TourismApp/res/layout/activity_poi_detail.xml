@@ -1,0 +1,81 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".POIDetailActivity" >
+    
+    <ImageView
+        android:id="@+id/imageViewPOI"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true" />
+
+    <LinearLayout
+        android:id="@+id/layoutButtons"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/imageViewPOI" >
+        
+	    <Button
+	        android:id="@+id/buttonWiki"
+	        style="?android:attr/buttonStyleSmall"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="0.5"
+	        android:text="Wiki" />
+	
+	    <Button
+	        android:id="@+id/buttonSave"
+	        style="?android:attr/buttonStyleSmall"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="0.5"
+	        android:text="Add to Favourites" />
+
+	 </LinearLayout>
+	    
+    <TextView
+        android:id="@+id/textViewDescription"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/layoutButtons"
+        android:layout_marginTop="20dp"
+        android:text="Description"
+        android:ems="10" />
+
+    <ListView
+        android:id="@+id/listViewTours"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewDescription"
+        android:layout_above="@+id/linearlayoutButtons"
+        android:layout_marginTop="10dp" >
+    </ListView>
+    
+    <LinearLayout
+        android:id="@+id/linearlayoutButtons"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" >
+        
+        <Button
+	        android:id="@+id/buttonPrevious"
+	        style="?android:attr/buttonStyleInset"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+			android:layout_weight="0.5"
+	        android:text="&lt; Previous" />
+
+	    <Button
+	        android:id="@+id/buttonNext"
+	        style="?android:attr/buttonStyleInset"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="0.5"
+	        android:text="Next &gt;" />
+    </LinearLayout>
+
+</RelativeLayout>

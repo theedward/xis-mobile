@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_vertical"
+    android:minHeight="64dp">
+
+    <ImageView
+        android:id="@+id/tourImage"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="2dp"
+        android:layout_centerVertical="true"/>
+
+    <TextView
+        android:id="@+id/tourNameLbl"
+        android:layout_width="wrap_content"
+        android:layout_height="32dp"
+        android:layout_toRightOf="@+id/tourImage"
+        android:layout_marginLeft="2dp"
+        android:layout_alignParentTop="true"
+        android:gravity="center_vertical"
+        android:text="Name" />
+    
+    <TextView
+        android:id="@+id/totalHoursLbl"
+        android:layout_width="97dp"
+        android:layout_height="32dp"
+        android:layout_toRightOf="@+id/tourImage"
+        android:layout_marginLeft="2dp"
+        android:layout_below="@+id/tourNameLbl"
+        android:gravity="center_vertical"
+        android:text="Hours" />
+
+    <TextView
+        android:id="@+id/totalKmsLbl"
+        android:layout_width="97dp"
+        android:layout_height="32dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/totalHoursLbl"
+        android:gravity="center_vertical"
+        android:text="Kms" />
+
+</RelativeLayout>

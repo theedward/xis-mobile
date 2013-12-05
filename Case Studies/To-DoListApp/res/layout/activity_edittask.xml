@@ -1,0 +1,99 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    tools:context=".EditTaskActivity" >
+
+	<TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:text="@string/edit_task"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+        
+    <TextView
+        android:id="@+id/textViewTaskDetailSection"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView1"
+        android:text="@string/task_information"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <View
+        android:id="@+id/view1"
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/textViewTaskDetailSection"
+        android:background="@android:color/darker_gray" />
+    
+    <EditText
+        android:id="@+id/editTextTitle"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/view1"
+        android:layout_marginTop="10dp"
+        android:ems="10"
+        android:hint="@string/title" >
+
+        <requestFocus android:layout_width="match_parent" />
+
+    </EditText>
+    
+    <EditText
+        android:id="@+id/editTextDescription"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/editTextTitle"
+        android:ems="10"
+        android:hint="@string/description" />
+    
+    <EditText
+        android:id="@+id/buttonDate"
+        android:focusable="false"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editTextDescription"
+        android:layout_centerHorizontal="true"
+        android:onClick="setDate"
+        android:hint="@string/date" />
+    
+    <LinearLayout
+	    android:id="@+id/layoutCategory"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_below="@+id/buttonDate"
+	    android:orientation="horizontal" >
+
+	    <TextView
+	        android:id="@+id/countryLabel"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="0.13"
+	        android:text="@string/category_"
+	        android:textAppearance="?android:attr/textAppearanceMedium" />
+	
+	    <Spinner
+	        android:id="@+id/spinnerCategories"
+	        android:spinnerMode="dialog"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="0.81" />
+
+	</LinearLayout>
+
+    <Button
+        android:id="@+id/buttonNotes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layoutCategory"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"
+        android:text="@string/manage_notes" />
+
+</RelativeLayout>

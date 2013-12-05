@@ -1,0 +1,67 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".TourDetailActivity" >
+
+    <ImageView
+        android:id="@+id/imageViewTour"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true" />
+    
+    <TextView
+        android:id="@+id/textViewDetails"
+        android:textStyle="bold"
+        android:gravity="center_horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/imageViewTour"
+        android:layout_marginTop="5dp"
+        android:text="Details"
+        android:ems="10" />
+    <TextView
+        android:id="@+id/textViewDescription"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/textViewDetails"
+        android:layout_marginTop="20dp"
+        android:text="Description"
+        android:ems="10" />
+    
+    <ListView
+        android:id="@+id/listViewPOIs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewDescription"
+        android:layout_above="@+id/linearLayout1"
+        android:layout_marginTop="10dp" >
+    </ListView>
+    
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" >
+
+        <Button
+            android:id="@+id/buttonPrevious"
+            style="?android:attr/buttonStyleInset"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:text="&lt; Previous" />
+
+        <Button
+            android:id="@+id/buttonNext"
+            style="?android:attr/buttonStyleInset"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:text="Next >" />
+    </LinearLayout>
+
+</RelativeLayout>
