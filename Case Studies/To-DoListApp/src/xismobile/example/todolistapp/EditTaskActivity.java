@@ -3,6 +3,7 @@ package xismobile.example.todolistapp;
 import java.util.Calendar;
 
 import xismobile.example.todolistapp.OperationLogger.OperationType;
+import xismobile.example.todolistapp.domain.Category;
 import xismobile.example.todolistapp.domain.OrmLiteHelper;
 import xismobile.example.todolistapp.domain.Task;
 import xismobile.example.xistodoapp.R;
@@ -110,8 +111,9 @@ public class EditTaskActivity extends Activity {
 	
 	public void initMCategorySpinner() {
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item);
-		adapter.add("Personal");
-		adapter.add("Work");
+		for (Category c : helper.getAllCategorys()) {
+			adapter.add(c.getName());
+		}
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		mCategorySpinner.setPrompt("Select Category...");
 		mCategorySpinner.setAdapter(adapter);
