@@ -3,6 +3,7 @@ package com.example.tourismapp;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -94,6 +95,9 @@ public class MapISActivity extends FragmentActivity {
 					@Override
 					public void onInfoWindowClick(Marker marker) {
 						Toast.makeText(getApplicationContext(), marker.getTitle(), Toast.LENGTH_SHORT).show();
+						Intent i = new Intent(getApplicationContext(), POIDetailActivity.class);
+						i.putExtra("POI", marker.getTitle());
+						startActivity(i);
 					}
 				});
 				
