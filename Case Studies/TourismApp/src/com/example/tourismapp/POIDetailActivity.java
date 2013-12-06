@@ -1,5 +1,6 @@
 package com.example.tourismapp;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
@@ -31,6 +32,7 @@ public class POIDetailActivity extends Activity {
 	private List<POI> pois;
 	private List<Tour> tours;
 	private POI poi;
+	private String catName;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +44,12 @@ public class POIDetailActivity extends Activity {
 			String name = extras.getString("POI");
 //			manager = DomainEntityManager.getManager(getApplicationContext());
 			helper = OrmLiteHelper.getHelper(getApplicationContext());
-			pois = helper.getAllPOIs();
+			catName = extras.getString("CATEGORY");
+			if (catName != null) {
+				pois = helper.getPOIsByCategoryName(catName);
+			} else {
+				pois = helper.getAllPOIs();
+			}
 			poi = helper.getPOIByName(name);
 			setTitle(name);
 			initWidgets();
@@ -95,11 +102,21 @@ public class POIDetailActivity extends Activity {
 		buttonPrevious.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				int index = pois.indexOf(poi);
+				int index = -1;
+				for (int i = 0; i < pois.size(); i++) {
+					if (pois.get(i).getName().equals(poi.getName())) {
+						index = i;
+						break;
+					}
+				}
+				
 				if (index > 0) {
 					POI p = pois.get(index - 1);
 					Intent i = new Intent(getApplicationContext(), POIDetailActivity.class);
 					i.putExtra("POI", p.getName());
+					if (catName != null) {
+						i.putExtra("CATEGORY", catName);
+					}
 					startActivity(i);
 				}
 			}
@@ -108,11 +125,21 @@ public class POIDetailActivity extends Activity {
 		buttonNext.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				int index = pois.indexOf(poi);
-				if (index < (pois.size() - 1)) {
+				int index = -1;
+				for (int i = 0; i < pois.size(); i++) {
+					if (pois.get(i).getName().equals(poi.getName())) {
+						index = i;
+						break;
+					}
+				}
+				
+				if (index != -1 && index < (pois.size() - 1)) {
 					POI p = pois.get(index + 1);
 					Intent i = new Intent(getApplicationContext(), POIDetailActivity.class);
 					i.putExtra("POI", p.getName());
+					if (catName != null) {
+						i.putExtra("CATEGORY", catName);
+					}
 					startActivity(i);
 				}
 			}
@@ -127,6 +154,9 @@ public class POIDetailActivity extends Activity {
 		tvDescription.setText(poi.getDescription());
 		
 		tours = helper.getToursByPOI(poi.getName());
+		if (tours == null) {
+			tours = new ArrayList<Tour>();
+		}
 		TourAdapter adapter = new TourAdapter(this, R.layout.tour_row, tours);
 		ListView lvTours = (ListView) findViewById(R.id.listViewTours);
 		lvTours.setAdapter(adapter);

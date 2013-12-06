@@ -54,6 +54,9 @@ public class POIListActivity extends Activity {
 				POI p = pois.get(position);
 				Intent i = new Intent(getApplicationContext(), POIDetailActivity.class);
 				i.putExtra("POI", p.getName());
+				if (catName != null) {
+					i.putExtra("CATEGORY", catName);
+				}
 				startActivity(i);
 			}
 		});

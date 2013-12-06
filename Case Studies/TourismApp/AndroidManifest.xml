@@ -38,8 +38,7 @@
             android:label="@string/title_activity_map_is" >
         </activity>
         <activity
-            android:name="com.example.tourismapp.POIListActivity"
-            android:windowSoftInputMode="stateHidden" >"
+            android:name="com.example.tourismapp.POIListActivity" >"
         </activity>
 
         <!-- Google Maps API Key -->

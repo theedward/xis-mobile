@@ -104,7 +104,14 @@ public class TourDetailActivity extends Activity {
 		buttonPrevious.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				int index = tours.indexOf(tour);
+				int index = -1;
+				for (int i = 0; i < tours.size(); i++) {
+					if (tours.get(i).getName().equals(tour.getName())) {
+						index = i;
+						break;
+					}
+				}
+				
 				if (index > 0) {
 					Tour t = tours.get(index - 1);
 					Intent i = new Intent(getApplicationContext(), TourDetailActivity.class);
@@ -117,8 +124,15 @@ public class TourDetailActivity extends Activity {
 		buttonNext.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				int index = tours.indexOf(tour);
-				if (index < (tours.size() - 1)) {
+				int index = -1;
+				for (int i = 0; i < tours.size(); i++) {
+					if (tours.get(i).getName().equals(tour.getName())) {
+						index = i;
+						break;
+					}
+				}
+				
+				if (index != -1 && index < (tours.size() - 1)) {
 					Tour t = tours.get(index + 1);
 					Intent i = new Intent(getApplicationContext(), TourDetailActivity.class);
 					i.putExtra("TOUR", t.getName());
