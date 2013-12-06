@@ -28,6 +28,11 @@ public class TourDetailActivity extends Activity {
 	private List<Tour> tours;
 	private List<POI> pois;
 	private Tour tour;
+	private ImageView imageTour;
+	private TextView tvDetails;
+	private TextView tvDescription;
+	private ListView lvPOIs;
+	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -70,21 +75,21 @@ public class TourDetailActivity extends Activity {
 	}
 	
 	private void initWidgets() {
-		ImageView image = (ImageView) findViewById(R.id.imageViewTour);
+		imageTour = (ImageView) findViewById(R.id.imageViewTour);
 		Drawable img = getResources().getDrawable(
 			getResources().getIdentifier(tour.getImage(),
 			"drawable", getPackageName()));
-		image.setImageDrawable(img);
-		TextView tvDetails = (TextView) findViewById(R.id.textViewDetails);
+		imageTour.setImageDrawable(img);
+		tvDetails = (TextView) findViewById(R.id.textViewDetails);
 		tvDetails.setText(pois.size() + " stops, " + tour.getTotalKms() + "Km, "
 			+ tour.getTotalHours() + "h");
-		TextView tvDescription = (TextView) findViewById(R.id.textViewDescription);
+		tvDescription = (TextView) findViewById(R.id.textViewDescription);
 		tvDescription.setText(tour.getDescription());
 		
-		ListView lv = (ListView) findViewById(R.id.listViewPOIs);
+		lvPOIs = (ListView) findViewById(R.id.listViewPOIs);
 		POIAdapter adapter = new POIAdapter(getApplicationContext(), R.layout.poi_row, pois);
-		lv.setAdapter(adapter);
-		lv.setOnItemClickListener(new OnItemClickListener() {
+		lvPOIs.setAdapter(adapter);
+		lvPOIs.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View v, int position,
 				long id) {
