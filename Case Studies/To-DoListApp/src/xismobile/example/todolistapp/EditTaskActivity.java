@@ -47,10 +47,8 @@ public class EditTaskActivity extends Activity {
 			Bundle extras = getIntent().getExtras();
 			taskID = (int) extras.getLong("TaskID");
 			task = helper.getTaskById(taskID);
-			mNotesButton.setEnabled(true);
 		} else {
 			task = new Task();
-			mNotesButton.setEnabled(false);
 		}
 		initWidgets();
 	}
@@ -102,6 +100,11 @@ public class EditTaskActivity extends Activity {
 	
 	public void initMNotesButton() {
 		mNotesButton = (Button) findViewById(R.id.buttonNotes);
+		if (taskID != -1) {
+			mNotesButton.setEnabled(true);
+		} else {
+			mNotesButton.setEnabled(false);
+		}
 		mNotesButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
