@@ -47,8 +47,10 @@ public class EditTaskActivity extends Activity {
 			Bundle extras = getIntent().getExtras();
 			taskID = (int) extras.getLong("TaskID");
 			task = helper.getTaskById(taskID);
+			mNotesButton.setEnabled(true);
 		} else {
 			task = new Task();
+			mNotesButton.setEnabled(false);
 		}
 		initWidgets();
 	}
