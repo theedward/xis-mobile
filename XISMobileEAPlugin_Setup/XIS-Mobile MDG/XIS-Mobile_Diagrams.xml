@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="windows-1252"?>
+<UMLProfile profiletype="uml2">
+	<Documentation id="69C409BD-C" name="XIS-Mobile_Diagrams" version="1.0" alias="XIS-Mobile Diagrams" notes="XIS-Mobile_Diagrams"/>
+	<Content>
+		<Stereotypes>
+			<Stereotype name="ArchitecturalViewModel" alias="Architectural View Diagram" notes="A XIS-Mobile's Architectural View Diagram represents..." cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
+				<AppliesTo>
+					<Apply type="Diagram_Logical">
+						<Property name="alias" value="Architectural View"/>
+						<Property name="diagramID" value="XM_AVM"/>
+						<Property name="toolbox" value="Architectural View Diagram"/>
+					</Apply>
+				</AppliesTo>
+			</Stereotype>
+			<Stereotype name="BusinessEntitiesViewModel" alias="BusinessEntity View Diagram" notes="A XIS-Mobile's BusinessEntities View Diagram represents...&#xA;which are used in the UseCases and InteractionSpace Views." cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
+				<AppliesTo>
+					<Apply type="Diagram_Logical">
+						<Property name="alias" value="BusinessEntities View"/>
+						<Property name="diagramID" value="XM_BEVM"/>
+						<Property name="toolbox" value="BusinessEntities View Diagram"/>
+					</Apply>
+				</AppliesTo>
+			</Stereotype>
+			<Stereotype name="DomainViewModel" alias="Domain View Diagram" notes="A XIS-Mobile's Domain View Diagram represents the relevant classes to the problem domain, their attributes and the relationships among them." cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
+				<AppliesTo>
+					<Apply type="Diagram_Logical">
+						<Property name="alias" value="Domain View"/>
+						<Property name="diagramID" value="XM_DVM"/>
+						<Property name="toolbox" value="Domain View Diagram"/>
+					</Apply>
+				</AppliesTo>
+			</Stereotype>
+			<Stereotype name="InteractionSpaceViewModel" alias="InteractionSpace View Diagram" notes="A XIS-Mobile's InteractionSpace View represents..." cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
+				<AppliesTo>
+					<Apply type="Diagram_Logical">
+						<Property name="alias" value="InteractionSpace View"/>
+						<Property name="diagramID" value="XM_ISVM"/>
+						<Property name="toolbox" value="InteractionSpace View Diagram"/>
+					</Apply>
+				</AppliesTo>
+			</Stereotype>
+			<Stereotype name="NavigationSpaceViewModel" alias="NavigationSpace View Diagram" notes="A XIS-Mobile's NavigationSpace View Diagram represents..." cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
+				<AppliesTo>
+					<Apply type="Diagram_Logical">
+						<Property name="alias" value="NavigationSpace View"/>
+						<Property name="diagramID" value="XM_NSVM"/>
+						<Property name="toolbox" value="NavigationSpace View Diagram"/>
+					</Apply>
+				</AppliesTo>
+			</Stereotype>
+			<Stereotype name="UseCasesViewModel" alias="UseCases View Diagram" notes="A XIS-Mobile's UseCases View Diagram represents..." cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
+				<AppliesTo>
+					<Apply type="Diagram_Use Case">
+						<Property name="alias" value="UseCases View"/>
+						<Property name="diagramID" value="XM_UCVM"/>
+						<Property name="toolbox" value="UseCases View Diagram"/>
+					</Apply>
+				</AppliesTo>
+			</Stereotype>
+			<Stereotype name="XIS-MobileViewModel" alias="XIS-Mobile Views Diagram" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
+				<AppliesTo>
+					<Apply type="Diagram_Package">
+						<Property name="alias" value="XIS-Mobile View"/>
+						<Property name="diagramID" value="XM_XMVM"/>
+						<Property name="toolbox" value="XIS-Mobile Views Diagram"/>
+					</Apply>
+				</AppliesTo>
+			</Stereotype>
+		</Stereotypes>
+		<TaggedValueTypes/>
+	</Content>
+</UMLProfile>

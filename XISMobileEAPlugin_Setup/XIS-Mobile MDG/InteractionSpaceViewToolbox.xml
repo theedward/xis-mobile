@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="windows-1252"?>
+<UMLProfile profiletype="uml2">
+	<Documentation id="C72493FD-8" name="InteractionSpace View Diagram" version="1.0" notes="InteractionSpace View Diagram"/>
+	<Content>
+		<Stereotypes>
+			<Stereotype name="InteractionSpace_Elements" alias="InteractionSpace Elements" notes="" cx="286" cy="85" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
+				<AppliesTo>
+					<Apply type="ToolboxPage"/>
+				</AppliesTo>
+				<TaggedValues>
+					<Tag name="XIS-Mobile::XisInteractionSpace" type="" description="" unit="" values="" default="XisInteractionSpace"/>
+					<Tag name="XIS-Mobile::XisGesture" type="" description="" unit="" values="" default="XisGesture"/>
+					<Tag name="XIS-Mobile::XisAction" type="" description="" unit="" values="" default="XisAction"/>
+					<Tag name="XIS-Mobile::XisArgument" type="" description="" unit="" values="" default="XisArgument"/>
+				</TaggedValues>
+			</Stereotype>
+			<Stereotype name="Simple_Widget_Elements" alias="Simple Widget Elements" notes="" cx="292" cy="202" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
+				<AppliesTo>
+					<Apply type="ToolboxPage"/>
+				</AppliesTo>
+				<TaggedValues>
+					<Tag name="XIS-Mobile::XisLabel" type="" description="" unit="" values="" default="XisLabel"/>
+					<Tag name="XIS-Mobile::XisTextBox" type="" description="" unit="" values="" default="XisTextBox"/>
+					<Tag name="XIS-Mobile::XisCheckBox" type="" description="" unit="" values="" default="XisCheckBox"/>
+					<Tag name="XIS-Mobile::XisButton" type="" description="" unit="" values="" default="XisButton"/>
+					<Tag name="XIS-Mobile::XisLink" type="" description="" unit="" values="" default="XisLink"/>
+					<Tag name="XIS-Mobile::XisImage" type="" description="" unit="" values="" default="XisImage"/>
+					<Tag name="XIS-Mobile::XisDatePicker" type="" description="" unit="" values="" default="XisDatePicker"/>
+					<Tag name="XIS-Mobile::XisTimePicker" type="" description="" unit="" values="" default="XisTimePicker"/>
+					<Tag name="XIS-Mobile::XisWebView" type="" description="" unit="" values="" default="XisWebView"/>
+					<Tag name="XIS-Mobile::XisMapView" type="" description="" unit="" values="" default="XisMapView"/>
+					<Tag name="XIS-Mobile::XisDropdown" type="" description="" unit="" values="" default="XisDropdown"/>
+					<Tag name="XIS-Mobile::XisMenuItem" type="" description="" unit="" values="" default="XisMenuItem"/>
+					<Tag name="XIS-Mobile::XisDialog" type="" description="" unit="" values="" default="XisDialog"/>
+				</TaggedValues>
+			</Stereotype>
+			<Stereotype name="InteractionSpace_Relationships" alias="InteractionSpace Relationships" notes="" cx="306" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
+				<AppliesTo>
+					<Apply type="ToolboxPage"/>
+				</AppliesTo>
+				<TaggedValues>
+					<Tag name="XIS-Mobile::XisDomainAssociation" type="" description="" unit="" values="" default="XisDomainAssociation"/>
+					<Tag name="XIS-Mobile::XisDialogAssociation" type="" description="" unit="" values="" default="XisDialogAssociation"/>
+					<Tag name="XIS-Mobile::XisMenuAssociation" type="" description="" unit="" values="" default="XisMenuAssociation"/>
+				</TaggedValues>
+			</Stereotype>
+			<Stereotype name="Composite_Widget_Elements" alias="Composite Widgets Elements" notes="" cx="238" cy="85" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
+				<AppliesTo>
+					<Apply type="ToolboxPage"/>
+				</AppliesTo>
+				<TaggedValues>
+					<Tag name="XIS-Mobile::XisMenu" type="" description="" unit="" values="" default="XisMenu"/>
+					<Tag name="XIS-Mobile::XisMenuGroup" type="" description="" unit="" values="" default="XisMenuGroup"/>
+					<Tag name="XIS-Mobile::XisList" type="" description="" unit="" values="" default="XisList"/>
+					<Tag name="XIS-Mobile::XisListItem" type="" description="" unit="" values="" default="XisListItem"/>
+				</TaggedValues>
+			</Stereotype>
+			<Stereotype name="Boundary_Elements" alias="Boundary Elements" notes="" cx="288" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
+				<AppliesTo>
+					<Apply type="ToolboxPage"/>
+				</AppliesTo>
+				<TaggedValues>
+					<Tag name="XIS-Mobile::XisVisibilityBoundary" type="" description="" unit="" values="" default="XisVisibilityBoundary"/>
+				</TaggedValues>
+			</Stereotype>
+		</Stereotypes>
+		<TaggedValueTypes/>
+	</Content>
+</UMLProfile>

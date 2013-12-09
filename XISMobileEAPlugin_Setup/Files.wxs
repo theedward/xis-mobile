@@ -41,8 +41,8 @@
 						<File Id="XISMobileEAPlugin.dll.config" Name="XISMobileEAPlugin.dll.config" Source="..\XISMobileEAPlugin\bin\Release\XISMobileEAPlugin.dll.config" />
 						<File Id="XISMobileEAPlugin.pdb" Name="XISMobileEAPlugin.pdb" Source="..\XISMobileEAPlugin\bin\Release\XISMobileEAPlugin.pdb" />
 						<File Id="XISMobileEAPlugin.tlb" Name="XISMobileEAPlugin.tlb" Source="..\XISMobileEAPlugin\bin\Release\XISMobileEAPlugin.tlb" />
-						<File Id="XMLParser.jar" Name="XMLParser.jar" Source="..\XISMobileEAPlugin\bin\Release\XMLParser.jar" />
-						<File Id="Generator.jar" Name="Generator.jar" Source="..\XISMobileEAPlugin\bin\Release\Generator.jar" />
+						<File Id="XMLParser.jar" Name="XMLParser.jar" Source="XMLParser.jar" />
+						<File Id="Generator.jar" Name="Generator.jar" Source="Generator.jar" />
 					</Component>
 					<Component Id="XISMobileEAPluginRegEntries" Guid="2936EFE7-AB1F-429A-890B-A2ACF8660BBB">
 						<RegistryKey Root="HKCU" Key="Software\Sparx Systems\EAAddins\XIS-Mobile EA Plugin" ForceCreateOnInstall="yes" ForceDeleteOnUninstall="yes">
@@ -51,20 +51,20 @@
 					</Component>
 					<Directory Id="XIS_Mobile_MDG" Name="XIS-Mobile MDG">
 						<Component Id="XISMobileMDGFiles" Guid="071D2ABB-50AC-4AFF-BE20-42AD1CC7B766" DiskId="1">
-							<File Id="ArchitecturalViewToolbox.xml" Name="ArchitecturalViewToolbox.xml" Source="..\XISMobileEAPlugin\bin\Release\XIS-Mobile MDG\ArchitecturalViewToolbox.xml" />
-							<File Id="BusinessEntitiesViewToolbox.xml" Name="BusinessEntitiesViewToolbox.xml" Source="..\XISMobileEAPlugin\bin\Release\XIS-Mobile MDG\BusinessEntitiesViewToolbox.xml" />
-							<File Id="DomainViewToolbox.xml" Name="DomainViewToolbox.xml" Source="..\XISMobileEAPlugin\bin\Release\XIS-Mobile MDG\DomainViewToolbox.xml" />
-							<File Id="InteractionSpaceViewToolbox.xml" Name="InteractionSpaceViewToolbox.xml" Source="..\XISMobileEAPlugin\bin\Release\XIS-Mobile MDG\InteractionSpaceViewToolbox.xml" />
-							<File Id="NavigationSpaceViewToolbox.xml" Name="NavigationSpaceViewToolbox.xml" Source="..\XISMobileEAPlugin\bin\Release\XIS-Mobile MDG\NavigationSpaceViewToolbox.xml" />
-							<File Id="UseCasesViewToolbox.xml" Name="UseCasesViewToolbox.xml" Source="..\XISMobileEAPlugin\bin\Release\XIS-Mobile MDG\UseCasesViewToolbox.xml" />
-							<File Id="XIS_Mobile_Technology.xml" Name="XIS-Mobile Technology.xml" Source="..\XISMobileEAPlugin\bin\Release\XIS-Mobile MDG\XIS-Mobile Technology.xml">
-								<Permission ChangePermission="yes" GenericAll="yes" User="Everyone"/>
+							<File Id="ArchitecturalViewToolbox.xml" Name="ArchitecturalViewToolbox.xml" Source="XIS-Mobile MDG\ArchitecturalViewToolbox.xml" />
+							<File Id="BusinessEntitiesViewToolbox.xml" Name="BusinessEntitiesViewToolbox.xml" Source="XIS-Mobile MDG\BusinessEntitiesViewToolbox.xml" />
+							<File Id="DomainViewToolbox.xml" Name="DomainViewToolbox.xml" Source="XIS-Mobile MDG\DomainViewToolbox.xml" />
+							<File Id="InteractionSpaceViewToolbox.xml" Name="InteractionSpaceViewToolbox.xml" Source="XIS-Mobile MDG\InteractionSpaceViewToolbox.xml" />
+							<File Id="NavigationSpaceViewToolbox.xml" Name="NavigationSpaceViewToolbox.xml" Source="XIS-Mobile MDG\NavigationSpaceViewToolbox.xml" />
+							<File Id="UseCasesViewToolbox.xml" Name="UseCasesViewToolbox.xml" Source="XIS-Mobile MDG\UseCasesViewToolbox.xml" />
+							<File Id="XIS_Mobile_Technology.xml" Name="XIS-Mobile Technology.xml" Source="XIS-Mobile MDG\XIS-Mobile Technology.xml">
+								<Permission ChangePermission="yes" GenericAll="yes" User="Everyone" />
 							</File>
-							<File Id="XIS_Mobile.mts" Name="XIS-Mobile.mts" Source="..\XISMobileEAPlugin\bin\Release\XIS-Mobile MDG\XIS-Mobile.mts" />
-							<File Id="XIS_Mobile.xml" Name="XIS-Mobile.xml" Source="..\XISMobileEAPlugin\bin\Release\XIS-Mobile MDG\XIS-Mobile.xml" />
-							<File Id="XIS_Mobile_Diagrams.xml" Name="XIS-Mobile_Diagrams.xml" Source="..\XISMobileEAPlugin\bin\Release\XIS-Mobile MDG\XIS-Mobile_Diagrams.xml" />
-							<File Id="XIS_Mobile_Template.xml" Name="XIS-Mobile_Template.xml" Source="..\XISMobileEAPlugin\bin\Release\XIS-Mobile MDG\XIS-Mobile_Template.xml" />
-							<File Id="XIS_MobileViewsToolbox.xml" Name="XIS-MobileViewsToolbox.xml" Source="..\XISMobileEAPlugin\bin\Release\XIS-Mobile MDG\XIS-MobileViewsToolbox.xml" />
+							<File Id="XIS_Mobile.mts" Name="XIS-Mobile.mts" Source="XIS-Mobile MDG\XIS-Mobile.mts" />
+							<File Id="XIS_Mobile.xml" Name="XIS-Mobile.xml" Source="XIS-Mobile MDG\XIS-Mobile.xml" />
+							<File Id="XIS_Mobile_Diagrams.xml" Name="XIS-Mobile_Diagrams.xml" Source="XIS-Mobile MDG\XIS-Mobile_Diagrams.xml" />
+							<File Id="XIS_Mobile_Template.xml" Name="XIS-Mobile_Template.xml" Source="XIS-Mobile MDG\XIS-Mobile_Template.xml" />
+							<File Id="XIS_MobileViewsToolbox.xml" Name="XIS-MobileViewsToolbox.xml" Source="XIS-Mobile MDG\XIS-MobileViewsToolbox.xml" />
 						</Component>
 					</Directory>
 				</Directory>

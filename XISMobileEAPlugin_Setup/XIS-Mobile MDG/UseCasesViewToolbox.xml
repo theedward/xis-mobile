@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="windows-1252"?>
+<UMLProfile profiletype="uml2">
+	<Documentation id="A01732AA-8" name="UseCases View Diagram" version="1.0" notes="UseCases View Diagram"/>
+	<Content>
+		<Stereotypes>
+			<Stereotype name="UseCase_Elements" alias="UseCase Elements" notes="Elements for UseCase View Diagrams" cx="206" cy="76" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
+				<AppliesTo>
+					<Apply type="ToolboxPage"/>
+				</AppliesTo>
+				<TaggedValues>
+					<Tag name="XIS-Mobile::XisUseCase" type="" description="" unit="" values="" default="XisUseCase"/>
+				</TaggedValues>
+			</Stereotype>
+			<Stereotype name="UseCase_Relationships" alias="UseCase Relationships" notes="Relationships for UseCase View Diagrams" cx="307" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
+				<AppliesTo>
+					<Apply type="ToolboxPage"/>
+				</AppliesTo>
+				<TaggedValues>
+					<Tag name="XIS-Mobile::XisOperatesOnAssociation" type="" description="" unit="" values="" default="XisOperatesOnAssociation"/>
+				</TaggedValues>
+			</Stereotype>
+		</Stereotypes>
+		<TaggedValueTypes/>
+	</Content>
+</UMLProfile>

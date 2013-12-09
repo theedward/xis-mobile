@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="windows-1252"?>
+<UMLProfile profiletype="uml2">
+	<Documentation id="AD61B3F2-0" name="Domain View Diagram" version="1.0" notes="Domain View Diagram"/>
+	<Content>
+		<Stereotypes>
+			<Stereotype name="Domain_Elements" alias="Domain Elements" notes="Elements for Domain View Diagrams" cx="304" cy="85" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
+				<AppliesTo>
+					<Apply type="ToolboxPage"/>
+				</AppliesTo>
+				<TaggedValues>
+					<Tag name="XIS-Mobile::XisEntity" type="" description="" unit="" values="" default="XisEntity"/>
+					<Tag name="XIS-Mobile::XisEntityAttribute" type="" description="" unit="" values="" default="XisEntityAttribute"/>
+					<Tag name="XIS-Mobile::XisEnumeration" type="" description="" unit="" values="" default="XisEnumeration"/>
+					<Tag name="XIS-Mobile::XisEnumerationValue" type="" description="" unit="" values="" default="XisEnumerationValue"/>
+				</TaggedValues>
+			</Stereotype>
+			<Stereotype name="Domain_Relationships" alias="Domain Relationships" notes="" cx="286" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
+				<AppliesTo>
+					<Apply type="ToolboxPage"/>
+				</AppliesTo>
+				<TaggedValues>
+					<Tag name="XIS-Mobile::XisEntityAssociation" type="" description="" unit="" values="" default="XisEntityAssociation"/>
+					<Tag name="XIS-Mobile::XisInheritance" type="" description="" unit="" values="" default="XisInheritance"/>
+				</TaggedValues>
+			</Stereotype>
+		</Stereotypes>
+		<TaggedValueTypes/>
+	</Content>
+</UMLProfile>
