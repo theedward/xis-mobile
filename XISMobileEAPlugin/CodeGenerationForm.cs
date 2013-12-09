@@ -48,7 +48,7 @@ namespace XISMobileEAPlugin
         {
             bool valid = true;
 
-            /*if (textBoxPath.Text != noPath)
+            if (textBoxPath.Text != noPath)
             {
                 errorProvider.SetError(textBoxPath, string.Empty);
             }
@@ -66,9 +66,7 @@ namespace XISMobileEAPlugin
             {
                 errorProvider.SetError(comboBoxTarget, "A Target must be specified!");
                 valid = false;
-            }*/
-
-            textBoxPath.Text = "C:\\Users\\User\\Desktop";
+            }
 
             if (valid)
             {
@@ -79,14 +77,16 @@ namespace XISMobileEAPlugin
                 string xmiPath = textBoxPath.Text + "\\" + projectName + ".xmi";
                 string umlPath = textBoxPath.Text + "\\" + projectName + ".uml";
 
-                project.ExportPackageXMI(package.PackageGUID, EA.EnumXMIType.xmiEA21, 1, -1, 1, 0, xmiPath);
+                //project.ExportPackageXMI(package.PackageGUID, EA.EnumXMIType.xmiEA21, 1, -1, 1, 0, xmiPath);
 
                 //ExecuteCommandDelegate del = new ExecuteCommandDelegate(StringToUpperFirst);
                 //del.BeginInvoke("test", PrintResult, null);
                 string exePath = "\"" + Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
-                ExecuteCommand(exePath + "\\XMLParser.jar\" " + xmiPath + " " + projectName);
-                ExecuteCommand(exePath + "\\Generator.jar\" " + umlPath + " " + textBoxPath.Text + "\\src-gen2");
+                //ExecuteCommand(exePath + "\\XMLParser.jar\" " + xmiPath + " " + projectName);
+                //ExecuteCommand(exePath + "\\Generator.jar\" " + umlPath + " " + textBoxPath.Text + "\\src-gen2");
+                MessageBox.Show("Code Generation disabled for now. It is being updated for the next version!",
+                    "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 Close();
             }
         }
