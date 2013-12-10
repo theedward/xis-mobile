@@ -18,6 +18,7 @@ namespace XISMobileEAPlugin
         string platformType = null;
         const string noPath = "Select a folder...";
         private EA.Repository repository;
+        private bool GENERATE = true;
 
         private delegate string ExecuteCommandDelegate(string command);
 
@@ -77,31 +78,20 @@ namespace XISMobileEAPlugin
                 string xmiPath = textBoxPath.Text + "\\" + projectName + ".xmi";
                 string umlPath = textBoxPath.Text + "\\" + projectName + ".uml";
 
-                //project.ExportPackageXMI(package.PackageGUID, EA.EnumXMIType.xmiEA21, 1, -1, 1, 0, xmiPath);
-
-                //ExecuteCommandDelegate del = new ExecuteCommandDelegate(StringToUpperFirst);
-                //del.BeginInvoke("test", PrintResult, null);
-                string exePath = "\"" + Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-
-                //ExecuteCommand(exePath + "\\XMLParser.jar\" " + xmiPath + " " + projectName);
-                //ExecuteCommand(exePath + "\\Generator.jar\" " + umlPath + " " + textBoxPath.Text + "\\src-gen2");
-                MessageBox.Show("Code Generation disabled for now. It is being updated for the next version!",
-                    "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (GENERATE)
+                {
+                    project.ExportPackageXMI(package.PackageGUID, EA.EnumXMIType.xmiEA21, 1, -1, 1, 0, xmiPath);
+                    string exePath = "\"" + Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+                    ExecuteCommand(exePath + "\\XMLParser.jar\" " + xmiPath + " " + projectName);
+                    ExecuteCommand(exePath + "\\Generator.jar\" " + umlPath + " " + textBoxPath.Text + "\\src-gen");
+                }
+                else
+                {
+                    MessageBox.Show("Code Generation disabled for now. It is being updated for the next version!",
+                        "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
                 Close();
             }
-        }
-
-        private void PrintResult(IAsyncResult result)
-        {
-            ExecuteCommandDelegate del = (ExecuteCommandDelegate)((AsyncResult)result).AsyncDelegate;
-            string s = del.EndInvoke(result);
-            MessageBox.Show("Result: " + s);
-            Close();
-        }
-
-        private string StringToUpperFirst(string s)
-        {
-            return s.Substring(0, 1).ToUpper() + s.Substring(1, s.Length-1);
         }
 
         private void ExecuteCommand(string command)
@@ -120,11 +110,8 @@ namespace XISMobileEAPlugin
             string output = process.StandardOutput.ReadToEnd();
             string error = process.StandardError.ReadToEnd();
 
-            int exitCode = process.ExitCode;
-
             MessageBox.Show("output>>" + (String.IsNullOrEmpty(output) ? "(none)" : output));
             MessageBox.Show("error>>" + (String.IsNullOrEmpty(error) ? "(none)" : error));
-            //Console.WriteLine("ExitCode: " + exitCode.ToString(), "ExecuteCommand");
             process.Close();
         }
     }
