@@ -10,5 +10,10 @@
         android:orderInCategory="100"
         android:showAsAction="always"
         android:title="Map"/>
+    <item
+        android:id="@+id/action_favourites"
+        android:orderInCategory="100"
+        android:showAsAction="always"
+        android:title="Favourites"/>
 
 </menu>

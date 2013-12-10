@@ -58,7 +58,7 @@ public class POIDetailActivity extends Activity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.poidetail, menu);
+		getMenuInflater().inflate(R.menu.poi_detail, menu);
 		return true;
 	}
 
@@ -72,6 +72,9 @@ public class POIDetailActivity extends Activity {
 			Intent intent = new Intent(getApplicationContext(), MapISActivity.class);
 			intent.putExtra("POI", poi.getName());
 			startActivity(intent);
+			return true;
+		case R.id.action_favourites:
+			startActivity(new Intent(getApplicationContext(), FavouritesActivity.class));
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
