@@ -2,8 +2,6 @@
 [module domain2Android('http://www.eclipse.org/uml2/4.0.0/UML')/]
 
 [import xismobile::pim::uml2::gen::android::common::xisMobileUtils /]
-[comment][import xismobile::pim::uml2::gen::android::files::dbAdapter /]
-[import xismobile::pim::uml2::gen::android::files::dbHelper /][/comment]
 [import xismobile::pim::uml2::gen::android::files::pojo /]
 [import xismobile::pim::uml2::gen::android::files::many2many /]
 [import xismobile::pim::uml2::gen::android::files::manager /]
@@ -21,8 +19,6 @@
 [/for]
 	[if (entities->at(1).isPersistent())]
 		[entities->generateOrmLiteHelper(m)/]
-		[comment][c.generateDbAdapter()/]
-		[c.generateDbHelper()/][/comment]
 	[else]
 		[entities->generateManager()/]
 	[/if]
