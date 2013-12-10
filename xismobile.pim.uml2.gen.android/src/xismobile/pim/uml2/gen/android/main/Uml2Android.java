@@ -432,7 +432,6 @@ public class Uml2Android extends AbstractAcceleoGenerator {
 			entry = "jar:file:/" + System.getProperty("user.dir") + "/Generator.jar!/" + entry;
 		}
     	
-    	System.out.println("CENAS: " + entry);
 		if (entry.startsWith("file:") || entry.startsWith("jar:")) { //$NON-NLS-1$ //$NON-NLS-2$ 
 			return URI.createURI(URI.decode(entry));
 		}
