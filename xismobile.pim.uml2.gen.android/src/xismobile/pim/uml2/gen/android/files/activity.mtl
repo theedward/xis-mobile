@@ -156,7 +156,7 @@ public class [c.name.toUpperFirst()/]Activity extends Activity {
 [/if]
 [if (c.hasContextMenu())]
 	[let m : Class = c.getOwnedContextMenu()]
-	[comment][generateContextMenu(m)/][/comment]
+	[generateContextMenu(m)/]
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View v,
 			ContextMenuInfo menuInfo) {
