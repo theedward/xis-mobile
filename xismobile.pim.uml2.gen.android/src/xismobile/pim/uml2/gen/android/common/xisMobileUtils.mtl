@@ -530,6 +530,11 @@
 		m : Class | m.isXisMenu() and m.isOptionsMenu())
 /]
 
+[query public getOwnedContextMenu(c : Class) : Class =
+	c.ownedElement->selectByType(Class)->select(
+		m : Class | m.isXisMenu() and m.isContextMenu())
+/]
+
 [query public getXisMenuItems(c : Class) : OrderedSet(Class) = 
 	c.ownedElement->selectByType(Class)->select(
 		i : Class | i.isXisMenuItem())
