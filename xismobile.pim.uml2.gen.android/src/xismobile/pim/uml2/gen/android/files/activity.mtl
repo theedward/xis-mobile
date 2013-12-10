@@ -154,6 +154,34 @@ public class [c.name.toUpperFirst()/]Activity extends Activity {
 	}
 	[/let]
 [/if]
+[if (c.hasContextMenu())]
+	[let m : Class = c.getOwnedContextMenu()]
+	[comment][generateContextMenu(m)/][/comment]
+	@Override
+	public void onCreateContextMenu(ContextMenu menu, View v,
+			ContextMenuInfo menuInfo) {
+		super.onCreateContextMenu(menu, v, menuInfo);
+		getMenuInflater().inflate(R.menu.[m.name.toLowerCase()/]_context, menu);
+	}
+	
+	@Override
+	public boolean onContextItemSelected(android.view.MenuItem item) {
+		switch (item.getItemId()) {
+		[for (it : Class | m.getXisMenuItems())]
+			case R.id.[it.name.toLowerCase()/]_item:
+			[if (it.hasXisAction())]
+				[let op : Operation = it.getXisAction()]
+				[op.writeXisAction()/]
+				[/let]
+			[/if]
+				return true;
+		[/for]
+			default:
+				return super.onContextItemSelected(item);
+		}
+	}
+	[/let]
+[/if]
 [let wsl : Set(Operation) = c.getAllWebServiceActions()]
 	[if (wsl->size() > 0)]
 
