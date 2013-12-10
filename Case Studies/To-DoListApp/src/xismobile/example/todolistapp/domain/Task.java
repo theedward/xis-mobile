@@ -18,6 +18,7 @@ public class Task {
 	private String date;
 	@DatabaseField(foreign = true)
 	private Category category;
+	private boolean selected;
 	
 	public Task() { }
 	
@@ -25,6 +26,7 @@ public class Task {
 		this.title = title;
 		this.description = description;
 		this.date = date;
+//		this.selected = false;
 	}
 	
 	public int getId() {
@@ -69,5 +71,13 @@ public class Task {
 
 	public void setCategory(Category category) {
 		this.category = category;
+	}
+
+	public boolean isSelected() {
+		return selected;
+	}
+
+	public void setSelected(boolean selected) {
+		this.selected = selected;
 	}
 }

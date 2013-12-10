@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.http.HttpResponse;
@@ -58,9 +59,9 @@ public class TaskListActivity extends Activity {
 			@Override
 			public void onItemClick(AdapterView<?> a, View v, int position,
 				long id) {
-				Intent intentView = new Intent(getApplicationContext(), EditTaskActivity.class);
-				intentView.putExtra("TaskID", id);
-				startActivityForResult(intentView, 0);
+				Intent intent = new Intent(getApplicationContext(), EditTaskActivity.class);
+				intent.putExtra("TaskID", (int)id);
+				startActivity(intent);
 			}
 		});
 		registerForContextMenu(lv);
@@ -90,19 +91,37 @@ public class TaskListActivity extends Activity {
 		switch (item.getItemId()) {
 		case R.id.action_add:
 			Intent intentAdd = new Intent(getApplicationContext(), EditTaskActivity.class);
-			startActivityForResult(intentAdd, 0);
+			startActivity(intentAdd);
 			return true;
 		case R.id.action_sync:
 			sync();
 			return true;
 		case R.id.action_delete:
-			tasks.clear();
-			helper.deleteAllTasks();
-			tasksAdapter.notifyDataSetChanged();
-			Toast.makeText(getApplicationContext(), "All Tasks deleted!",
-				Toast.LENGTH_SHORT).show();
-			// TODO: LOG
-//			OperationLogger.addtoLog(getApplicationContext(), OperationType.DeleteAll, dt);
+			List<Task> selTasks = new ArrayList<Task>();
+			for (Task t : tasks) {
+				if (t.isSelected()) {
+					OperationLogger.addtoLog(getApplicationContext(), OperationType.DeleteTask, t);
+					selTasks.add(t);
+				}
+			}
+			
+			if (selTasks.size() > 0) {
+				for (Task t : selTasks) {
+					helper.deleteTask(t);
+				}
+				tasks.removeAll(selTasks);
+				tasksAdapter.notifyDataSetChanged();
+				Toast.makeText(getApplicationContext(), "Selected Tasks deleted!",
+						Toast.LENGTH_SHORT).show();
+			}
+			else {
+				tasks.clear();
+				helper.deleteAllTasks();
+				tasksAdapter.notifyDataSetChanged();
+				Toast.makeText(getApplicationContext(), "All Tasks deleted!",
+						Toast.LENGTH_SHORT).show();
+//				OperationLogger.addtoLog(getApplicationContext(), OperationType.DeleteAll, dt);
+			}
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
@@ -123,7 +142,7 @@ public class TaskListActivity extends Activity {
 		switch (item.getItemId()) {
 		case R.id.view:
 			Intent intentView = new Intent(getApplicationContext(), EditTaskActivity.class);
-			intentView.putExtra("TaskID", tasks.get(info.position).getId());	
+			intentView.putExtra("TaskID", tasks.get(info.position).getId());
 			startActivity(intentView);
 			return true;
 		case R.id.edit:
