@@ -38,7 +38,7 @@
 
 [for (el : Class | cl.getChildren())]
 	[if (el.isXisMenuGroup())]
-	<group android:id="@+id/group_[el.name.toLowerCase()/]">
+	<group android:id="@+id/[el.name.toLowerCase()/]_group">
 	[for (it : Class | el.getChildren())]
 		[it.writeMenuItem()/]
 	[/for]
