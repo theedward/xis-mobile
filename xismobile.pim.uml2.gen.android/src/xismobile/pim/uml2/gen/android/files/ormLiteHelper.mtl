@@ -27,15 +27,15 @@ import com.j256.ormlite.table.TableUtils;
 public class OrmLiteHelper extends OrmLiteSqliteOpenHelper {
  
 	private static final String TAG = "OrmLiteHelper";
-	private static final String DB_NAME = "OrmDummy.db";[comment]TODO: App Name[/comment]
+	private static final String DB_NAME = "[model.name.toUpperFirst()/].db";
 	private static final int DB_VERSION = 1;
 	private static OrmLiteHelper instance = null;
 
 	private Context context;
-[let assocs : Sequence(String) = entities.getManyToManyAssociations()]
 	[for (c : Class | entities)]
 	private Dao<[c.name.toUpperFirst()/], Integer> [c.name.toLowerFirst()/]Dao = null;
 	[/for]
+[let assocs : Sequence(String) = entities.getManyToManyAssociations()]
 	[for (s : String | assocs)]
 	private Dao<[s/], Integer> [s.toLowerFirst()/]Dao = null;
 	[/for]
@@ -114,11 +114,6 @@ public class OrmLiteHelper extends OrmLiteSqliteOpenHelper {
 			Log.e(TAG, "Not possible to drop the tables", e);
 		}
 	}
-
-	// BusinessEntities Region
-	[for (be : Class | getAllBusinessEntities(model)) separator ('\n')]
-	[writeBusinessEntity(be, true)/]
-	[/for]
 
 }
 [/file]
