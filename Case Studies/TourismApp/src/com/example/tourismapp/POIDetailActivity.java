@@ -92,7 +92,7 @@ public class POIDetailActivity extends Activity {
 		buttonSave.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Favourite f = new Favourite(poi.getName());
+				Favourite f = new Favourite(poi.getName(), poi.getImage());
 				poi.setFavourite(f);
 				helper.createOrUpdateFavourite(f);
 				Toast.makeText(getApplicationContext(), "Saved!", Toast.LENGTH_SHORT).show();

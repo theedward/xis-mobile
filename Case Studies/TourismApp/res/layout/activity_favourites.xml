@@ -1,8 +1,21 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layoutFav"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/layoutFav"
     tools:context=".FavouritesActivity" >
+
+    <ListView
+        android:id="@+id/listViewFavs"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+    </ListView>
+
+    <TextView
+        android:id="@+id/textViewNoFavs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/listViewFavs"
+	/>
 
 </RelativeLayout>

@@ -6,15 +6,13 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ContextMenu.ContextMenuInfo;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.tourismapp.domain.Favourite;
 import com.example.tourismapp.domain.OrmLiteHelper;
@@ -24,7 +22,9 @@ public class FavouritesActivity extends Activity {
 //	private DomainEntityManager manager;
 	private OrmLiteHelper helper;
 	private List<Favourite> favourites;
-	private ArrayAdapter<Favourite> favsAdapter;
+	private FavouriteAdapter favsAdapter;
+	private ListView lv;
+	private TextView tv;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -34,18 +34,15 @@ public class FavouritesActivity extends Activity {
 //		manager = DomainEntityManager.getManager(getApplicationContext());
 		helper = OrmLiteHelper.getHelper(getApplicationContext());
 		favourites = helper.getAllFavourites();
-		RelativeLayout layout = (RelativeLayout) findViewById(R.id.layoutFav);
+		lv = (ListView) findViewById(R.id.listViewFavs);
+		tv = (TextView) findViewById(R.id.textViewNoFavs);
 		
 		if (favourites.size() > 0) {
-			ListView lv = new ListView(getApplicationContext());
-			favsAdapter = new ArrayAdapter<Favourite>(this,  android.R.layout.simple_list_item_1, favourites);
-			lv.setAdapter(favsAdapter);
-			layout.addView(lv);
 			registerForContextMenu(lv);
+			favsAdapter = new FavouriteAdapter(this, R.layout.poi_row, favourites); 
+			lv.setAdapter(favsAdapter);
 		} else {
-			TextView tv = new TextView(getApplicationContext());
 			tv.setText("No Favourites...");
-			layout.addView(tv);
 		}
 	}
 
@@ -56,7 +53,7 @@ public class FavouritesActivity extends Activity {
 	}
 
 	@Override
-	public boolean onMenuItemSelected(int featureId, MenuItem item) {
+	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.action_back:
 			finish();
@@ -74,7 +71,7 @@ public class FavouritesActivity extends Activity {
 	}
 	
 	@Override
-	public boolean onContextItemSelected(MenuItem item) {
+	public boolean onContextItemSelected(android.view.MenuItem item) {
 		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
 		
 		switch (item.getItemId()) {
@@ -88,6 +85,9 @@ public class FavouritesActivity extends Activity {
 			favourites.remove(info.position);
 			helper.deleteFavourite(f);
 			favsAdapter.notifyDataSetChanged();
+			if (favourites.size() == 0) {
+				tv.setText("No favourites...");
+			}
 			return true;
 		default:
 			return super.onContextItemSelected(item);
