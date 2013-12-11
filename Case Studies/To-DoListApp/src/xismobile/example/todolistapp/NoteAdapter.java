@@ -54,6 +54,9 @@ public class NoteAdapter extends ArrayAdapter<Note> {
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			convertView = inflater.inflate(row, null);
 			holder = new NoteViewHolder();
+			holder.description = (EditText) convertView.findViewById(R.id.editTextNoteDescription);
+			holder.buttonUpdate = (Button) convertView.findViewById(R.id.buttonUpdate);
+			holder.buttonDelete = (Button) convertView.findViewById(R.id.buttonDelete);
 			convertView.setTag(holder);
 		} else {
 			holder = (NoteViewHolder) convertView.getTag();
@@ -63,10 +66,7 @@ public class NoteAdapter extends ArrayAdapter<Note> {
 			return convertView; // Can't extract item
 
 		note = notes.get(position);
-		holder.description = (EditText) convertView.findViewById(R.id.editTextNoteDescription);
 		holder.description.setText(note.getDescription());
-		holder.buttonUpdate = (Button) convertView.findViewById(R.id.buttonUpdate);
-		holder.buttonDelete = (Button) convertView.findViewById(R.id.buttonDelete);
 		holder.buttonUpdate.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
