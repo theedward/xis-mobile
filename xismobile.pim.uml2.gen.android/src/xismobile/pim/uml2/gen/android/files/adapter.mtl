@@ -49,7 +49,7 @@ public class [entity.name.toUpperFirst()/]Adapter extends ArrayAdapter<[entity.n
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		ViewHolder holder;
+		final ViewHolder holder;
 		
 		if (view == null) {
 			LayoutInflater inflater = (LayoutInflater)context
@@ -68,12 +68,15 @@ public class [entity.name.toUpperFirst()/]Adapter extends ArrayAdapter<[entity.n
 		if (list == null || (position + 1) > list.size())
 			return convertView;
 
-		[entity.name.toUpperFirst()/] obj = list.get(position);
-		[for (el : Class | rowElements)]
-		[let attr : String = el.getXisWidgetValue(el.getAppliedStereotypes()->asOrderedSet()->at(1))]
-		holder.[el.name.toLowerFirst()/].setText(String.valueOf(obj.get[attr.toUpperFirst()/]()));
-		[/let]
-		[/for]
+		[entity.name.toUpperFirst()/] [entity.name.toLowerFirst()/] = list.get(position);
+
+		if ([entity.name.toLowerFirst()/] != null) {
+			[for (el : Class | rowElements)]
+			[let attr : String = el.getXisWidgetValue(el.getAppliedStereotypes()->asOrderedSet()->at(1))]
+			holder.[el.name.toLowerFirst()/].setText(String.valueOf([entity.name.toLowerFirst()/].get[attr.toUpperFirst()/]()));
+			[/let]
+			[/for]
+		}
 		
 		return convertView;
 	}
