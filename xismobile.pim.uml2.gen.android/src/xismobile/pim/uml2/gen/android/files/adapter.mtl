@@ -56,18 +56,20 @@ public class [entity.name.toUpperFirst()/]Adapter extends ArrayAdapter<[entity.n
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			convertView = inflater.inflate(row, null);
 			holder = new ViewHolder();
+	[let rowElements : OrderedSet(Class) = widget.getChildren()]
+		[for (el : Class | rowElements)]
+			holder.[el.name.toLowerFirst()/] = [el.writeFindWidget()/]
+		[/for]
 			convertView.setTag(holder);
 		} else {
-			holder = (ViewHolder)convertView.getTag();
+			holder = (ViewHolder) convertView.getTag();
 		}
 	 
 		if (list == null || (position + 1) > list.size())
 			return convertView;
 
 		[entity.name.toUpperFirst()/] obj = list.get(position);
-	[let rowElements : OrderedSet(Class) = widget.getChildren()]
 		[for (el : Class | rowElements)]
-		holder.[el.name.toLowerFirst()/] = [el.writeFindWidget()/]
 		[let attr : String = el.getXisWidgetValue(el.getAppliedStereotypes()->asOrderedSet()->at(1))]
 		holder.[el.name.toLowerFirst()/].setText(String.valueOf(obj.get[attr.toUpperFirst()/]()));
 		[/let]
@@ -88,27 +90,27 @@ public class [entity.name.toUpperFirst()/]Adapter extends ArrayAdapter<[entity.n
 
 [template public writeFindWidget(c : Class)]
 [if (c.isXisLabel())]
-(XisLabel)findViewById(R.id.label[c.name.toUpperFirst()/]);
+(XisLabel) findViewById(R.id.label[c.name.toUpperFirst()/]);
 [elseif (c.isXisTextBox())]
-(XisTextBox)findViewById(R.id.editText[c.name.toUpperFirst()/]);
+(XisTextBox) findViewById(R.id.editText[c.name.toUpperFirst()/]);
 [elseif (c.isXisCheckBox())]
-(XisCheckBox)findViewById(R.id.checkBox[c.name.toUpperFirst()/]);
+(XisCheckBox) findViewById(R.id.checkBox[c.name.toUpperFirst()/]);
 [elseif (c.isXisButton())]
-(XisButton)findViewById(R.id.button[c.name.toUpperFirst()/]);
+(XisButton) findViewById(R.id.button[c.name.toUpperFirst()/]);
 [elseif (c.isXisLink())]
-(XisLink)findViewById(R.id.link[c.name.toUpperFirst()/]);
+(XisLink) findViewById(R.id.link[c.name.toUpperFirst()/]);
 [elseif (c.isXisImage())]
-(XisImage)findViewById(R.id.image[c.name.toUpperFirst()/]);
+(XisImage) findViewById(R.id.image[c.name.toUpperFirst()/]);
 [elseif (c.isXisDatePicker())]
-(XisDatePicker)findViewById(R.id.datePicker[c.name.toUpperFirst()/]);
+(XisDatePicker) findViewById(R.id.datePicker[c.name.toUpperFirst()/]);
 [elseif (c.isXisTimePicker())]
-(XisTimePicker)findViewById(R.id.timePicker[c.name.toUpperFirst()/]);
+(XisTimePicker) findViewById(R.id.timePicker[c.name.toUpperFirst()/]);
 [elseif (c.isXisWebView())]
-(XisWebView)findViewById(R.id.web[c.name.toUpperFirst()/]);
+(XisWebView) findViewById(R.id.web[c.name.toUpperFirst()/]);
 [elseif (c.isXisMapView())]
-(XisMapView)findViewById(R.id.map[c.name.toUpperFirst()/]);
+(XisMapView) findViewById(R.id.map[c.name.toUpperFirst()/]);
 [elseif (c.isXisList())]
-(ListView)findViewById(R.id.list[c.name.toUpperFirst()/]);
+(ListView) findViewById(R.id.list[c.name.toUpperFirst()/]);
 [/if]
 [/template]
 
