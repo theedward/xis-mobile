@@ -53,7 +53,7 @@ public class [c.name.toUpperFirst()/][c.getExtensionAndImplementations()/] {
 [/let]
 [/template]
 
-[template public generateNonArgConstructor(c : Class)]
+[template private generateNonArgConstructor(c : Class)]
 public [c.name.toUpperFirst()/]() {
 	[if (c.isPersistent())]
 	// Non-Arg constructor needed by OrmLite
@@ -64,7 +64,7 @@ public [c.name.toUpperFirst()/]() {
 
 [/template]
 
-[template public generateConstructorWithArgs(c : Class)]
+[template private generateConstructorWithArgs(c : Class)]
 public [c.name.toUpperFirst()/]([c.getXisAttributesForConstructor()/]) {
 	[if (not c.isPersistent())]
 	this.id = UUID.randomUUID().toString();
@@ -76,15 +76,15 @@ public [c.name.toUpperFirst()/]([c.getXisAttributesForConstructor()/]) {
 
 [/template]
 
-[template public getXisAttributesForConstructor(c : Class) post(trim())]
+[template private getXisAttributesForConstructor(c : Class) post(trim())]
 [c.getXisEntityAttributes().getXisAttributeTypeAndName()->sep(', ')/]
 [/template]
 
-[template public getXisAttributeTypeAndName(p : Property)]
+[template private getXisAttributeTypeAndName(p : Property)]
 [p.getXisEntityAttributeType()/] [p.getXisEntityAttributeName().toLowerFirst()/]
 [/template]
 
-[template public generateAttributes(c : Class) post (trim())]
+[template private generateAttributes(c : Class) post (trim())]
 [for (p : Property | c.getXisEntityAttributes())]
 [if (c.isPersistent())]
 @DatabaseField[p.addKeyAndNullableTags()/]
@@ -93,7 +93,7 @@ private [p.getXisAttributeTypeAndName()/];
 [/for]
 [/template]
 
-[template public addKeyAndNullableTags(p : Property) post (trim())]
+[template private addKeyAndNullableTags(p : Property) post (trim())]
 [if (p.isKey())]
 (index = true)
 [elseif (not p.isNullable())]
@@ -101,7 +101,7 @@ private [p.getXisAttributeTypeAndName()/];
 [/if]
 [/template]
 
-[template public generateGettersAndSetters(c : Class) post(trim())]
+[template private generateGettersAndSetters(c : Class) post(trim())]
 public [if (c.isPersistent())]int[else]String[/if] getId() {
 	return id;
 }
@@ -117,7 +117,7 @@ public void set[p.getXisEntityAttributeName().toUpperFirst()/]([p.getXisEntityAt
 [/for]
 [/template]
 
-[template public generateEqualsMethods(c : Class)]
+[template private generateEqualsMethods(c : Class)]
 [let attrs : Set(Property) = c.getXisEntityAttributes()]
 @Override
 public boolean equals(Object obj) {
@@ -144,13 +144,13 @@ public int hashCode() {
 [/let]
 [/template]
 
-[template public getEqualsCondition(ps : Set(Property)) post (trim())]
+[template private getEqualsCondition(ps : Set(Property)) post (trim())]
 [for (p : Property | ps) separator ('\t&& ')]
 this.[p.getXisEntityAttributeName()/] == c.[p.getXisEntityAttributeName()/]
 [/for]
 [/template]
 
-[template public getHashCodeCondition(ps : Set(Property)) post (trim())]
+[template private getHashCodeCondition(ps : Set(Property)) post (trim())]
 [if (ps->size() > 1)]
 [ps.getXisEntityAttributeName().toLowerFirst()->sep(' + ')/]
 [elseif (ps.getXisEntityAttributeType() <> 'String')]
@@ -158,19 +158,19 @@ this.[p.getXisEntityAttributeName()/] == c.[p.getXisEntityAttributeName()/]
 [/if]
 [/template]
 
-[template public getExtension(c : Class)]
+[template private getExtension(c : Class)]
 [if (c.generalization->size() = 1)]
  extends [c.generalization.target.oclAsType(Class).name/]
 [/if]
 [/template]
 
-[template public getImplementations(c : Class)]
+[template private getImplementations(c : Class)]
 [if (c.interfaceRealization->size() > 0)]
  implements [c.interfaceRealization.target.oclAsType(Interface).name->sep(', ')/]
 [/if]
 [/template]
 
-[template public generateForeingKeyAttributes(c : Class)]
+[template private generateForeingKeyAttributes(c : Class)]
 [for (a : Association | c.getXisEntityAssociations())]
 [let first : Property = a.memberEnd->at(1)]
 [let second : Property = a.memberEnd->at(2)]
@@ -203,7 +203,7 @@ this.[p.getXisEntityAttributeName()/] == c.[p.getXisEntityAttributeName()/]
 [/for]
 [/template]
 
-[template public generateAssociationAttrs(c : Class)]
+[template private generateAssociationAttrs(c : Class)]
 [for (a : Association | c.getXisEntityAssociations())]
 [let first : Property = a.memberEnd->at(1)]
 [let second : Property = a.memberEnd->at(2)]
@@ -228,14 +228,14 @@ first.isNavigable() and second.isNavigable())]
 [/for]
 [/template]
 
-[template public processForeignKeyAttr(a : Association, idx : Integer) post (trim())]
+[template private processForeignKeyAttr(a : Association, idx : Integer) post (trim())]
 [let p : Property = a.memberEnd->at(idx)]
 @DatabaseField(foreign = true, foreignAutoRefresh = true)
 public [a.endType->at(idx).name.toUpperFirst()/] [p.getAssociationAttrName(a.endType->at(idx))/];
 [/let]
 [/template]
 
-[template public processAttr(a : Association, idx : Integer) post (trim())]
+[template private processAttr(a : Association, idx : Integer) post (trim())]
 [let p : Property = a.memberEnd->at(idx)]
 	[if (p.upperBound() = 1)]
 public [a.endType->at(idx).name.toUpperFirst()/] [p.getAssociationAttrName(a.endType->at(idx))/];
@@ -245,7 +245,7 @@ public List<[a.endType->at(idx).name.toUpperFirst()/]> [p.getAssociationAttrName
 [/let]
 [/template]
 
-[template public getAssociationAttrName(p : Property, t : Type) post (trim())]
+[template private getAssociationAttrName(p : Property, t : Type) post (trim())]
 [if (not p.name.oclIsUndefined())]
 [p.name.toLowerFirst()/]
 [else]

@@ -119,7 +119,7 @@ public class OrmLiteHelper extends OrmLiteSqliteOpenHelper {
 [/file]
 [/template]
 
-[template public writeDaoOperations(s : String)]
+[template private writeDaoOperations(s : String)]
 public Dao<[s.toUpperFirst()/], Integer> get[s.toUpperFirst()/]Dao() {
 	if ([s.toLowerFirst()/]Dao == null) {
 		try {
