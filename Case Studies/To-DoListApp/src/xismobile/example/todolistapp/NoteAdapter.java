@@ -48,7 +48,7 @@ public class NoteAdapter extends ArrayAdapter<Note> {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		NoteViewHolder holder;
+		final NoteViewHolder holder;
 		if (convertView == null) {
 			LayoutInflater inflater = (LayoutInflater) mContext
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -70,6 +70,7 @@ public class NoteAdapter extends ArrayAdapter<Note> {
 		holder.buttonUpdate.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				note.setDescription(holder.description.getText().toString());
 				helper.createOrUpdateNote(note);
 				notifyDataSetChanged();
 			}
