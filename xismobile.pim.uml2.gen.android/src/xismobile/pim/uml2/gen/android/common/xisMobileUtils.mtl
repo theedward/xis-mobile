@@ -299,7 +299,7 @@
 /]
 
 [query public getXisActionByName(m : Model) : Operation =
-	m.allOwnedElements()->selectByKind(Operation)->select(
+	m.allOwnedElements()->selectByType(Operation)->select(
 		o : Operation | o.isXisAction())
 /]
 
@@ -545,7 +545,7 @@
 /]
 
 [query public getXisWidgets(c : Class) : Set(Class) =
-	c.ownedElement->selectByKind(Class)->select(w : Class |
+	c.ownedElement->selectByType(Class)->select(w : Class |
 	not w.isXisCompositeWidget() and not c.isXisMenu()
 	and not w.isXisMenuGroup() and not w.isXisMenuItem()
 	and not w.isXisListItem())
@@ -676,11 +676,44 @@
 /]
 
 [query public isXisMapView(c : Class) : Boolean =
-	not c.getAppliedStereotype('XIS-Mobile::XisMapView').oclIsUndefined()
+	not c.getXisMapView().oclIsUndefined()
+/]
+
+[query public mapHasCenter(c : Class) : Boolean =
+	not c.getMapLatitute().oclIsUndefined() and not c.getMapLongitude().oclIsUndefined()
+/]
+
+[query public getMapLatitute(c : Class) : Real =
+	c.getValue(c.getXisMapView(), 'latitude')
+/]
+
+[query public getMapLongitude(c : Class) : Real =
+	c.getValue(c.getXisMapView(), 'longitude')
+/]
+
+[query public mapHasZoom(c : Class) : Boolean =
+	not c.getMapZoom().oclIsUndefined()
+/]
+
+[query public getMapZoom(c : Class) : Integer =
+	c.getValue(c.getXisMapView(), 'zoom')
+/]
+
+[query public getXisMarker(c : Class) : Stereotype =
+	c.getAppliedStereotype('XIS-Mobile::XisMarker')
+/]
+
+[query public isXisMarker(c : Class) : Boolean =
+	not c.getXisMarker().oclIsUndefined()
+/]
+
+[query public mapHasMarker(c : Class) : Boolean =
+	c.ownedElement->selectByType(Class)->
+		select(m : Class | m.isXisMarker())->size() > 0
 /]
 
 [query public hasMapViews(m : Model) : Boolean = 
-	m.allOwnedElements()->selectByKind(Class)->
+	m.allOwnedElements()->selectByType(Class)->
 		select(c : Class | c.isXisMapView())->size() > 0
 /]
 
