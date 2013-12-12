@@ -61,7 +61,29 @@ mTimePicker[c.name.toUpperFirst()/] = (XisTimePicker)findViewById(R.id.timePicke
 [elseif (c.isXisWebView())]
 mWebView[c.name.toUpperFirst()/] = (XisWebView)findViewById(R.id.web[c.name.toUpperFirst()/]);
 [elseif (c.isXisMapView())]
-mMapView[c.name.toUpperFirst()/] = (XisMapView)getSupportFragmentManager().findFragmentById(R.id.map[c.name.toUpperFirst()/]);
+SupportMapFragment mv = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map[c.name.toUpperFirst()/]);
+mMap[c.name.toUpperFirst()/] = mv.getMap();
+
+if (mMap[c.name.toUpperFirst()/] == null) {
+	Toast.makeText(getApplicationContext(), "Unable to create mMap[c.name.toUpperFirst()/]!", Toast.LENGTH_SHORT).show();
+} else {
+	[if (c.mapHasCenter())]
+	LatLng center = new LatLng([c.getMapLatitute()/], [c.getMapLongitude()/]);
+	[if (c.mapHasZoom())]
+	mMap[c.name.toUpperFirst()/].moveCamera(CameraUpdateFactory.newLatLngZoom(center, [c.getMapZoom()/]));
+	[else]
+	mMap[c.name.toUpperFirst()/].moveCamera(CameraUpdateFactory.newLatLng(center));
+	[/if]
+	[/if]
+	[if (c.mapHasMarker())]
+	mMap[c.name.toUpperFirst()/].setOnInfoWindowClickListener(new OnInfoWindowClickListener() {
+		@Override
+		public void onInfoWindowClick(Marker marker) {
+			
+		}
+	});
+	[/if]
+}
 [elseif (c.isXisDropdown())]
 mDropdown[c.name.toUpperFirst()/] = (XisDropdown)findViewById(R.id.dropdown[c.name.toUpperFirst()/]);
 ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item);
