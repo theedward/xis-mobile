@@ -707,33 +707,61 @@
 	not c.getXisMarker().oclIsUndefined()
 /]
 
+[query public markerHasTitle(c : Class) : Boolean =
+	not c.getMarkerTitle().oclIsUndefined()
+/]
+
 [query public getMarkerTitle(c : Class) : String =
 	c.getValue(c.getXisMarker(), 'title')
+/]
+
+[query public markerHasDescription(c : Class) : Boolean =
+	not c.getMarkerDescription().oclIsUndefined()
 /]
 
 [query public getMarkerDescription(c : Class) : String =
 	c.getValue(c.getXisMarker(), 'description')
 /]
 
+[query public markerHasLatitude(c : Class) : Boolean =
+	not c.getMarkerLatitude().oclIsUndefined()
+/]
+
 [query public getMarkerLatitude(c : Class) : Real =
 	c.getValue(c.getXisMarker(), 'latitude')
+/]
+
+[query public markerHasLongitude(c : Class) : Boolean =
+	not c.getMarkerLongitude().oclIsUndefined()
 /]
 
 [query public getMarkerLongitude(c : Class) : Real =
 	c.getValue(c.getXisMarker(), 'longitude')
 /]
 
+[query public markerHasIcon(c : Class) : Boolean =
+	not c.getMarkerIcon().oclIsUndefined()
+/]
+
 [query public getMarkerIcon(c : Class) : String =
 	c.getValue(c.getXisMarker(), 'icon')
+/]
+
+[query public markerHasOnTap(c : Class) : Boolean =
+	not c.getMarkerOnTap().oclIsUndefined()
 /]
 
 [query public getMarkerOnTap(c : Class) : String =
 	c.getValue(c.getXisMarker(), 'onTap')
 /]
 
-[query public mapHasMarkers(c : Class) : Boolean =
+[query public getMapMarkers(c : Class) : OrderedSet(Class) =
 	c.ownedElement->selectByType(Class)->
-		select(m : Class | m.isXisMarker())->size() > 0
+		select(m : Class | m.isXisMarker())
+/]
+
+[query public mapHasMarkers(c : Class) : Boolean =
+	c.getMapMarkers()->size() > 0
 /]
 
 [query public hasMapViews(m : Model) : Boolean = 
