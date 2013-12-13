@@ -707,7 +707,31 @@
 	not c.getXisMarker().oclIsUndefined()
 /]
 
-[query public mapHasMarker(c : Class) : Boolean =
+[query public getMarkerTitle(c : Class) : String =
+	c.getValue(c.getXisMarker(), 'title')
+/]
+
+[query public getMarkerDescription(c : Class) : String =
+	c.getValue(c.getXisMarker(), 'description')
+/]
+
+[query public getMarkerLatitude(c : Class) : Real =
+	c.getValue(c.getXisMarker(), 'latitude')
+/]
+
+[query public getMarkerLongitude(c : Class) : Real =
+	c.getValue(c.getXisMarker(), 'longitude')
+/]
+
+[query public getMarkerIcon(c : Class) : String =
+	c.getValue(c.getXisMarker(), 'icon')
+/]
+
+[query public getMarkerOnTap(c : Class) : String =
+	c.getValue(c.getXisMarker(), 'onTap')
+/]
+
+[query public mapHasMarkers(c : Class) : Boolean =
 	c.ownedElement->selectByType(Class)->
 		select(m : Class | m.isXisMarker())->size() > 0
 /]
