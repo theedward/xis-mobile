@@ -75,13 +75,35 @@ if (mMap[c.name.toUpperFirst()/] == null) {
 	mMap[c.name.toUpperFirst()/].moveCamera(CameraUpdateFactory.newLatLng(center));
 	[/if]
 	[/if]
-	[if (c.mapHasMarker())]
+	[if (c.mapHasMarkers())]
+	[for (m : Class | c.getMapMarkers())]
+	[if (m.markerHasTitle() or m.markerHasDescription() or
+		(m.markerHasLatitude() and m.markerHasLongitude()) or m.markerHasIcon())]
+	MarkerOptions mOpt = new MarkerOptions();
+	[if (m.markerHasTitle())]
+	mOpt.title([m.getMarkerTitle()/]);
+	[/if]
+	[if (m.markerHasDescription())]
+	mOpt.snippet([m.getMarkerDescription()/]);
+	[/if]
+	[if (m.markerHasLatitude() and m.markerHasLongitude())]
+	mOpt.position(new LatLng([m.getMarkerLatitude()/], [m.getMarkerLongitude()/]));
+	[/if]
+	[if (m.markerHasIcon())]
+	mOpt.icon(BitmapDescriptorFactory.fromAsset("[m.getMarkerIcon()/]"));
+	[/if]
+	mMap[c.name.toUpperFirst()/].addMarker(mOpt);
+	[/if]
+	[comment @FIXME Review the use of OnTap /]
+	[if (m.markerHasOnTap())]
 	mMap[c.name.toUpperFirst()/].setOnInfoWindowClickListener(new OnInfoWindowClickListener() {
 		@Override
 		public void onInfoWindowClick(Marker marker) {
 			
 		}
 	});
+	[/if]
+	[/for]
 	[/if]
 }
 [elseif (c.isXisDropdown())]
