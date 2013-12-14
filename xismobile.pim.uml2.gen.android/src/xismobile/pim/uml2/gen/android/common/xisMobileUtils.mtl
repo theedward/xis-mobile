@@ -515,16 +515,6 @@
 	getEnumValue(c.getValue(c.getXisGesture(), 'type')) = 'Pinch'
 /]
 
-[query public hasOptionsMenu(c : Class) : Boolean = 
-	let menu : Collection(Class) = c.ownedElement->selectByType(Class) in
-	menu->select(m : Class | m.isXisMenu() and m.isOptionsMenu())->size() = 1
-/]
-
-[query public hasContextMenu(c : Class) : Boolean = 
-	let menu : Collection(Class) = c.ownedElement->selectByType(Class) in
-	menu->select(m : Class | m.isXisMenu() and m.isContextMenu())->size() = 1
-/]
-
 [query public getOwnedOptionsMenu(c : Class) : Class =
 	c.ownedElement->selectByType(Class)->select(
 		m : Class | m.isXisMenu() and m.isOptionsMenu())

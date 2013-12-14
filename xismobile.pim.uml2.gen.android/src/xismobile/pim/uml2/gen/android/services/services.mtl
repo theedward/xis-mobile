@@ -69,3 +69,11 @@
 [query public stringContains(s1 : String, s2 : String) : Boolean = 
 	invoke('xismobile.pim.uml2.gen.android.services.Services', 'stringContains(java.lang.String, java.lang.String)', Sequence{s1, s2})
 /]
+
+[query public hasOptionsMenu(c : Class) : Boolean =
+	invoke('xismobile.pim.uml2.gen.android.services.Services', 'hasOptionsMenu(org.eclipse.uml2.uml.Class)', Sequence{c})
+/]
+
+[query public hasContextMenu(c : Class) : Boolean =
+	invoke('xismobile.pim.uml2.gen.android.services.Services', 'hasContextMenu(org.eclipse.uml2.uml.Class)', Sequence{c})
+/]

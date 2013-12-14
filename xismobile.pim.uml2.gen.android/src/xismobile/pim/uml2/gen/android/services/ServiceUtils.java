@@ -5,6 +5,7 @@ import org.eclipse.uml2.uml.Class;
 import org.eclipse.uml2.uml.Element;
 import org.eclipse.uml2.uml.EnumerationLiteral;
 import org.eclipse.uml2.uml.Generalization;
+import org.eclipse.uml2.uml.Property;
 import org.eclipse.uml2.uml.Stereotype;
 import org.eclipse.uml2.uml.Type;
 
@@ -175,6 +176,51 @@ public final class ServiceUtils {
 		}
 	}
 	
+	public static Stereotype getXisMenuAssociation(Association a) {
+		return a.getAppliedStereotype("XIS-Mobile::XisMenuAssociation");
+	}
+	
+	public static boolean isXisMenuAssociation(Association a) {
+		return a.getAppliedStereotype("XIS-Mobile::XisMenuAssociation") != null;
+	}
+	
+	public static boolean hasMenuAssociation(Class c, MenuType type) {
+		for (Association a : c.getAssociations()) {
+			if (isXisMenuAssociation(a)) {
+				Property first = a.getMemberEnds().get(0);
+				Property second = a.getMemberEnds().get(1);
+				if (first.isNavigable()) {
+					if (type == MenuType.OptionsMenu) {
+						if (getOptionsMenu((Class)a.getEndTypes().get(0)) != null) {
+							return true;
+						}
+					} else if (type == MenuType.ContextMenu) {
+						if (getContextMenu((Class)a.getEndTypes().get(0)) != null) {
+							return true;
+						}
+					}
+				}
+				else if (second.isNavigable()) {
+					if (type == MenuType.OptionsMenu) {
+						if (getOptionsMenu((Class)a.getEndTypes().get(1)) != null) {
+							return true;
+						}
+					} else if (type == MenuType.ContextMenu) {
+						if (getContextMenu((Class)a.getEndTypes().get(1)) != null) {
+							return true;
+						}
+					}
+				}
+			}
+		}
+		for (Element e : c.allOwnedElements()) {
+			if (e instanceof Class) {
+				hasMenuAssociation((Class)e, type);
+			}
+		}
+		return false;
+	}
+	
 	public static Stereotype getXisList(Class c) {
 		return c.getAppliedStereotype("XIS-Mobile::XisList");
 	}
@@ -313,5 +359,10 @@ public final class ServiceUtils {
 	 */
 	private static String toUpperFirst(String s) {
 		return s.substring(0, 1).toUpperCase() + s.substring(1);
+	}
+	
+	enum MenuType {
+		OptionsMenu,
+		ContextMenu
 	}
 }

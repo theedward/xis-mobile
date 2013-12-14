@@ -22,6 +22,7 @@ import org.eclipse.uml2.uml.Stereotype;
 import org.eclipse.uml2.uml.Type;
 
 import xismobile.pim.uml2.gen.android.main.Uml2Android;
+import xismobile.pim.uml2.gen.android.services.ServiceUtils.MenuType;
 
 public class Services {
 
@@ -697,6 +698,26 @@ public class Services {
 	 */
 	public boolean stringContains(String s1, String s2) {
 		return s1.contains(s2);
+	}
+	
+	/**
+	 * Checks if an options menu exists in the interaction space.
+	 * 
+	 * @param c the interaction space
+	 * @return true if there is an options menu, false otherwise
+	 */
+	public boolean hasOptionsMenu(Class c) {
+		return ServiceUtils.hasMenuAssociation(c, MenuType.OptionsMenu);
+	}
+	
+	/**
+	 * Checks if a context menu exists in the interaction space.
+	 * 
+	 * @param c the interaction space
+	 * @return true if there is a context menu, false otherwise
+	 */
+	public boolean hasContextMenu(Class c) {
+		return ServiceUtils.hasMenuAssociation(c, MenuType.ContextMenu);
 	}
 	
 	/**
