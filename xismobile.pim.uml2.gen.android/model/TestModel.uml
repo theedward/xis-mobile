@@ -11,8 +11,30 @@
           <nestedClassifier xmi:type="uml:Class" xmi:id="_DUiL8CEtEeOdVNfQLTcG7A" name="MyMenu"/>
           <nestedClassifier xmi:type="uml:Class" xmi:id="_2DkLMCnqEeOBD5ExxoPX3A" name="MyLabel"/>
         </packagedElement>
+        <packagedElement xmi:type="uml:Association" xmi:id="_cVmOI2W0EeO59ZqnG9-0yw" name="myIS_myContextMenu_1" memberEnd="_cVmOJGW0EeO59ZqnG9-0yw _cVmOIGW0EeO59ZqnG9-0yw" navigableOwnedEnd="_cVmOIGW0EeO59ZqnG9-0yw">
+          <ownedEnd xmi:id="_cVmOJGW0EeO59ZqnG9-0yw" name="myIS" type="_e35kwCBFEeO_m-zgIyufMQ" association="_cVmOI2W0EeO59ZqnG9-0yw">
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cVmOJWW0EeO59ZqnG9-0yw" value="1"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cVmOJmW0EeO59ZqnG9-0yw" value="1"/>
+          </ownedEnd>
+          <ownedEnd xmi:id="_cVmOIGW0EeO59ZqnG9-0yw" name="myContextMenu" type="_PrYlUGW0EeO59ZqnG9-0yw" association="_cVmOI2W0EeO59ZqnG9-0yw">
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_cVmOIWW0EeO59ZqnG9-0yw" value="1"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_cVmOImW0EeO59ZqnG9-0yw" value="1"/>
+          </ownedEnd>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Association" xmi:id="_dL5kA2W0EeO59ZqnG9-0yw" name="myIS_myOptionsMenu_1" memberEnd="_dL5kBGW0EeO59ZqnG9-0yw _dL5kAGW0EeO59ZqnG9-0yw" navigableOwnedEnd="_dL5kAGW0EeO59ZqnG9-0yw">
+          <ownedEnd xmi:id="_dL5kBGW0EeO59ZqnG9-0yw" name="myIS" type="_e35kwCBFEeO_m-zgIyufMQ" association="_dL5kA2W0EeO59ZqnG9-0yw">
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_dL5kBWW0EeO59ZqnG9-0yw" value="1"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_dL5kBmW0EeO59ZqnG9-0yw" value="1"/>
+          </ownedEnd>
+          <ownedEnd xmi:id="_dL5kAGW0EeO59ZqnG9-0yw" name="myOptionsMenu" type="_MlEUoGW0EeO59ZqnG9-0yw" association="_dL5kA2W0EeO59ZqnG9-0yw">
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_dL5kAWW0EeO59ZqnG9-0yw" value="1"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_dL5kAmW0EeO59ZqnG9-0yw" value="1"/>
+          </ownedEnd>
+        </packagedElement>
       </packagedElement>
     </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_MlEUoGW0EeO59ZqnG9-0yw" name="MyOptionsMenu"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_PrYlUGW0EeO59ZqnG9-0yw" name="MyContextMenu"/>
     <profileApplication xmi:id="_RdpAEFhhEeOqfpDi1piBGQ">
       <eAnnotations xmi:id="_RdyKAFhhEeOqfpDi1piBGQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
         <references xmi:type="ecore:EPackage" href="../../XIS-Mobile/model.profile.uml#_SXapEVhTEeOjBoMcdovZrg"/>
@@ -24,4 +46,8 @@
   <XISMobile:XisButton xmi:id="_UEHTEFhhEeOqfpDi1piBGQ" base_Class="_Bl2ckCEtEeOdVNfQLTcG7A"/>
   <XISMobile:XisMenu xmi:id="_VR7KAFhhEeOqfpDi1piBGQ" base_Class="_DUiL8CEtEeOdVNfQLTcG7A"/>
   <XISMobile:XisLabel xmi:id="_WpQJUFhhEeOqfpDi1piBGQ" base_Class="_2DkLMCnqEeOBD5ExxoPX3A"/>
+  <XISMobile:XisMenu xmi:id="_Uk__oGW0EeO59ZqnG9-0yw" base_Class="_MlEUoGW0EeO59ZqnG9-0yw"/>
+  <XISMobile:XisMenu xmi:id="_ZrZ4wGW0EeO59ZqnG9-0yw" base_Class="_PrYlUGW0EeO59ZqnG9-0yw" type="ContextMenu"/>
+  <XISMobile:XisMenuAssociation xmi:id="_ee6rEGW0EeO59ZqnG9-0yw" base_Association="_dL5kA2W0EeO59ZqnG9-0yw"/>
+  <XISMobile:XisMenuAssociation xmi:id="_fVXx8GW0EeO59ZqnG9-0yw" base_Association="_cVmOI2W0EeO59ZqnG9-0yw"/>
 </xmi:XMI>
