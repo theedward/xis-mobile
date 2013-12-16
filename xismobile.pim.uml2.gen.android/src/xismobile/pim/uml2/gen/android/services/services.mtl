@@ -74,6 +74,14 @@
 	invoke('xismobile.pim.uml2.gen.android.services.Services', 'hasOptionsMenu(org.eclipse.uml2.uml.Class)', Sequence{c})
 /]
 
+[query public getOptionsMenu(c : Class) : Class =
+	invoke('xismobile.pim.uml2.gen.android.services.Services', 'getOptionsMenu(org.eclipse.uml2.uml.Class)', Sequence{c})
+/]
+
 [query public hasContextMenu(c : Class) : Boolean =
 	invoke('xismobile.pim.uml2.gen.android.services.Services', 'hasContextMenu(org.eclipse.uml2.uml.Class)', Sequence{c})
+/]
+
+[query public getContextMenu(c : Class) : Class =
+	invoke('xismobile.pim.uml2.gen.android.services.Services', 'getContextMenu(org.eclipse.uml2.uml.Class)', Sequence{c})
 /]

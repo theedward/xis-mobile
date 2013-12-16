@@ -714,7 +714,23 @@ public class Services {
 				return true;
 			}
 		}
-		return ServiceUtils.hasMenuAssociation(c, MenuType.OptionsMenu);
+		return ServiceUtils.hasMenuFromMenuAssociation(c, MenuType.OptionsMenu);
+	}
+	
+	/**
+	 * Gets the options menu of the interaction space.
+	 * 
+	 * @param c the interaction space
+	 * @return The options menu
+	 */
+	public Class getOptionsMenu(Class c) {
+		for (Element el : c.allOwnedElements()) {
+			if (el instanceof Class && ServiceUtils.isXisMenu((Class)el)
+				&& ServiceUtils.getOptionsMenu((Class)el) != null) {
+				return (Class)el;
+			}
+		}
+		return ServiceUtils.getMenuFromMenuAssociation(c, MenuType.OptionsMenu);
 	}
 	
 	/**
@@ -730,7 +746,23 @@ public class Services {
 				return true;
 			}
 		}
-		return ServiceUtils.hasMenuAssociation(c, MenuType.ContextMenu);
+		return ServiceUtils.hasMenuFromMenuAssociation(c, MenuType.ContextMenu);
+	}
+	
+	/**
+	 * Gets the context menu of the interaction space.
+	 * 
+	 * @param c the interaction space
+	 * @return The context menu
+	 */
+	public Class getContextMenu(Class c) {
+		for (Element el : c.allOwnedElements()) {
+			if (el instanceof Class && ServiceUtils.isXisMenu((Class)el)
+				&& ServiceUtils.getContextMenu((Class)el) != null) {
+				return (Class)el;
+			}
+		}
+		return ServiceUtils.getMenuFromMenuAssociation(c, MenuType.ContextMenu);
 	}
 	
 	/**

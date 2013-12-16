@@ -184,7 +184,7 @@ public final class ServiceUtils {
 		return a.getAppliedStereotype("XIS-Mobile::XisMenuAssociation") != null;
 	}
 	
-	public static boolean hasMenuAssociation(Class c, MenuType type) {
+	public static boolean hasMenuFromMenuAssociation(Class c, MenuType type) {
 		for (Association a : c.getAssociations()) {
 			if (isXisMenuAssociation(a)) {
 				Property first = a.getMemberEnds().get(0);
@@ -215,10 +215,47 @@ public final class ServiceUtils {
 		}
 		for (Element e : c.allOwnedElements()) {
 			if (e instanceof Class) {
-				hasMenuAssociation((Class)e, type);
+				hasMenuFromMenuAssociation((Class)e, type);
 			}
 		}
 		return false;
+	}
+	
+	public static Class getMenuFromMenuAssociation(Class c, MenuType type) {
+		for (Association a : c.getAssociations()) {
+			if (isXisMenuAssociation(a)) {
+				Property first = a.getMemberEnds().get(0);
+				Property second = a.getMemberEnds().get(1);
+				if (first.isNavigable()) {
+					if (type == MenuType.OptionsMenu) {
+						if (getOptionsMenu((Class)a.getEndTypes().get(0)) != null) {
+							return (Class)a.getEndTypes().get(0);
+						}
+					} else if (type == MenuType.ContextMenu) {
+						if (getContextMenu((Class)a.getEndTypes().get(0)) != null) {
+							return (Class)a.getEndTypes().get(0);
+						}
+					}
+				}
+				else if (second.isNavigable()) {
+					if (type == MenuType.OptionsMenu) {
+						if (getOptionsMenu((Class)a.getEndTypes().get(1)) != null) {
+							return (Class)a.getEndTypes().get(1);
+						}
+					} else if (type == MenuType.ContextMenu) {
+						if (getContextMenu((Class)a.getEndTypes().get(1)) != null) {
+							return (Class)a.getEndTypes().get(1);
+						}
+					}
+				}
+			}
+		}
+		for (Element e : c.allOwnedElements()) {
+			if (e instanceof Class) {
+				hasMenuFromMenuAssociation((Class)e, type);
+			}
+		}
+		return null;
 	}
 	
 	public static Stereotype getXisList(Class c) {
