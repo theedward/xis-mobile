@@ -126,8 +126,7 @@ public class [c.name.toUpperFirst()/]Activity extends Activity {
 	}
 	[writeWidgetInit(widgets)/]
 [/if]
-[if (c.hasOptionsMenu())]
-	[let m : Class = c.getOwnedOptionsMenu()]
+[let m : Class = c.getOptionsMenu()]
 	[generateOptionsMenu(m)/]
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -152,10 +151,8 @@ public class [c.name.toUpperFirst()/]Activity extends Activity {
 				return super.onOptionsItemSelected(item);
 		}
 	}
-	[/let]
-[/if]
-[if (c.hasContextMenu())]
-	[let m : Class = c.getOwnedContextMenu()]
+[/let]
+[let m : Class = c.getContextMenu()]
 	[generateContextMenu(m)/]
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View v,
@@ -163,7 +160,7 @@ public class [c.name.toUpperFirst()/]Activity extends Activity {
 		super.onCreateContextMenu(menu, v, menuInfo);
 		getMenuInflater().inflate(R.menu.[m.name.toLowerCase()/]_context, menu);
 	}
-	
+
 	@Override
 	public boolean onContextItemSelected(android.view.MenuItem item) {
 		switch (item.getItemId()) {
@@ -180,8 +177,7 @@ public class [c.name.toUpperFirst()/]Activity extends Activity {
 				return super.onContextItemSelected(item);
 		}
 	}
-	[/let]
-[/if]
+[/let]
 [let wsl : Set(Operation) = c.getAllWebServiceActions()]
 	[if (wsl->size() > 0)]
 
@@ -214,7 +210,7 @@ private [w.writeWidgetTypeAndName()/];
 [/if]
 [/template]
 
-[template public writeWidgetInit(widgets : Set(Class))]
+[template public writeWidgetInit(widgets : Set(Class)) post (trim())]
 [for (w : Class | widgets)]
 
 public void initialize[w.getWidgetName().toUpperFirst()/]() {
