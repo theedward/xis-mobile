@@ -13,6 +13,7 @@ import java.util.jar.JarFile;
 
 import org.eclipse.uml2.uml.Association;
 import org.eclipse.uml2.uml.Class;
+import org.eclipse.uml2.uml.Element;
 import org.eclipse.uml2.uml.Generalization;
 import org.eclipse.uml2.uml.Interface;
 import org.eclipse.uml2.uml.InterfaceRealization;
@@ -707,6 +708,12 @@ public class Services {
 	 * @return true if there is an options menu, false otherwise
 	 */
 	public boolean hasOptionsMenu(Class c) {
+		for (Element el : c.allOwnedElements()) {
+			if (el instanceof Class && ServiceUtils.isXisMenu((Class)el)
+				&& ServiceUtils.getOptionsMenu((Class)el) != null) {
+				return true;
+			}
+		}
 		return ServiceUtils.hasMenuAssociation(c, MenuType.OptionsMenu);
 	}
 	
@@ -717,6 +724,12 @@ public class Services {
 	 * @return true if there is a context menu, false otherwise
 	 */
 	public boolean hasContextMenu(Class c) {
+		for (Element el : c.allOwnedElements()) {
+			if (el instanceof Class && ServiceUtils.isXisMenu((Class)el)
+				&& ServiceUtils.getContextMenu((Class)el) != null) {
+				return true;
+			}
+		}
 		return ServiceUtils.hasMenuAssociation(c, MenuType.ContextMenu);
 	}
 	
