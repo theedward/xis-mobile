@@ -8,7 +8,7 @@
       <packagedElement xmi:type="uml:Package" xmi:id="_wdHHsCXGEeO-A4R6esSaTA" name="Package2">
         <packagedElement xmi:type="uml:Class" xmi:id="_e35kwCBFEeO_m-zgIyufMQ" name="MyIS">
           <nestedClassifier xmi:type="uml:Class" xmi:id="_Bl2ckCEtEeOdVNfQLTcG7A" name="MyButton"/>
-          <nestedClassifier xmi:type="uml:Class" xmi:id="_DUiL8CEtEeOdVNfQLTcG7A" name="MyMenu"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_DUiL8CEtEeOdVNfQLTcG7A" name="MyImage"/>
           <nestedClassifier xmi:type="uml:Class" xmi:id="_2DkLMCnqEeOBD5ExxoPX3A" name="MyLabel"/>
         </packagedElement>
         <packagedElement xmi:type="uml:Association" xmi:id="_cVmOI2W0EeO59ZqnG9-0yw" name="myIS_myContextMenu_1" memberEnd="_cVmOJGW0EeO59ZqnG9-0yw _cVmOIGW0EeO59ZqnG9-0yw" navigableOwnedEnd="_cVmOIGW0EeO59ZqnG9-0yw">
@@ -44,10 +44,10 @@
   </uml:Model>
   <XISMobile:XisInteractionSpace xmi:id="_TDjN8FhhEeOqfpDi1piBGQ" base_Class="_e35kwCBFEeO_m-zgIyufMQ"/>
   <XISMobile:XisButton xmi:id="_UEHTEFhhEeOqfpDi1piBGQ" base_Class="_Bl2ckCEtEeOdVNfQLTcG7A"/>
-  <XISMobile:XisMenu xmi:id="_VR7KAFhhEeOqfpDi1piBGQ" base_Class="_DUiL8CEtEeOdVNfQLTcG7A"/>
-  <XISMobile:XisLabel xmi:id="_WpQJUFhhEeOqfpDi1piBGQ" base_Class="_2DkLMCnqEeOBD5ExxoPX3A"/>
   <XISMobile:XisMenu xmi:id="_Uk__oGW0EeO59ZqnG9-0yw" base_Class="_MlEUoGW0EeO59ZqnG9-0yw"/>
   <XISMobile:XisMenu xmi:id="_ZrZ4wGW0EeO59ZqnG9-0yw" base_Class="_PrYlUGW0EeO59ZqnG9-0yw" type="ContextMenu"/>
   <XISMobile:XisMenuAssociation xmi:id="_ee6rEGW0EeO59ZqnG9-0yw" base_Association="_dL5kA2W0EeO59ZqnG9-0yw"/>
   <XISMobile:XisMenuAssociation xmi:id="_fVXx8GW0EeO59ZqnG9-0yw" base_Association="_cVmOI2W0EeO59ZqnG9-0yw"/>
+  <XISMobile:XisLabel xmi:id="_0qgCkGZbEeOU3c0BTZHypw" base_Class="_2DkLMCnqEeOBD5ExxoPX3A"/>
+  <XISMobile:XisImage xmi:id="_2A8REGZbEeOU3c0BTZHypw" base_Class="_DUiL8CEtEeOdVNfQLTcG7A"/>
 </xmi:XMI>
