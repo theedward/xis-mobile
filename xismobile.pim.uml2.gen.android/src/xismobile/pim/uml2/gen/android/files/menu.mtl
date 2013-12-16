@@ -3,7 +3,7 @@
 
 [import xismobile::pim::uml2::gen::android::common::xisMobileUtils /]
 
-[template public generateOptionsMenu(c : Class)]
+[template public generateOptionsMenu(c : Class) post (trim())]
 
 [if (c.isXisMenu() and c.isOptionsMenu())]
 [file ('res/menu/' + c.name.toLowerCase() + '_menu.xml', false, 'UTF-8')]
@@ -12,8 +12,8 @@
 [/if]
 [/template]
 
-[template public generateContextMenu(c : Class)]
-	
+[template public generateContextMenu(c : Class) post (trim())]
+
 [if (c.isXisMenu()	and c.isContextMenu())]
 [file ('res/menu/' + c.name.toLowerCase() + '_context.xml', false, 'UTF-8')]
 [c.writeMenuContent()/]
