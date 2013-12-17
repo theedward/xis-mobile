@@ -42,7 +42,7 @@
       <appliedProfile href="../../XIS-Mobile/model.profile.uml#_EUKFkB9vEeOZ6al_I843SA"/>
     </profileApplication>
   </uml:Model>
-  <XISMobile:XisInteractionSpace xmi:id="_TDjN8FhhEeOqfpDi1piBGQ" base_Class="_e35kwCBFEeO_m-zgIyufMQ"/>
+  <XISMobile:XisInteractionSpace xmi:id="_TDjN8FhhEeOqfpDi1piBGQ" base_Class="_e35kwCBFEeO_m-zgIyufMQ" title="MyISTitle is a new one!!"/>
   <XISMobile:XisButton xmi:id="_UEHTEFhhEeOqfpDi1piBGQ" base_Class="_Bl2ckCEtEeOdVNfQLTcG7A"/>
   <XISMobile:XisMenu xmi:id="_Uk__oGW0EeO59ZqnG9-0yw" base_Class="_MlEUoGW0EeO59ZqnG9-0yw"/>
   <XISMobile:XisMenu xmi:id="_ZrZ4wGW0EeO59ZqnG9-0yw" base_Class="_PrYlUGW0EeO59ZqnG9-0yw" type="ContextMenu"/>
