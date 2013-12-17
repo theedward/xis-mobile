@@ -138,6 +138,10 @@ public class [c.name.toUpperFirst()/]Activity extends Activity {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
+		[if (m.menuPerformsCrudOperations())]
+		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();		
+
+		[/if]
 		switch (item.getItemId()) {
 		[for (it : Class | m.getXisMenuItems())]
 			case R.id.[it.name.toLowerCase()/]_item:
@@ -164,6 +168,10 @@ public class [c.name.toUpperFirst()/]Activity extends Activity {
 
 	@Override
 	public boolean onContextItemSelected(android.view.MenuItem item) {
+		[if (m.menuPerformsCrudOperations())]
+		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();		
+
+		[/if]
 		switch (item.getItemId()) {
 		[for (it : Class | m.getXisMenuItems())]
 			case R.id.[it.name.toLowerCase()/]_item:

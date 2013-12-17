@@ -241,6 +241,16 @@
 	not c.getXisMenuItem().oclIsUndefined()
 /]
 
+[query public menuPerformsCrudOperations(c : Class) : Boolean =
+	let items : OrderedSet(Class) = c.getXisMenuItems() in
+	if items->oclIsUndefined()
+	then false
+	else items->select(i : Class | i.hasXisAction() and
+		(let op : Operation = i.getXisAction() in op.isCreateAction() or op.isReadAction()
+		or op.isUpdateAction() or op.isDeleteteAction() or op.isOKAction()))
+	endif
+/]
+
 [query public getXisList(c : Class) : Stereotype =
 	c.getAppliedStereotype('XIS-Mobile::XisList')
 /]
