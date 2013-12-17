@@ -263,12 +263,25 @@
 	not c.getValue(c.getXisList(), 'searchBy').oclIsUndefined()
 /]
 
+[query public getXisListGroup(c : Class) : Stereotype =
+	c.getAppliedStereotype('XIS-Mobile::XisListGroup')
+/]
+
+[query public isXisListGroup(c : Class) : Boolean =
+	not c.getXisListGroup().oclIsUndefined()
+/]
+
 [query public getXisListItem(c : Class) : Stereotype =
 	c.getAppliedStereotype('XIS-Mobile::XisListItem')
 /]
 
 [query public isXisListItem(c : Class) : Boolean =
 	not c.getXisListItem().oclIsUndefined()
+/]
+
+[query public getXisListGroups(c : Class) : OrderedSet(Class) = 
+	c.ownedElement->selectByType(Class)->select(
+		i : Class | i.isXisListGroup())
 /]
 
 [query public getXisListItems(c : Class) : OrderedSet(Class) = 
