@@ -78,6 +78,9 @@ public class [c.name.toUpperFirst()/]Activity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.[c.name.toLowerCase()/]);
+	[if (c.hasTitle())]
+		setTitle("[c.getTitle()/]");
+	[/if]
 	[if (entities->size() > 0)]
 		[if (dbNeeded)]
 		helper = OrmLiteHelper.getHelper(getApplicationContext());
