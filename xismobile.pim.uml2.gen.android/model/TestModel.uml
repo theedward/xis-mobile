@@ -33,7 +33,11 @@
         </packagedElement>
       </packagedElement>
     </packagedElement>
-    <packagedElement xmi:type="uml:Class" xmi:id="_MlEUoGW0EeO59ZqnG9-0yw" name="MyOptionsMenu"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_MlEUoGW0EeO59ZqnG9-0yw" name="MyOptionsMenu">
+      <nestedClassifier xmi:type="uml:Class" xmi:id="_6j3yIGf6EeOYjqnop0qlsg" name="Item1">
+        <ownedOperation xmi:id="_-69uMGf6EeOYjqnop0qlsg" name="Operation1"/>
+      </nestedClassifier>
+    </packagedElement>
     <packagedElement xmi:type="uml:Class" xmi:id="_PrYlUGW0EeO59ZqnG9-0yw" name="MyContextMenu"/>
     <profileApplication xmi:id="_RdpAEFhhEeOqfpDi1piBGQ">
       <eAnnotations xmi:id="_RdyKAFhhEeOqfpDi1piBGQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
@@ -50,4 +54,6 @@
   <XISMobile:XisMenuAssociation xmi:id="_fVXx8GW0EeO59ZqnG9-0yw" base_Association="_cVmOI2W0EeO59ZqnG9-0yw"/>
   <XISMobile:XisLabel xmi:id="_0qgCkGZbEeOU3c0BTZHypw" base_Class="_2DkLMCnqEeOBD5ExxoPX3A"/>
   <XISMobile:XisImage xmi:id="_2A8REGZbEeOU3c0BTZHypw" base_Class="_DUiL8CEtEeOdVNfQLTcG7A"/>
+  <XISMobile:XisMenuItem xmi:id="_9qe9wGf6EeOYjqnop0qlsg" base_Class="_6j3yIGf6EeOYjqnop0qlsg"/>
+  <XISMobile:XisAction xmi:id="__pr1YGf6EeOYjqnop0qlsg" base_Operation="_-69uMGf6EeOYjqnop0qlsg"/>
 </xmi:XMI>
