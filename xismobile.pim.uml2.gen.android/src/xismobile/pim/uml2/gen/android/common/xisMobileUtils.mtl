@@ -247,7 +247,7 @@
 	then false
 	else items->select(i : Class | i.hasXisAction() and
 		(let op : Operation = i.getXisAction() in op.isCreateAction() or op.isReadAction()
-		or op.isUpdateAction() or op.isDeleteteAction() or op.isOKAction()))
+		or op.isUpdateAction() or op.isDeleteteAction() or op.isOKAction()))->size() > 0
 	endif
 /]
 
