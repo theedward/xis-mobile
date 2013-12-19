@@ -1,0 +1,21 @@
+[comment encoding = UTF-8 /]
+[module webService('http://www.eclipse.org/uml2/4.0.0/UML')]
+
+[import xismobile::pim::uml2::gen::android::common::utils /]
+[import xismobile::pim::uml2::gen::android::common::xisMobileUtils /]
+
+[template public generateWebService(c : Class)]
+
+[file ('src/' + c.getPackageDirectoryPath() + '/'.concat(c.name.toUpperFirst()).concat('ServiceStub.java'), false, 'UTF-8')]
+public interface [c.name.toUpperFirst()/]ServiceStub {
+	
+	private static string = "[c.getServiceUrl()/]";
+
+	[for (o : Operation | c.getXisWebMethods())]
+	public <return> [o.name.toLowerFirst()/]() {
+		
+	}
+	[/for]
+}
+[/file]
+[/template]
