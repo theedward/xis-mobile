@@ -814,6 +814,30 @@
 	not c.getXisLocationProvider().oclIsUndefined()
 /]
 
+[query public getXisWebService(c : Class) : Stereotype = 
+	c.getAppliedStereotype('XIS-Mobile::XisWebService')
+/]
+
+[query public isXisWebService(c : Class) : Boolean = 
+	not c.getXisWebService().oclIsUndefined()
+/]
+
+[query public getServiceUrl(c : Class) : String =
+	c.getValue(c.getXisWebService(), 'url')
+/]
+
+[query public getXisWebMethods(c : Class) : OrderedSet(Operation) = 
+	c.ownedOperation->select(o : Operation | o.isXisWebMethod())
+/]
+
+[query public getXisWebMethod(o : Operation) : Stereotype = 
+	o.getAppliedStereotype('XIS-Mobile::XisWebMethod')
+/]
+
+[query public isXisWebMethod(o : Operation) : Boolean = 
+	not o.getXisWebMethod().oclIsUndefined()
+/]
+
 [**
  * Checks if the application needs Internet to work properly.
  * Searches for WebService actions, MapView or WebView widgets. 
