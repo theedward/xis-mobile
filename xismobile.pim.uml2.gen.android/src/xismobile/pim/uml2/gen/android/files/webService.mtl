@@ -13,7 +13,6 @@ public interface [c.name.toUpperFirst()/]ServiceStub {
 
 	[for (o : Operation | c.getXisWebMethods())]
 	public <return> [o.name.toLowerFirst()/]() {
-		
 	}
 	[/for]
 }
