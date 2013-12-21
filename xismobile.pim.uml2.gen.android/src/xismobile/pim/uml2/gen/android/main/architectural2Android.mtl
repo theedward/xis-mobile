@@ -7,7 +7,7 @@
 [template public architectural2Android(m : Model)]
 
 [for (i : Interface | m.getAllXisServices())]
-	[i.generateWebService()/]
+	[i.generateRemoteService()/]
 [/for]
 
 [/template]
