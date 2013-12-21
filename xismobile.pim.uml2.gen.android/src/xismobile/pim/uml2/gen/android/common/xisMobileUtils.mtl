@@ -814,20 +814,40 @@
 	not c.getXisLocationProvider().oclIsUndefined()
 /]
 
-[query public getXisService(c : Class) : Stereotype = 
-	c.getAppliedStereotype('XIS-Mobile::XisService')
+[query public getAllXisServices(m : Model) : OrderedSet(Interface) =
+	m.allOwnedElements()->selectByType(Interface)->select(s : Interface | s.isXisService())
 /]
 
-[query public isXisService(c : Class) : Boolean = 
-	not c.getXisService().oclIsUndefined()
+[query public getXisService(i : Interface) : Stereotype = 
+	i.getAppliedStereotype('XIS-Mobile::XisService')
 /]
 
-[query public getServiceUrl(c : Class) : String =
-	c.getValue(c.getXisService(), 'url')
+[query public isXisService(i : Interface) : Boolean = 
+	not i.getXisService().oclIsUndefined()
 /]
 
-[query public getXisServiceMethods(c : Class) : OrderedSet(Operation) = 
-	c.ownedOperation->select(o : Operation | o.isXisServiceMethod())
+[query public getXisInternalService(i : Interface) : Stereotype = 
+	i.getAppliedStereotype('XIS-Mobile::XisInternalService')
+/]
+
+[query public isXisInternalService(i : Interface) : Boolean = 
+	not i.getXisInternalService().oclIsUndefined()
+/]
+
+[query public getXisRemoteService(i : Interface) : Stereotype = 
+	i.getAppliedStereotype('XIS-Mobile::XisRemoteService')
+/]
+
+[query public isXisRemoteService(i : Interface) : Boolean = 
+	not i.getXisRemoteService().oclIsUndefined()
+/]
+
+[query public getRemoteServiceUrl(i : Interface) : String =
+	i.getValue(i.getXisService(), 'url')
+/]
+
+[query public getXisServiceMethods(i: Interface) : OrderedSet(Operation) = 
+	i.ownedOperation->select(o : Operation | o.isXisServiceMethod())
 /]
 
 [query public getXisServiceMethod(o : Operation) : Stereotype =
