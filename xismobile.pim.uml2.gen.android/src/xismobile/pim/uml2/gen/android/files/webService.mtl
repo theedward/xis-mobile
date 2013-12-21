@@ -4,7 +4,7 @@
 [import xismobile::pim::uml2::gen::android::common::utils /]
 [import xismobile::pim::uml2::gen::android::common::xisMobileUtils /]
 
-[template public generateWebService(i : Interface)]
+[template public generateRemoteService(i : Interface)]
 
 [file ('src/' + '/'.concat(i.name.toUpperFirst()).concat('ServiceStub.java'), false, 'UTF-8')]
 public interface [i.name.toUpperFirst()/]ServiceStub {
