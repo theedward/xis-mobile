@@ -279,6 +279,10 @@
 	not c.getXisListItem().oclIsUndefined()
 /]
 
+[query public itemIsSelectable(c : Class) : Boolean =
+	c.getValue(c.getXisListItem(), 'selectable')
+/]
+
 [query public getXisListGroups(c : Class) : OrderedSet(Class) = 
 	c.ownedElement->selectByType(Class)->select(
 		i : Class | i.isXisListGroup())
