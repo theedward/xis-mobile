@@ -814,28 +814,28 @@
 	not c.getXisLocationProvider().oclIsUndefined()
 /]
 
-[query public getXisWebService(c : Class) : Stereotype = 
-	c.getAppliedStereotype('XIS-Mobile::XisWebService')
+[query public getXisService(c : Class) : Stereotype = 
+	c.getAppliedStereotype('XIS-Mobile::XisService')
 /]
 
-[query public isXisWebService(c : Class) : Boolean = 
-	not c.getXisWebService().oclIsUndefined()
+[query public isXisService(c : Class) : Boolean = 
+	not c.getXisService().oclIsUndefined()
 /]
 
 [query public getServiceUrl(c : Class) : String =
-	c.getValue(c.getXisWebService(), 'url')
+	c.getValue(c.getXisService(), 'url')
 /]
 
-[query public getXisWebMethods(c : Class) : OrderedSet(Operation) = 
-	c.ownedOperation->select(o : Operation | o.isXisWebMethod())
+[query public getXisServiceMethods(c : Class) : OrderedSet(Operation) = 
+	c.ownedOperation->select(o : Operation | o.isXisServiceMethod())
 /]
 
-[query public getXisWebMethod(o : Operation) : Stereotype = 
-	o.getAppliedStereotype('XIS-Mobile::XisWebMethod')
+[query public getXisServiceMethod(o : Operation) : Stereotype =
+	o.getAppliedStereotype('XIS-Mobile::XisServiceMethod')
 /]
 
-[query public isXisWebMethod(o : Operation) : Boolean = 
-	not o.getXisWebMethod().oclIsUndefined()
+[query public isXisServiceMethod(o : Operation) : Boolean =
+	not o.getXisServiceMethod().oclIsUndefined()
 /]
 
 [**
