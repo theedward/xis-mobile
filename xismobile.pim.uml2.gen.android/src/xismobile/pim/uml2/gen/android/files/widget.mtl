@@ -569,6 +569,14 @@ public void onPinch() {
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
+[if (c.itemIsSelectable())]
+	<CheckBox
+        android:id="@+id/checkBox[c.name.toUpperFirst()/]Selected"
+        android:focusable="false"
+        android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+[/if]
 [let widgets : Sequence(Class) = orderWidgetsByPosition(c.getXisWidgets()->asSequence())]
 [for (cl : Class | widgets)]
 	[writeWidget(widgets, cl)/]
