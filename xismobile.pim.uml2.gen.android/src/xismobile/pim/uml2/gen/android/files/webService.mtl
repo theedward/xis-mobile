@@ -4,15 +4,16 @@
 [import xismobile::pim::uml2::gen::android::common::utils /]
 [import xismobile::pim::uml2::gen::android::common::xisMobileUtils /]
 
-[template public generateWebService(c : Class)]
+[template public generateWebService(i : Interface)]
 
-[file ('src/' + c.getPackageDirectoryPath() + '/'.concat(c.name.toUpperFirst()).concat('ServiceStub.java'), false, 'UTF-8')]
-public interface [c.name.toUpperFirst()/]ServiceStub {
+[file ('src/' + '/'.concat(i.name.toUpperFirst()).concat('ServiceStub.java'), false, 'UTF-8')]
+public interface [i.name.toUpperFirst()/]ServiceStub {
 	
-	private static string = "[c.getServiceUrl()/]";
+	private static string = "[i.getRemoteServiceUrl()/]";
 
-	[for (o : Operation | c.getXisWebMethods())]
-	public <return> [o.name.toLowerFirst()/]() {
+	[for (o : Operation | i.getXisServiceMethods())]
+	public [o.type/] [o.name.toLowerFirst()/]() {
+
 	}
 	[/for]
 }
