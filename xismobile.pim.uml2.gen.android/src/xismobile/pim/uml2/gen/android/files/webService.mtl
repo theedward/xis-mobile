@@ -6,7 +6,9 @@
 
 [template public generateRemoteService(i : Interface)]
 
-[file ('src/' + '/'.concat(i.name.toUpperFirst()).concat('ServiceStub.java'), false, 'UTF-8')]
+[file ('src/' + i.oclAsType(Class).getPackagePath() + '/'.concat(i.name.toUpperFirst()).concat('ServiceStub.java'), false, 'UTF-8')]
+package [i.oclAsType(Class).getPackagePath()/];
+
 public interface [i.name.toUpperFirst()/]ServiceStub {
 	
 	private static string = "[i.getRemoteServiceUrl()/]";
