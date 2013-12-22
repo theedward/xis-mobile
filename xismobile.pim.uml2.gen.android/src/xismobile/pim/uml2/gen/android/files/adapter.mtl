@@ -52,7 +52,7 @@ public class [entity.name.toUpperFirst()/]Adapter extends ArrayAdapter<[entity.n
 		final ViewHolder holder;
 		
 		if (view == null) {
-			LayoutInflater inflater = (LayoutInflater)context
+			LayoutInflater inflater = (LayoutInflater) context
 					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			convertView = inflater.inflate(row, null);
 			holder = new ViewHolder();
@@ -60,9 +60,24 @@ public class [entity.name.toUpperFirst()/]Adapter extends ArrayAdapter<[entity.n
 		[for (el : Class | rowElements)]
 			holder.[el.name.toLowerFirst()/] = [el.writeFindWidget()/]
 		[/for]
+			[if (widget.itemIsSelectable())]
+			holder.selected = (CheckBox) convertView.findViewById(R.id.checkBox[widget.name.toUpperFirst()/]Selected);
+			holder.selected.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+				@Override
+				public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+					// TODO: Add implementation here...
+				}
+			});
+			[/if]
 			convertView.setTag(holder);
+			[if (widget.itemIsSelectable())]
+			holder.selected.setTag(list.get(position));
+			[/if]
 		} else {
 			holder = (ViewHolder) convertView.getTag();
+			[if (widget.itemIsSelectable())]
+			holder.selected.setTag(list.get(position));
+			[/if]
 		}
 	 
 		if (list == null || (position + 1) > list.size())
@@ -85,6 +100,9 @@ public class [entity.name.toUpperFirst()/]Adapter extends ArrayAdapter<[entity.n
 		[for (el : Class | rowElements)]
 		public [el.writeWidgetType()/] [el.name.toLowerFirst()/];
 		[/for]
+		[if (widget.itemIsSelectable())]
+		public CheckBox selected;
+		[/if]
 	}
 	[/let]
 }
