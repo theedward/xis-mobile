@@ -63,8 +63,8 @@ public class [c.name.toUpperFirst()/]Activity extends Activity {
 [if (entities->size() > 0)]
 	[if (c.isMainScreen())]
 	// Load BE entities (Master, Details & References)
-	[for (master : Class | c.getMasterEntities())]
-	private List<[master.name.toUpperFirst()/]> [master.name.toLowerFirst()/]s;
+	[for (entity : Class | entities)]
+	private List<[entity.name.toUpperFirst()/]> [entity.name.toLowerFirst()/]s;
 	[/for]
 	[else]
 	[let assocs : Sequence(Association) = c.getInboundNavigationAssociations()]
