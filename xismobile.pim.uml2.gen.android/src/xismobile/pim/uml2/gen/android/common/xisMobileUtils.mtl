@@ -870,7 +870,7 @@
 	let cls : Collection(Class) = m.allOwnedElements()->selectByType(Class),
 	acts : Collection(Operation) = m.allOwnedElements()->selectByType(Operation)  in
 	cls->select(c : Class | c.isXisMapView() or c.isXisWebView())->size() > 0 or
-	acts->select(o : Operation | o.isWebServiceAction())->size() > 0
+	acts->select(o : Operation | o.isXisAction() and o.isWebServiceAction())->size() > 0
 /]
 
 [query public needsLocationPermissions(m : Model) : Boolean = 
