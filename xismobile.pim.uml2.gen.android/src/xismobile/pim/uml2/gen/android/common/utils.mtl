@@ -30,10 +30,16 @@
 	packages->excluding(packages->last())
 /]
 
-[query public getPackagePath(c : Class) : Sequence(OclAny) = 
-	containingPackages().name.toLowerCase().replace(' ', '_').replace('-', '_')->sep('.')
+[query public getPackagePath(c : Class) : Sequence(OclAny) =
+	if c.containingPackages()->size() > 0
+	then c.containingPackages().name.toLowerCase().replace(' ', '_').replace('-', '_')->sep('.')
+	else null
+	endif
 /]
 
-[query public getPackageDirectoryPath(c : Class) : Sequence(OclAny) = 
-	containingPackages().name.toLowerCase().replace(' ', '_').replace('-', '_')->sep('/')
+[query public getPackageDirectoryPath(c : Class) : Sequence(OclAny) =
+	if c.containingPackages()->size() > 0 
+	then c.containingPackages().name.toLowerCase().replace(' ', '_').replace('-', '_')->sep('/')
+	else null
+	endif
 /]
