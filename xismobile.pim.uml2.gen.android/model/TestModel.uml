@@ -133,6 +133,17 @@
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_eBF1Mm48EeO0KsVHgh3XHg" value="1"/>
       </ownedEnd>
     </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_HjwxoG7uEeOZI-NJjiFaWg" name="EditIS"/>
+    <packagedElement xmi:type="uml:Association" xmi:id="_ViVlU27uEeOZI-NJjiFaWg" name="editIS_myIS_1" memberEnd="_ViVlVG7uEeOZI-NJjiFaWg _ViVlUG7uEeOZI-NJjiFaWg" navigableOwnedEnd="_ViVlUG7uEeOZI-NJjiFaWg">
+      <ownedEnd xmi:id="_ViVlVG7uEeOZI-NJjiFaWg" name="editIS" type="_HjwxoG7uEeOZI-NJjiFaWg" association="_ViVlU27uEeOZI-NJjiFaWg">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ViVlVW7uEeOZI-NJjiFaWg" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ViVlVm7uEeOZI-NJjiFaWg" value="1"/>
+      </ownedEnd>
+      <ownedEnd xmi:id="_ViVlUG7uEeOZI-NJjiFaWg" name="myIS" type="_e35kwCBFEeO_m-zgIyufMQ" association="_ViVlU27uEeOZI-NJjiFaWg">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ViVlUW7uEeOZI-NJjiFaWg" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ViVlUm7uEeOZI-NJjiFaWg" value="1"/>
+      </ownedEnd>
+    </packagedElement>
     <profileApplication xmi:id="_RdpAEFhhEeOqfpDi1piBGQ">
       <eAnnotations xmi:id="_RdyKAFhhEeOqfpDi1piBGQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
         <references xmi:type="ecore:EPackage" href="../../XIS-Mobile/model.profile.uml#__kgjsGvaEeOfGaZrPGwCJQ"/>
@@ -164,4 +175,6 @@
   <XISMobile:XisEntityAttribute xmi:id="_K_tZgG49EeO0KsVHgh3XHg" base_Property="_nieE0G48EeO0KsVHgh3XHg"/>
   <XISMobile:XisEntityAttribute xmi:id="_wHK0UG49EeO0KsVHgh3XHg" base_Property="_piJBEG49EeO0KsVHgh3XHg"/>
   <XISMobile:XisEntityAttribute xmi:id="_xOb-YG49EeO0KsVHgh3XHg" base_Property="_riPQkG49EeO0KsVHgh3XHg"/>
+  <XISMobile:XisInteractionSpace xmi:id="_SoXukG7uEeOZI-NJjiFaWg" isMainScreen="true" base_Class="_HjwxoG7uEeOZI-NJjiFaWg"/>
+  <XISMobile:XisNavigationAssociation xmi:id="_aRrpUG7uEeOZI-NJjiFaWg" base_Association="_ViVlU27uEeOZI-NJjiFaWg"/>
 </xmi:XMI>
