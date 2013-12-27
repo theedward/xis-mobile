@@ -843,4 +843,35 @@
     <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_ViogQG7uEeOZI-NJjiFaWg" id="(0.1504424778761062,0.1553398058252427)"/>
     <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_ViogQW7uEeOZI-NJjiFaWg" id="(0.8388625592417062,0.9667519181585678)"/>
   </edges>
+  <edges xmi:type="notation:Connector" xmi:id="_8JvcB28GEeOZI-NJjiFaWg" type="4001" source="_HqdPgG7uEeOZI-NJjiFaWg" target="_YVpx0G47EeO0KsVHgh3XHg" lineColor="0">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="__v5qYG8GEeOZI-NJjiFaWg" source="Stereotype_Annotation">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="__v5qYW8GEeOZI-NJjiFaWg" key="StereotypeWithQualifiedNameList" value=""/>
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="__v5qYm8GEeOZI-NJjiFaWg" key="StereotypeList" value="XIS-Mobile::XisDomainAssociation"/>
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="__v5qY28GEeOZI-NJjiFaWg" key="Stereotype_Presentation_Kind" value="HorizontalStereo"/>
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="__v5qZG8GEeOZI-NJjiFaWg" key="PropStereoDisplay" value=""/>
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="__v5qZW8GEeOZI-NJjiFaWg" key="StereotypePropertyLocation" value="Compartment"/>
+    </eAnnotations>
+    <children xmi:type="notation:DecorationNode" xmi:id="_8JvcCm8GEeOZI-NJjiFaWg" type="6001">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_8JvcC28GEeOZI-NJjiFaWg" y="-20"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_8JvcDG8GEeOZI-NJjiFaWg" visible="false" type="6002">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_8JvcDW8GEeOZI-NJjiFaWg" y="20"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_8JvcDm8GEeOZI-NJjiFaWg" visible="false" type="6003">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_8JvcD28GEeOZI-NJjiFaWg" y="-20"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_8JvcEG8GEeOZI-NJjiFaWg" visible="false" type="6005">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_8JvcEW8GEeOZI-NJjiFaWg" y="20"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_8JvcEm8GEeOZI-NJjiFaWg" type="6033">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_8JvcE28GEeOZI-NJjiFaWg" y="20"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_8JvcFG8GEeOZI-NJjiFaWg" type="6034">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_8JvcFW8GEeOZI-NJjiFaWg" y="-20"/>
+    </children>
+    <styles xmi:type="notation:FontStyle" xmi:id="_8JvcCG8GEeOZI-NJjiFaWg" fontName="Segoe UI"/>
+    <element xmi:type="uml:Association" href="TestModel.uml#_8JvcA28GEeOZI-NJjiFaWg"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_8JvcCW8GEeOZI-NJjiFaWg" points="[4, -11, -163, 417]$[159, -376, -8, 52]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_8KC-AG8GEeOZI-NJjiFaWg" id="(0.5486725663716814,0.10679611650485436)"/>
+  </edges>
 </notation:Diagram>

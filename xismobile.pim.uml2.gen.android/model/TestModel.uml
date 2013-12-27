@@ -142,6 +142,16 @@
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ViVlUm7uEeOZI-NJjiFaWg" value="1"/>
           </ownedEnd>
         </packagedElement>
+        <packagedElement xmi:type="uml:Association" xmi:id="_8JvcA28GEeOZI-NJjiFaWg" name="editIS_myBE_1" memberEnd="_8JvcBG8GEeOZI-NJjiFaWg _8JvcAG8GEeOZI-NJjiFaWg" navigableOwnedEnd="_8JvcAG8GEeOZI-NJjiFaWg">
+          <ownedEnd xmi:id="_8JvcBG8GEeOZI-NJjiFaWg" name="editIS" type="_HjwxoG7uEeOZI-NJjiFaWg" association="_8JvcA28GEeOZI-NJjiFaWg">
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_8JvcBW8GEeOZI-NJjiFaWg" value="1"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_8JvcBm8GEeOZI-NJjiFaWg" value="1"/>
+          </ownedEnd>
+          <ownedEnd xmi:id="_8JvcAG8GEeOZI-NJjiFaWg" name="myBE" type="_YUdfAG47EeO0KsVHgh3XHg" association="_8JvcA28GEeOZI-NJjiFaWg">
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_8JvcAW8GEeOZI-NJjiFaWg" value="1"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_8JvcAm8GEeOZI-NJjiFaWg" value="1"/>
+          </ownedEnd>
+        </packagedElement>
       </packagedElement>
     </packagedElement>
     <profileApplication xmi:id="_RdpAEFhhEeOqfpDi1piBGQ">
@@ -175,6 +185,7 @@
   <XISMobile:XisEntityAttribute xmi:id="_K_tZgG49EeO0KsVHgh3XHg" base_Property="_nieE0G48EeO0KsVHgh3XHg"/>
   <XISMobile:XisEntityAttribute xmi:id="_wHK0UG49EeO0KsVHgh3XHg" base_Property="_piJBEG49EeO0KsVHgh3XHg"/>
   <XISMobile:XisEntityAttribute xmi:id="_xOb-YG49EeO0KsVHgh3XHg" base_Property="_riPQkG49EeO0KsVHgh3XHg"/>
-  <XISMobile:XisInteractionSpace xmi:id="_SoXukG7uEeOZI-NJjiFaWg" isMainScreen="true" base_Class="_HjwxoG7uEeOZI-NJjiFaWg"/>
+  <XISMobile:XisInteractionSpace xmi:id="_SoXukG7uEeOZI-NJjiFaWg" base_Class="_HjwxoG7uEeOZI-NJjiFaWg"/>
   <XISMobile:XisNavigationAssociation xmi:id="_aRrpUG7uEeOZI-NJjiFaWg" base_Association="_ViVlU27uEeOZI-NJjiFaWg"/>
+  <XISMobile:XisDomainAssociation xmi:id="__vmIYG8GEeOZI-NJjiFaWg" base_Association="_8JvcA28GEeOZI-NJjiFaWg"/>
 </xmi:XMI>
