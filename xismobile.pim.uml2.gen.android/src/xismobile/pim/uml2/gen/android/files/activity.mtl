@@ -66,11 +66,11 @@ public class [c.name.toUpperFirst()/]Activity extends Activity {
 	[for (entity : Class | entities)]
 	private List<[entity.name.toUpperFirst()/]> [entity.name.toLowerFirst()/]s;
 	[/for]
-	[else]
+	[/if]
 	[let assocs : Sequence(Association) = c.getInboundNavigationAssociations()]
 	[comment @TODO Process Inbound Navigation Associations/]
+	**[assocs/]**
 	[/let]
-	[/if]
 [/if]
 
 	/** Called when the activity is first created. */
