@@ -98,6 +98,15 @@ public class [c.name.toUpperFirst()/]Activity extends Activity {
 		[/if]
 		[/if]
 	[/if]
+		[let assocs : Sequence(Association) = c.getInboundNavigationAssociations()]
+		[if (assocs->size() > 0)]
+		if (getIntent() != null && getIntent().getExtras() != null) {
+			Bundle extras = getIntent().getExtras();
+			taskID = (int) extras.getInt("TaskID");
+			task = helper.getTaskById(taskID);
+		}
+		[/if]
+		[/let]
 		[if (widgets->size() > 0)]
 		initializeWidgets();
 		[/if]
