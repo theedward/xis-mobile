@@ -25,21 +25,21 @@
 	a.memberEnd->at(2)
 /]
 
-[query public containingPackages(c : Class) : Sequence(Package) =
-	let packages : Sequence(Package) = c.ancestors(Package)->reject(oclIsKindOf(Model))->reverse() in
+[query public containingPackages(e : Element) : Sequence(Package) =
+	let packages : Sequence(Package) = e.ancestors(Package)->reject(oclIsKindOf(Model))->reverse() in
 	packages->excluding(packages->last())
 /]
 
-[query public getPackagePath(c : Class) : Sequence(OclAny) =
-	if c.containingPackages()->size() > 0
-	then c.containingPackages().name.toLowerCase().replace(' ', '_').replace('-', '_')->sep('.')
+[query public getPackagePath(e : Element) : Sequence(OclAny) =
+	if e.containingPackages()->size() > 0
+	then e.containingPackages().name.toLowerCase().replace(' ', '_').replace('-', '_')->sep('.')
 	else null
 	endif
 /]
 
-[query public getPackageDirectoryPath(c : Class) : Sequence(OclAny) =
-	if c.containingPackages()->size() > 0 
-	then c.containingPackages().name.toLowerCase().replace(' ', '_').replace('-', '_')->sep('/')
+[query public getPackageDirectoryPath(e : Element) : Sequence(OclAny) =
+	if e.containingPackages()->size() > 0 
+	then e.containingPackages().name.toLowerCase().replace(' ', '_').replace('-', '_')->sep('/')
 	else null
 	endif
 /]
