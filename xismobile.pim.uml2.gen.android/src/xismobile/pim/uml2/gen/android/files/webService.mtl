@@ -6,12 +6,12 @@
 
 [template public generateRemoteService(i : Interface)]
 
-[file ('src/' + i.oclAsType(Class).getPackagePath() + '/'.concat(i.name.toUpperFirst()).concat('ServiceStub.java'), false, 'UTF-8')]
-package [i.oclAsType(Class).getPackagePath()/];
+[file ('src/' + i.getPackageDirectoryPath() + '/'.concat(i.name.toUpperFirst()).concat('ServiceStub.java'), false, 'UTF-8')]
+package [i.getPackagePath()/];
 
 public interface [i.name.toUpperFirst()/]ServiceStub {
 	
-	private static string = "[i.getRemoteServiceUrl()/]";
+	private static string = "[comment][i.getRemoteServiceUrl()/][/comment]";
 
 	[for (o : Operation | i.getXisServiceMethods())]
 	public [o.type/] [o.name.toLowerFirst()/]() {
