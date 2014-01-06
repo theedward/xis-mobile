@@ -11,7 +11,7 @@ package [i.getPackagePath()/];
 
 public interface [i.name.toUpperFirst()/]ServiceStub {
 	
-	private static string = "[comment][i.getRemoteServiceUrl()/][/comment]";
+	private static String url = "[i.getRemoteServiceUrl()/]";
 
 	[for (o : Operation | i.getXisServiceMethods())]
 	public [o.type/] [o.name.toLowerFirst()/]() {
