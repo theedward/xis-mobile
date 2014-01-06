@@ -908,7 +908,12 @@
 		c : Class | c.isXisLocationProvider())->size() > 0
 /]
 
-[query public needsCalendarPermission(m : Model) : Boolean = 
+[query public needsContactsPermissions(m : Model) : Boolean = 
+	m.allOwnedElements()->selectByType(Class)->select(
+		c : Class | c.isXisContactsProvider())->size() > 0
+/]
+
+[query public needsCalendarPermissions(m : Model) : Boolean = 
 	m.allOwnedElements()->selectByType(Class)->select(
 		c : Class | c.isXisCalendarProvider())->size() > 0
 /]
