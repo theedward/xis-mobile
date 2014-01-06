@@ -3045,4 +3045,11 @@
     <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_Oi09IFhTEeOjBoMcdovZrg" id="(0.5693430656934306,0.21348314606741572)"/>
     <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_Oi09IVhTEeOjBoMcdovZrg" id="(0.4,0.76)"/>
   </edges>
+  <edges xmi:type="notation:Connector" xmi:id="_zpb-4HcJEeOsZuyhiB0NnA" type="1013" source="_t3YPIB9xEeOZ6al_I843SA" target="_bXpgQB94EeOZ6al_I843SA" lineColor="0">
+    <styles xmi:type="notation:FontStyle" xmi:id="_zpb-4XcJEeOsZuyhiB0NnA" fontName="Segoe UI"/>
+    <element xmi:type="uml:Extension" href="model.profile.uml#_zosYAXcJEeOsZuyhiB0NnA"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_zpb-4ncJEeOsZuyhiB0NnA" points="[25, -13, -837, 422]$[838, -434, -24, 1]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_zplv4HcJEeOsZuyhiB0NnA" id="(0.7627118644067796,0.18309859154929578)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_zplv4XcJEeOsZuyhiB0NnA" id="(0.24,0.54)"/>
+  </edges>
 </notation:Diagram>
