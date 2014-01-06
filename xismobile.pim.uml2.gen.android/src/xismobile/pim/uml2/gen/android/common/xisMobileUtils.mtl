@@ -847,7 +847,21 @@
 /]
 
 [query public getRemoteServiceUrl(i : Interface) : String =
-	i.getValue(i.getXisService(), 'url')
+	i.getRelationships()->selectByType(InterfaceRealization)
+		.source.oclAsType(Class).getXisServerAddress()
+	+ '/' + i.name
+/]
+
+[query public getXisServer(c : Class) : Stereotype = 
+	c.getAppliedStereotype('XIS-Mobile::XisServer')
+/]
+
+[query public isXisServer(c : Class) : Boolean = 
+	not c.getXisServer().oclIsUndefined()
+/]
+
+[query public getXisServerAddress(c : Class) : String =
+	c.getValue(c.getXisServer(), 'address')
 /]
 
 [query public getXisServiceMethods(i: Interface) : OrderedSet(Operation) = 
