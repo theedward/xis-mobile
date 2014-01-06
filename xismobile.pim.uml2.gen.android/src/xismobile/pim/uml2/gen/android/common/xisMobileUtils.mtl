@@ -818,6 +818,22 @@
 	not c.getXisLocationProvider().oclIsUndefined()
 /]
 
+[query public getXisContactsProvider(c : Class) : Stereotype = 
+	c.getAppliedStereotype('XIS-Mobile::XisContactsProvider')
+/]
+
+[query public isXisContactsProvider(c : Class) : Boolean = 
+	not c.getXisContactsProvider().oclIsUndefined()
+/]
+
+[query public getXisCalendarProvider(c : Class) : Stereotype = 
+	c.getAppliedStereotype('XIS-Mobile::XisCalendarProvider')
+/]
+
+[query public isXisCalendarProvider(c : Class) : Boolean = 
+	not c.getXisCalendarProvider().oclIsUndefined()
+/]
+
 [query public getAllXisServices(m : Model) : OrderedSet(Interface) =
 	m.allOwnedElements()->selectByType(Interface)->select(s : Interface | s.isXisService())
 /]
@@ -890,6 +906,11 @@
 [query public needsLocationPermissions(m : Model) : Boolean = 
 	m.allOwnedElements()->selectByType(Class)->select(
 		c : Class | c.isXisLocationProvider())->size() > 0
+/]
+
+[query public needsCalendarPermission(m : Model) : Boolean = 
+	m.allOwnedElements()->selectByType(Class)->select(
+		c : Class | c.isXisCalendarProvider())->size() > 0
 /]
 
 [query public getEnumValue(el : OclAny) : OclAny =
