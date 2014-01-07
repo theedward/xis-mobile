@@ -131,8 +131,10 @@
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_eBF1Mm48EeO0KsVHgh3XHg" value="1"/>
           </ownedEnd>
         </packagedElement>
-        <packagedElement xmi:type="uml:Class" xmi:id="_HjwxoG7uEeOZI-NJjiFaWg" name="EditIS"/>
-        <packagedElement xmi:type="uml:Association" xmi:id="_ViVlU27uEeOZI-NJjiFaWg" name="editIS_myIS_1" memberEnd="_ViVlVG7uEeOZI-NJjiFaWg _ViVlUG7uEeOZI-NJjiFaWg" navigableOwnedEnd="_ViVlUG7uEeOZI-NJjiFaWg">
+        <packagedElement xmi:type="uml:Class" xmi:id="_HjwxoG7uEeOZI-NJjiFaWg" name="EditIS">
+          <ownedOperation xmi:id="_OGCwwHffEeOomty_KwNr7w" name="editMy"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Association" xmi:id="_ViVlU27uEeOZI-NJjiFaWg" name="editMy" memberEnd="_ViVlVG7uEeOZI-NJjiFaWg _ViVlUG7uEeOZI-NJjiFaWg" navigableOwnedEnd="_ViVlUG7uEeOZI-NJjiFaWg">
           <ownedEnd xmi:id="_ViVlVG7uEeOZI-NJjiFaWg" name="editIS" type="_HjwxoG7uEeOZI-NJjiFaWg" association="_ViVlU27uEeOZI-NJjiFaWg">
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ViVlVW7uEeOZI-NJjiFaWg" value="1"/>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ViVlVm7uEeOZI-NJjiFaWg" value="1"/>
@@ -192,4 +194,5 @@
   <XISMobile:XisNavigationAssociation xmi:id="_aRrpUG7uEeOZI-NJjiFaWg" base_Association="_ViVlU27uEeOZI-NJjiFaWg"/>
   <XISMobile:XisDomainAssociation xmi:id="__vmIYG8GEeOZI-NJjiFaWg" base_Association="_8JvcA28GEeOZI-NJjiFaWg"/>
   <XISMobile:XisServer xmi:id="_TOzDEHcKEeOsZuyhiB0NnA" address="google.com" base_Class="_5CIUIHcEEeOsZuyhiB0NnA"/>
+  <XISMobile:XisAction xmi:id="_SDjIIHffEeOomty_KwNr7w" base_Operation="_OGCwwHffEeOomty_KwNr7w"/>
 </xmi:XMI>
