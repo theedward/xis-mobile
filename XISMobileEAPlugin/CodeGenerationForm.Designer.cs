@@ -86,6 +86,7 @@
             this.comboBoxTarget.Items.AddRange(new object[] {
             "Android",
             "Windows Phone",
+            "iOS",
             "All"});
             this.comboBoxTarget.Location = new System.Drawing.Point(106, 43);
             this.comboBoxTarget.Name = "comboBoxTarget";

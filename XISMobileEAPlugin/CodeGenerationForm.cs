@@ -83,7 +83,26 @@ namespace XISMobileEAPlugin
                     project.ExportPackageXMI(package.PackageGUID, EA.EnumXMIType.xmiEA21, 1, -1, 1, 0, xmiPath);
                     string exePath = "\"" + Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
                     ExecuteCommand(exePath + "\\XMLParser.jar\" " + xmiPath + " " + projectName);
-                    ExecuteCommand(exePath + "\\Generator.jar\" " + umlPath + " " + textBoxPath.Text + "\\src-gen");
+
+                    switch (platformType)
+                    {
+                        case "Android":
+                            ExecuteCommand(exePath + "\\Generator.jar\" " + umlPath + " " + textBoxPath.Text + "\\src-gen");
+                            break;
+                        case "Windows Phone":
+                            //ExecuteCommand(exePath + "\\Generator.jar\" " + umlPath + " " + textBoxPath.Text + "\\src-gen");
+                            break;
+                        case "iOS":
+                            //ExecuteCommand(exePath + "\\Generator.jar\" " + umlPath + " " + textBoxPath.Text + "\\src-gen");
+                            break;
+                        case "All":
+                            //ExecuteCommand(exePath + "\\Generator.jar\" " + umlPath + " " + textBoxPath.Text + "\\android\\src-gen");
+                            //ExecuteCommand(exePath + "\\Generator.jar\" " + umlPath + " " + textBoxPath.Text + "\\wp\\src-gen");
+                            //ExecuteCommand(exePath + "\\Generator.jar\" " + umlPath + " " + textBoxPath.Text + "\\ios\\src-gen");
+                            break;
+                        default:
+                            break;
+                    }
                 }
                 else
                 {
