@@ -407,6 +407,12 @@
 	) = 'WebService'
 /]
 
+[query public isNavigateAction(o : Operation) : Boolean = 
+	getEnumValue(o.getValue(
+		o.getXisAction(), 'type')
+	) = 'Navigate'
+/]
+
 [query public isCustomAction(o : Operation) : Boolean = 
 	getEnumValue(o.getValue(
 		o.getXisAction(), 'type')
