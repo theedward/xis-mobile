@@ -18,6 +18,7 @@ import org.eclipse.uml2.uml.Generalization;
 import org.eclipse.uml2.uml.Interface;
 import org.eclipse.uml2.uml.InterfaceRealization;
 import org.eclipse.uml2.uml.Model;
+import org.eclipse.uml2.uml.Operation;
 import org.eclipse.uml2.uml.Property;
 import org.eclipse.uml2.uml.Stereotype;
 import org.eclipse.uml2.uml.Type;
@@ -277,6 +278,44 @@ public class Services {
 		return associations;
 	}
 
+	public List<String> getInboundCrudOperations(Class c) {
+		List<String> entities = new ArrayList<String>();
+
+		for (Association a : c.getAssociations()) {
+			if (ServiceUtils.isXisNavigationAssociation(a)) {
+				Property first = a.getMemberEnds().get(0);
+				Property second = a.getMemberEnds().get(1);
+				if (first.isNavigable()) {
+					if (a.getEndTypes().get(0).getName().equals(c.getName())) {
+						for (Operation o : a.getAllOperations()) {
+							if (ServiceUtils.isXisAction(o)
+								&& a.getName().equals(o.getName())
+								&& !entities.contains(o.getName())) {
+								entities.add(o.getName());
+// Check if it is CRUD and getEntityName parameter
+//								o.getOwnedParameters();
+							}
+						}
+					}
+				}
+				else if (second.isNavigable()) {
+					if (a.getEndTypes().get(1).getName().equals(c.getName())) {
+						for (Operation o : a.getAllOperations()) {
+							if (ServiceUtils.isXisAction(o)
+								&& a.getName().equals(o.getName())
+								&& !entities.contains(o.getName())) {
+								entities.add(o.getName());
+// Check if it is CRUD and getEntityName parameter
+//								o.getOwnedParameters();
+							}
+						}
+					}
+				}
+			}
+		}
+		return entities;
+	}
+	
 	public String getEntityAttributeOfWidget(String value) {
 		return value.split(".")[1];
 	}

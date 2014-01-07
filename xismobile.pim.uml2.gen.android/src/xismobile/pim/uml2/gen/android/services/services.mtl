@@ -38,6 +38,10 @@
 	invoke('xismobile.pim.uml2.gen.android.services.Services', 'getInboundNavigationAssociations(org.eclipse.uml2.uml.Class)', Sequence{c})
 /]
 
+[query public getInboundCrudOperations(c : Class) : Sequence(String) = 
+	invoke('xismobile.pim.uml2.gen.android.services.Services', 'getInboundCrudOperations(org.eclipse.uml2.uml.Class)', Sequence{c})
+/]
+
 [query public getEntityAttributeOfWidget(value : Class) : String = 
 	invoke('xismobile.pim.uml2.gen.android.services.Services', 'getEntityAttributeOfWidget(java.lang.String)', Sequence{value})
 /]
