@@ -45,6 +45,7 @@
 
 [query public getXisEntityAttributes(c : Class) : Set(Property) =
 	c.ownedAttribute->select(p : Property | p.isXisEntityAttribute())
+	->sortedBy(p : Property | p.eContainer().eContents()->indexOf(p))
 /]
 
 [query public getXisEntityAttribute(p : Property) : Stereotype =
