@@ -67,10 +67,9 @@ public class [c.name.toUpperFirst()/]Activity extends Activity {
 	private List<[entity.name.toUpperFirst()/]> [entity.name.toLowerFirst()/]s;
 	[/for]
 	[/if]
-	[let assocs : Sequence(Association) = c.getInboundNavigationAssociations()]
-	[comment @TODO Process Inbound Navigation Associations/]
-	**[assocs/]**
-	[/let]
+	[for (s : String | c.getInboundCrudOperations())]
+	private [s.toUpperFirst()/] [s.toLowerFirst()/];
+	[/for]
 [/if]
 
 	/** Called when the activity is first created. */
