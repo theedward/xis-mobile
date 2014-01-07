@@ -326,9 +326,9 @@
 	c.ownedOperation->select(o : Operation | o.isXisAction())->at(1)
 /]
 
-[query public getXisActionByName(m : Model) : Operation =
+[query public getXisActionByName(m : Model, name : String) : Operation =
 	m.allOwnedElements()->selectByType(Operation)->select(
-		o : Operation | o.isXisAction())
+		o : Operation | o.isXisAction() and o.name = name)
 /]
 
 [query public getXisActionByName(c : Class, name : String) : Operation =
