@@ -5,6 +5,7 @@ import org.eclipse.uml2.uml.Class;
 import org.eclipse.uml2.uml.Element;
 import org.eclipse.uml2.uml.EnumerationLiteral;
 import org.eclipse.uml2.uml.Generalization;
+import org.eclipse.uml2.uml.Operation;
 import org.eclipse.uml2.uml.Property;
 import org.eclipse.uml2.uml.Stereotype;
 import org.eclipse.uml2.uml.Type;
@@ -42,6 +43,14 @@ public final class ServiceUtils {
 			}
 		}
 		return menu;
+	}
+	
+	public static boolean isXisAction(Operation o) {
+		return getXisAction(o) != null;
+	}
+	
+	public static Stereotype getXisAction(Operation o) {
+		return o.getAppliedStereotype("XIS-Mobile::XisAction");
 	}
 	
 	public static boolean isXisLabel(Class c) {
