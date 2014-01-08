@@ -49,7 +49,8 @@ public class XMLParser {
 				}
 	
 				XPath path = XPathFactory.newInstance().newXPath();
-				XPathExpression expr = path.compile("/*/*/*/packagedElement[@name='EA_CommonTypes_Package']/packagedElement/generalization/general");
+//				XPathExpression expr = path.compile("/*/*/*/packagedElement[@name='EA_CommonTypes_Package']/packagedElement/generalization/general");
+				XPathExpression expr = path.compile("/*/*/*/packagedElement[@name='EAPrimitiveTypesPackage']/packagedElement/generalization/general");
 				NodeList lst = (NodeList) expr.evaluate(docEA, XPathConstants.NODESET);
 	
 				if (lst.getLength() == 4) {
@@ -131,11 +132,11 @@ public class XMLParser {
 
 	private static void addAttributesToXMI(Element xmiElement) {
 		xmiElement.setAttribute("xmlns:uml", "http://www.eclipse.org/uml2/4.0.0/UML");
-		xmiElement.setAttribute("xmlns:XIS-Mobile", "http:///schemas/XISMobile/_SXapEVhTEeOjBoMcdovZrg/10");
+		xmiElement.setAttribute("xmlns:XIS-Mobile", "http:///schemas/XISMobile/_08dF8HcJEeOsZuyhiB0NnA/12");
 		xmiElement.setAttribute("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance");
 		xmiElement.setAttribute("xmlns:ecore", "http://www.eclipse.org/emf/2002/Ecore");
-		String schemaLocation = "http:///schemas/XISMobile/_SXapEVhTEeOjBoMcdovZrg/10";
-		schemaLocation += " jar:file:/" + System.getProperty("user.dir") + "/Generator.jar!/XIS-Mobile/model.profile.uml#_SXapEVhTEeOjBoMcdovZrg";
+		String schemaLocation = "http:///schemas/XISMobile/_08dF8HcJEeOsZuyhiB0NnA/12";
+		schemaLocation += " jar:file:/" + System.getProperty("user.dir") + "/Generator.jar!/XIS-Mobile/model.profile.uml#_08dF8HcJEeOsZuyhiB0NnA";
 		xmiElement.setAttribute("xsi:schemaLocation", schemaLocation);
 	}
 
