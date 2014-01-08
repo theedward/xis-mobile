@@ -53,6 +53,15 @@ public final class ServiceUtils {
 		return o.getAppliedStereotype("XIS-Mobile::XisAction");
 	}
 	
+	public static boolean isCrudAction(Operation o) {
+		Stereotype action = getXisAction(o);
+		EnumerationLiteral type = (EnumerationLiteral) o.getValue(action, "type");
+		
+		return type.getName().equals("Create") || type.getName().equals("Read")
+			|| type.getName().equals("Update") || type.getName().equals("Delete")
+			|| type.getName().equals("DeleteAll");
+	}
+	
 	public static boolean isXisLabel(Class c) {
 		return getXisLabel(c) != null;
 	}
