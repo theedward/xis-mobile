@@ -87,18 +87,18 @@ namespace XISMobileEAPlugin
                     switch (platformType)
                     {
                         case "Android":
-                            ExecuteCommand(exePath + "\\Generator.jar\" " + umlPath + " " + textBoxPath.Text + "\\src-gen");
+                            ExecuteCommand(exePath + "\\AndroidGenerator.jar\" " + umlPath + " " + textBoxPath.Text + "\\src-gen");
                             break;
                         case "Windows Phone":
-                            //ExecuteCommand(exePath + "\\Generator.jar\" " + umlPath + " " + textBoxPath.Text + "\\src-gen");
+                            //ExecuteCommand(exePath + "\\WPGenerator.jar\" " + umlPath + " " + textBoxPath.Text + "\\src-gen");
                             break;
                         case "iOS":
-                            //ExecuteCommand(exePath + "\\Generator.jar\" " + umlPath + " " + textBoxPath.Text + "\\src-gen");
+                            ExecuteCommand(exePath + "\\iOSGenerator.jar\" " + umlPath + " " + textBoxPath.Text + "\\src-gen");
                             break;
                         case "All":
-                            //ExecuteCommand(exePath + "\\Generator.jar\" " + umlPath + " " + textBoxPath.Text + "\\android\\src-gen");
-                            //ExecuteCommand(exePath + "\\Generator.jar\" " + umlPath + " " + textBoxPath.Text + "\\wp\\src-gen");
-                            //ExecuteCommand(exePath + "\\Generator.jar\" " + umlPath + " " + textBoxPath.Text + "\\ios\\src-gen");
+                            ExecuteCommand(exePath + "\\AndroidGenerator.jar\" " + umlPath + " " + textBoxPath.Text + "\\android\\src-gen");
+                            //ExecuteCommand(exePath + "\\WPGenerator.jar\" " + umlPath + " " + textBoxPath.Text + "\\wp\\src-gen");
+                            ExecuteCommand(exePath + "\\iOSGenerator.jar\" " + umlPath + " " + textBoxPath.Text + "\\ios\\src-gen");
                             break;
                         default:
                             break;
