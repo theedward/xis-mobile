@@ -22,7 +22,7 @@ Intent intent = new Intent(this, [navigation/]Activity.class);
 [if (o.isCreateAction())]
 [let name : String = o.getXisArgumentValueByName('entityName')]
 [let entity : Class = getModel().getXisEntityByName(name)]
-[name.toUpperFirst()/] [name.toLowerFirst()/] = new [name.toUpperFirst()/]();
+[name.toLowerFirst()/] = new [name.toUpperFirst()/]();
 [comment @TODO
 // Check parent
 // if menu or IS get (master entity)
