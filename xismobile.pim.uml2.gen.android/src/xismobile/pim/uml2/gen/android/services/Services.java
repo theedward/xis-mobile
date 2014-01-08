@@ -19,6 +19,7 @@ import org.eclipse.uml2.uml.Interface;
 import org.eclipse.uml2.uml.InterfaceRealization;
 import org.eclipse.uml2.uml.Model;
 import org.eclipse.uml2.uml.Operation;
+import org.eclipse.uml2.uml.Parameter;
 import org.eclipse.uml2.uml.Property;
 import org.eclipse.uml2.uml.Stereotype;
 import org.eclipse.uml2.uml.Type;
@@ -287,26 +288,34 @@ public class Services {
 				Property second = a.getMemberEnds().get(1);
 				if (first.isNavigable()) {
 					if (a.getEndTypes().get(0).getName().equals(c.getName())) {
-						for (Operation o : a.getAllOperations()) {
-							if (ServiceUtils.isXisAction(o)
-								&& a.getName().equals(o.getName())
-								&& !entities.contains(o.getName())) {
-								entities.add(o.getName());
-// Check if it is CRUD and getEntityName parameter
-//								o.getOwnedParameters();
+						for (Element el : c.getModel().allOwnedElements()) {
+							if (el instanceof Operation) {
+								Operation o = (Operation) el;
+								if (a.getName().equals(o.getName())
+									&& ServiceUtils.isXisAction(o)
+									&& ServiceUtils.isCrudAction(o)) {
+									Parameter p = o.getOwnedParameters().get(0);
+									if (!entities.contains(p.getDefault())) {
+										entities.add(p.getDefault());
+									}
+								}
 							}
 						}
 					}
 				}
 				else if (second.isNavigable()) {
 					if (a.getEndTypes().get(1).getName().equals(c.getName())) {
-						for (Operation o : a.getAllOperations()) {
-							if (ServiceUtils.isXisAction(o)
-								&& a.getName().equals(o.getName())
-								&& !entities.contains(o.getName())) {
-								entities.add(o.getName());
-// Check if it is CRUD and getEntityName parameter
-//								o.getOwnedParameters();
+						for (Element el : c.getModel().allOwnedElements()) {
+							if (el instanceof Operation) {
+								Operation o = (Operation) el;
+								if (a.getName().equals(o.getName())
+									&& ServiceUtils.isXisAction(o)
+									&& ServiceUtils.isCrudAction(o)) {
+									Parameter p = o.getOwnedParameters().get(0);
+									if (!entities.contains(p.getDefault())) {
+										entities.add(p.getDefault());
+									}
+								}
 							}
 						}
 					}
