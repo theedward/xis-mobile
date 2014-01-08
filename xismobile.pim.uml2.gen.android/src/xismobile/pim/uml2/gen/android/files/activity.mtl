@@ -62,14 +62,16 @@ public class [c.name.toUpperFirst()/]Activity extends Activity {
 	[writeWidgetVariables(widgets)/]
 [if (entities->size() > 0)]
 	[if (c.isMainScreen())]
-	// Load BE entities (Master, Details & References)
+	// Declare DomainEntities variables
 	[for (entity : Class | entities)]
 	private List<[entity.name.toUpperFirst()/]> [entity.name.toLowerFirst()/]s;
 	[/for]
 	[/if]
-	[for (s : String | c.getInboundCrudOperations())]
+	[let refs : Sequence(String) = c.getInboundCrudOperations()]
+	[for (s : String | refs)]
 	private [s.toUpperFirst()/] [s.toLowerFirst()/];
 	[/for]
+	[/let]
 [/if]
 
 	/** Called when the activity is first created. */
