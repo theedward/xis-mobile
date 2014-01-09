@@ -1,6 +1,6 @@
-<profileApplication xmi:type="uml:ProfileApplication" xmi:id="_Lp5tIKHFEeKUoPvtuUlduw">
-	<eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_LqBB4KHFEeKUoPvtuUlduw" source="http://www.eclipse.org/uml2/2.0.0/UML">
-		<references xmi:type="ecore:EPackage" href="../XIS-Mobile/model.profile.uml#_08dF8HcJEeOsZuyhiB0NnA"/>
-	</eAnnotations>
-	<appliedProfile xmi:type="uml:Profile" href="../XIS-Mobile/model.profile.uml#_08dF8HcJEeOsZuyhiB0NnA" />
+<profileApplication xmi:type="uml:ProfileApplication" xmi:id="_MzgRkGcaEeOaN6nxgFEQpg">
+	<eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_Mzts8GcaEeOaN6nxgFEQpg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+		<references xmi:type="ecore:EPackage" href="model.profile.uml#_08dF8HcJEeOsZuyhiB0NnA"/>
+  	</eAnnotations>
+  	<appliedProfile xmi:type="uml:Profile" href="model.profile.uml#_08dF8HcJEeOsZuyhiB0NnA"/>
 </profileApplication>
