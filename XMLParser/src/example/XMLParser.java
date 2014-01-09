@@ -50,32 +50,38 @@ public class XMLParser {
 	
 				XPath path = XPathFactory.newInstance().newXPath();
 //				XPathExpression expr = path.compile("/*/*/*/packagedElement[@name='EA_CommonTypes_Package']/packagedElement/generalization/general");
-				XPathExpression expr = path.compile("/*/*/*/packagedElement[@name='EAPrimitiveTypesPackage']/packagedElement/generalization/general");
+				XPathExpression expr = path.compile("/*/*/*/*/packagedElement[@name='EA_Java_Types_Package']/packagedElement");
 				NodeList lst = (NodeList) expr.evaluate(docEA, XPathConstants.NODESET);
 	
-				if (lst.getLength() == 4) {
-					Element aux = (Element) lst.item(0);
-					aux.setAttribute("xmi:type", "uml:PrimitiveType");
-					aux.setAttribute("href", "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean");
-					aux = (Element) lst.item(1);
-					aux.setAttribute("xmi:type", "uml:PrimitiveType");
-					aux.setAttribute("href", "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer");
-					aux = (Element) lst.item(2);
-					aux.setAttribute("xmi:type", "uml:PrimitiveType");
-					aux.setAttribute("href", "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#UnlimitedNatural");
-					aux = (Element) lst.item(3);
-					aux.setAttribute("xmi:type", "uml:PrimitiveType");
-					aux.setAttribute("href", "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String");
+				if (lst.getLength() > 0) {
+					for (int i = 0; i < lst.getLength(); i++) {
+						Element aux = (Element) lst.item(i);
+						String name = aux.getAttribute("name");
+						
+						if (aux.hasChildNodes()) {
+							Element generalization = (Element) aux.getChildNodes().item(1);
+							Element general = (Element) generalization.getChildNodes().item(1);
+							general.setAttribute("xmi:type", "uml:PrimitiveType");
+							setHref(general, name);
+						} else {
+							Element generalization = docEA.createElement("generalization");							
+							generalization.setAttribute("xmi:type", "uml:Generalization");
+							generalization.setAttribute("xmi:id", "EAJava_" + name + "_General");
+							Element general = docEA.createElement("general");
+							general.setAttribute("xmi:type", "uml:PrimitiveType");
+							setHref(general, name);
+							generalization.appendChild(general);
+							aux.appendChild(generalization);
+						}
+					}
 				}
-				else if (lst.getLength() == 0) {
-					Element aux = (Element) model.item(0);
-					// get Types
-					expr = path.compile("/*/*[local-name()='Extension']/primitivetypes/packagedElement");
-					lst = (NodeList) expr.evaluate(docEA,
-							XPathConstants.NODESET);
-					Node n = lst.item(0);
-					aux.appendChild(n.cloneNode(true));
-				}
+				
+				Element m = (Element) model.item(0);
+				// get Types
+				expr = path.compile("/*/*[local-name()='Extension']/primitivetypes/packagedElement");
+				lst = (NodeList) expr.evaluate(docEA, XPathConstants.NODESET);
+				Node n = lst.item(0);
+				m.appendChild(n.cloneNode(true));
 
 				computeWidgetPositionsAndSize(docEA);
 	
@@ -149,7 +155,35 @@ public class XMLParser {
 		profile.normalize();
 		element.appendChild(document.importNode(profile, true));
 	}
-
+	
+	private static void setHref(Element el, String name) {
+		String pathMap = "pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#";
+		
+		if (name.toLowerCase().contains("int")) {
+			el.setAttribute("href", pathMap + "Integer");
+		} else if (name.toLowerCase().contains("double")) {
+			el.setAttribute("href", pathMap + "UnlimitedNatural");
+		} else if (name.toLowerCase().contains("float")) {
+			el.setAttribute("href", pathMap + "UnlimitedNatural");
+		} else if (name.toLowerCase().contains("short")) {
+			el.setAttribute("href", pathMap + "UnlimitedNatural");
+		} else if (name.toLowerCase().contains("long")) {
+			el.setAttribute("href", pathMap + "UnlimitedNatural");
+		} else if (name.toLowerCase().contains("boolean")) {
+			el.setAttribute("href", pathMap + "Boolean");
+		} else if (name.toLowerCase().contains("byte")) {
+			el.setAttribute("href", pathMap + "Boolean");
+		} else if (name.toLowerCase().contains("char")) {
+			el.setAttribute("href", pathMap + "String");
+		} else if (name.toLowerCase().contains("string")) {
+			el.setAttribute("href", pathMap + "String");
+		} else if (name.toLowerCase().contains("image")) {
+			el.setAttribute("href", pathMap + "String");
+		} else if (name.toLowerCase().contains("url")) {
+			el.setAttribute("href", pathMap + "String");
+		}
+	}
+	
 	/*private static void addImportPrimitiveTypes(DocumentBuilder builder,
 			Document document, Element element) throws SAXException,
 			IOException {
