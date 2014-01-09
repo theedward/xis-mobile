@@ -337,7 +337,7 @@ public class Services {
 	public void addLibrary(String jar) {
 		try {
 			String target = Uml2Android.targetFolderPath + "/libs/";
-			JarFile srcFile = new JarFile("generator.jar");
+			JarFile srcFile = new JarFile("AndroidGenerator.jar");
 			File destFolder = new File(target);
 			File destFile = new File(target + jar);
 			
@@ -395,7 +395,7 @@ public class Services {
 			String folder = getResolutionFolder(resolution);
 			
 			String target = Uml2Android.targetFolderPath + "/res/" + folder + "/";
-			JarFile srcFile = new JarFile("generator.jar");
+			JarFile srcFile = new JarFile("AndroidGenerator.jar");
 			File destFolder = new File(target);
 			File destFile = new File(target + fileName);
 			
