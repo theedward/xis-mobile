@@ -146,7 +146,7 @@ public class XMLParser {
 		xmiElement.setAttribute("xmlns:ecore", "http://www.eclipse.org/emf/2002/Ecore");
 		String schemaLocation = "http:///schemas/XISMobile/_08dF8HcJEeOsZuyhiB0NnA/12";
 		jarPath = jarPath.replace(" ", "%20");
-		schemaLocation += " jar:file:/" + jarPath + "/AndroidGenerator.jar!/XIS-Mobile/model.profile.uml#_08dF8HcJEeOsZuyhiB0NnA";
+		schemaLocation += " file:/" + jarPath + "/XIS-Mobile/model.profile.uml#_08dF8HcJEeOsZuyhiB0NnA";
 		xmiElement.setAttribute("xsi:schemaLocation", schemaLocation);
 	}
 
