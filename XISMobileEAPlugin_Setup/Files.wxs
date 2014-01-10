@@ -68,6 +68,13 @@
 							<File Id="XIS_MobileViewsToolbox.xml" Name="XIS-MobileViewsToolbox.xml" Source="XIS-Mobile MDG\XIS-MobileViewsToolbox.xml" />
 						</Component>
 					</Directory>
+					<Directory Id="XIS_Mobile" Name="XIS-Mobile">
+						<Component Id="XISMobileProfileFiles" Guid="C948C04A-9907-4FC1-B955-3AD8086E29E3" DiskId="1">
+							<File Id="model.profile.di" Name="model.profile.di" Source="XIS-Mobile\model.profile.di" />
+							<File Id="model.profile.notation" Name="model.profile.notation" Source="XIS-Mobile\model.profile.notation" />
+							<File Id="model.profile.uml" Name="model.profile.uml" Source="XIS-Mobile\model.profile.uml" />
+						</Component>
+					</Directory>
 				</Directory>
 			</Directory>
 		</DirectoryRef>

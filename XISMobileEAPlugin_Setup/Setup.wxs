@@ -26,6 +26,7 @@
 		         <ComponentRef Id="XISMobileEAPluginFiles"/>
 				 <ComponentRef Id="XISMobileEAPluginRegEntries"/>
 				 <ComponentRef Id="XISMobileMDGFiles"/>
+				 <ComponentRef Id="XISMobileProfileFiles"/>
 		</Feature>
 		
 		<!--
