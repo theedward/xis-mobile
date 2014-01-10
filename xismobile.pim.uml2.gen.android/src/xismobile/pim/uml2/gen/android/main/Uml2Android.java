@@ -54,7 +54,7 @@ public class Uml2Android extends AbstractAcceleoGenerator {
      * The path of the output folder of the generation.
      */
     public static String targetFolderPath;
-    
+    public static String jarPath;
     public static HashMap<String, String> stringResources;
     
     /**
@@ -133,12 +133,13 @@ public class Uml2Android extends AbstractAcceleoGenerator {
      */
     public static void main(String[] args) {
         try {
-            if (args.length < 2) {
-                System.out.println("Arguments not valid : {model, folder}.");
+            if (args.length < 3) {
+                System.out.println("Arguments not valid : {jarPath, model, folder}.");
             } else {
-                URI modelURI = URI.createFileURI(args[0]);
-                File folder = new File(args[1]);
-                targetFolderPath = args[1];
+                URI modelURI = URI.createFileURI(args[1]);
+                File folder = new File(args[2]);
+                jarPath = args[0];
+                targetFolderPath = args[2];
                 stringResources = new HashMap<String, String>();
                 
                 List<String> arguments = new ArrayList<String>();
@@ -168,7 +169,7 @@ public class Uml2Android extends AbstractAcceleoGenerator {
                  * (Help -> Help Contents).
                  */
                  
-                for (int i = 2; i < args.length; i++) {
+                for (int i = 3; i < args.length; i++) {
                     generator.addPropertiesFile(args[i]);
                 }
                 
@@ -429,7 +430,9 @@ public class Uml2Android extends AbstractAcceleoGenerator {
     protected URI createTemplateURI(String entry) {
     	if (entry.contains("rsrc:")) {
 			entry = entry.replace("rsrc:", "");
-			entry = "jar:file:/" + System.getProperty("user.dir") + "/Generator.jar!/" + entry;
+			entry = "jar:file:/" + jarPath + "/AndroidGenerator.jar!/" + entry;
+//			entry = "jar:file:/" + System.getProperty("user.dir") + "/AndroidGenerator.jar!/" + entry;
+			System.out.println("DEBUG: " + entry);
 		}
     	
 		if (entry.startsWith("file:") || entry.startsWith("jar:")) { //$NON-NLS-1$ //$NON-NLS-2$ 
