@@ -42,7 +42,8 @@
 						<File Id="XISMobileEAPlugin.pdb" Name="XISMobileEAPlugin.pdb" Source="..\XISMobileEAPlugin\bin\Release\XISMobileEAPlugin.pdb" />
 						<File Id="XISMobileEAPlugin.tlb" Name="XISMobileEAPlugin.tlb" Source="..\XISMobileEAPlugin\bin\Release\XISMobileEAPlugin.tlb" />
 						<File Id="XMLParser.jar" Name="XMLParser.jar" Source="XMLParser.jar" />
-						<File Id="Generator.jar" Name="Generator.jar" Source="Generator.jar" />
+						<File Id="AndroidGenerator.jar" Name="AndroidGenerator.jar" Source="AndroidGenerator.jar" />
+						<File Id="iOSGenerator.jar" Name="iOSGenerator.jar" Source="iOSGenerator.jar" />
 					</Component>
 					<Component Id="XISMobileEAPluginRegEntries" Guid="2936EFE7-AB1F-429A-890B-A2ACF8660BBB">
 						<RegistryKey Root="HKCU" Key="Software\Sparx Systems\EAAddins\XIS-Mobile EA Plugin" ForceCreateOnInstall="yes" ForceDeleteOnUninstall="yes">
