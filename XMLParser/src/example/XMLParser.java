@@ -27,12 +27,15 @@ import org.xml.sax.SAXException;
 
 public class XMLParser {
 
+	private static String jarPath;
+	
 	public static void main(String[] args) {
-		if (args.length < 2) {
-			System.out.println("Arguments not valid : {model, converted model}.");
+		if (args.length < 3) {
+			System.out.println("Arguments not valid : {jarPath, model, converted model}.");
 		}
 		else {
-			File f = new File(args[0]);
+			jarPath = args[0];
+			File f = new File(args[1]);
 			try {
 				DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
 				Document docEA = builder.parse(f);
@@ -117,7 +120,7 @@ public class XMLParser {
 					}
 				}
 	
-				File nFile = new File(args[1] + ".uml");
+				File nFile = new File(args[2] + ".uml");
 	
 				Transformer transformer = TransformerFactory.newInstance().newTransformer();
 				DOMSource source = new DOMSource(docEA);
@@ -142,7 +145,8 @@ public class XMLParser {
 		xmiElement.setAttribute("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance");
 		xmiElement.setAttribute("xmlns:ecore", "http://www.eclipse.org/emf/2002/Ecore");
 		String schemaLocation = "http:///schemas/XISMobile/_08dF8HcJEeOsZuyhiB0NnA/12";
-		schemaLocation += " jar:file:/" + System.getProperty("user.dir") + "/Generator.jar!/XIS-Mobile/model.profile.uml#_08dF8HcJEeOsZuyhiB0NnA";
+		jarPath = jarPath.replace(" ", "%20");
+		schemaLocation += " jar:file:/" + jarPath + "/AndroidGenerator.jar!/XIS-Mobile/model.profile.uml#_08dF8HcJEeOsZuyhiB0NnA";
 		xmiElement.setAttribute("xsi:schemaLocation", schemaLocation);
 	}
 
