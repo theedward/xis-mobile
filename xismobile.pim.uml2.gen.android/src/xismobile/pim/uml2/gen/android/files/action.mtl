@@ -2,6 +2,7 @@
 [module action('http://www.eclipse.org/uml2/4.0.0/UML')]
 
 [import xismobile::pim::uml2::gen::android::common::xisMobileUtils /]
+[import xismobile::pim::uml2::gen::android::services::services /]
 
 [template public getXisArgumentsTypeAndName(p : Parameter)]
 [p.getXisArgumentType()/] [p.getXisArgumentName().toLowerFirst()/]
@@ -56,11 +57,13 @@ Intent intent = new Intent(this, [navigation/]Activity.class);
 [entity.getDao()/].deleteAll[name.toUpperFirst()/]s();
 [/let]
 [/let]
+[elseif (o.isOpenBrowserAction())]
+Intent i = new Intent(Intent.ACTION_VIEW);
+i.setData(Uri.parse([o.getOpenBrowserActionUrl()/]));
+startActivity(i);
 [elseif (o.isWebServiceAction())]
-	[if (o.XisArgumentExists('url', 'value'))]
-[o.name.toLowerFirst()/]("[o.getXisArgumentValueByName('url', 'value')/]");
-	[else]
-[writeTODO()/]
+	[if (o.xisRemoteServiceExists())]
+[o.name.toLowerFirst()/]("TODO");
 	[/if]
 [elseif (o.isCustomAction())]
 [o.writeCustomActionCall()/]
