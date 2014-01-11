@@ -89,3 +89,7 @@
 [query public getContextMenu(c : Class) : Class =
 	invoke('xismobile.pim.uml2.gen.android.services.Services', 'getContextMenu(org.eclipse.uml2.uml.Class)', Sequence{c})
 /]
+
+[query public xisRemoteServiceExists(o : Operation) : Boolean =
+	invoke('xismobile.pim.uml2.gen.android.services.Services', 'xisRemoteServiceExists(org.eclipse.uml2.uml.Operation)', Sequence{o})
+/]

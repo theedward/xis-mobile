@@ -813,6 +813,18 @@ public class Services {
 		return ServiceUtils.getMenuFromMenuAssociation(c, MenuType.ContextMenu);
 	}
 	
+	public boolean xisRemoteServiceExists(Operation o) {
+		
+		if (o.getName().contains(".")) {
+			String[] data = o.getName().split(".");
+			Interface service = ServiceUtils.getXisRemoteServiceByName(data[0], o);
+			return service != null
+				&& ServiceUtils.getXisServiceMethodByName(data[1], service) != null;
+		} else {
+			return false;
+		}
+	}
+	
 	/**
 	 * Auxiliary Methods
 	 */
