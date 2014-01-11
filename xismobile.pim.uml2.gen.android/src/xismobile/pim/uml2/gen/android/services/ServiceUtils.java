@@ -5,6 +5,7 @@ import org.eclipse.uml2.uml.Class;
 import org.eclipse.uml2.uml.Element;
 import org.eclipse.uml2.uml.EnumerationLiteral;
 import org.eclipse.uml2.uml.Generalization;
+import org.eclipse.uml2.uml.Interface;
 import org.eclipse.uml2.uml.Operation;
 import org.eclipse.uml2.uml.Property;
 import org.eclipse.uml2.uml.Stereotype;
@@ -404,6 +405,49 @@ public final class ServiceUtils {
 	
 	public static boolean isXisInheritance(Generalization g) {
 		return g.getAppliedStereotype("XIS-Mobile::XisInheritance") != null;
+	}
+	
+	public static Stereotype getXisRemoteService(Interface i) {
+		return i.getAppliedStereotype("XIS-Mobile::XisRemoteService");
+	}
+	
+	public static boolean isXisRemoteService(Interface i) {
+		return getXisRemoteService(i) != null;
+	}
+	
+	public static Stereotype getXisServiceMethod(Operation o) {
+		return o.getAppliedStereotype("XIS-Mobile::XisServiceMethod");
+	}
+	
+	public static boolean isXisServiceMethod(Operation o) {
+		return getXisServiceMethod(o) != null;
+	}
+	
+	public static Interface getXisRemoteServiceByName(String name, Operation o) {
+		Interface service = null;
+		
+		for (Element el : o.getModel().allOwnedElements()) {
+			if (el instanceof Interface
+				&& ((Interface) el).getName().equalsIgnoreCase(name)
+				&& isXisRemoteService((Interface) el)) {
+				service = (Interface) el;
+				return service;
+			}
+		}
+		return service;
+	}
+	
+	public static Operation getXisServiceMethodByName(String name, Interface i) {
+		Operation method = null;
+		
+		for (Operation o : i.getOperations()) {
+			if (o.getName().equalsIgnoreCase(name)
+				&& isXisServiceMethod(o)) {
+				method = o;
+				return method;
+			}
+		}
+		return method;
 	}
 	
 	/**
