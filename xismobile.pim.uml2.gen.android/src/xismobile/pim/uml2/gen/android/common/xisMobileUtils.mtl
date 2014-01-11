@@ -390,16 +390,17 @@
 	) = 'DeleteAll'
 /]
 
-[query public isZoomInAction(o : Operation) : Boolean = 
+[query public isOpenBrowserAction(o : Operation) : Boolean = 
 	getEnumValue(o.getValue(
 		o.getXisAction(), 'type')
-	) = 'ZoomIn'
+	) = 'OpenBrowser'
 /]
 
-[query public isZoomOutAction(o : Operation) : Boolean = 
-	getEnumValue(o.getValue(
-		o.getXisAction(), 'type')
-	) = 'ZoomOut'
+[query public getOpenBrowserActionUrl(o : Operation) : String =
+	if o.ownedParameter->size() = 1 and o.ownedParameter.name.toLower() = 'url'
+	then o.ownedParameter.default
+	else null
+	endif
 /]
 
 [query public isWebServiceAction(o : Operation) : Boolean = 
