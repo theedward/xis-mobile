@@ -59,11 +59,11 @@ Intent intent = new Intent(this, [navigation/]Activity.class);
 [/let]
 [elseif (o.isOpenBrowserAction())]
 Intent i = new Intent(Intent.ACTION_VIEW);
-i.setData(Uri.parse([o.getOpenBrowserActionUrl()/]));
+i.setData(Uri.parse("[o.getOpenBrowserActionUrl()/]"));
 startActivity(i);
 [elseif (o.isWebServiceAction())]
 	[if (o.xisRemoteServiceExists())]
-[o.name.toLowerFirst()/]("TODO");
+[o.name/]([o.writeXisRemoteServiceArguments()/]);
 	[/if]
 [elseif (o.isCustomAction())]
 [o.writeCustomActionCall()/]
@@ -96,6 +96,18 @@ manager
 	[/for]
 [/if]
 [/let]
+[/template]
+
+[template public writeParameterDefaultValue(p : Parameter)]
+[if (p.type.name.toLower() = 'string')]
+"[p.default/]"
+[else]
+[p.default/]
+[/if]
+[/template]
+
+[template public writeXisRemoteServiceArguments(o : Operation) post (trim())]
+[o.ownedParameter.writeParameterDefaultValue()->sep(', ')/]
 [/template]
 
 [template public writeWebServiceDeclaration(o : Operation)]
