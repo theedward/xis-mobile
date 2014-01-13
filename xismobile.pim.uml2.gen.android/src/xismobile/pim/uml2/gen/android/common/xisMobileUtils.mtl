@@ -22,9 +22,9 @@
 	not c.getXisEntity().oclIsUndefined()
 /]
 
-[query public getXisEntityByName(m : Model, entityName : String) : Class = 
-	m.allOwnedElements()->selectByType(Class)->
-		select(c : Class | c.isXisEntity() and c.name = entityName)
+[query public getXisEntityByName(m : Model, entityName : String) : OrderedSet(Class) =
+	m.allOwnedElements()->selectByType(Class)->select(
+		c : Class | c.isXisEntity() and c.name = entityName)
 /]
 
 [query public getXisEntityAssociation(a : Association) : Stereotype =
@@ -258,6 +258,10 @@
 
 [query public isXisList(c : Class) : Boolean =
 	not c.getXisList().oclIsUndefined()
+/]
+
+[query public getXisLists(c : Class) : Set(Class) =
+	c.allOwnedElements()->selectByType(Class)->select(c : Class | c.isXisList())
 /]
 
 [query public xisListIsSearchable(c : Class) : Boolean = 
@@ -803,7 +807,7 @@
 [query public getXisListEntity(c : Class) : Class = 
 	let name : String = c.getXisWidgetValue(c.getXisList()) in
 	c.getModel().allOwnedElements()->selectByType(Class)->
-		select(e : Class | e.name = name)
+		select(e : Class | e.name.toLower() = name.toLower() and e.isXisList())
 /]
 
 [query public hasXisWidgetDomainValue(c : Class, s : Stereotype) : Boolean =
