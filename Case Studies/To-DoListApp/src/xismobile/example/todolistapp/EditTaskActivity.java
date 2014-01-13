@@ -45,7 +45,7 @@ public class EditTaskActivity extends Activity {
 		
 		if (getIntent() != null && getIntent().getExtras() != null) {
 			Bundle extras = getIntent().getExtras();
-			taskID = (int) extras.getInt("TaskID");
+			taskID = extras.getInt("TaskID");
 			task = helper.getTaskById(taskID);
 		} else {
 			task = new Task();
