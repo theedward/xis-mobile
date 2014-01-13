@@ -119,6 +119,9 @@ mList[c.name.toUpperFirst()/] = (ListView)findViewById(R.id.list[c.name.toUpperF
 [let entity : Class = c.getXisListEntity()]
 [let item : Class = c.getXisListItems()->at(1)]
 mList[c.name.toUpperFirst()/].setAdapter(new TaskAdapter(getApplicationContext(), R.layout.[item.name.toUpperFirst()/]_item, [entity.name.toLowerFirst()/]s));
+[if (c.hasContextMenu())]
+registerForContextMenu(mList[c.name.toUpperFirst()/]);
+[/if]
 [item.generateListItem()/]
 [c.generateAdapter(entity)/]
 [/let]
