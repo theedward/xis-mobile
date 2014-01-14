@@ -82,23 +82,24 @@ namespace XISMobileEAPlugin
                 {
                     project.ExportPackageXMI(package.PackageGUID, EA.EnumXMIType.xmiEA21, 1, -1, 1, 0, xmiPath);
                     string exePath = "\"" + Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+                    xmiPath = "\"" + xmiPath + "\"";
                     ExecuteCommand(exePath + "\\XMLParser.jar\" " + exePath + "\" " + xmiPath + " " + projectName);
 
                     switch (platformType)
                     {
                         case "Android":
-                            ExecuteCommand(exePath + "\\AndroidGenerator.jar\" " + exePath + "\" " + umlPath + " " + textBoxPath.Text + "\\src-gen");
+                            ExecuteCommand(exePath + "\\AndroidGenerator.jar\" " + exePath + "\" " + umlPath + " \"" + textBoxPath.Text + "\\src-gen\"");
                             break;
                         case "Windows Phone":
                             //ExecuteCommand(exePath + "\\WPGenerator.jar\" " + exePath + "\" " + umlPath + " " + textBoxPath.Text + "\\src-gen");
                             break;
                         case "iOS":
-                            ExecuteCommand(exePath + "\\iOSGenerator.jar\" " + exePath + "\" " + umlPath + " " + textBoxPath.Text + "\\src-gen");
+                            ExecuteCommand(exePath + "\\iOSGenerator.jar\" " + exePath + "\" " + umlPath + " \"" + textBoxPath.Text + "\\src-gen\"");
                             break;
                         case "All":
-                            ExecuteCommand(exePath + "\\AndroidGenerator.jar\" " + exePath + "\" " + umlPath + " " + textBoxPath.Text + "\\android\\src-gen");
+                            ExecuteCommand(exePath + "\\AndroidGenerator.jar\" " + exePath + "\" " + umlPath + " \"" + textBoxPath.Text + "\\androis\\src-gen\"");
                             //ExecuteCommand(exePath + "\\WPGenerator.jar\" " + exePath + "\" " + umlPath + " " + textBoxPath.Text + "\\wp\\src-gen");
-                            ExecuteCommand(exePath + "\\iOSGenerator.jar\" " + exePath + "\" " + umlPath + " " + textBoxPath.Text + "\\ios\\src-gen");
+                            ExecuteCommand(exePath + "\\iOSGenerator.jar\" " + exePath + "\" " + umlPath + " \"" + textBoxPath.Text + "\\ios\\src-gen\"");
                             break;
                         default:
                             break;
