@@ -49,6 +49,11 @@ public class XMLParser {
 				if (model.getLength() == 1) {
 					Element m = (Element) model.item(0);
 					addProfileApplicationTag(builder, docEA, m);
+					
+					if (m.hasChildNodes()) {
+						Element el = (Element) m.getChildNodes().item(1);
+						m.setAttribute("name", el.getAttribute("name"));
+					}
 				}
 	
 				XPath path = XPathFactory.newInstance().newXPath();
