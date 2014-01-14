@@ -62,7 +62,7 @@
 					</Apply>
 				</AppliesTo>
 				<TaggedValues>
-					<Tag name="type" type="enumeration" description="" unit="" values="OK,Cancel,Create,Read,Update,Delete,DeleteAll,ZoomIn,ZoomOut,WebService,Navigate,Custom" default=""/>
+					<Tag name="type" type="enumeration" description="" unit="" values="OK,Cancel,Create,Read,Update,Delete,DeleteAll,OpenBrowser,WebService,Navigate,Custom" default=""/>
 					<Tag name="navigation" type="String" description="" unit="" values="" default=""/>
 				</TaggedValues>
 			</Stereotype>
@@ -145,12 +145,7 @@
 					<Tag name="filter" type="String" description="" unit="" values="" default=""/>
 				</TaggedValues>
 			</Stereotype>
-			<Stereotype name="XisDialog" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
-				<AppliesTo>
-					<Apply type="Class">
-						<Property name="isActive" value=""/>
-					</Apply>
-				</AppliesTo>
+			<Stereotype name="XisDialog" notes="" cx="90" cy="70" bgcolor="6008319" fontcolor="-1" bordercolor="-1" borderwidth="1" hideicon="0" generalizes="XisCompositeWidget" baseStereotypes="XisCompositeWidget">
 				<TaggedValues>
 					<Tag name="title" type="String" description="" unit="" values="" default=""/>
 					<Tag name="description" type="String" description="" unit="" values="" default=""/>
@@ -280,13 +275,7 @@
 					<Tag name="orderBy" type="String" description="" unit="" values="" default=""/>
 				</TaggedValues>
 			</Stereotype>
-			<Stereotype name="XisListGroup" notes="" cx="90" cy="70" bgcolor="55295" fontcolor="-1" bordercolor="-1" borderwidth="1" hideicon="0" generalizes="XisCompositeWidget" baseStereotypes="XisCompositeWidget">
-				<AppliesTo>
-					<Apply type="Class">
-						<Property name="isActive" value=""/>
-					</Apply>
-				</AppliesTo>
-			</Stereotype>
+			<Stereotype name="XisListGroup" notes="" cx="90" cy="70" bgcolor="55295" fontcolor="-1" bordercolor="-1" borderwidth="1" hideicon="0" generalizes="XisCompositeWidget" baseStereotypes="XisCompositeWidget"/>
 			<Stereotype name="XisListItem" notes="" cx="90" cy="70" bgcolor="10092287" fontcolor="-1" bordercolor="-1" borderwidth="1" hideicon="0" generalizes="XisCompositeWidget" baseStereotypes="XisCompositeWidget">
 				<TaggedValues>
 					<Tag name="onTap" type="String" description="" unit="" values="" default=""/>
