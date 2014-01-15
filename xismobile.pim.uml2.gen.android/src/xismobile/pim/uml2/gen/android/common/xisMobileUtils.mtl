@@ -306,6 +306,14 @@
 	not c.getXisVisibilityBoundary().oclIsUndefined()
 /]
 
+[query public getXisForm(c : Class) : Stereotype =
+	c.getAppliedStereotype('XIS-Mobile::XisForm')
+/]
+
+[query public isXisForm(c : Class) : Boolean =
+	not c.getXisForm().oclIsUndefined()
+/]
+
 [query public isForm(c : Class) : Boolean =
 	getEnumValue(c.getValue(
 		c.getXisCompositeWidget(), 'type')
