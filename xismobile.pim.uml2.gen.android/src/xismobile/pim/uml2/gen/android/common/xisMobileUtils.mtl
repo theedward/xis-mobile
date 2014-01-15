@@ -298,6 +298,14 @@
 		i : Class | i.isXisListItem())
 /]
 
+[query public getXisVisibilityBoundary(c : Class) : Stereotype =
+	c.getAppliedStereotype('XIS-Mobile::XisVisibilityBoundary')
+/]
+
+[query public isXisVisibilityBoundary(c : Class) : Boolean =
+	not c.getXisVisibilityBoundary().oclIsUndefined()
+/]
+
 [query public isForm(c : Class) : Boolean =
 	getEnumValue(c.getValue(
 		c.getXisCompositeWidget(), 'type')
