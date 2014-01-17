@@ -16,13 +16,12 @@
 [if (o.isCancelAction())]
 finish();
 [else]
-[let navigation : String = o.getNavigation()]
-	[if (not navigation.oclIsUndefined())]
-Intent intent = new Intent(this, [navigation/]Activity.class);
-	[/if]
+[if (o.performsNavigation())]
+Intent intent = new Intent(this, [o.getNavigation().toUpperFirst()/]Activity.class);
+[/if]
 [if (o.isCreateAction())]
 [let name : String = o.getXisArgumentValueByName('entityName')]
-[let entity : Class = getModel().getXisEntityByName(name)]
+[let entity : Class = getModel().getXisEntityByName(name)->at(1)]
 [name.toLowerFirst()/] = new [name.toUpperFirst()/]();
 [comment @TODO
 // Check parent
@@ -35,25 +34,25 @@ Intent intent = new Intent(this, [navigation/]Activity.class);
 [/let]
 [elseif (o.isReadAction())]
 [let name : String = o.getXisArgumentValueByName('entityName')]
-[let entity : Class = getModel().getXisEntityByName(name)]
+[let entity : Class = getModel().getXisEntityByName(name)->at(1)]
 [name.toLowerFirst()/] = [entity.getDao()/].get[name.toUpperFirst()/]ById(String id);
 [/let]
 [/let]
 [elseif (o.isUpdateAction())]
 [let name : String = o.getXisArgumentValueByName('entityName')]
-[let entity : Class = getModel().getXisEntityByName(name)]
+[let entity : Class = getModel().getXisEntityByName(name)->at(1)]
 [entity.getDao()/].update[name.toUpperFirst()/]([name.toLowerFirst()/]);
 [/let]
 [/let]
 [elseif (o.isDeleteteAction())]
 [let name : String = o.getXisArgumentValueByName('entityName')]
-[let entity : Class = getModel().getXisEntityByName(name)]
+[let entity : Class = getModel().getXisEntityByName(name)->at(1)]
 [entity.getDao()/].delete[name.toUpperFirst()/]([name.toLowerFirst()/]);
 [/let]
 [/let]
 [elseif (o.isDeleteteAllAction())]
 [let name : String = o.getXisArgumentValueByName('entityName')]
-[let entity : Class = getModel().getXisEntityByName(name)]
+[let entity : Class = getModel().getXisEntityByName(name)->at(1)]
 [entity.getDao()/].deleteAll[name.toUpperFirst()/]s();
 [/let]
 [/let]
@@ -68,10 +67,9 @@ startActivity(i);
 [elseif (o.isCustomAction())]
 [o.writeCustomActionCall()/]
 [/if]
-	[if (not navigation.oclIsUndefined())]
+[if (o.performsNavigation())]
 startActivity(intent);
-	[/if]
-[/let]
+[/if]
 [/if]
 [/template]
 
@@ -99,7 +97,7 @@ manager
 [/template]
 
 [template public writeParameterDefaultValue(p : Parameter)]
-[if (p.type.name.toLower() = 'string')]
+[if (p.type.name.toLower() = 'string' or p.type.name.toLower() = 'char')]
 "[p.default/]"
 [else]
 [p.default/]
