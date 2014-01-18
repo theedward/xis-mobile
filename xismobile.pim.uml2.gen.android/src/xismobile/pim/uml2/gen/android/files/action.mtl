@@ -4,11 +4,11 @@
 [import xismobile::pim::uml2::gen::android::common::xisMobileUtils /]
 [import xismobile::pim::uml2::gen::android::services::services /]
 
-[template public getXisArgumentsTypeAndName(p : Parameter)]
+[template private getXisArgumentsTypeAndName(p : Parameter)]
 [p.getXisArgumentType()/] [p.getXisArgumentName().toLowerFirst()/]
 [/template]
 
-[template public getXisArgumentsForCall(o : Operation)]
+[template private getXisArgumentsForCall(o : Operation)]
 [o.getXisArguments().getXisArgumentsTypeAndName()->sep(', ')/]
 [/template]
 
@@ -73,7 +73,7 @@ startActivity(intent);
 [/if]
 [/template]
 
-[template public getDao(c : Class) post (trim())]
+[template private getDao(c : Class) post (trim())]
 [if (c.isPersistent())]
 helper
 [else]
@@ -96,7 +96,7 @@ manager
 [/let]
 [/template]
 
-[template public writeParameterDefaultValue(p : Parameter)]
+[template private writeParameterDefaultValue(p : Parameter)]
 [if (p.type.name.toLower() = 'string' or p.type.name.toLower() = 'char')]
 "[p.default/]"
 [else]
@@ -104,7 +104,7 @@ manager
 [/if]
 [/template]
 
-[template public writeXisRemoteServiceArguments(o : Operation) post (trim())]
+[template private writeXisRemoteServiceArguments(o : Operation) post (trim())]
 [o.ownedParameter.writeParameterDefaultValue()->sep(', ')/]
 [/template]
 
@@ -143,7 +143,7 @@ public void [o.name.toLowerFirst()/](String url) {
 [/for]
 [/template]
 
-[template public writeCustomActionCall(o : Operation)]
+[template private writeCustomActionCall(o : Operation)]
 [o.name.toLowerFirst()/]([o.getXisArgumentsForCall()/]);
 [/template]
 
