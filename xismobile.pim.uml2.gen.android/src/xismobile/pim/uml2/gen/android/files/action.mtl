@@ -5,18 +5,17 @@
 [import xismobile::pim::uml2::gen::android::services::services /]
 
 [template private getXisArgumentsTypeAndName(p : Parameter)]
-[p.getXisArgumentType()/] [p.getXisArgumentName().toLowerFirst()/]
+[p.getXisArgumentType()/] [p.name.toLowerFirst()/]
 [/template]
 
 [template private getXisArgumentsForCall(o : Operation)]
-[o.getXisArguments().getXisArgumentsTypeAndName()->sep(', ')/]
+[o.ownedParameter.getXisArgumentsTypeAndName()->sep(', ')/]
 [/template]
 
 [template public writeXisAction(o : Operation) post (trim())]
 [if (o.isCancelAction())]
 finish();
-[else]
-[if (o.performsNavigation())]
+[elseif (o.performsNavigation())]
 Intent intent = new Intent(this, [o.getNavigation().toUpperFirst()/]Activity.class);
 [/if]
 [if (o.isCreateAction())]
@@ -67,9 +66,8 @@ startActivity(i);
 [elseif (o.isCustomAction())]
 [o.writeCustomActionCall()/]
 [/if]
-[if (o.performsNavigation())]
+[if (not o.isOpenBrowserAction() and o.performsNavigation())]
 startActivity(intent);
-[/if]
 [/if]
 [/template]
 
@@ -151,4 +149,12 @@ public void [o.name.toLowerFirst()/](String url) {
 public void [o.name.toLowerFirst()/]([o.getXisArgumentsForCall()/]) {
 	[writeTODO()/]
 }
+[/template]
+
+[template private writeXisArgumentType(p : Parameter) post (trim())]
+[if (p.type.name.toLower() = 'image' or p.type.name.toLower() = 'url')]
+String
+[else]
+[p.type.name/]
+[/if]
 [/template]
