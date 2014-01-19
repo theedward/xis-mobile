@@ -838,6 +838,14 @@
 	not c.getXisGesture().oclIsUndefined()
 /]
 
+[query public getXisProvider(c : Class) : Stereotype = 
+	c.getAppliedStereotype('XIS-Mobile::XisProvider')
+/]
+
+[query public isXisProvider(c : Class) : Boolean = 
+	not c.getXisProvider().oclIsUndefined()
+/]
+
 [query public getXisLocationProvider(c : Class) : Stereotype = 
 	c.getAppliedStereotype('XIS-Mobile::XisLocationProvider')
 /]
