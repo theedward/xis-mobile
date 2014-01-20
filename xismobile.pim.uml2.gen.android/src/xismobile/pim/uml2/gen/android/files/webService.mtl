@@ -14,10 +14,14 @@ public interface [i.name.toUpperFirst()/]ServiceStub {
 	private static String url = "[i.getRemoteServiceUrl()/]";
 
 	[for (o : Operation | i.getXisServiceMethods())]
-	public [o.getReturnResult().type.name/] [o.name.toLowerFirst()/]([o.ownedParameter/]) {
+	public [o.getReturnResult().type.name/] [o.name.toLowerFirst()/]([o.ownedParameter.writeParameterTypeAndName()->sep(', ')/]) {
 
 	}
 	[/for]
 }
 [/file]
+[/template]
+
+[template private writeParameterTypeAndName(p : Parameter)]
+[p.type.name/] [p.name.toLowerFirst()/]
 [/template]
