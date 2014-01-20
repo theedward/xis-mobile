@@ -166,28 +166,38 @@
 	not c.getXisDialog().oclIsUndefined()
 /]
 
-[query public dialogHasTitle (c : Class) : Boolean =
+[query public xisDialogHasTitle (c : Class) : Boolean =
 	not c.getValue(c.getXisDialog(), 'title').oclIsUndefined()
 /]
 
-[query public getDialogTitle (c : Class) : String =
+[query public getXisDialogTitle (c : Class) : String =
 	c.getValue(c.getXisDialog(), 'title')
 /]
 
-[query public dialogHasDescription (c : Class) : Boolean =
+[query public xisDialogHasDescription (c : Class) : Boolean =
 	not c.getValue(c.getXisDialog(), 'description').oclIsUndefined()
 /]
 
-[query public getDialogDescription (c : Class) : String =
+[query public getXisDialogDescription (c : Class) : String =
 	c.getValue(c.getXisDialog(), 'description')
 /]
 
-[query public dialogHasIcon (c : Class) : Boolean =
+[query public xisDialogHasIcon (c : Class) : Boolean =
 	not c.getValue(c.getXisDialog(), 'icon').oclIsUndefined()
 /]
 
-[query public getDialogIcon (c : Class) : String =
+[query public getXisDialogIcon (c : Class) : String =
 	c.getValue(c.getXisDialog(), 'icon')
+/]
+
+[query public xisDialogHasButtons(c : Class) : Boolean =
+	c.allOwnedElements()->selectByType(Class)->
+		select(b : Class | b.isXisButton())->size() > 0
+/]
+
+[query public getXisDialogButtons(c : Class) : OrderedSet(Class) =
+	c.allOwnedElements()->selectByType(Class)->
+		select(b : Class | b.isXisButton())
 /]
 
 [query public getXisDialogAssociation(a : Association) : Stereotype =
