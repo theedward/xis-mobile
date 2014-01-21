@@ -30,7 +30,7 @@ mWebView[c.name.toUpperFirst()/]
 mMapView[c.name.toUpperFirst()/]
 [elseif (c.isXisDropdown())]
 mDropdown[c.name.toUpperFirst()/]
-[elseif (c.isXisCompositeWidget() and c.isForm())]
+[elseif (c.isXisForm())]
 mForm[c.name.toUpperFirst()/]
 [elseif (c.isXisList())]
 mList[c.name.toUpperFirst()/]
@@ -118,7 +118,7 @@ mDropdown.setPrompt("Select [c.name/]...");
 mList[c.name.toUpperFirst()/] = (ListView)findViewById(R.id.list[c.name.toUpperFirst()/]);
 [let entity : Class = c.getXisListEntity()]
 [let item : Class = c.getXisListItems()->at(1)]
-mList[c.name.toUpperFirst()/].setAdapter(new TaskAdapter(getApplicationContext(), R.layout.[item.name.toUpperFirst()/]_item, [entity.name.toLowerFirst()/]s));
+mList[c.name.toUpperFirst()/].setAdapter(new [entity.name.toUpperFirst()/]Adapter(getApplicationContext(), R.layout.[item.name.toLower()/]_item, [entity.name.toLowerFirst()/]s));
 [if (c.hasContextMenu())]
 registerForContextMenu(mList[c.name.toUpperFirst()/]);
 [/if]
