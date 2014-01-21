@@ -17,6 +17,9 @@ package [c.getPackagePath()/];
 import java.util.List;
 
 import android.app.Activity;
+[if (c.hasXisDialogs())]
+import android.app.AlertDialog;
+[/if]
 import android.os.Bundle;
 [if (c.hasOptionsMenu())]
 import android.view.Menu;
@@ -68,8 +71,15 @@ public class [c.name.toUpperFirst()/]Activity extends Activity {
 	[/for]
 	[/if]
 	[let refs : Sequence(String) = c.getInboundCrudOperations()]
-	[for (s : String | refs)]
-	private [s.toUpperFirst()/] [s.toLowerFirst()/];
+	[for (ref : String | refs)]
+	[let entity : Class = getXisEntityByName(c.getModel(), ref)->at(1)]
+	[if (entity.isPersistent())]
+	private int [ref.toLowerFirst()/]ID;
+	[else]
+	private String [ref.toLowerFirst()/]ID;	
+	[/if]
+	[/let]
+	private [ref.toUpperFirst()/] [ref.toLowerFirst()/];
 	[/for]
 	[/let]
 [/if]
@@ -99,12 +109,24 @@ public class [c.name.toUpperFirst()/]Activity extends Activity {
 		[/if]
 		[/if]
 	[/if]
-		[let assocs : Sequence(Association) = c.getInboundNavigationAssociations()]
-		[if (assocs->size() > 0)]
+		[let refs : Sequence(String) = c.getInboundCrudOperations()]
+		[if (refs->size() > 0)]
 		if (getIntent() != null && getIntent().getExtras() != null) {
 			Bundle extras = getIntent().getExtras();
-			taskID = (int) extras.getInt("TaskID");
-			task = helper.getTaskById(taskID);
+			[for (ref : String | refs)]
+			[let entity : Class = getXisEntityByName(c.getModel(), ref)->at(1)]
+			[if (entity.isPersistent())]
+			[ref.toLowerFirst()/]ID = extras.getInt("[ref.toUpperFirst()/]ID");
+			[else]
+			[ref.toLowerFirst()/]ID = extras.getString("[ref.toUpperFirst()/]ID");
+			[/if]
+			[ref.toLowerFirst()/] = helper.get[ref.toUpperFirst()/]ById([ref.toLowerFirst()/]ID);	
+			[/let]
+			[/for]
+		} else {
+			[for (ref : String | refs)]
+			[ref.toLowerFirst()/] = new [ref.toUpperFirst()/]();
+			[/for]
 		}
 		[/if]
 		[/let]
@@ -223,7 +245,7 @@ public class [c.name.toUpperFirst()/]Activity extends Activity {
 [template public writeWidgetVariables(widgets : Set(Class)) post (trim())]
 [if (not widgets->oclIsUndefined())]
 [for (w : Class | widgets)]
-[if (w.isXisCompositeWidget() and w.isForm())]
+[if (w.isXisForm())]
 [writeWidgetVariables(w.getXisWidgets())/]
 [else]
 private [w.writeWidgetTypeAndName()/];
