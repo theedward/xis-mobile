@@ -242,7 +242,7 @@ public class [c.name.toUpperFirst()/]Activity extends Activity {
 [/file]
 [/template]
 
-[template public writeWidgetVariables(widgets : Set(Class)) post (trim())]
+[template private writeWidgetVariables(widgets : Set(Class)) post (trim())]
 [if (not widgets->oclIsUndefined())]
 [for (w : Class | widgets)]
 [if (w.isXisForm())]
@@ -254,7 +254,7 @@ private [w.writeWidgetTypeAndName()/];
 [/if]
 [/template]
 
-[template public writeWidgetInit(widgets : Set(Class)) post (trim())]
+[template private writeWidgetInit(widgets : Set(Class)) post (trim())]
 [for (w : Class | widgets)]
 
 public void initialize[w.getWidgetName().toUpperFirst()/]() {
@@ -266,7 +266,7 @@ public void initialize[w.getWidgetName().toUpperFirst()/]() {
 [/for]
 [/template]
 
-[template public writeWidgetTypeAndName(c : Class) post (trim())]
+[template private writeWidgetTypeAndName(c : Class) post (trim())]
 [if (c.isXisLabel())]
 XisLabel mLabel[c.name.toUpperFirst()/]
 [elseif (c.isXisTextBox())]
