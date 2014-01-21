@@ -289,6 +289,22 @@ public final class ServiceUtils {
 		return c.getAppliedStereotype("XIS-Mobile::XisListItem") != null;
 	}
 	
+	public static boolean isXisDialog(Class c) {
+		return getXisDialog(c) != null;
+	}
+	
+	public static Stereotype getXisDialog(Class c) {
+		return c.getAppliedStereotype("XIS-Mobile::XisDialog");
+	}
+	
+	public static boolean isXisDialogAssociation(Association a) {
+		return getXisDialogAssociation(a) != null;
+	}
+	
+	public static Stereotype getXisDialogAssociation(Association a) {
+		return a.getAppliedStereotype("XIS-Mobile::XisDialogAssociation");
+	}
+	
 	public static Stereotype getWidgetStereotype(Class c) {
 		Stereotype s = null;
 		
