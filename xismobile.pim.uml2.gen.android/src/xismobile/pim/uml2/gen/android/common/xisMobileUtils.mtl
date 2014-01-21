@@ -323,12 +323,6 @@
 	not c.getXisForm().oclIsUndefined()
 /]
 
-[query public isForm(c : Class) : Boolean =
-	getEnumValue(c.getValue(
-		c.getXisCompositeWidget(), 'type')
-	) = 'Form'
-/]
-
 [query public isTab(c : Class) : Boolean =
 	getEnumValue(c.getValue(
 		c.getXisCompositeWidget(), 'type')
