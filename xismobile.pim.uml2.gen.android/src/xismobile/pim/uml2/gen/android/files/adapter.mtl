@@ -114,7 +114,7 @@ public class [entity.name.toUpperFirst()/]Adapter extends ArrayAdapter<[entity.n
 [/file]
 [/template]
 
-[template public writeFindWidget(c : Class)]
+[template private writeFindWidget(c : Class)]
 [if (c.isXisLabel())]
 (XisLabel) findViewById(R.id.label[c.name.toUpperFirst()/]);
 [elseif (c.isXisTextBox())]
@@ -137,10 +137,12 @@ public class [entity.name.toUpperFirst()/]Adapter extends ArrayAdapter<[entity.n
 (XisMapView) findViewById(R.id.map[c.name.toUpperFirst()/]);
 [elseif (c.isXisList())]
 (ListView) findViewById(R.id.list[c.name.toUpperFirst()/]);
+[elseif (c.isXisDropdown())]
+(XisDropdown) findViewById(R.id.dropdown[c.name.toUpperFirst()/]);
 [/if]
 [/template]
 
-[template public writeWidgetType(c : Class)]
+[template private writeWidgetType(c : Class)]
 [if (c.isXisLabel())]
 XisLabel
 [elseif (c.isXisTextBox())]
@@ -164,6 +166,6 @@ XisMapView
 [elseif (c.isXisList())]
 ListView
 [elseif (c.isXisDropdown())]
-Spinner
+XisDropdown
 [/if]
 [/template]
