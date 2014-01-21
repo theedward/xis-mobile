@@ -825,6 +825,32 @@ public class Services {
 		}
 	}
 	
+	public boolean hasXisDialogs(Class c) {
+		if (c.getAssociations().size() > 0) {
+			for (Association a : c.getAssociations()) {
+				if (ServiceUtils.isXisDialogAssociation(a)) {
+					return true;
+				}
+			}
+		}
+		
+		if (c.allOwnedElements().size() > 0) {
+			List<Class> children = new ArrayList<Class>();
+			for (Element e : c.allOwnedElements()) {
+				if (e instanceof Class) {
+					children.add((Class) e);
+				}
+			}
+			
+			if (children.size() > 0) {
+				for (Class cl : children) {
+					hasXisDialogs(cl);
+				}
+			}
+		}
+		return false;
+	}
+	
 	/**
 	 * Auxiliary Methods
 	 */

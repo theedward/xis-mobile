@@ -93,3 +93,7 @@
 [query public xisRemoteServiceExists(o : Operation) : Boolean =
 	invoke('xismobile.pim.uml2.gen.android.services.Services', 'xisRemoteServiceExists(org.eclipse.uml2.uml.Operation)', Sequence{o})
 /]
+
+[query public hasXisDialogs(c : Class) : Boolean =
+	invoke('xismobile.pim.uml2.gen.android.services.Services', 'hasXisDialogs(org.eclipse.uml2.uml.Class)', Sequence{c})
+/]
