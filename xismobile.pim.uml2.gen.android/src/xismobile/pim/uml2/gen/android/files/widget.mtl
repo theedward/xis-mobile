@@ -45,21 +45,21 @@ String value = String.valueOf(<entity>.<attribute>);
 mLabel.setText(value);
 [/if]
 [elseif (c.isXisTextBox())]
-mTextBox[c.name.toUpperFirst()/] = (XisTextBox)findViewById(R.id.textBox[c.name.toUpperFirst()/]);
+mTextBox[c.name.toUpperFirst()/] = (XisTextBox) findViewById(R.id.textBox[c.name.toUpperFirst()/]);
 [elseif (c.isXisCheckBox())]
-mCheckBox[c.name.toUpperFirst()/] = (XisCheckBox)findViewById(R.id.checkBox[c.name.toUpperFirst()/]);
+mCheckBox[c.name.toUpperFirst()/] = (XisCheckBox) findViewById(R.id.checkBox[c.name.toUpperFirst()/]);
 [elseif (c.isXisButton())]
-mButton[c.name.toUpperFirst()/] = (XisButton)findViewById(R.id.button[c.name.toUpperFirst()/]);
+mButton[c.name.toUpperFirst()/] = (XisButton) findViewById(R.id.button[c.name.toUpperFirst()/]);
 [elseif (c.isXisLink())]
-mLink[c.name.toUpperFirst()/] = (XisLink)findViewById(R.id.link[c.name.toUpperFirst()/]);
+mLink[c.name.toUpperFirst()/] = (XisLink) findViewById(R.id.link[c.name.toUpperFirst()/]);
 [elseif (c.isXisImage())]
-mImage[c.name.toUpperFirst()/] = (XisImage)findViewById(R.id.image[c.name.toUpperFirst()/]);
+mImage[c.name.toUpperFirst()/] = (XisImage) findViewById(R.id.image[c.name.toUpperFirst()/]);
 [elseif (c.isXisDatePicker())]
-mDatePicker[c.name.toUpperFirst()/] = (XisDatePicker)findViewById(R.id.datePicker[c.name.toUpperFirst()/]);
+mDatePicker[c.name.toUpperFirst()/] = (XisDatePicker) findViewById(R.id.datePicker[c.name.toUpperFirst()/]);
 [elseif (c.isXisTimePicker())]
-mTimePicker[c.name.toUpperFirst()/] = (XisTimePicker)findViewById(R.id.timePicker[c.name.toUpperFirst()/]);
+mTimePicker[c.name.toUpperFirst()/] = (XisTimePicker) findViewById(R.id.timePicker[c.name.toUpperFirst()/]);
 [elseif (c.isXisWebView())]
-mWebView[c.name.toUpperFirst()/] = (XisWebView)findViewById(R.id.web[c.name.toUpperFirst()/]);
+mWebView[c.name.toUpperFirst()/] = (XisWebView) findViewById(R.id.web[c.name.toUpperFirst()/]);
 [elseif (c.isXisMapView())]
 SupportMapFragment mv = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map[c.name.toUpperFirst()/]);
 mMap[c.name.toUpperFirst()/] = mv.getMap();
@@ -109,13 +109,13 @@ if (mMap[c.name.toUpperFirst()/] == null) {
 	[/if]
 }
 [elseif (c.isXisDropdown())]
-mDropdown[c.name.toUpperFirst()/] = (XisDropdown)findViewById(R.id.dropdown[c.name.toUpperFirst()/]);
+mDropdown[c.name.toUpperFirst()/] = (XisDropdown) findViewById(R.id.dropdown[c.name.toUpperFirst()/]);
 ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item);
 [comment @TODO Add Items to XisDropdown  /]
 adapter.add("TODO");
 mDropdown.setPrompt("Select [c.name/]...");
 [elseif (c.isXisList())]
-mList[c.name.toUpperFirst()/] = (ListView)findViewById(R.id.list[c.name.toUpperFirst()/]);
+mList[c.name.toUpperFirst()/] = (ListView) findViewById(R.id.list[c.name.toUpperFirst()/]);
 [let entity : Class = c.getXisListEntity()]
 [let item : Class = c.getXisListItems()->at(1)]
 mList[c.name.toUpperFirst()/].setAdapter(new [entity.name.toUpperFirst()/]Adapter(getApplicationContext(), R.layout.[item.name.toLower()/]_item, [entity.name.toLowerFirst()/]s));
@@ -132,7 +132,7 @@ registerForContextMenu(mList[c.name.toUpperFirst()/]);
 [/if]
 [/template]
 
-[template public writeGestureBinding(c : Class) post (trim())]
+[template private writeGestureBinding(c : Class) post (trim())]
 [if (c.isXisButton() or c.isXisLink())]
 [let s : Stereotype = 
 	if c.isXisButton()
@@ -163,7 +163,7 @@ registerForContextMenu(mList[c.name.toUpperFirst()/]);
 [/let]
 [/template]
 
-[template public getXisGestureManagerName(c : Class) post (trim())]
+[template private getXisGestureManagerName(c : Class) post (trim())]
 [if (c.isXisLabel())]
 XisLabelGestureManager
 [elseif (c.isXisTextBox())]
@@ -189,7 +189,7 @@ XisDropdownGestureManager
 [/if]
 [/template]
 
-[template public writeXisGestureManager(c : Class, gestures : OrderedSet(Class))]
+[template private writeXisGestureManager(c : Class, gestures : OrderedSet(Class))]
 [c.getWidgetName()/].setXisGestureManager(new [c.getXisGestureManagerName()/]() {
 	[writeOnDoubleTap(gestures)/]
 [if (c.isXisTextBox() or c.isXisImage() or c.isXisWebView() or c.isXisMapView())]
@@ -202,7 +202,7 @@ XisDropdownGestureManager
 });
 [/template]
 
-[template public writeOnTap(c : Class, gestures : OrderedSet(Class))]
+[template private writeOnTap(c : Class, gestures : OrderedSet(Class))]
 [c.getWidgetName()/].setOnClickListener(new OnClickListener() {
 	@Override
 	public void onClick(View v) {
@@ -219,7 +219,7 @@ XisDropdownGestureManager
 });
 [/template]
 
-[template public writeOnTapDefault(c : Class, op : Operation)]
+[template private writeOnTapDefault(c : Class, op : Operation)]
 [c.getWidgetName()/].setOnClickListener(new OnClickListener() {
 	@Override
 	public void onClick(View v) {
@@ -228,7 +228,7 @@ XisDropdownGestureManager
 });
 [/template]
 	
-[template public writeOnDoubleTap(gestures : OrderedSet(Class))]
+[template private writeOnDoubleTap(gestures : OrderedSet(Class))]
 @Override
 public void onDoubleTap() {
 [let taps : OrderedSet(Class) = gestures->select(g : Class | g.isDoubleTapGesture())]
@@ -245,7 +245,7 @@ public void onDoubleTap() {
 }
 [/template]
 
-[template public writeOnLongTap(c : Class, gestures : OrderedSet(Class))]
+[template private writeOnLongTap(c : Class, gestures : OrderedSet(Class))]
 [c.getWidgetName()/].setOnLongClickListener(new OnLongClickListener() {
 	@Override
 	public void onLongClick(View v) {
@@ -262,7 +262,7 @@ public void onDoubleTap() {
 });
 [/template]
 
-[template public writeOnSwipe(gestures : OrderedSet(Class))]
+[template private writeOnSwipe(gestures : OrderedSet(Class))]
 @Override
 public void onSwipe() {
 [let taps : OrderedSet(Class) = gestures->select(g : Class | g.isSwipeGesture())]
@@ -279,7 +279,7 @@ public void onSwipe() {
 }
 [/template]
 
-[template public writeOnStretch(gestures : OrderedSet(Class))]
+[template private writeOnStretch(gestures : OrderedSet(Class))]
 @Override
 public void onStretch() {
 [let taps : OrderedSet(Class) = gestures->select(g : Class | g.isStretchGesture())]
@@ -296,7 +296,7 @@ public void onStretch() {
 }
 [/template]
 
-[template public writeOnPinch(gestures : OrderedSet(Class))]
+[template private writeOnPinch(gestures : OrderedSet(Class))]
 @Override
 public void onPinch() {
 [let taps : OrderedSet(Class) = gestures->select(g : Class | g.isPinchGesture())]
@@ -356,7 +356,7 @@ public void onPinch() {
 [/let]
 [/template]
 
-[template public writeLabel(widgets : Sequence(Class), c : Class)]
+[template private writeLabel(widgets : Sequence(Class), c : Class)]
 [let name : String = 'label' + c.name.toUpperFirst()]
 <xis_mobile.library.widgets.XisLabel
 	android:id="@+id/[name/]"
@@ -372,7 +372,7 @@ public void onPinch() {
 [/let]
 [/template]
 
-[template public writeTextBox(widgets : Sequence(Class), c : Class)]
+[template private writeTextBox(widgets : Sequence(Class), c : Class)]
 [let name : String = 'textBox' + c.name.toUpperFirst()]
 <xis_mobile.library.widgets.XisTextBox
 	android:id="@+id/[name/]"
@@ -398,7 +398,7 @@ public void onPinch() {
 [/let]
 [/template]
 
-[template public writeCheckBox(widgets : Sequence(Class), c : Class)]
+[template private writeCheckBox(widgets : Sequence(Class), c : Class)]
 [let name : String = 'checkBox' + c.name.toUpperFirst()]
 <xis_mobile.library.widgets.XisCheckBox
 	android:id="@+id/[name/]"
@@ -417,7 +417,7 @@ public void onPinch() {
 [/let]
 [/template]
 
-[template public writeButton(widgets : Sequence(Class), c : Class)]
+[template private writeButton(widgets : Sequence(Class), c : Class)]
 [let name : String = 'button' + c.name.toUpperFirst()]
 <xis_mobile.library.widgets.XisButton
 	android:id="@+id/[name/]"
@@ -436,7 +436,7 @@ public void onPinch() {
 [/let]
 [/template]
 
-[template public writeLink(widgets : Sequence(Class), c : Class)]
+[template private writeLink(widgets : Sequence(Class), c : Class)]
 [let name : String = 'link' + c.name.toUpperFirst()]
 <TextView
 	android:id="@+id/link[c.name.toUpperFirst()/]"
@@ -449,7 +449,7 @@ public void onPinch() {
 [/let]
 [/template]
 
-[template public writeImageView(widgets : Sequence(Class), c : Class)]
+[template private writeImageView(widgets : Sequence(Class), c : Class)]
 [let name : String = 'image' + c.name.toUpperFirst()]
 <xis_mobile.library.widgets.XisImage
 	android:id="@+id/[name/]"
@@ -461,7 +461,7 @@ public void onPinch() {
 [/let]
 [/template]
 
-[template public writeDatePicker(widgets : Sequence(Class), c : Class)]
+[template private writeDatePicker(widgets : Sequence(Class), c : Class)]
 [let name : String = 'datePicker' + c.name.toUpperFirst()]
 <xis_mobile.library.widgets.XisDatePicker
 	android:id="@+id/[name/]"
@@ -477,7 +477,7 @@ public void onPinch() {
 [/let]
 [/template]
 
-[template public writeTimePicker(widgets : Sequence(Class), c : Class)]
+[template private writeTimePicker(widgets : Sequence(Class), c : Class)]
 [let name : String = 'timePicker' + c.name.toUpperFirst()]
 <xis_mobile.library.widgets.XisTimePicker
 	android:id="@+id/[name/]"
@@ -493,7 +493,7 @@ public void onPinch() {
 [/let]
 [/template]
 
-[template public writeWebView(widgets : Sequence(Class), c : Class)]
+[template private writeWebView(widgets : Sequence(Class), c : Class)]
 [let name : String = 'webView' + c.name.toUpperFirst()]
 <xis_mobile.library.widgets.XisWebView
 	android:id="@+id/[name/]"
@@ -504,7 +504,7 @@ public void onPinch() {
 [/let]
 [/template]
 
-[template public writeMapView(widgets : Sequence(Class), c : Class)]
+[template private writeMapView(widgets : Sequence(Class), c : Class)]
 [let name : String = 'mapView' + c.name.toUpperFirst()]
 <fragment
 	android:id="@+id/[name/]"
@@ -516,7 +516,7 @@ public void onPinch() {
 [/let]
 [/template]
 
-[template public writeListView(c : Class)]
+[template private writeListView(c : Class)]
 [if (c.xisListIsSearchable())]
 [let name : String = 'search' + c.name.toUpperFirst()]
 <EditText
@@ -538,7 +538,7 @@ public void onPinch() {
 />
 [/template]
 
-[template public writeDropdown(widgets : Sequence(Class), c : Class)]
+[template private writeDropdown(widgets : Sequence(Class), c : Class)]
 [let name : String = 'dropdown' + c.name.toUpperFirst()]
 <xis_mobile.library.widgets.XisDropdown
     android:id="@+id/[name/]"
@@ -549,7 +549,7 @@ public void onPinch() {
 [/let]
 [/template]
 
-[template public writeForm(widgets : Sequence(Class), c : Class)]
+[template private writeForm(widgets : Sequence(Class), c : Class)]
 [let name : String = 'form' + c.name.toUpperFirst()]
 <RelativeLayout
         android:id="@+id/[name/]"
@@ -563,7 +563,7 @@ public void onPinch() {
 [/let]
 [/template]
 
-[template public generateListItem(c : Class)]
+[template private generateListItem(c : Class)]
 
 [file ('res/layout/' + c.name.toLowerCase() + '_item.xml', false, 'UTF-8')]
 <?xml version="1.0" encoding="utf-8"?>
