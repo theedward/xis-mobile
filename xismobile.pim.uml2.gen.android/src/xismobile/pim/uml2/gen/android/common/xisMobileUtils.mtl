@@ -584,7 +584,7 @@
 
 [query public getXisWidgets(c : Class) : Set(Class) =
 	c.ownedElement->selectByType(Class)->select(w : Class |
-	not w.isXisCompositeWidget() and not c.isXisMenu()
+	not w.isXisMenu()
 	and not w.isXisMenuGroup() and not w.isXisMenuItem()
 	and not w.isXisListItem())
 /]
