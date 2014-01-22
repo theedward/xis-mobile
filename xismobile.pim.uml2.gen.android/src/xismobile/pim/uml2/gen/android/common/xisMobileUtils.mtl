@@ -586,7 +586,7 @@
 	c.ownedElement->selectByType(Class)->select(w : Class |
 	not w.isXisMenu()
 	and not w.isXisMenuGroup() and not w.isXisMenuItem()
-	and not w.isXisListItem())
+	and not w.isXisListGroup() and not w.isXisListItem())
 /]
 
 [query public getXisLabel(c : Class) : Stereotype =
