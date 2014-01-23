@@ -11,11 +11,13 @@ package [c.getPackagePath()/];
 
 import java.util.ArrayList;
 
+import android.content.ContentProviderOperation;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.ContactsContract;
+import android.util.Log;
 
 public class [c.name.toUpperFirst()/]ContactsProvider {
 
@@ -37,10 +39,6 @@ public class [c.name.toUpperFirst()/]ContactsProvider {
 	
 	public [c.name.toUpperFirst()/]ContactsProvider(Context context) {
 		this.context = context;
-	}
-	
-	public void createContact(Contact c) {
-		
 	}
 	
 	public void createContact(Contact c) {
@@ -137,9 +135,8 @@ public class [c.name.toUpperFirst()/]ContactsProvider {
 						c.addEmail(email);
 					}
 					emailCursor.close();
-					
-					contacts.add(c);
 				}
+				contacts.add(c);
 			}
 		}
 		return contacts;
