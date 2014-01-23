@@ -17,6 +17,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.ContactsContract;
+import android.provider.ContactsContract.PhoneLookup;
 import android.util.Log;
 
 public class [c.name.toUpperFirst()/]ContactsProvider {
@@ -46,8 +47,8 @@ public class [c.name.toUpperFirst()/]ContactsProvider {
 		
 		ContentProviderOperation.Builder op =
 			ContentProviderOperation.newInsert(ContactsContract.RawContacts.CONTENT_URI)
-	        .withValue(ContactsContract.RawContacts.ACCOUNT_TYPE, 0)
-	        .withValue(ContactsContract.RawContacts.ACCOUNT_NAME, "my account name");
+	        .withValue(ContactsContract.RawContacts.ACCOUNT_TYPE, null)
+	        .withValue(ContactsContract.RawContacts.ACCOUNT_NAME, null);
 		
 		ops.add(op.build());
 		
@@ -98,6 +99,24 @@ public class [c.name.toUpperFirst()/]ContactsProvider {
 		}
 	}
 
+	public void deleteContact(Contact c) {
+		ContentResolver contentResolver = context.getContentResolver();
+		Uri uri = ContactsContract.Data.CONTENT_URI;
+	    String['['/][']'/] projection = new String['['/][']'/] { PhoneLookup.LOOKUP_KEY };
+	    String selection = ContactsContract.CommonDataKinds.StructuredName.DISPLAY_NAME + " = ?";
+	    String['['/][']'/] selectionArguments = { c.getName() };
+	    Cursor cursor = contentResolver.query(uri, projection, selection, selectionArguments, null);
+	    
+	    if (cursor.getCount() > 0) {
+	        while (cursor.moveToNext()) {
+	        	String contact_id = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.LOOKUP_KEY));
+	        	uri = Uri.withAppendedPath(ContactsContract.Contacts.CONTENT_LOOKUP_URI, contact_id);
+				contentResolver.delete(uri, null, null);
+	        }
+	    }
+		cursor.close();
+	}
+
 	public ArrayList<Contact> getAllContacts() {
 		ArrayList<Contact> contacts = new ArrayList<Contact>();
 		
@@ -139,9 +158,14 @@ public class [c.name.toUpperFirst()/]ContactsProvider {
 				contacts.add(c);
 			}
 		}
+		cursor.close()
 		return contacts;
 	}
 	
+	public void deleteAllContacts() {
+		context.getContentResolver().delete(ContactsContract.RawContacts.CONTENT_URI, null, null);
+	}
+
 	public static class Contact {
 		
 		private String name;
