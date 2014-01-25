@@ -93,28 +93,57 @@ public class [c.name.toUpperFirst()/]ContactsProvider {
 	    }
 	    
 	    try {
-	    	context.getContentResolver().applyBatch(ContactsContract.AUTHORITY, ops);
+	    	ContentResolver contentResolver = context.getContentResolver();
+	    	contentResolver.applyBatch(ContactsContract.AUTHORITY, ops);
+	    	
+	    	// Set Contact Id as lookup key.
+	    	Uri uri = ContactsContract.Data.CONTENT_URI;
+		    String['['/][']'/] projection = new String['['/][']'/] { PhoneLookup.LOOKUP_KEY };
+		    String selection = ContactsContract.CommonDataKinds.StructuredName.DISPLAY_NAME + " = ?";
+		    String['['/][']'/] selectionArguments = { c.getName() };
+		    Cursor cursor = contentResolver.query(uri, projection, selection, selectionArguments, null);
+		    
+		    if (cursor.getCount() > 0) {
+		        while (cursor.moveToNext()) {
+		        	String contact_id = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.LOOKUP_KEY));
+		        	c.setId(contact_id);
+		        }
+		    }
+			cursor.close()
 		} catch (Exception e) {
 			Log.e("CONTACT", "Exception encountered while inserting contact: " + e);
 		}
 	}
 
-	public void deleteContact(Contact c) {
+	public void deleteContact(String id) {
 		ContentResolver contentResolver = context.getContentResolver();
-		Uri uri = ContactsContract.Data.CONTENT_URI;
-	    String['['/][']'/] projection = new String['['/][']'/] { PhoneLookup.LOOKUP_KEY };
-	    String selection = ContactsContract.CommonDataKinds.StructuredName.DISPLAY_NAME + " = ?";
-	    String['['/][']'/] selectionArguments = { c.getName() };
-	    Cursor cursor = contentResolver.query(uri, projection, selection, selectionArguments, null);
-	    
-	    if (cursor.getCount() > 0) {
-	        while (cursor.moveToNext()) {
-	        	String contact_id = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.LOOKUP_KEY));
-	        	uri = Uri.withAppendedPath(ContactsContract.Contacts.CONTENT_LOOKUP_URI, contact_id);
-				contentResolver.delete(uri, null, null);
-	        }
-	    }
-		cursor.close();
+		Uri	uri = Uri.withAppendedPath(ContactsContract.Contacts.CONTENT_LOOKUP_URI, id);
+		try {
+			contentResolver.delete(uri, null, null);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void updateContact(Contact c) {
+		ContentResolver contentResolver = context.getContentResolver();
+		ArrayList<ContentProviderOperation> ops = new ArrayList<ContentProviderOperation>();
+
+		// Name
+
+		if (c.getPhoneNumbers().size() > 0) {
+			
+		}
+
+		if (c.getEmails().size() > 0) {
+			
+		}		
+
+		try {
+	    	contentResolver.applyBatch(ContactsContract.AUTHORITY, ops);
+		} catch (Exception e) {
+			Log.e("CONTACT", "Exception encountered while updating contact: " + e);
+		}
 	}
 
 	public ArrayList<Contact> getAllContacts() {
@@ -168,6 +197,7 @@ public class [c.name.toUpperFirst()/]ContactsProvider {
 
 	public static class Contact {
 		
+		private String id;
 		private String name;
 		private ArrayList<String> phoneNumbers;
 		private ArrayList<String> emails;
@@ -181,6 +211,14 @@ public class [c.name.toUpperFirst()/]ContactsProvider {
 			this.name = name;
 			this.phoneNumbers = phoneNumbers;
 			this.emails = emails;
+		}
+
+		public String getId() {
+			return id;
+		}
+
+		public void setId(String id) {
+			this.id = id;
 		}
 
 		public String getName() {
