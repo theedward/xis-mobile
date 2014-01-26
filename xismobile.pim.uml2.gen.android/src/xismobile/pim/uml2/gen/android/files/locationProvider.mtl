@@ -1,0 +1,22 @@
+[comment encoding = UTF-8 /]
+[module locationProvider('http://www.eclipse.org/uml2/4.0.0/UML')]
+
+[import xismobile::pim::uml2::gen::android::common::xisMobileUtils /]
+[import xismobile::pim::uml2::gen::android::common::utils /]
+
+[template public generateLocationProvider(c : Class)]
+
+[file ('src/' + c.getPackageDirectoryPath() + '/' + c.name.toUpperFirst() + 'LocationProvider.java', false, 'UTF-8')]
+package [c.getPackagePath()/];
+
+public class [c.name.toUpperFirst()/]LocationProvider {
+
+	private Context context;
+
+	public [c.name.toUpperFirst()/]LocationProvider(Context context) {
+		this.context = context;
+	}
+
+}
+[/file]
+[/template]
