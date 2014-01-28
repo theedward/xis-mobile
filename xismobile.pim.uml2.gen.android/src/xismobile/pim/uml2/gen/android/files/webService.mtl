@@ -28,7 +28,7 @@ import android.util.Log;
 
 public class [i.name.toUpperFirst()/]ServiceStub {
 	
-	public static String url = "[i.getRemoteServiceUrl()/]";
+	public static final String url = "[i.getRemoteServiceUrl()/]";
 
 	[for (o : Operation | i.getXisServiceMethods())]
 	public [o.getReturnResult().type.name/] [o.name.toLowerFirst()/]([o.ownedParameter.writeParameterTypeAndName()->sep(', ')/]) {
