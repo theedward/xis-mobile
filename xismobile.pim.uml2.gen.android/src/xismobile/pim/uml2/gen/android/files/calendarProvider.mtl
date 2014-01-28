@@ -22,7 +22,6 @@ import android.os.Build;
 import android.provider.CalendarContract.Calendars;
 import android.provider.CalendarContract.Events;
 
-
 public class [c.name.toUpperFirst()/]CalendarProvider {
 
 	private Context context;
