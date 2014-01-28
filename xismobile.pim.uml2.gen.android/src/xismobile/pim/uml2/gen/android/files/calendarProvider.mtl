@@ -114,7 +114,7 @@ public class [c.name.toUpperFirst()/]CalendarProvider {
 			uri = Uri.parse("content://calendar/events");
 		}
 		
-		uri = ContentUris.withAppendedId(Events.CONTENT_URI, eventID);
+		uri = ContentUris.withAppendedId(uri, eventID);
 		return contentResolver.delete(uri, null, null);
 	}
 
