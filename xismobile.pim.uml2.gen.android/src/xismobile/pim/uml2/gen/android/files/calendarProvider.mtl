@@ -9,6 +9,8 @@
 [file ('src/' + c.getPackageDirectoryPath() + '/' + c.name.toUpperFirst() + 'CalendarProvider.java', false, 'UTF-8')]
 package [c.getPackagePath()/];
 
+import java.util.ArrayList;
+
 import android.annotation.SuppressLint;
 import android.content.ContentResolver;
 import android.content.ContentUris;
@@ -50,7 +52,44 @@ public class [c.name.toUpperFirst()/]CalendarProvider {
 	   		return cursor.getLong(0); 
 	   	}
    		return -1;
-	} 
+	}
+
+	@SuppressLint("NewApi")
+	public ArrayList<Event> getAllEvents() {
+		Uri uri;
+		ArrayList<Event> events = new ArrayList<Event>();
+		
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+			uri = Events.CONTENT_URI;
+		} else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO) {
+			uri = Uri.parse("content://com.android.calendar/events");
+		} else {
+			uri = Uri.parse("content://calendar/events");
+		}
+		
+		Cursor cursor = contentResolver.query(uri, null, null, null, null);
+		
+		if (cursor != null) {
+			if (cursor.getCount() > 0) {
+				Event e;
+				
+				while (cursor.moveToNext()) {
+					e = new Event();
+					e.setId(cursor.getLong(cursor.getColumnIndex(Events._ID)));
+					e.setCalendarID(cursor.getLong(cursor.getColumnIndex(Events.CALENDAR_ID)));
+					e.setTitle(cursor.getString(cursor.getColumnIndex(Events.TITLE)));
+					e.setDescription(cursor.getString(cursor.getColumnIndex(Events.DESCRIPTION)));
+					e.setOrganizer(cursor.getString(cursor.getColumnIndex(Events.ORGANIZER)));
+					e.setLocation(cursor.getString(cursor.getColumnIndex(Events.EVENT_LOCATION)));
+					e.setStartTime(cursor.getLong(cursor.getColumnIndex(Events.DTSTART)));
+					e.setEndTime(cursor.getLong(cursor.getColumnIndex(Events.DTEND)));
+					e.setTimezone(cursor.getString(cursor.getColumnIndex(Events.EVENT_TIMEZONE)));
+				}
+			}
+			cursor.close();
+		}
+		return events;
+	}
 
 	@SuppressLint("NewApi")
 	public void insertEvent(Event event) {
@@ -115,6 +154,20 @@ public class [c.name.toUpperFirst()/]CalendarProvider {
 		}
 		
 		uri = ContentUris.withAppendedId(uri, eventID);
+		return contentResolver.delete(uri, null, null);
+	}
+
+	@SuppressLint("NewApi")
+	public int deleteAllEvents() {
+		Uri uri;
+		
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+			uri = Events.CONTENT_URI;
+		} else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.FROYO) {
+			uri = Uri.parse("content://com.android.calendar/events");
+		} else {
+			uri = Uri.parse("content://calendar/events");
+		}
 		return contentResolver.delete(uri, null, null);
 	}
 
