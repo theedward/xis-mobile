@@ -51,7 +51,7 @@ try {
 	HttpResponse response = client.execute(httpGet);
 	StatusLine statusLine = response.getStatusLine();
 	int statusCode = statusLine.getStatusCode();
-	if (statusCode == 200) {
+	if (statusCode == HttpStatus.SC_OK) {
 		HttpEntity entity = response.getEntity();
 		InputStream content = entity.getContent();
 		// TODO: Process response
