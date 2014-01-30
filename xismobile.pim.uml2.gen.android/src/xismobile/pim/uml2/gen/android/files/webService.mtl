@@ -64,3 +64,32 @@ try {
 	Log.e("WS", "Exception while calling the service [o.name.toLowerFirst()/]: " + e);
 }
 [/template]
+
+[template public generateAsyncTask(c : Class)]
+public class WebServiceCallTask extends AsyncTask<HttpRequestBase, Void, String> {
+
+	@Override
+	protected String doInBackground(HttpRequestBase... params) {
+		HttpClient client = new DefaultHttpClient();
+
+		try {
+			HttpResponse response = client.execute(params['['/]0[']'/]);
+			StatusLine statusLine = response.getStatusLine();
+			int statusCode = statusLine.getStatusCode();
+			if (statusCode == HttpStatus.SC_OK) {
+				HttpEntity entity = response.getEntity();
+				ByteArrayOutputStream out = new ByteArrayOutputStream();
+                entity.writeTo(out);
+                out.close();
+				result = out.toString();
+			} else {
+				Log.e("WS", "Failed to call web service. Code:" + statusCode);
+			}
+		} catch (ClientProtocolException e) {
+			Log.e("WS", "Exception while calling web service: " + e.getMessage());
+		} catch (IOException e) {
+			Log.e("WS", "Exception while calling web service: " + e.getMessage());
+		}		
+	}
+}
+[/template]
