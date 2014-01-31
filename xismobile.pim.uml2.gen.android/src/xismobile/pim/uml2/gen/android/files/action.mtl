@@ -61,7 +61,7 @@ i.setData(Uri.parse("[o.getOpenBrowserActionUrl()/]"));
 startActivity(i);
 [elseif (o.isWebServiceAction())]
 	[if (o.xisRemoteServiceExists())]
-[o.name/]([o.writeXisRemoteServiceArguments()/]);
+<ServiceName>ServiceStub.[o.name/]([o.writeXisRemoteServiceArguments()/]);
 	[/if]
 [elseif (o.isCustomAction())]
 [o.writeCustomActionCall()/]
