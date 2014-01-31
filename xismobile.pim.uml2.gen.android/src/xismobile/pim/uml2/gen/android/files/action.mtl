@@ -88,7 +88,7 @@ manager
 [if (wsl->size() > 0)]
 /** WebService Actions Region */
 	[for (o : Operation | wsl) separator ('\n')]
-[o.writeWebServiceDeclaration()/]
+// Check what to do in this case
 	[/for]
 [/if]
 [/let]
@@ -104,30 +104,6 @@ manager
 
 [template private writeXisRemoteServiceArguments(o : Operation) post (trim())]
 [o.ownedParameter.writeParameterDefaultValue()->sep(', ')/]
-[/template]
-
-[template public writeWebServiceDeclaration(o : Operation)]
-public void [o.name.toLowerFirst()/](String url) {
-	HttpClient client = new DefaultHttpClient();
-	HttpGet httpGet = new HttpGet(url);
-
-	try {
-		HttpResponse response = client.execute(httpGet);
-		StatusLine statusLine = response.getStatusLine();
-		int statusCode = statusLine.getStatusCode();
-		if (statusCode == 200) {
-			HttpEntity entity = response.getEntity();
-			InputStream content = entity.getContent();
-			// TODO: Process response
-		} else {
-			Log.e("WS", "Failed to call the WS [o.name.toLowerFirst()/]. Code:" + statusCode);
-		}
-	} catch (ClientProtocolException e) {
-		e.printStackTrace();
-	} catch (IOException e) {
-		e.printStackTrace();
-	}
-}
 [/template]
 
 [**
