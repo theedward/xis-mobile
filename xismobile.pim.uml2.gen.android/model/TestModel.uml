@@ -167,7 +167,7 @@
       <eAnnotations xmi:id="_RdyKAFhhEeOqfpDi1piBGQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
         <references xmi:type="ecore:EPackage" href="../../XIS-Mobile/model.profile.uml#_ee7mQH4rEeOMSM1JIm856w"/>
       </eAnnotations>
-      <appliedProfile href="../../XIS-Mobile/model.profile.uml#_ee7mQH4rEeOMSM1JIm856w"/>
+      <appliedProfile href="../../XIS-Mobile/model.profile.uml#_EUKFkB9vEeOZ6al_I843SA"/>
     </profileApplication>
   </uml:Model>
   <XISMobile:XisInteractionSpace xmi:id="_TDjN8FhhEeOqfpDi1piBGQ" isMainScreen="true" base_Class="_e35kwCBFEeO_m-zgIyufMQ" title="MyISTitle is a new one!!"/>
