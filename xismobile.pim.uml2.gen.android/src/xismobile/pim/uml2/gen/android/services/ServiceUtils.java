@@ -472,8 +472,18 @@ public final class ServiceUtils {
 	 * @param s The original string 
 	 * @return The string with the first letter in upper case
 	 */
-	private static String toUpperFirst(String s) {
+	public static String toUpperFirst(String s) {
 		return s.substring(0, 1).toUpperCase() + s.substring(1);
+	}
+	
+	/**
+	 * Puts the first letter of a string in lower case and returns it.
+	 * 
+	 * @param s The original string 
+	 * @return The string with the first letter in lower case
+	 */
+	public static String toLowerFirst(String s) {
+		return s.substring(0, 1).toLowerCase() + s.substring(1);
 	}
 	
 	enum MenuType {
