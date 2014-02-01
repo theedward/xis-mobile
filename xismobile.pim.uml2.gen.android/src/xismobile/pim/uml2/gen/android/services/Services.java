@@ -825,6 +825,13 @@ public class Services {
 		}
 	}
 	
+	public String writeXisRemoteServiceFullName(String name) {
+		String[] data = name.split(".");
+		String server = ServiceUtils.toUpperFirst(data[0]) + "Stub";
+		String service = ServiceUtils.toLowerFirst(data[1]);
+		return server + "." + service;
+	}
+	
 	public boolean hasXisDialogs(Class c) {
 		if (c.getAssociations().size() > 0) {
 			for (Association a : c.getAssociations()) {
