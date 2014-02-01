@@ -56,7 +56,11 @@ try {
 return result;
 [/template]
 
-[template public generateAsyncTask(c : Class)]
+[template public generateAsyncTask(m : Model)]
+
+[file ('src/' + '/WebServiceCallTask.java', false, 'UTF-8')]
+package [comment][i.getPackagePath()/][/comment];
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
@@ -98,4 +102,5 @@ public class WebServiceCallTask extends AsyncTask<HttpRequestBase, Void, String>
 		}		
 	}
 }
+[/file]
 [/template]
