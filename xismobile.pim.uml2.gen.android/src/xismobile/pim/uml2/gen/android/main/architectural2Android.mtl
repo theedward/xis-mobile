@@ -6,6 +6,7 @@
 
 [template public architectural2Android(m : Model)]
 
+[m.generateAsyncTask()/]
 [for (i : Interface | m.getAllXisServices())]
 	[i.generateRemoteService()/]
 [/for]
