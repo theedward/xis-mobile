@@ -48,7 +48,11 @@
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="_PrYlUGW0EeO59ZqnG9-0yw" name="MyContextMenu"/>
         <packagedElement xmi:type="uml:Interface" xmi:id="_5gZIcGpWEeOec4c1gAF0QA" name="MyService">
-          <ownedOperation xmi:id="__MvAMGpWEeOec4c1gAF0QA" name="myMethod"/>
+          <ownedOperation xmi:id="__MvAMGpWEeOec4c1gAF0QA" name="myMethod">
+            <ownedParameter xmi:id="_teO7wIxQEeOo2rjVuvZsOA" name="myParam" isUnique="false">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+            </ownedParameter>
+          </ownedOperation>
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="_YUdfAG47EeO0KsVHgh3XHg" name="MyBE"/>
         <packagedElement xmi:type="uml:Class" xmi:id="_1leiAG47EeO0KsVHgh3XHg" name="Task">
