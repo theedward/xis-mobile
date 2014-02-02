@@ -24,7 +24,7 @@ public class [i.name.toUpperFirst()/]ServiceStub {
 	public static final String url = "[i.getRemoteServiceUrl()/]";
 
 	[for (o : Operation | i.getXisServiceMethods())]
-	public static [o.getReturnResult().type.name/] [o.name.toLowerFirst()/]([o.ownedParameter.writeParameterTypeAndName()->sep(', ')/]) {
+	public static [o.getReturnResultType()/] [o.name.toLowerFirst()/]([o.ownedParameter.writeParameterTypeAndName()->sep(', ')/]) {
 		[o.writeMethodBody()/]
 	}
 	[/for]
@@ -32,19 +32,29 @@ public class [i.name.toUpperFirst()/]ServiceStub {
 [/file]
 [/template]
 
+[template private getReturnResultType(o : Operation) post (trim())]
+[if (o.getReturnResult().oclIsUndefined())]
+void
+[else]
+[o.getReturnResult().type.name/]
+[/if]
+[/template]
+
 [template private writeParameterTypeAndName(p : Parameter) post (trim())]
 [p.type.name/] [p.name.toLowerFirst()/]
 [/template]
 
 [template private writeMethodBody(o : Operation) post (trim())]
-[o.returnResult().type.name/] result = null;
+[if (not o.getReturnResult().oclIsUndefined())]
+[o.getReturnResult().type.name/] result = null;
+[/if]
 HttpGet request = new HttpGet(url + "/" + "[o.name.toLowerFirst()/]");
 
 try {
 [if (o.ownedParameter->size() > 0)]
 	ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
 	[for (p : Parameter | o.ownedParameter)]
-	params.add(new BasicNameValuePair("[p.name/]", "[p.default/]"));
+	params.add(new BasicNameValuePair("[p.name.toLowerFirst()/]", [p.name.toLowerFirst()/]));
 	[/for]
 	request.setEntity(new UrlEncodedFormEntity(params));
 [/if]
@@ -53,7 +63,9 @@ try {
 } catch (Exception e) {
 	Log.e("WS", "Exception while calling the service [o.name.toLowerFirst()/]: " + e);
 }
+[if (not o.getReturnResult().oclIsUndefined())]
 return result;
+[/if]
 [/template]
 
 [template public generateAsyncTask(m : Model)]
