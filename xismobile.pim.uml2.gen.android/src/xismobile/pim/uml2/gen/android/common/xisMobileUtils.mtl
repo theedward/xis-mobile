@@ -216,13 +216,13 @@
 /]
 
 [query public isOptionsMenu(c : Class) : Boolean =
-	getEnumValue(c.getValue(
+	c.getEnumValue(c.getValue(
 		c.getXisMenu(), 'type')
 	) = 'OptionsMenu'
 /]
 
 [query public isContextMenu(c : Class) : Boolean =
-	getEnumValue(c.getValue(
+	c.getEnumValue(c.getValue(
 		c.getXisMenu(), 'type')
 	) = 'ContextMenu'
 /]
@@ -853,28 +853,39 @@
 	not c.getXisProvider().oclIsUndefined()
 /]
 
-[query public getXisLocationProvider(c : Class) : Stereotype = 
-	c.getAppliedStereotype('XIS-Mobile::XisLocationProvider')
-/]
-
 [query public isXisLocationProvider(c : Class) : Boolean = 
-	not c.getXisLocationProvider().oclIsUndefined()
-/]
-
-[query public getXisContactsProvider(c : Class) : Stereotype = 
-	c.getAppliedStereotype('XIS-Mobile::XisContactsProvider')
+	not c.getXisProvider().oclIsUndefined() and
+	c.getEnumValue(c.getValue(
+		c.getXisProvider(), 'type')
+	) = 'Location'
 /]
 
 [query public isXisContactsProvider(c : Class) : Boolean = 
-	not c.getXisContactsProvider().oclIsUndefined()
-/]
-
-[query public getXisCalendarProvider(c : Class) : Stereotype = 
-	c.getAppliedStereotype('XIS-Mobile::XisCalendarProvider')
+	not c.getXisProvider().oclIsUndefined() and
+	c.getEnumValue(c.getValue(
+		c.getXisProvider(), 'type')
+	) = 'Contacts'
 /]
 
 [query public isXisCalendarProvider(c : Class) : Boolean = 
-	not c.getXisCalendarProvider().oclIsUndefined()
+	not c.getXisProvider().oclIsUndefined() and
+	c.getEnumValue(c.getValue(
+		c.getXisProvider(), 'type')
+	) = 'Calendar'
+/]
+
+[query public isXisMediaProvider(c : Class) : Boolean = 
+	not c.getXisProvider().oclIsUndefined() and
+	c.getEnumValue(c.getValue(
+		c.getXisProvider(), 'type')
+	) = 'Media'
+/]
+
+[query public isXisCustomProvider(c : Class) : Boolean = 
+	not c.getXisProvider().oclIsUndefined() and
+	c.getEnumValue(c.getValue(
+		c.getXisProvider(), 'type')
+	) = 'Custom'
 /]
 
 [query public getAllXisServices(m : Model) : OrderedSet(Interface) =
