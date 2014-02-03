@@ -81,7 +81,7 @@ HttpGet request = new HttpGet(url + "/" + "[o.name.toLowerFirst()/]");
 try {
 [if (o.ownedParameter->size() > 0)]
 	ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
-	[for (p : Parameter | o.ownedParameter)]
+	[for (p : Parameter | o.getInParameters())]
 	params.add(new BasicNameValuePair("[p.name.toLowerFirst()/]", [p.name.toLowerFirst()/]));
 	[/for]
 	request.setEntity(new UrlEncodedFormEntity(params));
