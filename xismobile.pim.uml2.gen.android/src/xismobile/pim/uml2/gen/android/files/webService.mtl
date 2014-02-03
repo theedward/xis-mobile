@@ -36,12 +36,40 @@ public class [i.name.toUpperFirst()/]ServiceStub {
 [if (o.getReturnResult().oclIsUndefined())]
 void
 [else]
-[o.getReturnResult().type.name/]
+[o.getReturnResult().type.getParameterType()/]
+[/if]
+[/template]
+
+[template private getParameterType(t : Type) post (trim())]
+[if (not t.oclIsUndefined())]
+[let name : String = t.toString().toLower()]
+[if (name.contains('int'))]
+int
+[elseif (name.contains('integer'))]
+Integer
+[elseif (name.contains('float'))]
+float
+[elseif (name.contains('long'))]
+long
+[elseif (name.contains('short'))]
+short
+[elseif (name.contains('double'))]
+double
+[elseif (name.contains('char'))]
+char
+[elseif (name.contains('string'))]
+String
+[elseif (name.contains('byte'))]
+byte
+[elseif (name.contains('boolean'))]
+boolean
+[/if]
+[/let]
 [/if]
 [/template]
 
 [template private writeParameterTypeAndName(p : Parameter) post (trim())]
-[p.type.name/] [p.name.toLowerFirst()/]
+[p.type.getParameterType()/] [p.name.toLowerFirst()/]
 [/template]
 
 [template private writeMethodBody(o : Operation) post (trim())]
@@ -59,7 +87,11 @@ try {
 	request.setEntity(new UrlEncodedFormEntity(params));
 [/if]
 	WebServiceCallTask t = new WebServiceCallTask();
+	[if (not o.getReturnResult().oclIsUndefined())]
     result = t.execute(request).get();
+	[else]
+	t.execute(request);
+	[/if]
 } catch (Exception e) {
 	Log.e("WS", "Exception while calling the service [o.name.toLowerFirst()/]: " + e);
 }
