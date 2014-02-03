@@ -458,6 +458,10 @@
 	o.getXisArgumentValueByName('url', 'value')
 /]
 
+[query public getInParameters(o : Operation) : OrderedSet(Parameter) =
+	o.ownedParameter->select(p : Parameter | p.direction.toString() = 'in')
+/]
+
 [query public getXisArgument(p : Parameter) : Stereotype = 
 	p.getAppliedStereotype('XIS-Mobile::XisArgument')
 /]
