@@ -860,11 +860,19 @@
 	) = 'Location'
 /]
 
+[query public getAllXisLocationProviders(m : Model) : OrderedSet(Class) =
+	m.allOwnedElements()->selectByType(Class)->select(p : Class | p.isXisLocationProvider())
+/]
+
 [query public isXisContactsProvider(c : Class) : Boolean = 
 	not c.getXisProvider().oclIsUndefined() and
 	c.getEnumValue(c.getValue(
 		c.getXisProvider(), 'type')
 	) = 'Contacts'
+/]
+
+[query public getAllXisContactsProviders(m : Model) : OrderedSet(Class) =
+	m.allOwnedElements()->selectByType(Class)->select(p : Class | p.isXisContactsProvider())
 /]
 
 [query public isXisCalendarProvider(c : Class) : Boolean = 
@@ -874,6 +882,10 @@
 	) = 'Calendar'
 /]
 
+[query public getAllXisCalendarProviders(m : Model) : OrderedSet(Class) =
+	m.allOwnedElements()->selectByType(Class)->select(p : Class | p.isXisCalendarProvider())
+/]
+
 [query public isXisMediaProvider(c : Class) : Boolean = 
 	not c.getXisProvider().oclIsUndefined() and
 	c.getEnumValue(c.getValue(
@@ -881,11 +893,19 @@
 	) = 'Media'
 /]
 
+[query public getAllXisMediaProviders(m : Model) : OrderedSet(Class) =
+	m.allOwnedElements()->selectByType(Class)->select(p : Class | p.isXisMediaProvider())
+/]
+
 [query public isXisCustomProvider(c : Class) : Boolean = 
 	not c.getXisProvider().oclIsUndefined() and
 	c.getEnumValue(c.getValue(
 		c.getXisProvider(), 'type')
 	) = 'Custom'
+/]
+
+[query public getAllXisCustomProviders(m : Model) : OrderedSet(Class) =
+	m.allOwnedElements()->selectByType(Class)->select(p : Class | p.isXisCustomProvider())
 /]
 
 [query public getXisService(i : Interface) : Stereotype = 
