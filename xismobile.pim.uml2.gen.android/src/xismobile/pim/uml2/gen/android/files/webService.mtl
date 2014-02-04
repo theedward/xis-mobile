@@ -4,7 +4,7 @@
 [import xismobile::pim::uml2::gen::android::common::utils /]
 [import xismobile::pim::uml2::gen::android::common::xisMobileUtils /]
 
-[template public generateRemoteService(i : Interface)]
+[template public generateRemoteServiceStub(i : Interface)]
 
 [file ('src/' + i.getPackageDirectoryPath() + '/'.concat(i.name.toUpperFirst()).concat('ServiceStub.java'), false, 'UTF-8')]
 package [i.getPackagePath()/];
