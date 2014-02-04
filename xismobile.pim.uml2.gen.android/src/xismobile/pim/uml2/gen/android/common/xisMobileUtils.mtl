@@ -888,10 +888,6 @@
 	) = 'Custom'
 /]
 
-[query public getAllXisServices(m : Model) : OrderedSet(Interface) =
-	m.allOwnedElements()->selectByType(Interface)->select(s : Interface | s.isXisService())
-/]
-
 [query public getXisService(i : Interface) : Stereotype = 
 	i.getAppliedStereotype('XIS-Mobile::XisService')
 /]
@@ -914,6 +910,10 @@
 
 [query public isXisRemoteService(i : Interface) : Boolean = 
 	not i.getXisRemoteService().oclIsUndefined()
+/]
+
+[query public getAllXisRemoteServices(m : Model) : OrderedSet(Interface) =
+	m.allOwnedElements()->selectByType(Interface)->select(s : Interface | s.isXisRemoteService())
 /]
 
 [query public getRemoteServiceUrl(i : Interface) : String =
