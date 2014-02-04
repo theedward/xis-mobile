@@ -9,7 +9,7 @@
 [/template]
 
 [template private getXisArgumentsForCall(o : Operation)]
-[o.ownedParameter.getXisArgumentsTypeAndName()->sep(', ')/]
+[o.getInParameters().getXisArgumentsTypeAndName()->sep(', ')/]
 [/template]
 
 [template public writeXisAction(o : Operation) post (trim())]
@@ -103,7 +103,7 @@ manager
 [/template]
 
 [template private writeXisRemoteServiceArguments(o : Operation) post (trim())]
-[o.ownedParameter.writeParameterDefaultValue()->sep(', ')/]
+[o.getInParameters().writeParameterDefaultValue()->sep(', ')/]
 [/template]
 
 [**
