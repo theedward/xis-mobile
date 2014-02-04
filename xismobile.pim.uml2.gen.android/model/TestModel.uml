@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xmi:XMI xmi:version="20110701" xmlns:xmi="http://www.omg.org/spec/XMI/20110701" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:XISMobile="http:///schemas/XISMobile/_ee04kH4rEeOMSM1JIm856w/13" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/4.0.0/UML" xsi:schemaLocation="http:///schemas/XISMobile/_ee04kH4rEeOMSM1JIm856w/13 ../../XIS-Mobile/model.profile.uml#_ee7mQH4rEeOMSM1JIm856w">
+<xmi:XMI xmi:version="20110701" xmlns:xmi="http://www.omg.org/spec/XMI/20110701" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:XISMobile="http:///schemas/XISMobile/__mu3UI0CEeOEM-uUbDB-qg/14" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/4.0.0/UML" xsi:schemaLocation="http:///schemas/XISMobile/__mu3UI0CEeOEM-uUbDB-qg/14 ../../XIS-Mobile/model.profile.uml#__m2MEI0CEeOEM-uUbDB-qg">
   <uml:Model xmi:id="_ZhW94CBFEeO_m-zgIyufMQ" name="Model">
     <packageImport xmi:id="_ZhW94SBFEeO_m-zgIyufMQ">
       <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
@@ -171,7 +171,7 @@
     </packagedElement>
     <profileApplication xmi:id="_RdpAEFhhEeOqfpDi1piBGQ">
       <eAnnotations xmi:id="_RdyKAFhhEeOqfpDi1piBGQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="../../XIS-Mobile/model.profile.uml#_ee7mQH4rEeOMSM1JIm856w"/>
+        <references xmi:type="ecore:EPackage" href="../../XIS-Mobile/model.profile.uml#__m2MEI0CEeOEM-uUbDB-qg"/>
       </eAnnotations>
       <appliedProfile href="../../XIS-Mobile/model.profile.uml#_EUKFkB9vEeOZ6al_I843SA"/>
     </profileApplication>
@@ -186,7 +186,6 @@
   <XISMobile:XisImage xmi:id="_2A8REGZbEeOU3c0BTZHypw" base_Class="_DUiL8CEtEeOdVNfQLTcG7A"/>
   <XISMobile:XisMenuItem xmi:id="_9qe9wGf6EeOYjqnop0qlsg" base_Class="_6j3yIGf6EeOYjqnop0qlsg"/>
   <XISMobile:XisAction xmi:id="__pr1YGf6EeOYjqnop0qlsg" base_Operation="_-69uMGf6EeOYjqnop0qlsg"/>
-  <XISMobile:XisService xmi:id="_-smuoGpWEeOec4c1gAF0QA" base_Interface="_5gZIcGpWEeOec4c1gAF0QA"/>
   <XISMobile:XisServiceMethod xmi:id="_BcKFIGpXEeOec4c1gAF0QA" base_Operation="__MvAMGpWEeOec4c1gAF0QA"/>
   <XISMobile:XisDomainAssociation xmi:id="_ik_6sG47EeO0KsVHgh3XHg" base_Association="_eYA84247EeO0KsVHgh3XHg"/>
   <XISMobile:XisBusinessEntity xmi:id="_n6lfUG47EeO0KsVHgh3XHg" base_Class="_YUdfAG47EeO0KsVHgh3XHg"/>
@@ -206,4 +205,5 @@
   <XISMobile:XisServer xmi:id="_TOzDEHcKEeOsZuyhiB0NnA" address="google.com" base_Class="_5CIUIHcEEeOsZuyhiB0NnA"/>
   <XISMobile:XisAction xmi:id="_SDjIIHffEeOomty_KwNr7w" type="Create" base_Operation="_OGCwwHffEeOomty_KwNr7w"/>
   <XISMobile:XisButton xmi:id="_iM88MIuJEeOk7t1dRuA8Cg" base_Class="_dp614IuJEeOk7t1dRuA8Cg" onTap="editMy"/>
+  <XISMobile:XisRemoteService xmi:id="_KRXk4I2OEeO63uuMmDWX7w" base_Interface="_5gZIcGpWEeOec4c1gAF0QA"/>
 </xmi:XMI>
