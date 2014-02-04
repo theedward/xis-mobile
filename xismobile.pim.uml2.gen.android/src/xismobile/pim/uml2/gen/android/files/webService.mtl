@@ -100,10 +100,10 @@ return result;
 [/if]
 [/template]
 
-[template public generateAsyncTask(m : Model)]
+[template public generateAsyncTask(i : Interface)]
 
-[file ('src/' + '/WebServiceCallTask.java', false, 'UTF-8')]
-package [comment][i.getPackagePath()/][/comment];
+[file ('src/' + i.getPackageDirectoryPath() + '/WebServiceCallTask.java', false, 'UTF-8')]
+package [i.getPackagePath()/];
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

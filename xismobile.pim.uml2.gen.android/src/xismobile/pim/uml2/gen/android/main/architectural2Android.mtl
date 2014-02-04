@@ -6,9 +6,14 @@
 
 [template public architectural2Android(m : Model)]
 
-[m.generateAsyncTask()/]
-[for (i : Interface | m.getAllXisServices())]
-	[i.generateRemoteService()/]
-[/for]
+[let services : OrderedSet(Interface) = m.getAllXisRemoteServices()]
+[if (services->size() > 0)]
+	[generateAsyncTask(services->at(1))/]
+
+	[for (i : Interface | services)]
+	[i.generateRemoteServiceStub()/]
+	[/for]
+[/if]
+[/let]
 
 [/template]
