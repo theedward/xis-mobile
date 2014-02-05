@@ -11,7 +11,7 @@
 [template public generateActivity(c : Class)]
 
 [file ('src/' + c.getPackageDirectoryPath() + '/'.concat(c.name.toUpperFirst()).concat('Activity.java'), false, 'UTF-8')]
-[let widgets : Set(Class) = c.getXisWidgets()]
+[let widgets : Sequence(Class) = c.getXisInteractionSpaceWidgets()]
 package [c.getPackagePath()/];
 
 import java.util.List;
@@ -242,11 +242,11 @@ public class [c.name.toUpperFirst()/]Activity extends Activity {
 [/file]
 [/template]
 
-[template private writeWidgetVariables(widgets : Set(Class)) post (trim())]
+[template private writeWidgetVariables(widgets : Sequence(Class)) post (trim())]
 [if (not widgets->oclIsUndefined())]
 [for (w : Class | widgets)]
 [if (w.isXisForm())]
-[writeWidgetVariables(w.getXisWidgets())/]
+[writeWidgetVariables(w.getXisInteractionSpaceWidgets())/]
 [else]
 private [w.writeWidgetTypeAndName()/];
 [/if]
@@ -254,14 +254,14 @@ private [w.writeWidgetTypeAndName()/];
 [/if]
 [/template]
 
-[template private writeWidgetInit(widgets : Set(Class)) post (trim())]
+[template private writeWidgetInit(widgets : Sequence(Class)) post (trim())]
 [for (w : Class | widgets)]
 
 public void initialize[w.getWidgetName().toUpperFirst()/]() {
 	[w.initializeWidget('')/]
 }
-[if (not widgets->oclIsUndefined() and w.getXisWidgets()->size() > 0)]
-[writeWidgetInit(w.getXisWidgets())/]
+[if (not widgets->oclIsUndefined() and w.getXisInteractionSpaceWidgets()->size() > 0)]
+[writeWidgetInit(w.getXisInteractionSpaceWidgets())/]
 [/if]
 [/for]
 [/template]

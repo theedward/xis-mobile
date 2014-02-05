@@ -580,7 +580,7 @@ public void onPinch() {
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 [/if]
-[let widgets : Sequence(Class) = orderWidgetsByPosition(c.getXisWidgets()->asSequence())]
+[let widgets : Sequence(Class) = orderWidgetsByPosition(c.getXisInteractionSpaceWidgets())]
 [for (cl : Class | widgets)]
 	[writeWidget(widgets, cl)/]
 [/for]
