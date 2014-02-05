@@ -364,7 +364,7 @@ public void onPinch() {
 	android:layout_height="wrap_content"
 	[writeWidgetRelativePositioning(widgets, c)/]
 [let value : String = c.getXisWidgetValue(c.getXisLabel())]
-	[if (not value.oclIsUndefined() and not value.stringContains('.'))]
+	[if (not value.oclIsUndefined() and not value.contains('.'))]
 	android:text="[addString(name + '_text', value)/]"
 	[/if]
 [/let]
@@ -390,7 +390,7 @@ public void onPinch() {
 	android:hint="[addString(name + '_hint', c.getXisTexBoxHint())/]"
 	[/if]
 [let value : String = c.getXisWidgetValue(c.getXisTextBox())]
-	[if (not value.oclIsUndefined() and not value.stringContains('.'))]
+	[if (not value.oclIsUndefined() and not value.contains('.'))]
 	android:text="[addString(name + '_text', value)/]"
 	[/if]
 [/let]
@@ -409,7 +409,7 @@ public void onPinch() {
 	android:onClick="[c.getXisAction().name.toLowerFirst()/]"
 	[/if]
 [let value : String = c.getXisWidgetValue(c.getXisCheckBox())]
-	[if (not value.oclIsUndefined() and not value.stringContains('.'))]
+	[if (not value.oclIsUndefined() and not value.contains('.'))]
 	android:text="[addString(name + '_text', value)/]"
 	[/if]
 [/let]
@@ -428,7 +428,7 @@ public void onPinch() {
 	android:onClick="[c.getXisAction().name.toLowerFirst()/]"
 	[/if]
 [let value : String = c.getXisWidgetValue(c.getXisButton())]
-	[if (not value.oclIsUndefined() and not value.stringContains('.'))]
+	[if (not value.oclIsUndefined() and not value.contains('.'))]
 	android:text="[addString(name + '_text', value)/]"
 	[/if]
 [/let]
@@ -469,7 +469,7 @@ public void onPinch() {
 	android:layout_height="wrap_content"
 	[writeWidgetRelativePositioning(widgets, c)/]
 [let value : String = c.getXisDatePickerValue()]
-	[if (not value.oclIsUndefined() and not value.stringContains('.'))]
+	[if (not value.oclIsUndefined() and not value.contains('.'))]
 	android:text="[addString(name + '_text', value)/]"
 	[/if]
 [/let]
@@ -485,7 +485,7 @@ public void onPinch() {
 	android:layout_height="wrap_content"
 	[writeWidgetRelativePositioning(widgets, c)/]
 [let value : String = c.getXisTimePickerValue()]
-	[if (not value.oclIsUndefined() and not value.stringContains('.'))]
+	[if (not value.oclIsUndefined() and not value.contains('.'))]
 	android:text="[addString(name + '_text', value)/]"
 	[/if]
 [/let]

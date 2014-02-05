@@ -70,10 +70,6 @@
 	invoke('xismobile.pim.uml2.gen.android.services.Services', 'writeWidgetRelativePositioning(java.util.List, org.eclipse.uml2.uml.Class)', Sequence{widgets, c})
 /]
 
-[query public stringContains(s1 : String, s2 : String) : Boolean = 
-	invoke('xismobile.pim.uml2.gen.android.services.Services', 'stringContains(java.lang.String, java.lang.String)', Sequence{s1, s2})
-/]
-
 [query public hasOptionsMenu(c : Class) : Boolean =
 	invoke('xismobile.pim.uml2.gen.android.services.Services', 'hasOptionsMenu(org.eclipse.uml2.uml.Class)', Sequence{c})
 /]
@@ -90,14 +86,14 @@
 	invoke('xismobile.pim.uml2.gen.android.services.Services', 'getContextMenu(org.eclipse.uml2.uml.Class)', Sequence{c})
 /]
 
+[query public hasXisDialogs(c : Class) : Boolean =
+	invoke('xismobile.pim.uml2.gen.android.services.Services', 'hasXisDialogs(org.eclipse.uml2.uml.Class)', Sequence{c})
+/]
+
 [query public xisRemoteServiceExists(o : Operation) : Boolean =
 	invoke('xismobile.pim.uml2.gen.android.services.Services', 'xisRemoteServiceExists(org.eclipse.uml2.uml.Operation)', Sequence{o})
 /]
 
 [query public writeXisRemoteServiceFullName(name : String) : Boolean =
 	invoke('xismobile.pim.uml2.gen.android.services.Services', 'writeXisRemoteServiceFullName(java.lang.String)', Sequence{name})
-/]
-
-[query public hasXisDialogs(c : Class) : Boolean =
-	invoke('xismobile.pim.uml2.gen.android.services.Services', 'hasXisDialogs(org.eclipse.uml2.uml.Class)', Sequence{c})
 /]
