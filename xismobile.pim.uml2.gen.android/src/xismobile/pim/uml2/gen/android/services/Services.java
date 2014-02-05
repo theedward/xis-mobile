@@ -105,9 +105,9 @@ public class Services {
 			second = a.getMemberEnds().get(1);
 			if (first.upperBound() == -1 && second.upperBound() == -1) {
 				if (a.getEndTypes().get(0).getName().equals(c.getName())) {
-					joinEntities.add(toUpperFirst(a.getEndTypes().get(0)
+					joinEntities.add(ServiceUtils.toUpperFirst(a.getEndTypes().get(0)
 							.getName())
-							+ toUpperFirst(a.getEndTypes().get(1).getName()));
+							+ ServiceUtils.toUpperFirst(a.getEndTypes().get(1).getName()));
 				}
 			}
 		}
@@ -583,7 +583,7 @@ public class Services {
 				if (closerTop == spaceTop) {
 					sb.append(newLine + "android:layout_alignParentTop=\"true\"");
 				} else if (hasTitle && closerTop == (spaceTop + TOP) && closer == null) {
-					sb.append(newLine + "android:layout_below=\"@+id/label" + toUpperFirst(space.getName()) + "Title\"");
+					sb.append(newLine + "android:layout_below=\"@+id/label" + ServiceUtils.toUpperFirst(space.getName()) + "Title\"");
 				} else {
 					sb.append(newLine + "android:layout_below=\"@+id/" + ServiceUtils.getWidgetName(closer) + "\"");
 				}
@@ -659,7 +659,7 @@ public class Services {
 				if (closerTop == spaceTop) {
 					sb.append(newLine + "android:layout_alignParentTop=\"true\"");
 				} else if (hasTitle && closerTop == (spaceTop + TOP) && closerY == null) {
-					sb.append(newLine + "android:layout_below=\"@+id/label" + toUpperFirst(space.getName()) + "Title\"");
+					sb.append(newLine + "android:layout_below=\"@+id/label" + ServiceUtils.toUpperFirst(space.getName()) + "Title\"");
 				} else {
 					sb.append(newLine + "android:layout_below=\"@+id/" + ServiceUtils.getWidgetName(closerY) + "\"");
 				}
@@ -686,7 +686,7 @@ public class Services {
 						sb.append(newLine + "android:layout_marginTop=\"" + distTop  + "dp\"");
 					}
 				} else if(hasTitle && distTitleTop < distTop && distTitleTop < distBottom) {
-					sb.append(newLine + "android:layout_below=\"@+id/label" + toUpperFirst(space.getName()) + "Title\"");
+					sb.append(newLine + "android:layout_below=\"@+id/label" + ServiceUtils.toUpperFirst(space.getName()) + "Title\"");
 					if (distTitleTop > 0) {
 						sb.append(newLine + "android:layout_marginTop=\"" + distTitleTop  + "dp\"");
 					}
@@ -723,7 +723,7 @@ public class Services {
 						sb.append(newLine + "android:layout_marginTop=\"" + distTop  + "dp\"");
 					}
 				} else if(hasTitle && distTitleTop < distTop && distTitleTop < distBottom) {
-					sb.append(newLine + "android:layout_below=\"@+id/label" + toUpperFirst(space.getName()) + "Title\"");
+					sb.append(newLine + "android:layout_below=\"@+id/label" + ServiceUtils.toUpperFirst(space.getName()) + "Title\"");
 					if (distTitleTop > 0) {
 						sb.append(newLine + "android:layout_marginTop=\"" + distTitleTop  + "dp\"");
 					}
@@ -816,7 +816,7 @@ public class Services {
 	public boolean xisRemoteServiceExists(Operation o) {
 		
 		if (o.getName().contains(".")) {
-			String[] data = o.getName().split(".");
+			String[] data = o.getName().split("\\.");
 			Interface service = ServiceUtils.getXisRemoteServiceByName(data[0], o);
 			return service != null
 				&& ServiceUtils.getXisServiceMethodByName(data[1], service) != null;
@@ -826,7 +826,7 @@ public class Services {
 	}
 	
 	public String writeXisRemoteServiceFullName(String name) {
-		String[] data = name.split(".");
+		String[] data = name.split("\\.");
 		String server = ServiceUtils.toUpperFirst(data[0]) + "Stub";
 		String service = ServiceUtils.toLowerFirst(data[1]);
 		return server + "." + service;
@@ -861,27 +861,6 @@ public class Services {
 	/**
 	 * Auxiliary Methods
 	 */
-
-	/**
-	 * Puts the first letter of a string in upper case and returns it.
-	 * 
-	 * @param s The original string 
-	 * @return The string with the first letter in upper case
-	 */
-	private String toUpperFirst(String s) {
-		return s.substring(0, 1).toUpperCase() + s.substring(1);
-	}
-	
-	/**
-	 * Puts the first letter of a string in lower case and returns it.
-	 * 
-	 * @param s The original string 
-	 * @return The string with the first letter in lower case
-	 */
-	@SuppressWarnings("unused")
-	private String toLowerFirst(String s) {
-		return s.substring(0, 1).toLowerCase() + s.substring(1);
-	}
 	
 	/**
 	 * Gets the name of the drawable folder according to its resolution.
