@@ -167,6 +167,14 @@ public final class ServiceUtils {
 		return getXisMenu(c) != null;
 	}
 	
+	public static Stereotype getXisMenuItem(Class c) {
+		return c.getAppliedStereotype("XIS-Mobile::XisMenuItem");
+	}
+	
+	public static boolean isXisMenuItem(Class c) {
+		return getXisMenuItem(c) != null;
+	}
+	
 	public static Stereotype getOptionsMenu(Class c) {
 		Stereotype menu = c.getAppliedStereotype("XIS-Mobile::XisMenu");
 		if (menu != null) {
@@ -285,8 +293,20 @@ public final class ServiceUtils {
 		return getXisList(c) != null;
 	}
 	
+	public static boolean isXisListGroup(Class c) {
+		return c.getAppliedStereotype("XIS-Mobile::XisListGroup") != null;
+	}
+	
 	public static boolean isXisListItem(Class c) {
 		return c.getAppliedStereotype("XIS-Mobile::XisListItem") != null;
+	}
+	
+	public static boolean isXisVisibilityBoundary(Class c) {
+		return getXisVisibilityBoundary(c) != null;
+	}
+	
+	public static Stereotype getXisVisibilityBoundary(Class c) {
+		return c.getAppliedStereotype("XIS-Mobile::XisVisibilityBoundary");
 	}
 	
 	public static boolean isXisDialog(Class c) {
@@ -332,6 +352,8 @@ public final class ServiceUtils {
 			s = getXisDropdown(c);
 		} else if (isXisList(c)) {
 			s = getXisList(c);
+		} else if (isXisVisibilityBoundary(c)) {
+			s = getXisVisibilityBoundary(c);
 		} else if (isXisCompositeWidget(c)) {
 			s = getXisCompositeWidget(c);
 		}
