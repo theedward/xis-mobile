@@ -20,6 +20,7 @@ import org.eclipse.uml2.uml.InterfaceRealization;
 import org.eclipse.uml2.uml.Model;
 import org.eclipse.uml2.uml.Operation;
 import org.eclipse.uml2.uml.Parameter;
+import org.eclipse.uml2.uml.ParameterDirectionKind;
 import org.eclipse.uml2.uml.Property;
 import org.eclipse.uml2.uml.Stereotype;
 import org.eclipse.uml2.uml.Type;
@@ -295,8 +296,11 @@ public class Services {
 									&& ServiceUtils.isXisAction(o)
 									&& ServiceUtils.isCrudAction(o)) {
 									Parameter p = o.getOwnedParameters().get(0);
-									if (!entities.contains(p.getDefault())) {
-										entities.add(p.getDefault());
+									if (p.getDirection().getLiteral()
+											.equals(ParameterDirectionKind.IN_LITERAL)) {
+										if (!entities.contains(p.getDefault())) {
+											entities.add(p.getDefault());
+										}
 									}
 								}
 							}
@@ -312,8 +316,11 @@ public class Services {
 									&& ServiceUtils.isXisAction(o)
 									&& ServiceUtils.isCrudAction(o)) {
 									Parameter p = o.getOwnedParameters().get(0);
-									if (!entities.contains(p.getDefault())) {
-										entities.add(p.getDefault());
+									if (p.getDirection().getLiteral()
+											.equals(ParameterDirectionKind.IN_LITERAL)) {
+										if (!entities.contains(p.getDefault())) {
+											entities.add(p.getDefault());
+										}
 									}
 								}
 							}
@@ -326,7 +333,7 @@ public class Services {
 	}
 	
 	public String getEntityAttributeOfWidget(String value) {
-		return value.split(".")[1];
+		return value.split("\\.")[1];
 	}
 	
 	/**
@@ -470,6 +477,29 @@ public class Services {
 			sb = sb.delete(sb.length()-2, sb.length()-1);
 		}
 		return sb.toString();
+	}
+	
+	public List<Class> getXisInteractionSpaceWidgets(Class c) {
+		List<Class> widgets = new ArrayList<Class>();
+		
+		for (Element el : c.allOwnedElements()) {
+			if (el instanceof Class) {
+				Class w = (Class) el;
+				if (ServiceUtils.isXisVisibilityBoundary(w)) {
+					for (Element j : w.allOwnedElements()) {
+						if (j instanceof Class && !ServiceUtils.isXisMenu(w)
+							&& !ServiceUtils.isXisMenuItem(w)
+							&& !ServiceUtils.isXisListGroup(w) && !ServiceUtils.isXisListItem(w)) {
+							widgets.add((Class)j);
+						}
+					}
+				} else if (!ServiceUtils.isXisMenu(w) && !ServiceUtils.isXisMenuItem(w)
+						&& !ServiceUtils.isXisListGroup(w) && !ServiceUtils.isXisListItem(w)) {
+					widgets.add(w);
+				}
+			}
+		}
+		return widgets;
 	}
 	
 	/**
@@ -739,17 +769,6 @@ public class Services {
 	}
 	
 	/**
-	 * Checks if a string contains the other one specified. 
-	 * 
-	 * @param s1 the string where the search is performed
-	 * @param s2 the string to search for
-	 * @return true if string s1 contains s2, false otherwise
-	 */
-	public boolean stringContains(String s1, String s2) {
-		return s1.contains(s2);
-	}
-	
-	/**
 	 * Checks if an options menu exists in the interaction space.
 	 * 
 	 * @param c the interaction space
@@ -813,25 +832,6 @@ public class Services {
 		return ServiceUtils.getMenuFromMenuAssociation(c, MenuType.ContextMenu);
 	}
 	
-	public boolean xisRemoteServiceExists(Operation o) {
-		
-		if (o.getName().contains(".")) {
-			String[] data = o.getName().split("\\.");
-			Interface service = ServiceUtils.getXisRemoteServiceByName(data[0], o);
-			return service != null
-				&& ServiceUtils.getXisServiceMethodByName(data[1], service) != null;
-		} else {
-			return false;
-		}
-	}
-	
-	public String writeXisRemoteServiceFullName(String name) {
-		String[] data = name.split("\\.");
-		String server = ServiceUtils.toUpperFirst(data[0]) + "Stub";
-		String service = ServiceUtils.toLowerFirst(data[1]);
-		return server + "." + service;
-	}
-	
 	public boolean hasXisDialogs(Class c) {
 		if (c.getAssociations().size() > 0) {
 			for (Association a : c.getAssociations()) {
@@ -856,6 +856,24 @@ public class Services {
 			}
 		}
 		return false;
+	}
+	
+	public boolean xisRemoteServiceExists(Operation o) {
+		if (o.getName().contains(".")) {
+			String[] data = o.getName().split("\\.");
+			Interface service = ServiceUtils.getXisRemoteServiceByName(data[0], o);
+			return service != null
+				&& ServiceUtils.getXisServiceMethodByName(data[1], service) != null;
+		} else {
+			return false;
+		}
+	}
+	
+	public String writeXisRemoteServiceFullName(String name) {
+		String[] data = name.split("\\.");
+		String server = ServiceUtils.toUpperFirst(data[0]) + "Stub";
+		String service = ServiceUtils.toLowerFirst(data[1]);
+		return server + "." + service;
 	}
 	
 	/**
