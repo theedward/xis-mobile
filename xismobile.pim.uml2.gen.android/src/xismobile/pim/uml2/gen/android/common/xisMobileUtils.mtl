@@ -586,13 +586,6 @@
 	c.getAppliedStereotype('XIS-Mobile::XisWidget')
 /]
 
-[query public getXisWidgets(c : Class) : Set(Class) =
-	c.ownedElement->selectByType(Class)->select(w : Class |
-	not w.isXisMenu()
-	and not w.isXisMenuGroup() and not w.isXisMenuItem()
-	and not w.isXisListGroup() and not w.isXisListItem())
-/]
-
 [query public getXisLabel(c : Class) : Stereotype =
 	c.getAppliedStereotype('XIS-Mobile::XisLabel')
 /]
