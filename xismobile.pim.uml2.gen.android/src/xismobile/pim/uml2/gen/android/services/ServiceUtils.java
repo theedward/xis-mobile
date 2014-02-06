@@ -159,6 +159,14 @@ public final class ServiceUtils {
 		return getXisCompositeWidget(c) != null;
 	}
 	
+	public static Stereotype getXisForm(Class c) {
+		return c.getAppliedStereotype("XIS-Mobile::XisForm");
+	}
+	
+	public static boolean isXisForm(Class c) {
+		return getXisForm(c) != null;
+	}
+	
 	public static Stereotype getXisCompositeWidget(Class c) {
 		return c.getAppliedStereotype("XIS-Mobile::XisCompositeWidget");
 	}
@@ -408,6 +416,8 @@ public final class ServiceUtils {
 			name = "mapView";
 		} else if (isXisDropdown(c)) {
 			name = "dropdown";
+		} else if (isXisForm(c)) {
+			name = "form";
 		} else if (isXisCompositeWidget(c)) {
 			// TODO: Check what cases should be considered
 		}
