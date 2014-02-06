@@ -15,9 +15,6 @@
     android:layout_height="match_parent"
     tools:context=".[c.name.toUpperFirst()/]Activity" >
 
-[if (c.hasTitle())]
-	[writePageTitle(c)/]
-[/if]
 [let widgets : Sequence(Class) = orderWidgetsByPosition(c.getXisInteractionSpaceWidgets())]
 [for (cl : Class | widgets)]
 	[writeWidget(widgets, cl)/]
