@@ -18,6 +18,10 @@ public final class ServiceUtils {
 		throw new AssertionError();
 	}
 	
+	public static boolean isXisInteractionSpace(Class c) {
+		return getXisInteractionSpace(c) != null;
+	}
+	
 	public static Stereotype getXisInteractionSpace(Class c) {
 		return c.getAppliedStereotype("XIS-Mobile::XisInteractionSpace");
 	}
