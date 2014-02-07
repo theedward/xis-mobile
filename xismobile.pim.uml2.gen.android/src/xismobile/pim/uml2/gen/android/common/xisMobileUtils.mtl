@@ -586,6 +586,14 @@
 	c.getAppliedStereotype('XIS-Mobile::XisWidget')
 /]
 
+[query public getXisWidgetValue(c : Class, s : Stereotype) : String =
+	c.getValue(s, 'value')
+/]
+
+[query public getXisWidgetValueFromExpression(c : Class, s : Stereotype) : String =
+	c.getValue(s, 'valueFromExpression')
+/]
+
 [query public getXisLabel(c : Class) : Stereotype =
 	c.getAppliedStereotype('XIS-Mobile::XisLabel')
 /]
@@ -812,12 +820,12 @@
 	not c.getXisDropdown().oclIsUndefined()
 /]
 
-[query public getXisWidgetValue(c : Class, s : Stereotype) : String =
-	c.getValue(s, 'value')
+[query public getXisSimpleWidgetEntityAttributeName(c : Class, s : Stereotype) : String =
+	c.getValue(s, 'entityAttributeName')
 /]
 
-[query public getXisWidgetDomainValue(c : Class, s : Stereotype) : String =
-	c.getValue(s, 'domainValue')
+[query public getXisCompositeWidgetEntityName(c : Class, s : Stereotype) : String =
+	c.getValue(s, 'entityName')
 /]
 
 [query public getXisListEntity(c : Class) : Class = 
