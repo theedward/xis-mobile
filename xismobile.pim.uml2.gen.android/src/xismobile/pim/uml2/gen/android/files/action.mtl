@@ -23,10 +23,10 @@ Intent intent = new Intent(this, [o.getNavigation().toUpperFirst()/]Activity.cla
 [let entity : Class = getModel().getXisEntityByName(name)->at(1)]
 [name.toLowerFirst()/] = new [name.toUpperFirst()/]();
 [comment @TODO
-// Check parent
-// if menu or IS get (master entity)
-// if form (check entity type)
-// check persistency
+// Check parent & owner
+// If IS getEntityName parameter
+// If List or VisibilityBoundary check their parent
+// If Form/Menu/List/ListGroup check entityName attribute
 /]
 [entity.getDao()/].create[name.toUpperFirst()/]([name.toLowerFirst()/]);
 [/let]
