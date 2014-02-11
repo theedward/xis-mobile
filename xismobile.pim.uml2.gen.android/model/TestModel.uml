@@ -185,7 +185,7 @@
   <XISMobile:XisLabel xmi:id="_0qgCkGZbEeOU3c0BTZHypw" base_Class="_2DkLMCnqEeOBD5ExxoPX3A"/>
   <XISMobile:XisImage xmi:id="_2A8REGZbEeOU3c0BTZHypw" base_Class="_DUiL8CEtEeOdVNfQLTcG7A"/>
   <XISMobile:XisMenuItem xmi:id="_9qe9wGf6EeOYjqnop0qlsg" base_Class="_6j3yIGf6EeOYjqnop0qlsg"/>
-  <XISMobile:XisAction xmi:id="__pr1YGf6EeOYjqnop0qlsg" base_Operation="_-69uMGf6EeOYjqnop0qlsg"/>
+  <XISMobile:XisAction xmi:id="__pr1YGf6EeOYjqnop0qlsg" type="DeleteAll" base_Operation="_-69uMGf6EeOYjqnop0qlsg"/>
   <XISMobile:XisServiceMethod xmi:id="_BcKFIGpXEeOec4c1gAF0QA" base_Operation="__MvAMGpWEeOec4c1gAF0QA"/>
   <XISMobile:XisDomainAssociation xmi:id="_ik_6sG47EeO0KsVHgh3XHg" base_Association="_eYA84247EeO0KsVHgh3XHg"/>
   <XISMobile:XisBusinessEntity xmi:id="_n6lfUG47EeO0KsVHgh3XHg" base_Class="_YUdfAG47EeO0KsVHgh3XHg"/>
