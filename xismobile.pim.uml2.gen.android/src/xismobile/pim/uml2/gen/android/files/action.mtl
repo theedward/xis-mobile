@@ -15,9 +15,14 @@
 [template public writeXisAction(o : Operation) post (trim())]
 [if (o.isCancelAction())]
 finish();
+[elseif (o.isOpenBrowserAction())]
+Intent i = new Intent(Intent.ACTION_VIEW);
+i.setData(Uri.parse("[o.getOpenBrowserActionUrl()/]"));
+startActivity(i);
 [elseif (o.performsNavigation())]
 Intent intent = new Intent(this, [o.getNavigation().toUpperFirst()/]Activity.class);
 [/if]
+
 [if (o.isCreateAction())]
 [let name : String = o.getXisArgumentValueByName('entityName')]
 [let entity : Class = getModel().getXisEntityByName(name)->at(1)]
@@ -50,23 +55,46 @@ Intent intent = new Intent(this, [o.getNavigation().toUpperFirst()/]Activity.cla
 [/let]
 [/let]
 [elseif (o.isDeleteteAllAction())]
+
+[let widget : Class = o.owner.oclAsType(Class)]
+[if (widget.isXisListItem())]
+[if (not widget.getXisCompositeWidgetEntityName(widget.getXisListItem()).oclIsUndefined())]
+	block_expression
+[/if]
+[else]
+[let parent : Class = widget.owner.oclAsType(Class)]
+[if (parent.isXisInteractionSpace())]
+// get param entity name
+[elseif (parent.isXisVisibilityBoundary())]
+// get entityName attribute
+[elseif (parent.isXisForm())]
+// get entityName attribute	
+[elseif (parent.isXisList())]
+// get entityName attribute	
+[elseif (parent.isXisListGroup())]
+// get entityName attribute	
+[elseif (parent.isXisList())]
+// get entityName attribute	
+[elseif (parent.isXisList())]	
+[/if]
+[/let]
+[/if]
+[/let]
+
 [let name : String = o.getXisArgumentValueByName('entityName')]
 [let entity : Class = getModel().getXisEntityByName(name)->at(1)]
 [entity.getDao()/].deleteAll[name.toUpperFirst()/]s();
 [/let]
 [/let]
-[elseif (o.isOpenBrowserAction())]
-Intent i = new Intent(Intent.ACTION_VIEW);
-i.setData(Uri.parse("[o.getOpenBrowserActionUrl()/]"));
-startActivity(i);
-[elseif (o.isWebServiceAction())]
-	[if (o.xisRemoteServiceExists())]
+
+[elseif (o.isOKAction())]
+// TODO
+[elseif (o.isWebServiceAction() and o.xisRemoteServiceExists())]
 [writeXisRemoteServiceFullName(o.name)/]([o.writeXisRemoteServiceArguments()/]);
-	[/if]
 [elseif (o.isCustomAction())]
 [o.writeCustomActionCall()/]
 [/if]
-[if (not o.isOpenBrowserAction() and o.performsNavigation())]
+[if (o.performsNavigation())]
 startActivity(intent);
 [/if]
 [/template]
@@ -82,17 +110,6 @@ manager
 [**
  * WebService Actions templates 
  */]
-
-[template public writeWebServiceArea(c : Class)]
-[let wsl : Set(Operation) = c.getAllWebServiceActions()]
-[if (wsl->size() > 0)]
-/** WebService Actions Region */
-	[for (o : Operation | wsl) separator ('\n')]
-// Check what to do in this case
-	[/for]
-[/if]
-[/let]
-[/template]
 
 [template private writeParameterDefaultValue(p : Parameter)]
 [if (p.type.name.toLower() = 'string' or p.type.name.toLower() = 'char')]
