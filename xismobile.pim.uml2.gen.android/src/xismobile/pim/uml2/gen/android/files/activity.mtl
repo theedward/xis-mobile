@@ -222,12 +222,6 @@ public class [c.name.toUpperFirst()/]Activity extends Activity {
 		}
 	}
 [/let]
-[let wsl : Set(Operation) = c.getAllWebServiceActions()]
-	[if (wsl->size() > 0)]
-
-	[c.writeWebServiceArea()/]
-	[/if]
-[/let]
 [let cls : Set(Operation) = c.getAllCustomActions()]
 	[if (cls->size() > 0)]
 
