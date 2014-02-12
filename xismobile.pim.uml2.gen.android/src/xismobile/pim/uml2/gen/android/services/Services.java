@@ -332,8 +332,8 @@ public class Services {
 		return entities;
 	}
 
-	public Class getCrudOperationEntity(Operation o) {
-		Class entity = null;
+	public Class getCrudOperationEntityContextWidget(Operation o) {
+		Class widget = null;
 		Class owner = (Class) o.getOwner();
 		
 		if (ServiceUtils.isXisListItem(owner)) {
@@ -344,7 +344,7 @@ public class Services {
 			if (ServiceUtils.isXisInteractionSpace(parent)) {
 				
 			} else if (ServiceUtils.isXisVisibilityBoundary(parent)) {
-				
+
 			} else if (ServiceUtils.isXisForm(parent)) {
 
 			} else if (ServiceUtils.isXisList(parent)) {
@@ -355,8 +355,7 @@ public class Services {
 
 			}
 		}
-		
-		return entity;
+		return widget;
 	}
 
 	public String getEntityAttributeOfWidget(String value) {
