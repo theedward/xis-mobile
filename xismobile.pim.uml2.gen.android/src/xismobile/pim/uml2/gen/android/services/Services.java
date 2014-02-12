@@ -482,7 +482,7 @@ public class Services {
 	public List<Class> getXisInteractionSpaceWidgets(Class c) {
 		List<Class> widgets = new ArrayList<Class>();
 		
-		for (Element el : c.allOwnedElements()) {
+		for (Element el : c.getOwnedElements()) {
 			if (el instanceof Class) {
 				Class w = (Class) el;
 				if (ServiceUtils.isXisVisibilityBoundary(w)) {
@@ -520,6 +520,13 @@ public class Services {
 		final int BORDER = 10;
 		StringBuilder sb = new StringBuilder();
 		Class space = (Class) c.getOwner();
+		
+		if (!ServiceUtils.isXisInteractionSpace(space)) {
+			do {
+				space = (Class) space.getOwner();
+			} while (!ServiceUtils.isXisInteractionSpace(space));
+		}
+		
 		Class menu = ServiceUtils.geXisISOptionsMenu(space);
 		Stereotype s = ServiceUtils.getXisInteractionSpace(space);
 		int spaceX = ServiceUtils.getPosX(space, s);
@@ -530,7 +537,6 @@ public class Services {
 		int spaceRight = spaceX + spaceWidth/2;
 		int spaceTop = spaceY - spaceHeight/2;
 		int spaceBottom = 0;
-		boolean hasTitle = ServiceUtils.xisInteractionSpaceHasTitle(space);
 		
 		if (menu != null) {
 			Stereotype menuS = ServiceUtils.getOptionsMenu(menu);
@@ -581,38 +587,19 @@ public class Services {
 						closerMargin = 0;
 						closer = w;
 						break;
-					} else {
-						if (hasTitle) {
-							int titleTop = spaceTop + TOP;
-							if (top == titleTop) {
-								closerTop = titleTop;
-								closerMargin = 0;
-								closer = null;
-								break;
-							} else if (titleTop < top) {
-								int titleMargin = top - titleTop;
-								if (titleMargin < closerMargin) {
-									closerTop = titleTop;
-									closerMargin = titleMargin;
-									closer = null;
-								}
-							}
-						}
-						
-						if (wTop < top) {
-							int wMargin = top - wTop;
-							if (wMargin < closerMargin) {
-								closerTop = wTop;
-								closerMargin = wMargin;
-								closer = w;
-							}
+					} else if (wTop < top) {
+						int wMargin = top - wTop;
+						if (wMargin < closerMargin) {
+							closerTop = wTop;
+							closerMargin = wMargin;
+							closer = w;
 						}
 					}
 				}
 				
 				if (closerTop == spaceTop) {
 					sb.append(newLine + "android:layout_alignParentTop=\"true\"");
-				} else if (hasTitle && closerTop == (spaceTop + TOP) && closer == null) {
+				} else if (closerTop == (spaceTop + TOP) && closer == null) {
 					sb.append(newLine + "android:layout_below=\"@+id/label" + ServiceUtils.toUpperFirst(space.getName()) + "Title\"");
 				} else {
 					sb.append(newLine + "android:layout_below=\"@+id/" + ServiceUtils.getWidgetName(closer) + "\"");
@@ -652,30 +639,11 @@ public class Services {
 						closerMarginY = 0;
 						closerY = w;
 						break;
-					} else {
-						if (hasTitle) {
-							int titleTop = spaceTop + TOP;
-							if (top == titleTop) {
-								closerTop = titleTop;
-								closerMarginY = 0;
-								closerY = null;
-								break;
-							} else if (titleTop < top) {
-								int titleMargin = top - titleTop;
-								if (titleMargin < closerMarginY) {
-									closerTop = titleTop;
-									closerMarginY = titleMargin;
-									closerY = null;
-								}
-							}
-						}
-						
-						if (wTop < top) {
-							if ((top - wTop) < closerMarginY) {
-								closerTop = wTop;
-								closerMarginY = top - wTop;
-								closerY = w;
-							}
+					} else if (wTop < top) {
+						if ((top - wTop) < closerMarginY) {
+							closerTop = wTop;
+							closerMarginY = top - wTop;
+							closerY = w;
 						}
 					}
 				}
@@ -688,7 +656,7 @@ public class Services {
 				
 				if (closerTop == spaceTop) {
 					sb.append(newLine + "android:layout_alignParentTop=\"true\"");
-				} else if (hasTitle && closerTop == (spaceTop + TOP) && closerY == null) {
+				} else if (closerTop == (spaceTop + TOP) && closerY == null) {
 					sb.append(newLine + "android:layout_below=\"@+id/label" + ServiceUtils.toUpperFirst(space.getName()) + "Title\"");
 				} else {
 					sb.append(newLine + "android:layout_below=\"@+id/" + ServiceUtils.getWidgetName(closerY) + "\"");
@@ -710,12 +678,12 @@ public class Services {
 				int distBottom = spaceBottom - bottom - BORDER;
 				int distTitleTop = top - spaceTop + TOP;
 				
-				if (distTop <= distBottom && (!hasTitle || (hasTitle && distTop <= distTitleTop))) {
+				if (distTop <= distBottom && distTop <= distTitleTop) {
 					sb.append(newLine + "android:layout_alignParentTop=\"true\"");
 					if (distTop > 0) {
 						sb.append(newLine + "android:layout_marginTop=\"" + distTop  + "dp\"");
 					}
-				} else if(hasTitle && distTitleTop < distTop && distTitleTop < distBottom) {
+				} else if(distTitleTop < distTop && distTitleTop < distBottom) {
 					sb.append(newLine + "android:layout_below=\"@+id/label" + ServiceUtils.toUpperFirst(space.getName()) + "Title\"");
 					if (distTitleTop > 0) {
 						sb.append(newLine + "android:layout_marginTop=\"" + distTitleTop  + "dp\"");
@@ -747,12 +715,12 @@ public class Services {
 					}
 				}
 				// Set Y positioning
-				if (distTop <= distBottom && (!hasTitle || (hasTitle && distTop <= distTitleTop))) {
+				if (distTop <= distBottom && distTop <= distTitleTop) {
 					sb.append(newLine + "android:layout_alignParentTop=\"true\"");
 					if (distTop > 0) {
 						sb.append(newLine + "android:layout_marginTop=\"" + distTop  + "dp\"");
 					}
-				} else if(hasTitle && distTitleTop < distTop && distTitleTop < distBottom) {
+				} else if (distTitleTop < distTop && distTitleTop < distBottom) {
 					sb.append(newLine + "android:layout_below=\"@+id/label" + ServiceUtils.toUpperFirst(space.getName()) + "Title\"");
 					if (distTitleTop > 0) {
 						sb.append(newLine + "android:layout_marginTop=\"" + distTitleTop  + "dp\"");
@@ -871,7 +839,7 @@ public class Services {
 	
 	public String writeXisRemoteServiceFullName(String name) {
 		String[] data = name.split("\\.");
-		String server = ServiceUtils.toUpperFirst(data[0]) + "Stub";
+		String server = ServiceUtils.toUpperFirst(data[0]) + "ServiceStub";
 		String service = ServiceUtils.toLowerFirst(data[1]);
 		return server + "." + service;
 	}
