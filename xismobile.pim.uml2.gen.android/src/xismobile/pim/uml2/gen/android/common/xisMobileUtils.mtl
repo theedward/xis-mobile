@@ -413,6 +413,11 @@
 	) = 'DeleteAll'
 /]
 
+[query public isCrudAction(o : Operation) : Boolean =
+	o.isCreateAction() or o.isReadAction() or o.isUpdateAction() 
+	or o.isDeleteteAction() or o.isDeleteteAllAction()
+/]
+
 [query public isOpenBrowserAction(o : Operation) : Boolean = 
 	getEnumValue(o.getValue(
 		o.getXisAction(), 'type')
