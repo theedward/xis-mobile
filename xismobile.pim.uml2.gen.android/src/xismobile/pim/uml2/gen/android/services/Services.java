@@ -331,7 +331,34 @@ public class Services {
 		}
 		return entities;
 	}
-	
+
+	public Class getCrudOperationEntity(Operation o) {
+		Class entity = null;
+		Class owner = (Class) o.getOwner();
+		
+		if (ServiceUtils.isXisListItem(owner)) {
+			
+		} else {
+			Class parent = (Class) owner.getOwner();
+			
+			if (ServiceUtils.isXisInteractionSpace(parent)) {
+				
+			} else if (ServiceUtils.isXisVisibilityBoundary(parent)) {
+				
+			} else if (ServiceUtils.isXisForm(parent)) {
+
+			} else if (ServiceUtils.isXisList(parent)) {
+
+			} else if (ServiceUtils.isXisListGroup(parent)) {
+
+			} else if (ServiceUtils.isXisMenu(parent)) {
+
+			}
+		}
+		
+		return entity;
+	}
+
 	public String getEntityAttributeOfWidget(String value) {
 		return value.split("\\.")[1];
 	}
