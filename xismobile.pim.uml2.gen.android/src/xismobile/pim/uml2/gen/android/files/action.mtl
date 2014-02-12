@@ -31,24 +31,26 @@ Intent intent = new Intent(this, [o.getNavigation().toUpperFirst()/]Activity.cla
 // If Form/Menu/List/ListGroup check entityName attribute
 /]
 
-[let entity : Class = o.getCrudOperationEntity()]
+[let widget : Class = o.getCrudOperationEntityContextWidget()]
+[let entity : Class = self]
 
 [if (o.performsNavigation())]
 
 [else]
 
 	[if (o.isCreateAction())]
-	[entity.getDao()/].create[name.toUpperFirst()/]([name.toLowerFirst()/]);
+	[entity.getDao()/].create[entity.name.toUpperFirst()/]([entity.name.toLowerFirst()/]);
 	// persistence
 	[entity.name.toLowerFirst()/] = new [entity.name.toUpperFirst()/]();
 	[/if]
 
 [entity.name.toLowerFirst()/] = [entity.getDao()/].get[entity.name.toUpperFirst()/]ById(String id);
-[entity.getDao()/].update[name.toUpperFirst()/]([name.toLowerFirst()/]);
-[entity.getDao()/].delete[name.toUpperFirst()/]([name.toLowerFirst()/]);
-[entity.getDao()/].deleteAll[name.toUpperFirst()/]s();
+[entity.getDao()/].update[entity.name.toUpperFirst()/]([entity.name.toLowerFirst()/]);
+[entity.getDao()/].delete[entity.name.toUpperFirst()/]([entity.name.toLowerFirst()/]);
+[entity.getDao()/].deleteAll[entity.name.toUpperFirst()/]s();
 [/if]
 
+[/let]
 [/let]
 
 [elseif (o.isOKAction())]
