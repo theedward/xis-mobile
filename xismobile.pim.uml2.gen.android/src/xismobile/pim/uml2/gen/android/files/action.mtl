@@ -23,68 +23,32 @@ startActivity(i);
 Intent intent = new Intent(this, [o.getNavigation().toUpperFirst()/]Activity.class);
 [/if]
 
-[if (o.isCreateAction())]
-[let name : String = o.getXisArgumentValueByName('entityName')]
-[let entity : Class = getModel().getXisEntityByName(name)->at(1)]
-[name.toLowerFirst()/] = new [name.toUpperFirst()/]();
+[if (o.isCrudAction())]
 [comment @TODO
 // Check parent & owner
 // If IS getEntityName parameter
 // If List or VisibilityBoundary check their parent
 // If Form/Menu/List/ListGroup check entityName attribute
 /]
-[entity.getDao()/].create[name.toUpperFirst()/]([name.toLowerFirst()/]);
-[/let]
-[/let]
-[elseif (o.isReadAction())]
-[let name : String = o.getXisArgumentValueByName('entityName')]
-[let entity : Class = getModel().getXisEntityByName(name)->at(1)]
-[name.toLowerFirst()/] = [entity.getDao()/].get[name.toUpperFirst()/]ById(String id);
-[/let]
-[/let]
-[elseif (o.isUpdateAction())]
-[let name : String = o.getXisArgumentValueByName('entityName')]
-[let entity : Class = getModel().getXisEntityByName(name)->at(1)]
-[entity.getDao()/].update[name.toUpperFirst()/]([name.toLowerFirst()/]);
-[/let]
-[/let]
-[elseif (o.isDeleteteAction())]
-[let name : String = o.getXisArgumentValueByName('entityName')]
-[let entity : Class = getModel().getXisEntityByName(name)->at(1)]
-[entity.getDao()/].delete[name.toUpperFirst()/]([name.toLowerFirst()/]);
-[/let]
-[/let]
-[elseif (o.isDeleteteAllAction())]
 
-[let widget : Class = o.owner.oclAsType(Class)]
-[if (widget.isXisListItem())]
-[if (not widget.getXisCompositeWidgetEntityName(widget.getXisListItem()).oclIsUndefined())]
-	block_expression
-[/if]
+[let entity : Class = o.getCrudOperationEntity()]
+
+[if (o.performsNavigation())]
+
 [else]
-[let parent : Class = widget.owner.oclAsType(Class)]
-[if (parent.isXisInteractionSpace())]
-// get param entity name
-[elseif (parent.isXisVisibilityBoundary())]
-// get entityName attribute
-[elseif (parent.isXisForm())]
-// get entityName attribute	
-[elseif (parent.isXisList())]
-// get entityName attribute	
-[elseif (parent.isXisListGroup())]
-// get entityName attribute	
-[elseif (parent.isXisList())]
-// get entityName attribute	
-[elseif (parent.isXisList())]	
-[/if]
-[/let]
-[/if]
-[/let]
 
-[let name : String = o.getXisArgumentValueByName('entityName')]
-[let entity : Class = getModel().getXisEntityByName(name)->at(1)]
+	[if (o.isCreateAction())]
+	[entity.getDao()/].create[name.toUpperFirst()/]([name.toLowerFirst()/]);
+	// persistence
+	[entity.name.toLowerFirst()/] = new [entity.name.toUpperFirst()/]();
+	[/if]
+
+[entity.name.toLowerFirst()/] = [entity.getDao()/].get[entity.name.toUpperFirst()/]ById(String id);
+[entity.getDao()/].update[name.toUpperFirst()/]([name.toLowerFirst()/]);
+[entity.getDao()/].delete[name.toUpperFirst()/]([name.toLowerFirst()/]);
 [entity.getDao()/].deleteAll[name.toUpperFirst()/]s();
-[/let]
+[/if]
+
 [/let]
 
 [elseif (o.isOKAction())]
