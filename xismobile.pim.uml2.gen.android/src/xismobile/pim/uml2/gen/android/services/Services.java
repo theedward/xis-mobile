@@ -138,9 +138,9 @@ public class Services {
 				if (ServiceUtils.isXisMasterAssociation(a)) {
 					first = a.getEndTypes().get(0);
 					second = a.getEndTypes().get(1);
-					if (ServiceUtils.isXisEntity(first)) {
+					if (ServiceUtils.isXisEntity((Class) first)) {
 						entities.add((Class) first);
-					} else if (ServiceUtils.isXisEntity(second)) {
+					} else if (ServiceUtils.isXisEntity((Class) second)) {
 						entities.add((Class) second);
 					}
 				}
@@ -172,9 +172,9 @@ public class Services {
 				if (ServiceUtils.isXisDetailAssociation(a)) {
 					first = a.getEndTypes().get(0);
 					second = a.getEndTypes().get(1);
-					if (ServiceUtils.isXisEntity(first)) {
+					if (ServiceUtils.isXisEntity((Class) first)) {
 						entities.add((Class) first);
-					} else if (ServiceUtils.isXisEntity(second)) {
+					} else if (ServiceUtils.isXisEntity((Class) second)) {
 						entities.add((Class) second);
 					}
 				}
@@ -206,9 +206,9 @@ public class Services {
 				if (ServiceUtils.isXisReferenceAssociation(a)) {
 					first = a.getEndTypes().get(0);
 					second = a.getEndTypes().get(1);
-					if (ServiceUtils.isXisEntity(first)) {
+					if (ServiceUtils.isXisEntity((Class) first)) {
 						entities.add((Class) first);
-					} else if (ServiceUtils.isXisEntity(second)) {
+					} else if (ServiceUtils.isXisEntity((Class) second)) {
 						entities.add((Class) second);
 					}
 				}
@@ -246,9 +246,9 @@ public class Services {
 						|| ServiceUtils.isXisReferenceAssociation(a)) {
 					first = a.getEndTypes().get(0);
 					second = a.getEndTypes().get(1);
-					if (ServiceUtils.isXisEntity(first)) {
+					if (ServiceUtils.isXisEntity((Class) first)) {
 						entities.add((Class) first);
-					} else if (ServiceUtils.isXisEntity(second)) {
+					} else if (ServiceUtils.isXisEntity((Class) second)) {
 						entities.add((Class) second);
 					}
 				}
@@ -368,13 +368,62 @@ public class Services {
 				widget = owner;
 				break;
 			} else if (ServiceUtils.isXisInteractionSpace(owner)) {
-				// entity name as parameter
-				widget = owner;
+				for (Parameter p : o.getOwnedParameters()) {
+					if (p.getName().equalsIgnoreCase("entityName") &&
+						!p.getDefault().isEmpty()) {
+						widget = owner;
+						break;
+					}
+				}
 				break;
 			} 
 			owner = (Class) owner.getOwner();
 		}
 		return widget;
+	}
+
+	public Class getCrudOperationEntity(Operation o, Class c) {
+		Class entity = null;
+		String entityName = null;
+		
+		if (ServiceUtils.isXisListItem(c)) {
+			entityName = ServiceUtils.getXisCompositeWidgetEntityName(c,
+					ServiceUtils.getXisListItem(c));
+		} else if (ServiceUtils.isXisVisibilityBoundary(c)) {
+			entityName = ServiceUtils.getXisCompositeWidgetEntityName(c,
+					ServiceUtils.getXisVisibilityBoundary(c));
+		} else if (ServiceUtils.isXisForm(c)) {
+			entityName = ServiceUtils.getXisCompositeWidgetEntityName(c,
+					ServiceUtils.getXisForm(c));
+		} else if (ServiceUtils.isXisList(c)) {
+			entityName = ServiceUtils.getXisCompositeWidgetEntityName(c,
+					ServiceUtils.getXisList(c));
+		} else if (ServiceUtils.isXisListGroup(c)) {
+			entityName = ServiceUtils.getXisCompositeWidgetEntityName(c,
+					ServiceUtils.getXisListGroup(c));
+		} else if (ServiceUtils.isXisMenu(c)) {
+			entityName = ServiceUtils.getXisCompositeWidgetEntityName(c,
+					ServiceUtils.getXisMenu(c));
+		} else if (ServiceUtils.isXisInteractionSpace(c)) {
+			for (Parameter p : o.getOwnedParameters()) {
+				if (p.getName().equalsIgnoreCase("entityName")) {
+					entityName = p.getDefault();
+					break;
+				}
+			}
+		}
+		
+		if (entityName != null) {
+			for (Element e : o.getModel().allOwnedElements()) {
+				if (e instanceof Class
+					&& ((Class) e).getName().equalsIgnoreCase(entityName)
+					&& ServiceUtils.isXisEntity((Class) e)) {
+					entity = (Class) e;
+					break;
+				}
+			}
+		}
+		return entity;
 	}
 
 	public String getEntityAttributeOfWidget(String value) {
