@@ -32,12 +32,12 @@ intent.putExtra[entity.name.toUpperFirst()/]("[entity.name.toUpperFirst()/]Id", 
 	[/if]
 [elseif (o.isCreateAction())]
 [entity.name.toLowerFirst()/] = new [entity.name.toUpperFirst()/]();
-// get attributes values
+[widget.writeCrudActionEntitySetters(entity)/]
 [entity.getDao()/].create[entity.name.toUpperFirst()/]([entity.name.toLowerFirst()/]);
 [elseif (o.isReadAction())]
 [entity.name.toLowerFirst()/] = [entity.getDao()/].get[entity.name.toUpperFirst()/]ById(String id);
 [elseif (o.isUpdateAction())]
-// get attributes values
+[widget.writeCrudActionEntitySetters(entity)/]
 [entity.getDao()/].update[entity.name.toUpperFirst()/]([entity.name.toLowerFirst()/]);
 [elseif (o.isDeleteteAction())]
 [entity.getDao()/].delete[entity.name.toUpperFirst()/]([entity.name.toLowerFirst()/]);
@@ -65,6 +65,15 @@ startActivity(intent);
 helper
 [else]
 manager
+[/if]
+[/template]
+
+[template private writeCrudActionEntitySetters(w : Class, e : Class) post (trim())]
+// get attributes values
+[if (w.isXisForm())]
+
+[elseif (w.isXisVisibilityBoundary())]
+
 [/if]
 [/template]
 
