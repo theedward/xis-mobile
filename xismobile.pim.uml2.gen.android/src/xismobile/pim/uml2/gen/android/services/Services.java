@@ -336,24 +336,43 @@ public class Services {
 		Class widget = null;
 		Class owner = (Class) o.getOwner();
 		
-		if (ServiceUtils.isXisListItem(owner)) {
-			
-		} else {
-			Class parent = (Class) owner.getOwner();
-			
-			if (ServiceUtils.isXisInteractionSpace(parent)) {
-				
-			} else if (ServiceUtils.isXisVisibilityBoundary(parent)) {
-
-			} else if (ServiceUtils.isXisForm(parent)) {
-
-			} else if (ServiceUtils.isXisList(parent)) {
-
-			} else if (ServiceUtils.isXisListGroup(parent)) {
-
-			} else if (ServiceUtils.isXisMenu(parent)) {
-
-			}
+		while (widget == null) {
+			if (ServiceUtils.isXisListItem(owner) &&
+				ServiceUtils.getXisCompositeWidgetEntityName(owner,
+						ServiceUtils.getXisListItem(owner)) != null) {
+				widget = owner;
+				break;
+			} else if (ServiceUtils.isXisVisibilityBoundary(owner) &&
+					   ServiceUtils.getXisCompositeWidgetEntityName(owner,
+							ServiceUtils.getXisVisibilityBoundary(owner)) != null) {
+				widget = owner;
+				break;
+			} else if (ServiceUtils.isXisForm(owner) &&
+					   ServiceUtils.getXisCompositeWidgetEntityName(owner,
+							ServiceUtils.getXisForm(owner)) != null) {
+				widget = owner;
+				break;
+			} else if (ServiceUtils.isXisList(owner) &&
+					   ServiceUtils.getXisCompositeWidgetEntityName(owner,
+							ServiceUtils.getXisList(owner)) != null) {
+				widget = owner;
+				break;
+			} else if (ServiceUtils.isXisListGroup(owner) &&
+					   ServiceUtils.getXisCompositeWidgetEntityName(owner,
+							ServiceUtils.getXisListGroup(owner)) != null) {
+				widget = owner;
+				break;
+			} else if (ServiceUtils.isXisMenu(owner) &&
+					   ServiceUtils.getXisCompositeWidgetEntityName(owner,
+							ServiceUtils.getXisMenu(owner)) != null) {
+				widget = owner;
+				break;
+			} else if (ServiceUtils.isXisInteractionSpace(owner)) {
+				// entity name as parameter
+				widget = owner;
+				break;
+			} 
+			owner = (Class) owner.getOwner();
 		}
 		return widget;
 	}
