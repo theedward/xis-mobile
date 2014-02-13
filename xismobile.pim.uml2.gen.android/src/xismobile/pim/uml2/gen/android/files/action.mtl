@@ -22,7 +22,6 @@ startActivity(i);
 [elseif (o.performsNavigation())]
 Intent intent = new Intent(this, [o.getNavigation().toUpperFirst()/]Activity.class);
 [/if]
-
 [if (o.isCrudAction())]
 [let widget : Class = o.getCrudOperationEntityContextWidget()]
 [let entity : Class = o.getCrudOperationEntity(widget)]
