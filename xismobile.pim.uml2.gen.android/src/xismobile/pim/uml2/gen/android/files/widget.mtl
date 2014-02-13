@@ -39,7 +39,7 @@ mList[c.name.toUpperFirst()/]
 
 [template public initializeWidget(c : Class, action : String) post (trim())]
 [if (c.isXisLabel())]
-mLabel[c.name.toUpperFirst()/] = (XisLabel)findViewById(R.id.label[c.name.toUpperFirst()/]);
+mLabel[c.name.toUpperFirst()/] = (XisLabel) findViewById(R.id.label[c.name.toUpperFirst()/]);
 [if ((action = 'update' or action = 'read') and c.hasXisWidgetDomainValue(c.getXisWidget()))]
 String value = String.valueOf(<entity>.<attribute>);
 mLabel.setText(value);
