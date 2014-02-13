@@ -440,8 +440,8 @@ public final class ServiceUtils {
 		return name;
 	}
 	
-	public static boolean isXisEntity(Type t) {
-		return t.getAppliedStereotype("XIS-Mobile::XisEntity") != null;
+	public static boolean isXisEntity(Class c) {
+		return c.getAppliedStereotype("XIS-Mobile::XisEntity") != null;
 	}
 	
 	public static boolean isXisDomainAssociation(Association a) {
