@@ -24,37 +24,33 @@ Intent intent = new Intent(this, [o.getNavigation().toUpperFirst()/]Activity.cla
 [/if]
 
 [if (o.isCrudAction())]
-[comment @TODO
-// Check parent & owner
-// If IS getEntityName parameter
-// If List or VisibilityBoundary check their parent
-// If Form/Menu/List/ListGroup check entityName attribute
-/]
-
 [let widget : Class = o.getCrudOperationEntityContextWidget()]
-[let entity : Class = self]
+[let entity : Class = o.getCrudOperationEntity(widget)]
 
 [if (o.performsNavigation())]
-
-[else]
-
-	[if (o.isCreateAction())]
-	[entity.getDao()/].create[entity.name.toUpperFirst()/]([entity.name.toLowerFirst()/]);
-	// persistence
-	[entity.name.toLowerFirst()/] = new [entity.name.toUpperFirst()/]();
+	[if (not o.isCreateAction())]
+intent.putExtra[entity.name.toUpperFirst()/]("[entity.name.toUpperFirst()/]Id", [entity.name.toLowerFirst()/].getId());
 	[/if]
-
+[elseif (o.isCreateAction())]
+[entity.name.toLowerFirst()/] = new [entity.name.toUpperFirst()/]();
+// get attributes values
+[entity.getDao()/].create[entity.name.toUpperFirst()/]([entity.name.toLowerFirst()/]);
+[elseif (o.isReadAction())]
 [entity.name.toLowerFirst()/] = [entity.getDao()/].get[entity.name.toUpperFirst()/]ById(String id);
+[elseif (o.isUpdateAction())]
+// get attributes values
 [entity.getDao()/].update[entity.name.toUpperFirst()/]([entity.name.toLowerFirst()/]);
+[elseif (o.isDeleteteAction())]
 [entity.getDao()/].delete[entity.name.toUpperFirst()/]([entity.name.toLowerFirst()/]);
+[elseif (o.isDeleteteAllAction())]
 [entity.getDao()/].deleteAll[entity.name.toUpperFirst()/]s();
 [/if]
 
 [/let]
 [/let]
-
 [elseif (o.isOKAction())]
-// TODO
+// Check Inbound Crud operations
+
 [elseif (o.isWebServiceAction() and o.xisRemoteServiceExists())]
 [writeXisRemoteServiceFullName(o.name)/]([o.writeXisRemoteServiceArguments()/]);
 [elseif (o.isCustomAction())]
