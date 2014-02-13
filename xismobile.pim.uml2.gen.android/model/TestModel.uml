@@ -178,7 +178,7 @@
   </uml:Model>
   <XISMobile:XisInteractionSpace xmi:id="_TDjN8FhhEeOqfpDi1piBGQ" isMainScreen="true" base_Class="_e35kwCBFEeO_m-zgIyufMQ" title="MyISTitle is a new one!!"/>
   <XISMobile:XisButton xmi:id="_UEHTEFhhEeOqfpDi1piBGQ" base_Class="_Bl2ckCEtEeOdVNfQLTcG7A"/>
-  <XISMobile:XisMenu xmi:id="_Uk__oGW0EeO59ZqnG9-0yw" base_Class="_MlEUoGW0EeO59ZqnG9-0yw"/>
+  <XISMobile:XisMenu xmi:id="_Uk__oGW0EeO59ZqnG9-0yw" base_Class="_MlEUoGW0EeO59ZqnG9-0yw" entityName="Task"/>
   <XISMobile:XisMenu xmi:id="_ZrZ4wGW0EeO59ZqnG9-0yw" base_Class="_PrYlUGW0EeO59ZqnG9-0yw" type="ContextMenu"/>
   <XISMobile:XisMenuAssociation xmi:id="_ee6rEGW0EeO59ZqnG9-0yw" base_Association="_dL5kA2W0EeO59ZqnG9-0yw"/>
   <XISMobile:XisMenuAssociation xmi:id="_fVXx8GW0EeO59ZqnG9-0yw" base_Association="_cVmOI2W0EeO59ZqnG9-0yw"/>
