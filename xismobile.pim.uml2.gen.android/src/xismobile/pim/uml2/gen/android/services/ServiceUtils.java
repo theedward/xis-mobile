@@ -159,16 +159,21 @@ public final class ServiceUtils {
 		return getXisCompositeWidget(c) != null;
 	}
 	
+	public static Stereotype getXisCompositeWidget(Class c) {
+		return c.getAppliedStereotype("XIS-Mobile::XisCompositeWidget");
+	}
+	
+	public static String getXisCompositeWidgetEntityName(Class c, Stereotype s) {
+		String entityName = (String) c.getValue(s, "entityName");
+		return entityName;
+	}
+	
 	public static Stereotype getXisForm(Class c) {
 		return c.getAppliedStereotype("XIS-Mobile::XisForm");
 	}
 	
 	public static boolean isXisForm(Class c) {
 		return getXisForm(c) != null;
-	}
-	
-	public static Stereotype getXisCompositeWidget(Class c) {
-		return c.getAppliedStereotype("XIS-Mobile::XisCompositeWidget");
 	}
 	
 	public static Stereotype getXisMenu(Class c) {
@@ -305,12 +310,20 @@ public final class ServiceUtils {
 		return getXisList(c) != null;
 	}
 	
+	public static Stereotype getXisListGroup(Class c) {
+		return c.getAppliedStereotype("XIS-Mobile::XisListGroup");
+	}
+	
 	public static boolean isXisListGroup(Class c) {
-		return c.getAppliedStereotype("XIS-Mobile::XisListGroup") != null;
+		return getXisListGroup(c) != null;
+	}
+	
+	public static Stereotype getXisListItem(Class c) {
+		return c.getAppliedStereotype("XIS-Mobile::XisListItem");
 	}
 	
 	public static boolean isXisListItem(Class c) {
-		return c.getAppliedStereotype("XIS-Mobile::XisListItem") != null;
+		return getXisListItem(c) != null;
 	}
 	
 	public static boolean isXisVisibilityBoundary(Class c) {
