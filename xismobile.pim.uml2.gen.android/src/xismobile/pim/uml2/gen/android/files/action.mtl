@@ -70,9 +70,21 @@ manager
 
 [template private writeCrudActionEntitySetters(w : Class, e : Class) post (trim())]
 // get attributes values
-[if (w.isXisForm())]
+[for (p : Property | e.getXisEntityAttributes())]
+[e.name.toLowerFirst()/].set[p.name.toUpperFirst()/]();
+[/for]
+
+[if (w.isXisInteractionSpace())]
+
+[elseif (w.isXisForm())]
 
 [elseif (w.isXisVisibilityBoundary())]
+
+[elseif (w.isXisList())]
+
+[elseif (w.isXisListGroup())]
+
+[elseif (w.isXisMenu())]
 
 [/if]
 [/template]
