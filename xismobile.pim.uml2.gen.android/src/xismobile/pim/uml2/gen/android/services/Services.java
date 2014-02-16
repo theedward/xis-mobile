@@ -337,7 +337,7 @@ public class Services {
 		Class owner = (Class) o.getOwner();
 		
 		while (widget == null) {
-			if (ServiceUtils.isXisListItem(owner) &&
+			/*if (ServiceUtils.isXisListItem(owner) &&
 				ServiceUtils.getXisCompositeWidgetEntityName(owner,
 						ServiceUtils.getXisListItem(owner)) != null) {
 				widget = owner;
@@ -347,7 +347,7 @@ public class Services {
 							ServiceUtils.getXisVisibilityBoundary(owner)) != null) {
 				widget = owner;
 				break;
-			} else if (ServiceUtils.isXisForm(owner) &&
+			} else */if (ServiceUtils.isXisForm(owner) &&
 					   ServiceUtils.getXisCompositeWidgetEntityName(owner,
 							ServiceUtils.getXisForm(owner)) != null) {
 				widget = owner;
@@ -424,6 +424,34 @@ public class Services {
 			}
 		}
 		return entity;
+	}
+	
+	public String getCrudActionEntitySetters(Class w, Class e) {
+		Stereotype widgetStereo = null;
+		
+		if (ServiceUtils.isXisForm(w)) {
+			
+		} else if (ServiceUtils.isXisList(w)) {
+			
+		} else if (ServiceUtils.isXisListGroup(w)) {
+		
+		} else if (ServiceUtils.isXisMenu(w)) {
+			
+		}
+		
+		if (ServiceUtils.isXisTextBox(w)) {
+			
+		} else if (ServiceUtils.isXisCheckBox(w)) {
+			
+		} else if (ServiceUtils.isXisDatePicker(w)) {
+
+		} else if (ServiceUtils.isXisTimePicker(w)) {
+			
+		} else if (ServiceUtils.isXisDropdown(w)) {
+			
+		}
+		
+		return "";
 	}
 
 	public String getEntityAttributeOfWidget(String value) {

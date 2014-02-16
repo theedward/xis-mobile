@@ -71,21 +71,19 @@ manager
 [template private writeCrudActionEntitySetters(w : Class, e : Class) post (trim())]
 // get attributes values
 [for (p : Property | e.getXisEntityAttributes())]
-[e.name.toLowerFirst()/].set[p.name.toUpperFirst()/]();
+
 [/for]
 
-[if (w.isXisInteractionSpace())]
-
-[elseif (w.isXisForm())]
-
-[elseif (w.isXisVisibilityBoundary())]
-
-[elseif (w.isXisList())]
-
-[elseif (w.isXisListGroup())]
-
-[elseif (w.isXisMenu())]
-
+[if (w.isXisTextBox())]
+mTextBox[w.name.toUpperFirst()/].getText().toString()
+[elseif (w.isXisCheckBox())]
+mCheckBox[w.name.toUpperFirst()/].isChecked();
+[elseif (w.isXisDatePicker())].getText().toString()
+mDatePicker[w.name.toUpperFirst()/]
+[elseif (w.isXisTimePicker())].getText().toString()
+mTimePicker[w.name.toUpperFirst()/]
+[elseif (w.isXisDropdown())]
+mDropdown[w.name.toUpperFirst()/].getSelectedItem().toString()
 [/if]
 [/template]
 
