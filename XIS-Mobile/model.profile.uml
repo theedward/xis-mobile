@@ -7631,7 +7631,6 @@
     </ownedEnd>
   </packagedElement>
   <packagedElement xmi:type="uml:Stereotype" xmi:id="_NFI8gFX1EeOqKOeTeU5THw" name="XisVisibilityBoundary">
-    <generalization xmi:id="_9tNEcJKVEeO0U48IAIHZfg" general="_m2eQ0B90EeOZ6al_I843SA"/>
     <generalization xmi:id="_cUjoQJKWEeO0U48IAIHZfg" general="_oqqyUB90EeOZ6al_I843SA"/>
     <ownedAttribute xmi:id="_Qr19cFX1EeOqKOeTeU5THw" name="Create" visibility="public" isUnique="false">
       <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Boolean"/>
@@ -7651,12 +7650,6 @@
       <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_g5vvcFX1EeOqKOeTeU5THw" value="1"/>
       <defaultValue xmi:type="uml:LiteralString" xmi:id="_g55gcFX1EeOqKOeTeU5THw" value="false"/>
     </ownedAttribute>
-    <ownedAttribute xmi:id="_m20x4FX1EeOqKOeTeU5THw" name="base_Class" association="_m21Y8FX1EeOqKOeTeU5THw">
-      <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Class"/>
-    </ownedAttribute>
-  </packagedElement>
-  <packagedElement xmi:type="uml:Extension" xmi:id="_m21Y8FX1EeOqKOeTeU5THw" name="E_XisVisibilityBoundary_Class1" memberEnd="_m21Y8VX1EeOqKOeTeU5THw _m20x4FX1EeOqKOeTeU5THw">
-    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_m21Y8VX1EeOqKOeTeU5THw" name="extension_XisVisibilityBoundary" type="_NFI8gFX1EeOqKOeTeU5THw" aggregation="composite" association="_m21Y8FX1EeOqKOeTeU5THw"/>
   </packagedElement>
   <packagedElement xmi:type="uml:Stereotype" xmi:id="_dQchwFhLEeOjBoMcdovZrg" name="XisMapMarker">
     <ownedAttribute xmi:id="_h8_JYFhLEeOjBoMcdovZrg" name="title" visibility="public" isUnique="false">
