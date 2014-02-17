@@ -25,7 +25,6 @@ Intent intent = new Intent(this, [o.getNavigation().toUpperFirst()/]Activity.cla
 [if (o.isCrudAction())]
 [let widget : Class = o.getCrudOperationEntityContextWidget()]
 [let entity : Class = o.getCrudOperationEntity(widget)]
-
 [if (o.performsNavigation())]
 	[if (not o.isCreateAction())]
 intent.putExtra[entity.name.toUpperFirst()/]("[entity.name.toUpperFirst()/]Id", [entity.name.toLowerFirst()/].getId());
@@ -44,7 +43,6 @@ intent.putExtra[entity.name.toUpperFirst()/]("[entity.name.toUpperFirst()/]Id", 
 [elseif (o.isDeleteteAllAction())]
 [entity.getDao()/].deleteAll[entity.name.toUpperFirst()/]s();
 [/if]
-
 [/let]
 [/let]
 [elseif (o.isOKAction())]
@@ -69,22 +67,34 @@ manager
 [/template]
 
 [template private writeCrudActionEntitySetters(w : Class, e : Class) post (trim())]
-// get attributes values
-[for (p : Property | e.getXisEntityAttributes())]
+[if (w.isXisInteractionSpace())]
 
+[elseif (w.isXisMenu())]
+	
+[else]
+[for (el : Class | w.allOwnedElements()->selectByType(Class))]
+	[if (el.isXisTextBox())]
+[e.writeEntitySetter(el.getXisSimpleWidgetEntityAttributeName(el.getXisTextBox()))/](mTextBox[el.name.toUpperFirst()/].getText().toString());
+	[elseif (el.isXisCheckBox())]
+[e.writeEntitySetter(el.getXisSimpleWidgetEntityAttributeName(el.getXisCheckBox()))/](mCheckBox[el.name.toUpperFirst()/].isChecked());
+	[elseif (el.isXisDatePicker())]
+[e.writeEntitySetter(el.getXisSimpleWidgetEntityAttributeName(el.getXisDatePicker()))/]mDatePicker([el.name.toUpperFirst()/].getText().toString());
+	[elseif (el.isXisTimePicker())]
+[e.writeEntitySetter(el.getXisSimpleWidgetEntityAttributeName(el.getXisTimePicker()))/](mTimePicker[el.name.toUpperFirst()/].getText().toString());
+	[elseif (el.isXisDropdown())]
+[e.writeEntitySetter(el.getXisSimpleWidgetEntityAttributeName(el.getXisDropdown()))/](mDropdown[el.name.toUpperFirst()/].getSelectedItem().toString());
+	[/if]
 [/for]
-
-[if (w.isXisTextBox())]
-mTextBox[w.name.toUpperFirst()/].getText().toString()
-[elseif (w.isXisCheckBox())]
-mCheckBox[w.name.toUpperFirst()/].isChecked();
-[elseif (w.isXisDatePicker())].getText().toString()
-mDatePicker[w.name.toUpperFirst()/]
-[elseif (w.isXisTimePicker())].getText().toString()
-mTimePicker[w.name.toUpperFirst()/]
-[elseif (w.isXisDropdown())]
-mDropdown[w.name.toUpperFirst()/].getSelectedItem().toString()
 [/if]
+[/template]
+
+[template private writeEntitySetter(e : Class, s : String) post (trim())]
+[let p : Set(Property) = e.getXisEntityAttributes()
+		->select(a : Property | s.toLower().contains(a.name.toLower()))]
+[if (p->size() = 1)]
+[e.name.toLowerFirst()/].set[p.name.toUpperFirst()/]
+[/if]
+[/let]
 [/template]
 
 [**
