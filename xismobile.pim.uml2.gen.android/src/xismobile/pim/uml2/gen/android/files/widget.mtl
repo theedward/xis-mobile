@@ -37,13 +37,13 @@ mList[c.name.toUpperFirst()/]
 [/if]
 [/template]
 
-[template public initializeWidget(c : Class, action : String) post (trim())]
+[template public initializeWidget(c : Class) post (trim())]
 [if (c.isXisLabel())]
 mLabel[c.name.toUpperFirst()/] = (XisLabel) findViewById(R.id.label[c.name.toUpperFirst()/]);
-[if ((action = 'update' or action = 'read') and c.hasXisWidgetDomainValue(c.getXisWidget()))]
+[comment][if ((action = 'update' or action = 'read') and c.hasXisWidgetDomainValue(c.getXisWidget()))]
 String value = String.valueOf(<entity>.<attribute>);
 mLabel.setText(value);
-[/if]
+[/if][/comment]
 [elseif (c.isXisTextBox())]
 mTextBox[c.name.toUpperFirst()/] = (XisTextBox) findViewById(R.id.textBox[c.name.toUpperFirst()/]);
 [elseif (c.isXisCheckBox())]
