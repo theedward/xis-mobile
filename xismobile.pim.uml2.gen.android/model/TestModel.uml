@@ -139,10 +139,13 @@
           <nestedClassifier xmi:type="uml:Class" xmi:id="_dp614IuJEeOk7t1dRuA8Cg" name="MyStupidButton">
             <ownedOperation xmi:id="_OGCwwHffEeOomty_KwNr7w" name="editMy">
               <ownedParameter xmi:id="_ZpHXcHhEEeOLbMxgcGne3g" name="entityName">
+                <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
                 <defaultValue xmi:type="uml:LiteralString" xmi:id="_uKDE4HhEEeOLbMxgcGne3g" name="" value="Task"/>
               </ownedParameter>
             </ownedOperation>
           </nestedClassifier>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_JsPzcJfzEeOi3Nromc_dpw" name="TitleTextBox"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_5QWE4Jf2EeOi3Nromc_dpw" name="CategoryTextBox"/>
         </packagedElement>
         <packagedElement xmi:type="uml:Association" xmi:id="_ViVlU27uEeOZI-NJjiFaWg" name="editMy" memberEnd="_ViVlVG7uEeOZI-NJjiFaWg _ViVlUG7uEeOZI-NJjiFaWg" navigableOwnedEnd="_ViVlUG7uEeOZI-NJjiFaWg">
           <ownedEnd xmi:id="_ViVlVG7uEeOZI-NJjiFaWg" name="editIS" type="_HjwxoG7uEeOZI-NJjiFaWg" association="_ViVlU27uEeOZI-NJjiFaWg">
@@ -206,4 +209,6 @@
   <XISMobile:XisAction xmi:id="_SDjIIHffEeOomty_KwNr7w" type="Create" base_Operation="_OGCwwHffEeOomty_KwNr7w"/>
   <XISMobile:XisButton xmi:id="_iM88MIuJEeOk7t1dRuA8Cg" base_Class="_dp614IuJEeOk7t1dRuA8Cg" onTap="editMy"/>
   <XISMobile:XisRemoteService xmi:id="_KRXk4I2OEeO63uuMmDWX7w" base_Interface="_5gZIcGpWEeOec4c1gAF0QA"/>
+  <XISMobile:XisTextBox xmi:id="_V84eoJfzEeOi3Nromc_dpw" base_Class="_JsPzcJfzEeOi3Nromc_dpw" entityAttributeName="Task.title"/>
+  <XISMobile:XisTextBox xmi:id="_93EYYJf2EeOi3Nromc_dpw" base_Class="_5QWE4Jf2EeOi3Nromc_dpw" entityAttributeName="Category.name"/>
 </xmi:XMI>
