@@ -70,6 +70,10 @@
 	invoke('xismobile.pim.uml2.gen.android.services.Services', 'getStringResources(org.eclipse.uml2.uml.Model)', Sequence{m})
 /]
 
+[query public getParentXisInteractionSpace(c : Class) : Class =
+	invoke('xismobile.pim.uml2.gen.android.services.Services', 'getParentXisInteractionSpace(org.eclipse.uml2.uml.Class)', Sequence{c})
+/]
+
 [query public getXisInteractionSpaceWidgets(c : Class) : Sequence(Class) =
 	invoke('xismobile.pim.uml2.gen.android.services.Services', 'getXisInteractionSpaceWidgets(org.eclipse.uml2.uml.Class)', Sequence{c})
 /]

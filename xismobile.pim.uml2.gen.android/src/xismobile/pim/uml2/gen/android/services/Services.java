@@ -557,6 +557,41 @@ public class Services {
 		return sb.toString();
 	}
 	
+	public Class getParentXisInteractionSpace(Class c) {
+		Class space = null;
+		Element p = c;
+
+		if (ServiceUtils.isXisMenu(c) && c.getOwner() == null) {
+			for (Association a : c.getAssociations()) {
+				if (ServiceUtils.isXisMenuAssociation(a)) {
+					Property first = a.getMemberEnds().get(0);
+					Property second = a.getMemberEnds().get(1);
+					
+					if (!first.isNavigable()) {
+						space = (Class) a.getEndTypes().get(0);
+						break;
+					} else if (!second.isNavigable()){
+						space = (Class) a.getEndTypes().get(1);
+						break;
+					}
+				}
+			}
+		}
+		
+		while (space == null) {
+			p = p.getOwner();
+			
+			if (p != null) {
+				if (p instanceof Class && ServiceUtils.isXisInteractionSpace((Class) p)) {
+					space = (Class) p;
+				}
+			} else {
+				break;
+			}
+		}
+		return space;
+	}
+	
 	public List<Class> getXisInteractionSpaceWidgets(Class c) {
 		List<Class> widgets = new ArrayList<Class>();
 		
