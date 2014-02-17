@@ -27,7 +27,7 @@ Intent intent = new Intent(this, [o.getNavigation().toUpperFirst()/]Activity.cla
 [let entity : Class = o.getCrudOperationEntity(widget)]
 [if (o.performsNavigation())]
 	[if (not o.isCreateAction())]
-intent.putExtra[entity.name.toUpperFirst()/]("[entity.name.toUpperFirst()/]Id", [entity.name.toLowerFirst()/].getId());
+intent.putExtra("[entity.name.toUpperFirst()/]Id", [entity.name.toLowerFirst()/].getId());
 	[/if]
 [elseif (o.isCreateAction())]
 [entity.name.toLowerFirst()/] = new [entity.name.toUpperFirst()/]();
@@ -46,8 +46,7 @@ intent.putExtra[entity.name.toUpperFirst()/]("[entity.name.toUpperFirst()/]Id", 
 [/let]
 [/let]
 [elseif (o.isOKAction())]
-// Check Inbound Crud operations
-
+[comment  TODO: Check Inbound Crud operations/]
 [elseif (o.isWebServiceAction() and o.xisRemoteServiceExists())]
 [writeXisRemoteServiceFullName(o.name)/]([o.writeXisRemoteServiceArguments()/]);
 [elseif (o.isCustomAction())]
@@ -68,9 +67,21 @@ manager
 
 [template private writeCrudActionEntitySetters(w : Class, e : Class) post (trim())]
 [if (w.isXisInteractionSpace())]
-
+[for (el : Class | w.ownedElement->selectByType(Class))]
+	[if (el.isXisTextBox())]
+[e.writeEntitySetter(el.getXisSimpleWidgetEntityAttributeName(el.getXisTextBox()))/](mTextBox[el.name.toUpperFirst()/].getText().toString());
+	[elseif (el.isXisCheckBox())]
+[e.writeEntitySetter(el.getXisSimpleWidgetEntityAttributeName(el.getXisCheckBox()))/](mCheckBox[el.name.toUpperFirst()/].isChecked());
+	[elseif (el.isXisDatePicker())]
+[e.writeEntitySetter(el.getXisSimpleWidgetEntityAttributeName(el.getXisDatePicker()))/]mDatePicker([el.name.toUpperFirst()/].getText().toString());
+	[elseif (el.isXisTimePicker())]
+[e.writeEntitySetter(el.getXisSimpleWidgetEntityAttributeName(el.getXisTimePicker()))/](mTimePicker[el.name.toUpperFirst()/].getText().toString());
+	[elseif (el.isXisDropdown())]
+[e.writeEntitySetter(el.getXisSimpleWidgetEntityAttributeName(el.getXisDropdown()))/](mDropdown[el.name.toUpperFirst()/].getSelectedItem().toString());
+	[/if]
+[/for]
 [elseif (w.isXisMenu())]
-	
+[comment TODO: Check what to do in this case /]
 [else]
 [for (el : Class | w.allOwnedElements()->selectByType(Class))]
 	[if (el.isXisTextBox())]
