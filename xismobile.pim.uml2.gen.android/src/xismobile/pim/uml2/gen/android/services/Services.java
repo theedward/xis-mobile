@@ -280,7 +280,18 @@ public class Services {
 		return associations;
 	}
 
-	public List<String> getInboundCrudOperations(Class c) {
+	public List<Operation> getInboundCrudOperations(Class space, String entity) {
+		List<Operation> operations = new ArrayList<Operation>();
+		
+		for (Association a : space.getAssociations()) {
+			if (ServiceUtils.isXisNavigationAssociation(a)) {
+				// TODO: Add implementation
+			}
+		}	
+		return operations;
+	}
+	
+	public List<String> getInboundCrudOperationsEntities(Class c) {
 		List<String> entities = new ArrayList<String>();
 
 		for (Association a : c.getAssociations()) {
