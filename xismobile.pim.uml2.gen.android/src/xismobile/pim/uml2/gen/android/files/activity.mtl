@@ -70,7 +70,7 @@ public class [c.name.toUpperFirst()/]Activity extends Activity {
 	private List<[entity.name.toUpperFirst()/]> [entity.name.toLowerFirst()/]s;
 	[/for]
 	[/if]
-	[let refs : Sequence(String) = c.getInboundCrudOperations()]
+	[let refs : Sequence(String) = c.getInboundCrudOperationsEntities()]
 	[for (ref : String | refs)]
 	[let entity : Class = getXisEntityByName(c.getModel(), ref)->at(1)]
 	[if (entity.isPersistent())]
@@ -109,7 +109,7 @@ public class [c.name.toUpperFirst()/]Activity extends Activity {
 		[/if]
 		[/if]
 	[/if]
-		[let refs : Sequence(String) = c.getInboundCrudOperations()]
+		[let refs : Sequence(String) = c.getInboundCrudOperationsEntities()]
 		[if (refs->size() > 0)]
 		if (getIntent() != null && getIntent().getExtras() != null) {
 			Bundle extras = getIntent().getExtras();
@@ -252,7 +252,7 @@ private [w.writeWidgetTypeAndName()/];
 [for (w : Class | widgets)]
 
 public void initialize[w.getWidgetName().toUpperFirst()/]() {
-	[w.initializeWidget('')/]
+	[w.initializeWidget()/]
 }
 [if (not widgets->oclIsUndefined() and w.getXisInteractionSpaceWidgets()->size() > 0)]
 [writeWidgetInit(w.getXisInteractionSpaceWidgets())/]
