@@ -337,19 +337,9 @@ public class Services {
 		Class owner = (Class) o.getOwner();
 		
 		while (widget == null) {
-			/*if (ServiceUtils.isXisListItem(owner) &&
-				ServiceUtils.getXisCompositeWidgetEntityName(owner,
-						ServiceUtils.getXisListItem(owner)) != null) {
-				widget = owner;
-				break;
-			} else if (ServiceUtils.isXisVisibilityBoundary(owner) &&
-					   ServiceUtils.getXisCompositeWidgetEntityName(owner,
-							ServiceUtils.getXisVisibilityBoundary(owner)) != null) {
-				widget = owner;
-				break;
-			} else */if (ServiceUtils.isXisForm(owner) &&
-					   ServiceUtils.getXisCompositeWidgetEntityName(owner,
-							ServiceUtils.getXisForm(owner)) != null) {
+			if (ServiceUtils.isXisForm(owner) &&
+			    ServiceUtils.getXisCompositeWidgetEntityName(owner,
+					ServiceUtils.getXisForm(owner)) != null) {
 				widget = owner;
 				break;
 			} else if (ServiceUtils.isXisList(owner) &&
@@ -386,13 +376,7 @@ public class Services {
 		Class entity = null;
 		String entityName = null;
 		
-		if (ServiceUtils.isXisListItem(c)) {
-			entityName = ServiceUtils.getXisCompositeWidgetEntityName(c,
-					ServiceUtils.getXisListItem(c));
-		} else if (ServiceUtils.isXisVisibilityBoundary(c)) {
-			entityName = ServiceUtils.getXisCompositeWidgetEntityName(c,
-					ServiceUtils.getXisVisibilityBoundary(c));
-		} else if (ServiceUtils.isXisForm(c)) {
+		if (ServiceUtils.isXisForm(c)) {
 			entityName = ServiceUtils.getXisCompositeWidgetEntityName(c,
 					ServiceUtils.getXisForm(c));
 		} else if (ServiceUtils.isXisList(c)) {
@@ -424,34 +408,6 @@ public class Services {
 			}
 		}
 		return entity;
-	}
-	
-	public String getCrudActionEntitySetters(Class w, Class e) {
-		Stereotype widgetStereo = null;
-		
-		if (ServiceUtils.isXisForm(w)) {
-			
-		} else if (ServiceUtils.isXisList(w)) {
-			
-		} else if (ServiceUtils.isXisListGroup(w)) {
-		
-		} else if (ServiceUtils.isXisMenu(w)) {
-			
-		}
-		
-		if (ServiceUtils.isXisTextBox(w)) {
-			
-		} else if (ServiceUtils.isXisCheckBox(w)) {
-			
-		} else if (ServiceUtils.isXisDatePicker(w)) {
-
-		} else if (ServiceUtils.isXisTimePicker(w)) {
-			
-		} else if (ServiceUtils.isXisDropdown(w)) {
-			
-		}
-		
-		return "";
 	}
 
 	public String getEntityAttributeOfWidget(String value) {
