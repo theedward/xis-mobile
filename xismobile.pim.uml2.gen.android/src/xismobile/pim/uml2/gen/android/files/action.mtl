@@ -46,7 +46,28 @@ intent.putExtra("[entity.name.toUpperFirst()/]Id", [entity.name.toLowerFirst()/]
 [/let]
 [/let]
 [elseif (o.isOKAction())]
-[comment  TODO: Check Inbound Crud operations/]
+[let widget : Class = o.getCrudOperationEntityContextWidget()]
+[let entity : Class = o.getCrudOperationEntity(widget)]
+[let space : Class = widget.getParentXisInteractionSpace()]
+[for (op : Operation | space.getInboundCrudOperations(entity.name))]
+	[if (op.isCreateAction())]
+[entity.name.toLowerFirst()/] = new [entity.name.toUpperFirst()/]();
+[widget.writeCrudActionEntitySetters(entity)/]
+[entity.getDao()/].create[entity.name.toUpperFirst()/]([entity.name.toLowerFirst()/]);
+	[elseif (op.isReadAction())]
+[entity.name.toLowerFirst()/] = [entity.getDao()/].get[entity.name.toUpperFirst()/]ById(String id);
+	[elseif (op.isUpdateAction())]
+[widget.writeCrudActionEntitySetters(entity)/]
+[entity.getDao()/].update[entity.name.toUpperFirst()/]([entity.name.toLowerFirst()/]);
+	[elseif (op.isDeleteteAction())]
+[entity.getDao()/].delete[entity.name.toUpperFirst()/]([entity.name.toLowerFirst()/]);
+	[elseif (op.isDeleteteAllAction())]
+[entity.getDao()/].deleteAll[entity.name.toUpperFirst()/]s();
+	[/if]
+[/for]
+[/let]
+[/let]
+[/let]
 [elseif (o.isWebServiceAction() and o.xisRemoteServiceExists())]
 [writeXisRemoteServiceFullName(o.name)/]([o.writeXisRemoteServiceArguments()/]);
 [elseif (o.isCustomAction())]
