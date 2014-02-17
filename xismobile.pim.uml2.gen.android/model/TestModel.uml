@@ -8,8 +8,8 @@
       <packagedElement xmi:type="uml:Package" xmi:id="_wdHHsCXGEeO-A4R6esSaTA" name="Package2">
         <packagedElement xmi:type="uml:Class" xmi:id="_e35kwCBFEeO_m-zgIyufMQ" name="MyIS">
           <nestedClassifier xmi:type="uml:Class" xmi:id="_Bl2ckCEtEeOdVNfQLTcG7A" name="MyButton"/>
-          <nestedClassifier xmi:type="uml:Class" xmi:id="_DUiL8CEtEeOdVNfQLTcG7A" name="MyImage"/>
           <nestedClassifier xmi:type="uml:Class" xmi:id="_2DkLMCnqEeOBD5ExxoPX3A" name="MyLabel"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_DUiL8CEtEeOdVNfQLTcG7A" name="MyImage"/>
         </packagedElement>
         <packagedElement xmi:type="uml:Association" xmi:id="_cVmOI2W0EeO59ZqnG9-0yw" name="myIS_myContextMenu_1" memberEnd="_cVmOJGW0EeO59ZqnG9-0yw _cVmOIGW0EeO59ZqnG9-0yw" navigableOwnedEnd="_cVmOIGW0EeO59ZqnG9-0yw">
           <ownedEnd xmi:id="_cVmOJGW0EeO59ZqnG9-0yw" name="myIS" type="_e35kwCBFEeO_m-zgIyufMQ" association="_cVmOI2W0EeO59ZqnG9-0yw">
@@ -145,7 +145,9 @@
             </ownedOperation>
           </nestedClassifier>
           <nestedClassifier xmi:type="uml:Class" xmi:id="_JsPzcJfzEeOi3Nromc_dpw" name="TitleTextBox"/>
-          <nestedClassifier xmi:type="uml:Class" xmi:id="_5QWE4Jf2EeOi3Nromc_dpw" name="CategoryTextBox"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_u_yn0JgGEeOi3Nromc_dpw" name="MyBoundary">
+            <nestedClassifier xmi:type="uml:Class" xmi:id="_5QWE4Jf2EeOi3Nromc_dpw" name="CategoryTextBox"/>
+          </nestedClassifier>
         </packagedElement>
         <packagedElement xmi:type="uml:Association" xmi:id="_ViVlU27uEeOZI-NJjiFaWg" name="editMy" memberEnd="_ViVlVG7uEeOZI-NJjiFaWg _ViVlUG7uEeOZI-NJjiFaWg" navigableOwnedEnd="_ViVlUG7uEeOZI-NJjiFaWg">
           <ownedEnd xmi:id="_ViVlVG7uEeOZI-NJjiFaWg" name="editIS" type="_HjwxoG7uEeOZI-NJjiFaWg" association="_ViVlU27uEeOZI-NJjiFaWg">
@@ -211,4 +213,5 @@
   <XISMobile:XisRemoteService xmi:id="_KRXk4I2OEeO63uuMmDWX7w" base_Interface="_5gZIcGpWEeOec4c1gAF0QA"/>
   <XISMobile:XisTextBox xmi:id="_V84eoJfzEeOi3Nromc_dpw" base_Class="_JsPzcJfzEeOi3Nromc_dpw" entityAttributeName="Task.title"/>
   <XISMobile:XisTextBox xmi:id="_93EYYJf2EeOi3Nromc_dpw" base_Class="_5QWE4Jf2EeOi3Nromc_dpw" entityAttributeName="Category.name"/>
+  <XISMobile:XisVisibilityBoundary xmi:id="_1oZTgJgGEeOi3Nromc_dpw" base_Class="_u_yn0JgGEeOi3Nromc_dpw" entityAttributeName="" Create="true" Edit="true"/>
 </xmi:XMI>
