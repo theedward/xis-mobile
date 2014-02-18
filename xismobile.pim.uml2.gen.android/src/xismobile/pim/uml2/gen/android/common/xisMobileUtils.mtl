@@ -315,6 +315,18 @@
 	not c.getXisVisibilityBoundary().oclIsUndefined()
 /]
 
+[query public getXisVisibilityBoundaryCreate(c : Class) : Boolean =
+	c.getValue(c.getXisVisibilityBoundary(), 'Create')
+/]
+
+[query public getXisVisibilityBoundaryView(c : Class) : Boolean =
+	c.getValue(c.getXisVisibilityBoundary(), 'View')
+/]
+
+[query public getXisVisibilityBoundaryEdit(c : Class) : Boolean =
+	c.getValue(c.getXisVisibilityBoundary(), 'Edit')
+/]
+
 [query public getXisForm(c : Class) : Stereotype =
 	c.getAppliedStereotype('XIS-Mobile::XisForm')
 /]
