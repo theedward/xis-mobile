@@ -39,7 +39,7 @@
 /]
 
 [query public getInboundCrudOperations(space : Class, entity : String) : Sequence(Operation) = 
-	invoke('xismobile.pim.uml2.gen.android.services.Services', 'getInboundCrudOperations(org.eclipse.uml2.uml.Class)', Sequence{space, entity})
+	invoke('xismobile.pim.uml2.gen.android.services.Services', 'getInboundCrudOperations(org.eclipse.uml2.uml.Class, java.lang.String)', Sequence{space, entity})
 /]
 
 [query public getInboundCrudOperationsEntities(c : Class) : Sequence(String) =
