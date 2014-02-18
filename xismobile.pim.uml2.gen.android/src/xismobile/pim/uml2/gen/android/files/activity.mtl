@@ -74,7 +74,7 @@ public class [c.name.toUpperFirst()/]Activity extends Activity {
 	[for (ref : String | refs)]
 	[let entity : Class = getXisEntityByName(c.getModel(), ref)->at(1)]
 	[if (entity.isPersistent())]
-	private int [ref.toLowerFirst()/]ID;
+	private int [ref.toLowerFirst()/]ID = -1;
 	[else]
 	private String [ref.toLowerFirst()/]ID;	
 	[/if]
@@ -117,10 +117,11 @@ public class [c.name.toUpperFirst()/]Activity extends Activity {
 			[let entity : Class = getXisEntityByName(c.getModel(), ref)->at(1)]
 			[if (entity.isPersistent())]
 			[ref.toLowerFirst()/]ID = extras.getInt("[ref.toUpperFirst()/]ID");
+			[ref.toLowerFirst()/] = helper.get[ref.toUpperFirst()/]ById([ref.toLowerFirst()/]ID);
 			[else]
 			[ref.toLowerFirst()/]ID = extras.getString("[ref.toUpperFirst()/]ID");
+			[ref.toLowerFirst()/] = manager.get[ref.toUpperFirst()/]ById([ref.toLowerFirst()/]ID);
 			[/if]
-			[ref.toLowerFirst()/] = helper.get[ref.toUpperFirst()/]ById([ref.toLowerFirst()/]ID);	
 			[/let]
 			[/for]
 		} else {
