@@ -106,7 +106,7 @@ manager
 	[/if]
 [/for]
 [elseif (w.isXisMenu())]
-[comment TODO: Check what to do in this case /]
+[comment @TODO Check what to do in this case /]
 [else]
 [for (el : Class | w.allOwnedElements()->selectByType(Class))]
 	[if (el.isXisTextBox())]
