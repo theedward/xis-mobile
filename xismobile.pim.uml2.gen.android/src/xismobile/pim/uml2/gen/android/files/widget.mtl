@@ -132,6 +132,15 @@ registerForContextMenu(mList[c.name.toUpperFirst()/]);
 [/if]
 [/template]
 
+[template private writeVisibility(c : Class) post (trim())]
+[if (c.owner.oclIsTypeOf(Class) and c.owner.oclAsType(Class).isXisVisibilityBoundary())]
+[let entity : String = c.owner.oclAsType(Class).getXisCompositeWidgetEntityName(c.owner.oclAsType(Class).getXisVisibilityBoundary())]
+[comment @TODO Set Visibility of a widget /]
+<name>.setVisibility(View.INVISIBLE);
+[/let]
+[/if]
+[/template]
+
 [template private writeGestureBinding(c : Class) post (trim())]
 [if (c.isXisButton() or c.isXisLink())]
 [let s : Stereotype = 
