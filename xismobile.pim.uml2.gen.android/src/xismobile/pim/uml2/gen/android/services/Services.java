@@ -741,7 +741,8 @@ public class Services {
 					for (Element j : w.allOwnedElements()) {
 						if (j instanceof Class && !ServiceUtils.isXisMenu(w)
 							&& !ServiceUtils.isXisMenuItem(w)
-							&& !ServiceUtils.isXisListGroup(w) && !ServiceUtils.isXisListItem(w)) {
+							&& !ServiceUtils.isXisListGroup(w)
+							&& !ServiceUtils.isXisListItem(w)) {
 							widgets.add((Class)j);
 						}
 					}
