@@ -338,6 +338,8 @@ public void onPinch() {
 [writeListView(c)/]
 [elseif (c.isXisDropdown())]
 [writeDropdown(widgets, c)/]
+[elseif (c.isXisForm())]
+[writeForm(widgets, c)/]
 [/if]
 [/template]
 
@@ -552,12 +554,17 @@ public void onPinch() {
 [template private writeForm(widgets : Sequence(Class), c : Class)]
 [let name : String = 'form' + c.name.toUpperFirst()]
 <RelativeLayout
-        android:id="@+id/[name/]"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-		[writeWidgetRelativePositioning(widgets, c)/]
-        android:background="@drawable/form_border" >
-[comment @TODO Write children /]
+	android:id="@+id/[name/]"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	[writeWidgetRelativePositioning(widgets, c)/]
+	android:background="@drawable/form_border" >
+
+[let w : Sequence(Class) = orderWidgetsByPosition(c.getXisInteractionSpaceWidgets())]
+[for (cl : Class | widgets)]
+	[writeWidget(w, cl)/]
+[/for]
+[/let]
 
 </RelativeLayout>
 [/let]
