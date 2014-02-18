@@ -48,7 +48,11 @@ intent.putExtra("[entity.name.toUpperFirst()/]Id", [entity.name.toLowerFirst()/]
 [elseif (o.isOKAction())]
 [let widget : Class = o.getCrudOperationEntityContextWidget()]
 [let entity : Class = o.getCrudOperationEntity(widget)]
-[let space : Class = widget.getParentXisInteractionSpace()]
+[let space : Class =
+	if widget.isXisInteractionSpace()
+	then widget
+ 	else widget.getParentXisInteractionSpace()
+	endif]
 [for (op : Operation | space.getInboundCrudOperations(entity.name))]
 	[if (op.isCreateAction())]
 [entity.name.toLowerFirst()/] = new [entity.name.toUpperFirst()/]();
