@@ -20,7 +20,6 @@ import org.eclipse.uml2.uml.InterfaceRealization;
 import org.eclipse.uml2.uml.Model;
 import org.eclipse.uml2.uml.Operation;
 import org.eclipse.uml2.uml.Parameter;
-import org.eclipse.uml2.uml.ParameterDirectionKind;
 import org.eclipse.uml2.uml.Property;
 import org.eclipse.uml2.uml.Stereotype;
 import org.eclipse.uml2.uml.Type;
@@ -281,18 +280,90 @@ public class Services {
 	}
 
 	public List<Operation> getInboundCrudOperations(Class space, String entity) {
+		List<Operation> allOperations = new ArrayList<Operation>();
 		List<Operation> operations = new ArrayList<Operation>();
 		
 		for (Association a : space.getAssociations()) {
 			if (ServiceUtils.isXisNavigationAssociation(a)) {
-				// TODO: Add implementation
+				Property first = a.getMemberEnds().get(0);
+				Property second = a.getMemberEnds().get(1);
+				
+				if (first.isNavigable()) {
+					if (a.getEndTypes().get(0).getName().equals(space.getName())) {
+						for (Element el : space.getModel().allOwnedElements()) {
+							if (el instanceof Operation) {
+								Operation o = (Operation) el;
+								if (a.getName().equals(o.getName())
+									&& ServiceUtils.isXisAction(o)
+									&& ServiceUtils.isCrudAction(o)) {
+									if (!allOperations.contains(o)) {
+										allOperations.add(o);
+									}
+								}
+							}
+						}
+					}
+				} else if (second.isNavigable()) {
+					if (a.getEndTypes().get(1).getName().equals(space.getName())) {
+						for (Element el : space.getModel().allOwnedElements()) {
+							if (el instanceof Operation) {
+								Operation o = (Operation) el;
+								if (a.getName().equals(o.getName())
+									&& ServiceUtils.isXisAction(o)
+									&& ServiceUtils.isCrudAction(o)) {
+									if (!allOperations.contains(o)) {
+										allOperations.add(o);
+									}
+								}
+							}
+						}
+					}
+				}
 			}
-		}	
+		}
+		
+		for (Operation o : allOperations) {
+			Class owner = (Class) o.getOwner();
+			
+			while (owner != null) {
+				if (ServiceUtils.isXisForm(owner) &&
+				    ServiceUtils.getXisCompositeWidgetEntityName(owner,
+						ServiceUtils.getXisForm(owner)).equalsIgnoreCase(entity)) {
+					operations.add(o);
+					break;
+				} else if (ServiceUtils.isXisList(owner) &&
+						   ServiceUtils.getXisCompositeWidgetEntityName(owner,
+							   ServiceUtils.getXisForm(owner)).equalsIgnoreCase(entity)) {
+					operations.add(o);
+					break;
+				} else if (ServiceUtils.isXisListGroup(owner) &&
+						   ServiceUtils.getXisCompositeWidgetEntityName(owner,
+								ServiceUtils.getXisListGroup(owner)).equalsIgnoreCase(entity)) {
+					operations.add(o);
+					break;
+				} else if (ServiceUtils.isXisMenu(owner) &&
+						   ServiceUtils.getXisCompositeWidgetEntityName(owner,
+								ServiceUtils.getXisMenu(owner)).equalsIgnoreCase(entity)) {
+					operations.add(o);
+					break;
+				} else if (ServiceUtils.isXisInteractionSpace(owner)) {
+					for (Parameter p : o.getOwnedParameters()) {
+						if (p.getName().equalsIgnoreCase("entityName") &&
+							!p.getDefault().isEmpty() && p.getDefault().equalsIgnoreCase(entity)) {
+							operations.add(o);
+							break;
+						}
+					}
+				}
+				owner = (Class) owner.getOwner();
+			}
+		}
 		return operations;
 	}
 	
 	public List<String> getInboundCrudOperationsEntities(Class c) {
 		List<String> entities = new ArrayList<String>();
+		List<Operation> operations = new ArrayList<Operation>();
 
 		for (Association a : c.getAssociations()) {
 			if (ServiceUtils.isXisNavigationAssociation(a)) {
@@ -306,13 +377,7 @@ public class Services {
 								if (a.getName().equals(o.getName())
 									&& ServiceUtils.isXisAction(o)
 									&& ServiceUtils.isCrudAction(o)) {
-									Parameter p = o.getOwnedParameters().get(0);
-									if (p.getDirection().getLiteral()
-											.equals(ParameterDirectionKind.IN_LITERAL)) {
-										if (!entities.contains(p.getDefault())) {
-											entities.add(p.getDefault());
-										}
-									}
+									operations.add(o);
 								}
 							}
 						}
@@ -326,17 +391,72 @@ public class Services {
 								if (a.getName().equals(o.getName())
 									&& ServiceUtils.isXisAction(o)
 									&& ServiceUtils.isCrudAction(o)) {
-									Parameter p = o.getOwnedParameters().get(0);
-									if (p.getDirection().getLiteral()
-											.equals(ParameterDirectionKind.IN_LITERAL)) {
-										if (!entities.contains(p.getDefault())) {
-											entities.add(p.getDefault());
-										}
-									}
+									operations.add(o);
 								}
 							}
 						}
 					}
+				}
+			}
+		}
+		
+		for (Operation o : operations) {
+			Class owner = (Class) o.getOwner();
+			String entityName;
+			
+			while (owner != null) {
+				if (ServiceUtils.isXisForm(owner) &&
+				    ServiceUtils.getXisCompositeWidgetEntityName(owner,
+						ServiceUtils.getXisForm(owner)) != null) {
+					entityName = ServiceUtils.getXisCompositeWidgetEntityName(
+							owner, ServiceUtils.getXisForm(owner));
+					if (!entities.contains(entityName)) {
+						entities.add(entityName);
+						break;
+					}
+				} else if (ServiceUtils.isXisList(owner) &&
+						   ServiceUtils.getXisCompositeWidgetEntityName(owner,
+							   ServiceUtils.getXisForm(owner)) != null) {
+					entityName = ServiceUtils.getXisCompositeWidgetEntityName(
+							owner, ServiceUtils.getXisForm(owner));
+					if (!entities.contains(entityName)) {
+						entities.add(entityName);
+						break;
+					}
+				} else if (ServiceUtils.isXisListGroup(owner) &&
+						   ServiceUtils.getXisCompositeWidgetEntityName(owner,
+								ServiceUtils.getXisListGroup(owner)) != null) {
+					entityName = ServiceUtils.getXisCompositeWidgetEntityName(
+							owner, ServiceUtils.getXisForm(owner));
+					if (!entities.contains(entityName)) {
+						entities.add(entityName);
+						break;
+					}
+				} else if (ServiceUtils.isXisMenu(owner) &&
+						   ServiceUtils.getXisCompositeWidgetEntityName(owner,
+								ServiceUtils.getXisMenu(owner)) != null) {
+					entityName = ServiceUtils.getXisCompositeWidgetEntityName(
+							owner, ServiceUtils.getXisForm(owner));
+					if (!entities.contains(entityName)) {
+						entities.add(entityName);
+						break;
+					}
+				} else if (ServiceUtils.isXisInteractionSpace(owner)) {
+					for (Parameter p : o.getOwnedParameters()) {
+						if (p.getName().equalsIgnoreCase("entityName") &&
+							!p.getDefault().isEmpty()) {
+							if (!entities.contains(p.getDefault())) {
+								entities.add(p.getDefault());
+								break;
+							}
+						}
+					}
+				}
+
+				if (owner.getOwner() instanceof Class) {
+					owner = (Class) owner.getOwner();
+				} else {
+					break;
 				}
 			}
 		}
@@ -347,7 +467,7 @@ public class Services {
 		Class widget = null;
 		Class owner = (Class) o.getOwner();
 		
-		while (widget == null) {
+		while (owner != null) {
 			if (ServiceUtils.isXisForm(owner) &&
 			    ServiceUtils.getXisCompositeWidgetEntityName(owner,
 					ServiceUtils.getXisForm(owner)) != null) {
@@ -373,33 +493,36 @@ public class Services {
 					if (p.getName().equalsIgnoreCase("entityName") &&
 						!p.getDefault().isEmpty()) {
 						widget = owner;
-						break;
 					}
 				}
+			}
+			
+			if (owner.getOwner() instanceof Class) {
+				owner = (Class) owner.getOwner();
+			} else {
 				break;
-			} 
-			owner = (Class) owner.getOwner();
+			}
 		}
 		return widget;
 	}
 
-	public Class getCrudOperationEntity(Operation o, Class c) {
+	public Class getCrudOperationEntity(Operation o, Class widget) {
 		Class entity = null;
 		String entityName = null;
 		
-		if (ServiceUtils.isXisForm(c)) {
-			entityName = ServiceUtils.getXisCompositeWidgetEntityName(c,
-					ServiceUtils.getXisForm(c));
-		} else if (ServiceUtils.isXisList(c)) {
-			entityName = ServiceUtils.getXisCompositeWidgetEntityName(c,
-					ServiceUtils.getXisList(c));
-		} else if (ServiceUtils.isXisListGroup(c)) {
-			entityName = ServiceUtils.getXisCompositeWidgetEntityName(c,
-					ServiceUtils.getXisListGroup(c));
-		} else if (ServiceUtils.isXisMenu(c)) {
-			entityName = ServiceUtils.getXisCompositeWidgetEntityName(c,
-					ServiceUtils.getXisMenu(c));
-		} else if (ServiceUtils.isXisInteractionSpace(c)) {
+		if (ServiceUtils.isXisForm(widget)) {
+			entityName = ServiceUtils.getXisCompositeWidgetEntityName(widget,
+					ServiceUtils.getXisForm(widget));
+		} else if (ServiceUtils.isXisList(widget)) {
+			entityName = ServiceUtils.getXisCompositeWidgetEntityName(widget,
+					ServiceUtils.getXisList(widget));
+		} else if (ServiceUtils.isXisListGroup(widget)) {
+			entityName = ServiceUtils.getXisCompositeWidgetEntityName(widget,
+					ServiceUtils.getXisListGroup(widget));
+		} else if (ServiceUtils.isXisMenu(widget)) {
+			entityName = ServiceUtils.getXisCompositeWidgetEntityName(widget,
+					ServiceUtils.getXisMenu(widget));
+		} else if (ServiceUtils.isXisInteractionSpace(widget)) {
 			for (Parameter p : o.getOwnedParameters()) {
 				if (p.getName().equalsIgnoreCase("entityName")) {
 					entityName = p.getDefault();
