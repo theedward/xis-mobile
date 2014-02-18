@@ -355,7 +355,12 @@ public class Services {
 						}
 					}
 				}
-				owner = (Class) owner.getOwner();
+
+				if (owner.getOwner() instanceof Class) {
+					owner = (Class) owner.getOwner();
+				} else {
+					break;
+				}
 			}
 		}
 		return operations;
