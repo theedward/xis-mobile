@@ -7,7 +7,14 @@
     <packagedElement xmi:type="uml:Package" xmi:id="_tT0bgCXGEeO-A4R6esSaTA" name="Package1">
       <packagedElement xmi:type="uml:Package" xmi:id="_wdHHsCXGEeO-A4R6esSaTA" name="Package2">
         <packagedElement xmi:type="uml:Class" xmi:id="_e35kwCBFEeO_m-zgIyufMQ" name="MyIS">
-          <nestedClassifier xmi:type="uml:Class" xmi:id="_Bl2ckCEtEeOdVNfQLTcG7A" name="MyButton"/>
+          <nestedClassifier xmi:type="uml:Class" xmi:id="_Bl2ckCEtEeOdVNfQLTcG7A" name="MyButton">
+            <ownedOperation xmi:id="_2Q1cMJi5EeOV_sU3zAzbsg" name="editMy">
+              <ownedParameter xmi:id="_LqTUIJi6EeOV_sU3zAzbsg" name="entityName" isUnique="false">
+                <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+                <defaultValue xmi:type="uml:LiteralString" xmi:id="_LqTUIZi6EeOV_sU3zAzbsg" value="Task"/>
+              </ownedParameter>
+            </ownedOperation>
+          </nestedClassifier>
           <nestedClassifier xmi:type="uml:Class" xmi:id="_2DkLMCnqEeOBD5ExxoPX3A" name="MyLabel"/>
           <nestedClassifier xmi:type="uml:Class" xmi:id="_DUiL8CEtEeOdVNfQLTcG7A" name="MyImage"/>
         </packagedElement>
@@ -137,7 +144,7 @@
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="_HjwxoG7uEeOZI-NJjiFaWg" name="EditIS">
           <nestedClassifier xmi:type="uml:Class" xmi:id="_dp614IuJEeOk7t1dRuA8Cg" name="MyStupidButton">
-            <ownedOperation xmi:id="_OGCwwHffEeOomty_KwNr7w" name="editMy">
+            <ownedOperation xmi:id="_OGCwwHffEeOomty_KwNr7w" name="save">
               <ownedParameter xmi:id="_ZpHXcHhEEeOLbMxgcGne3g" name="entityName">
                 <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
                 <defaultValue xmi:type="uml:LiteralString" xmi:id="_uKDE4HhEEeOLbMxgcGne3g" name="" value="Task"/>
@@ -149,7 +156,7 @@
             <nestedClassifier xmi:type="uml:Class" xmi:id="_5QWE4Jf2EeOi3Nromc_dpw" name="CategoryTextBox"/>
           </nestedClassifier>
         </packagedElement>
-        <packagedElement xmi:type="uml:Association" xmi:id="_ViVlU27uEeOZI-NJjiFaWg" name="editMy" memberEnd="_ViVlVG7uEeOZI-NJjiFaWg _ViVlUG7uEeOZI-NJjiFaWg" navigableOwnedEnd="_ViVlUG7uEeOZI-NJjiFaWg">
+        <packagedElement xmi:type="uml:Association" xmi:id="_ViVlU27uEeOZI-NJjiFaWg" name="editMy" memberEnd="_ViVlVG7uEeOZI-NJjiFaWg _ViVlUG7uEeOZI-NJjiFaWg" navigableOwnedEnd="_ViVlVG7uEeOZI-NJjiFaWg">
           <ownedEnd xmi:id="_ViVlVG7uEeOZI-NJjiFaWg" name="editIS" type="_HjwxoG7uEeOZI-NJjiFaWg" association="_ViVlU27uEeOZI-NJjiFaWg">
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_ViVlVW7uEeOZI-NJjiFaWg" value="1"/>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_ViVlVm7uEeOZI-NJjiFaWg" value="1"/>
@@ -182,7 +189,7 @@
     </profileApplication>
   </uml:Model>
   <XISMobile:XisInteractionSpace xmi:id="_TDjN8FhhEeOqfpDi1piBGQ" isMainScreen="true" base_Class="_e35kwCBFEeO_m-zgIyufMQ" title="MyISTitle is a new one!!"/>
-  <XISMobile:XisButton xmi:id="_UEHTEFhhEeOqfpDi1piBGQ" base_Class="_Bl2ckCEtEeOdVNfQLTcG7A"/>
+  <XISMobile:XisButton xmi:id="_UEHTEFhhEeOqfpDi1piBGQ" base_Class="_Bl2ckCEtEeOdVNfQLTcG7A" onTap="editMy"/>
   <XISMobile:XisMenu xmi:id="_Uk__oGW0EeO59ZqnG9-0yw" base_Class="_MlEUoGW0EeO59ZqnG9-0yw" entityName="Task"/>
   <XISMobile:XisMenu xmi:id="_ZrZ4wGW0EeO59ZqnG9-0yw" base_Class="_PrYlUGW0EeO59ZqnG9-0yw" type="ContextMenu"/>
   <XISMobile:XisMenuAssociation xmi:id="_ee6rEGW0EeO59ZqnG9-0yw" base_Association="_dL5kA2W0EeO59ZqnG9-0yw"/>
@@ -208,10 +215,11 @@
   <XISMobile:XisNavigationAssociation xmi:id="_aRrpUG7uEeOZI-NJjiFaWg" base_Association="_ViVlU27uEeOZI-NJjiFaWg"/>
   <XISMobile:XisDomainAssociation xmi:id="__vmIYG8GEeOZI-NJjiFaWg" base_Association="_8JvcA28GEeOZI-NJjiFaWg"/>
   <XISMobile:XisServer xmi:id="_TOzDEHcKEeOsZuyhiB0NnA" address="google.com" base_Class="_5CIUIHcEEeOsZuyhiB0NnA"/>
-  <XISMobile:XisAction xmi:id="_SDjIIHffEeOomty_KwNr7w" type="Create" base_Operation="_OGCwwHffEeOomty_KwNr7w"/>
-  <XISMobile:XisButton xmi:id="_iM88MIuJEeOk7t1dRuA8Cg" base_Class="_dp614IuJEeOk7t1dRuA8Cg" onTap="editMy"/>
+  <XISMobile:XisAction xmi:id="_SDjIIHffEeOomty_KwNr7w" base_Operation="_OGCwwHffEeOomty_KwNr7w"/>
+  <XISMobile:XisButton xmi:id="_iM88MIuJEeOk7t1dRuA8Cg" base_Class="_dp614IuJEeOk7t1dRuA8Cg" onTap="save"/>
   <XISMobile:XisRemoteService xmi:id="_KRXk4I2OEeO63uuMmDWX7w" base_Interface="_5gZIcGpWEeOec4c1gAF0QA"/>
   <XISMobile:XisTextBox xmi:id="_V84eoJfzEeOi3Nromc_dpw" base_Class="_JsPzcJfzEeOi3Nromc_dpw" entityAttributeName="Task.title"/>
   <XISMobile:XisTextBox xmi:id="_93EYYJf2EeOi3Nromc_dpw" base_Class="_5QWE4Jf2EeOi3Nromc_dpw" entityAttributeName="Category.name"/>
   <XISMobile:XisVisibilityBoundary xmi:id="_1oZTgJgGEeOi3Nromc_dpw" base_Class="_u_yn0JgGEeOi3Nromc_dpw" entityAttributeName="" Create="true" Edit="true"/>
+  <XISMobile:XisAction xmi:id="_35bKoJi5EeOV_sU3zAzbsg" type="Create" navigation="EditIS" base_Operation="_2Q1cMJi5EeOV_sU3zAzbsg"/>
 </xmi:XMI>

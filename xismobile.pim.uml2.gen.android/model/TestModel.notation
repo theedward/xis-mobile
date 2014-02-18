@@ -44,6 +44,17 @@
           <layoutConstraint xmi:type="notation:Bounds" xmi:id="_BnVqXSEtEeOdVNfQLTcG7A"/>
         </children>
         <children xmi:type="notation:BasicCompartment" xmi:id="_BnVqXiEtEeOdVNfQLTcG7A" type="7018">
+          <children xmi:type="notation:Shape" xmi:id="_2Rb5IJi5EeOV_sU3zAzbsg" type="3013" fontName="Segoe UI" lineColor="0">
+            <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_35uFkJi5EeOV_sU3zAzbsg" source="Stereotype_Annotation">
+              <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_35uFkZi5EeOV_sU3zAzbsg" key="StereotypeWithQualifiedNameList" value=""/>
+              <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_35uFkpi5EeOV_sU3zAzbsg" key="StereotypeList" value="XIS-Mobile::XisAction"/>
+              <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_35uFk5i5EeOV_sU3zAzbsg" key="Stereotype_Presentation_Kind" value="HorizontalStereo"/>
+              <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_35uFlJi5EeOV_sU3zAzbsg" key="PropStereoDisplay" value=""/>
+              <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_35uFlZi5EeOV_sU3zAzbsg" key="StereotypePropertyLocation" value="Compartment"/>
+            </eAnnotations>
+            <element xmi:type="uml:Operation" href="TestModel.uml#_2Q1cMJi5EeOV_sU3zAzbsg"/>
+            <layoutConstraint xmi:type="notation:Location" xmi:id="_2Rb5IZi5EeOV_sU3zAzbsg"/>
+          </children>
           <styles xmi:type="notation:TitleStyle" xmi:id="_BnVqXyEtEeOdVNfQLTcG7A"/>
           <styles xmi:type="notation:SortingStyle" xmi:id="_BnVqYCEtEeOdVNfQLTcG7A"/>
           <styles xmi:type="notation:FilteringStyle" xmi:id="_BnVqYSEtEeOdVNfQLTcG7A"/>
