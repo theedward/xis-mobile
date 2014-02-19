@@ -220,6 +220,6 @@
   <XISMobile:XisRemoteService xmi:id="_KRXk4I2OEeO63uuMmDWX7w" base_Interface="_5gZIcGpWEeOec4c1gAF0QA"/>
   <XISMobile:XisTextBox xmi:id="_V84eoJfzEeOi3Nromc_dpw" base_Class="_JsPzcJfzEeOi3Nromc_dpw" entityAttributeName="Task.title"/>
   <XISMobile:XisTextBox xmi:id="_93EYYJf2EeOi3Nromc_dpw" base_Class="_5QWE4Jf2EeOi3Nromc_dpw" entityAttributeName="Category.name"/>
-  <XISMobile:XisVisibilityBoundary xmi:id="_1oZTgJgGEeOi3Nromc_dpw" base_Class="_u_yn0JgGEeOi3Nromc_dpw" entityAttributeName="" Create="true" Edit="true"/>
+  <XISMobile:XisVisibilityBoundary xmi:id="_1oZTgJgGEeOi3Nromc_dpw" base_Class="_u_yn0JgGEeOi3Nromc_dpw" entityAttributeName="" entityName="Category" Create="true" Edit="true"/>
   <XISMobile:XisAction xmi:id="_35bKoJi5EeOV_sU3zAzbsg" type="Create" navigation="EditIS" base_Operation="_2Q1cMJi5EeOV_sU3zAzbsg"/>
 </xmi:XMI>
