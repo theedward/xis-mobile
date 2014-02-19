@@ -44,22 +44,31 @@ mLabel[c.name.toUpperFirst()/] = (XisLabel) findViewById(R.id.label[c.name.toUpp
 String value = String.valueOf(<entity>.<attribute>);
 mLabel.setText(value);
 [/if][/comment]
+[c.writeVisibility('mLabel' + c.name.toUpperFirst())/]
 [elseif (c.isXisTextBox())]
 mTextBox[c.name.toUpperFirst()/] = (XisTextBox) findViewById(R.id.textBox[c.name.toUpperFirst()/]);
+[c.writeVisibility('mTextBox' + c.name.toUpperFirst())/]
 [elseif (c.isXisCheckBox())]
 mCheckBox[c.name.toUpperFirst()/] = (XisCheckBox) findViewById(R.id.checkBox[c.name.toUpperFirst()/]);
+[c.writeVisibility('mCheckBox' + c.name.toUpperFirst())/]
 [elseif (c.isXisButton())]
 mButton[c.name.toUpperFirst()/] = (XisButton) findViewById(R.id.button[c.name.toUpperFirst()/]);
+[c.writeVisibility('mButton' + c.name.toUpperFirst())/]
 [elseif (c.isXisLink())]
 mLink[c.name.toUpperFirst()/] = (XisLink) findViewById(R.id.link[c.name.toUpperFirst()/]);
+[c.writeVisibility('mLink' + c.name.toUpperFirst())/]
 [elseif (c.isXisImage())]
 mImage[c.name.toUpperFirst()/] = (XisImage) findViewById(R.id.image[c.name.toUpperFirst()/]);
+[c.writeVisibility('mImage' + c.name.toUpperFirst())/]
 [elseif (c.isXisDatePicker())]
 mDatePicker[c.name.toUpperFirst()/] = (XisDatePicker) findViewById(R.id.datePicker[c.name.toUpperFirst()/]);
+[c.writeVisibility('mDatePicker' + c.name.toUpperFirst())/]
 [elseif (c.isXisTimePicker())]
 mTimePicker[c.name.toUpperFirst()/] = (XisTimePicker) findViewById(R.id.timePicker[c.name.toUpperFirst()/]);
+[c.writeVisibility('mTimePicker' + c.name.toUpperFirst())/]
 [elseif (c.isXisWebView())]
 mWebView[c.name.toUpperFirst()/] = (XisWebView) findViewById(R.id.web[c.name.toUpperFirst()/]);
+[c.writeVisibility('mWebView' + c.name.toUpperFirst())/]
 [elseif (c.isXisMapView())]
 SupportMapFragment mv = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map[c.name.toUpperFirst()/]);
 mMap[c.name.toUpperFirst()/] = mv.getMap();
@@ -114,6 +123,7 @@ ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.s
 [comment @TODO Add Items to XisDropdown  /]
 adapter.add("TODO");
 mDropdown.setPrompt("Select [c.name/]...");
+[c.writeVisibility('mDropdown' + c.name.toUpperFirst())/]
 [elseif (c.isXisList())]
 mList[c.name.toUpperFirst()/] = (ListView) findViewById(R.id.list[c.name.toUpperFirst()/]);
 [let entity : Class = c.getXisListEntity()]
@@ -122,6 +132,7 @@ mList[c.name.toUpperFirst()/].setAdapter(new [entity.name.toUpperFirst()/]Adapte
 [if (c.hasContextMenu())]
 registerForContextMenu(mList[c.name.toUpperFirst()/]);
 [/if]
+[c.writeVisibility('mList' + c.name.toUpperFirst())/]
 [item.generateListItem()/]
 [c.generateAdapter(entity)/]
 [/let]
@@ -132,11 +143,53 @@ registerForContextMenu(mList[c.name.toUpperFirst()/]);
 [/if]
 [/template]
 
-[template private writeVisibility(c : Class) post (trim())]
+[template private writeVisibility(c : Class, name : String) post (trim())]
 [if (c.owner.oclIsTypeOf(Class) and c.owner.oclAsType(Class).isXisVisibilityBoundary())]
-[let entity : String = c.owner.oclAsType(Class).getXisCompositeWidgetEntityName(c.owner.oclAsType(Class).getXisVisibilityBoundary())]
-[comment @TODO Set Visibility of a widget /]
-<name>.setVisibility(View.INVISIBLE);
+[let boundary : Class = c.owner.oclAsType(Class)]
+[let entity : String = boundary.getXisCompositeWidgetEntityName(boundary.getXisVisibilityBoundary())]
+[comment @FIXME Visibility Modes /]
+[if (not boundary.getXisVisibilityBoundaryCreate() and
+	 not boundary.getXisVisibilityBoundaryView() and
+	 not boundary.getXisVisibilityBoundaryEdit())]
+[name/].setVisibility(View.INVISIBLE);
+[elseif (boundary.getXisVisibilityBoundaryCreate() and
+	 	 not boundary.getXisVisibilityBoundaryView() and
+	 	 not boundary.getXisVisibilityBoundaryEdit())]
+if (!inCreateMode) {
+	[name/].setVisibility(View.INVISIBLE);
+}
+[elseif (not boundary.getXisVisibilityBoundaryCreate() and
+	 	 boundary.getXisVisibilityBoundaryView() and
+	 	 not boundary.getXisVisibilityBoundaryEdit())]
+if (!inViewMode) {
+	[name/].setVisibility(View.INVISIBLE);
+}
+[elseif (not boundary.getXisVisibilityBoundaryCreate() and
+	 	 not boundary.getXisVisibilityBoundaryView() and
+	 	 boundary.getXisVisibilityBoundaryEdit())]
+if (!inEditMode) {
+	[name/].setVisibility(View.INVISIBLE);
+}
+[elseif (boundary.getXisVisibilityBoundaryCreate() and
+	 	 boundary.getXisVisibilityBoundaryView() and
+	 	 not boundary.getXisVisibilityBoundaryEdit())]
+if (inEditMode) {
+	[name/].setVisibility(View.INVISIBLE);
+}
+[elseif (boundary.getXisVisibilityBoundaryCreate() and
+	 	 not boundary.getXisVisibilityBoundaryView() and
+	 	 boundary.getXisVisibilityBoundaryEdit())]
+if (inViewMode) {
+	[name/].setVisibility(View.INVISIBLE);
+}
+[elseif (not boundary.getXisVisibilityBoundaryCreate() and
+	 	 boundary.getXisVisibilityBoundaryView() and
+	 	 boundary.getXisVisibilityBoundaryEdit())]
+if (inCreateMode) {
+	[name/].setVisibility(View.INVISIBLE);
+}
+[/if]
+[/let]
 [/let]
 [/if]
 [/template]
