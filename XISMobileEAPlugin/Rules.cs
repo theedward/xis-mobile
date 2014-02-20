@@ -104,9 +104,9 @@ namespace XISMobileEAPlugin
         {
             EA.Project Project = Repository.GetProjectInterface();
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule01)), rule01);
-            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule02)), rule02);
-            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule03)), rule03);
-            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule04)), rule04);
+            //AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule02)), rule01);
+            //AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule03)), rule01);
+            //AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule04)), rule01);
             //AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule05)), rule05);
             //AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule06)), rule06);
             //AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule07)), rule07);
@@ -237,7 +237,7 @@ namespace XISMobileEAPlugin
 
                     if (arch)
                     {
-                        Project.PublishResult(LookupMap(rule02), EA.EnumMVErrorType.mvError, GetRuleStr(rule02));
+                        Project.PublishResult(LookupMap(rule01), EA.EnumMVErrorType.mvError, GetRuleStr(rule02));
                         isValid = false;
                     }
                     else
@@ -292,7 +292,7 @@ namespace XISMobileEAPlugin
                         || dummy["BusinessEntities View"] != 1 || dummy["Domain View"] != 1
                         || dummy["InteractionSpace View"] != 1 || dummy["NavigationSpace View"] != 1))
                     {
-                        Project.PublishResult(LookupMap(rule03), EA.EnumMVErrorType.mvError, GetRuleStr(rule03));
+                        Project.PublishResult(LookupMap(rule01), EA.EnumMVErrorType.mvError, GetRuleStr(rule03));
                         isValid = false;
                     }
                     else if (!dummy.ContainsKey("BusinessEntities View") || !dummy.ContainsKey("Domain View")
@@ -300,7 +300,7 @@ namespace XISMobileEAPlugin
                             || dummy["BusinessEntities View"] != 1 || dummy["Domain View"] != 1
                             || dummy["InteractionSpace View"] != 1 || dummy["NavigationSpace View"] != 1)
                     {
-                        Project.PublishResult(LookupMap(rule04), EA.EnumMVErrorType.mvError, GetRuleStr(rule04));
+                        Project.PublishResult(LookupMap(rule01), EA.EnumMVErrorType.mvError, GetRuleStr(rule04));
                         isValid = false;
                     }
                 }
