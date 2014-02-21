@@ -20,7 +20,7 @@ namespace XISMobileEAPlugin
         private const string rule04 = "Rule04";
         private const string rule05 = "Rule05";
         private const string rule06 = "Rule06";
-        //private const string rule07 = "Rule07";
+        private const string rule07 = "Rule07";
         //private const string rule08 = "Rule08";
         //private const string rule09 = "Rule09";
 
@@ -71,8 +71,8 @@ namespace XISMobileEAPlugin
                     return "A XisEntity must have at least 1 XisEntityAttribute!";
                 case rule06:
                     return "A XisEntity must only have attributes with stereotype «XisEntityAttribute»!";
-                //case rule03B:
-                //    return "XisEntities must be connected only by XisEntityAssociations or XisEntityInheritances!";
+                case rule07:
+                    return "A XisEntity must be connected only by XisEntityAssociation or XisEntityInheritance!";
                 //case rule04A:
                 //    // validar tipos attrs
                 //    return "XisInteractionSpace must contain at least 1 XisWidget!";
@@ -111,7 +111,7 @@ namespace XISMobileEAPlugin
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule04)), rule01);
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule05)), rule05);
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule06)), rule06);
-            //AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule07)), rule07);
+            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule07)), rule07);
             //AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule08)), rule08);
             //AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule09)), rule09);
             // TODO: expand this list
@@ -161,6 +161,9 @@ namespace XISMobileEAPlugin
                     case rule06:
                         DoRule06(Repository, Element);
                         break;
+                    case rule07:
+                        DoRule07(Repository, Element);
+                        break;
                     default: break;
                 }
             }
@@ -184,7 +187,7 @@ namespace XISMobileEAPlugin
 
         public void RunMethodRule(EA.Repository Repository, string sRuleID, string MethodGUID, long ObjectID)
         {
-            EA.Method method = (EA.Method)Repository.GetMethodByGuid(MethodGUID);
+            EA.Method method = Repository.GetMethodByGuid(MethodGUID);
             if (method != null)
             {
                 switch (LookupMapEx(sRuleID))
@@ -348,7 +351,29 @@ namespace XISMobileEAPlugin
             }
         }
 
-        //// XisEntityAssociations
+        private void DoRule07(EA.Repository Repository, EA.Element Element)
+        {
+            if (Element.Type == "Class" && Element.Stereotype == "XisEntity")
+            {
+                EA.Project Project = Repository.GetProjectInterface();
+                EA.Connector c = null;
+                for (short i = 0; i < Element.Connectors.Count; i++)
+                {
+                    c = Element.Connectors.GetAt(i);
+                    if (c.Stereotype != "XisEntityAssociation")
+                    {
+                        EA.Element client = Repository.GetElementByID(c.ClientID);
+                        EA.Element supplier = Repository.GetElementByID(c.SupplierID);
+                        if (client.Stereotype != "XisEntity" && supplier.Stereotype != "XisEntity")
+                        {
+                            Project.PublishResult(LookupMap(rule07), EA.EnumMVErrorType.mvError, GetRuleStr(rule07));
+                            isValid = false;        
+                        }
+                    }
+                }
+            }
+        }
+
         //private void DoRule03(EA.Repository Repository, EA.Connector Connector)
         //{
         //    EA.Element client = Repository.GetElementByID(Connector.ClientID);
