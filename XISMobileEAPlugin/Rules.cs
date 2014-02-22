@@ -23,6 +23,8 @@ namespace XISMobileEAPlugin
         private const string rule07 = "Rule07";
         private const string rule08 = "Rule08";
         private const string rule09 = "Rule09";
+        private const string rule10 = "Rule10";
+        private const string rule11 = "Rule11";
 
         public Rules()
         {
@@ -77,6 +79,10 @@ namespace XISMobileEAPlugin
                     return "XisEntityAssociation must only connect XisEntities!";
                 case rule09:
                     return "XisEntityInheritance must only connect XisEntities!";
+                case rule10:
+                    return "A XisEnumeration must have at least 1 XisEnumerationValue!";
+                case rule11:
+                    return "A XisEnumeration must only have attributes with stereotype «XisEnumerationValue»!";
                 //case rule04A:
                 //    // validar tipos attrs
                 //    return "XisInteractionSpace must contain at least 1 XisWidget!";
@@ -115,6 +121,8 @@ namespace XISMobileEAPlugin
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule07)), rule07);
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule08)), rule08);
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule09)), rule09);
+            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule10)), rule10);
+            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule11)), rule11);
             // TODO: expand this list
         }
 
@@ -161,6 +169,12 @@ namespace XISMobileEAPlugin
                         break;
                     case rule06:
                         DoRule06(Repository, Element);
+                        break;
+                    case rule10:
+                        DoRule10(Repository, Element);
+                        break;
+                    case rule11:
+                        DoRule11(Repository, Element);
                         break;
                     default: break;
                 }
@@ -394,6 +408,35 @@ namespace XISMobileEAPlugin
             {
                 Project.PublishResult(LookupMap(rule09), EA.EnumMVErrorType.mvError, GetRuleStr(rule09));
                 isValid = false;
+            }
+        }
+
+        private void DoRule10(EA.Repository Repository, EA.Element Element)
+        {
+            if (Element.Stereotype == "XisEnumeration" && Element.Attributes.Count == 0)
+            {
+                EA.Project Project = Repository.GetProjectInterface();
+                Project.PublishResult(LookupMap(rule10), EA.EnumMVErrorType.mvError, GetRuleStr(rule10));
+                isValid = false;
+            }
+        }
+
+        private void DoRule11(EA.Repository Repository, EA.Element Element)
+        {
+            if (Element.Stereotype == "XisEnumeration" && Element.Attributes.Count > 0)
+            {
+                EA.Attribute attr = null;
+                for (short i = 0; i < Element.Attributes.Count; i++)
+                {
+                    attr = Element.Attributes.GetAt(i);
+                    if (attr.Stereotype != "XisEnumerationValue")
+                    {
+                        EA.Project Project = Repository.GetProjectInterface();
+                        Project.PublishResult(LookupMap(rule11), EA.EnumMVErrorType.mvError, GetRuleStr(rule11));
+                        isValid = false;
+                        break;
+                    }
+                }
             }
         }
 
