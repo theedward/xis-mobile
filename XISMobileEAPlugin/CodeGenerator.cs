@@ -164,24 +164,24 @@ namespace XISMobileEAPlugin
             rules.RunPackageRule(Repository, RuleID, PackageID);
         }
 
-        public void EA_OnRunDiagramRule(EA.Repository Repository, string RuleID, long lDiagramID)
+        public void EA_OnRunDiagramRule(EA.Repository Repository, string RuleID, long DiagramID)
         {
-            rules.RunDiagramRule(Repository, RuleID, lDiagramID);
+            rules.RunDiagramRule(Repository, RuleID, DiagramID);
         }
 
-        public void EA_OnRunElementRule(EA.Repository Repository, string RuleID, EA.Element element)
+        public void EA_OnRunElementRule(EA.Repository Repository, string RuleID, EA.Element Element)
         {
-            rules.RunElementRule(Repository, RuleID, element);
+            rules.RunElementRule(Repository, RuleID, Element);
         }
 
-        public void EA_OnRunAttributeRule(EA.Repository Repository, string RuleID, string AttGUID, long lObjectID)
+        public void EA_OnRunAttributeRule(EA.Repository Repository, string RuleID, string AttributeGUID, long ObjectID)
         {
-            // DO NOTHING
+            rules.RunAttributeRule(Repository, RuleID, AttributeGUID, ObjectID);
         }
 
-        public void EA_OnRunConnectorRule(EA.Repository Repository, string RuleID, long lConnectorID)
+        public void EA_OnRunConnectorRule(EA.Repository Repository, string RuleID, long ConnectorID)
         {
-            rules.RunConnectorRule(Repository, RuleID, lConnectorID);
+            rules.RunConnectorRule(Repository, RuleID, ConnectorID);
         }
 
         public void EA_OnRunMethodRule(EA.Repository Repository, string RuleID, string MethodGUID, long ObjectID)
