@@ -364,7 +364,7 @@ namespace XISMobileEAPlugin
                     {
                         EA.Element client = Repository.GetElementByID(c.ClientID);
                         EA.Element supplier = Repository.GetElementByID(c.SupplierID);
-                        if (client.Stereotype != "XisEntity" && supplier.Stereotype != "XisEntity")
+                        if (client.Stereotype == "XisEntity" && supplier.Stereotype == "XisEntity")
                         {
                             Project.PublishResult(LookupMap(rule07), EA.EnumMVErrorType.mvError, GetRuleStr(rule07));
                             isValid = false;        
