@@ -110,9 +110,6 @@ namespace XISMobileEAPlugin
         {
             EA.Project Project = Repository.GetProjectInterface();
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule01)), rule01);
-            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule02)), rule02);
-            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule03)), rule03);
-            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule04)), rule04);
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule05)), rule05);
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule06)), rule06);
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule07)), rule07);
@@ -123,13 +120,13 @@ namespace XISMobileEAPlugin
 
         public void RunPackageRule(EA.Repository Repository, string sRuleID, long PackageID)
         {
-            EA.Package package = Repository.GetPackageByID((int)PackageID);
-            if (package != null)
+            EA.Package Package = Repository.GetPackageByID((int)PackageID);
+            if (Package != null)
             {
                 switch (LookupMapEx(sRuleID))
                 {
                     case rule01:
-                        DoRule01_04(Repository, PackageID);
+                        DoRule01_04(Repository, Package);
                         break;
                     default:
                         break;
@@ -209,13 +206,13 @@ namespace XISMobileEAPlugin
         }
 
         // Validate number of views
-        private void DoRule01_04(EA.Repository Repository, long PackageID)
+        private void DoRule01_04(EA.Repository Repository, EA.Package Package)
         {
             EA.Project Project = Repository.GetProjectInterface();
             EA.Package model = (EA.Package)Repository.Models.GetAt(0);
             EA.Package view = (EA.Package)model.Packages.GetAt(0);
 
-            if (view.PackageID == PackageID)
+            if (view.PackageID == Package.PackageID)
             {
                 if (view.Packages.Count < 3)
                 {
@@ -364,7 +361,7 @@ namespace XISMobileEAPlugin
             EA.Element client = Repository.GetElementByID(Connector.ClientID);
             EA.Element supplier = Repository.GetElementByID(Connector.SupplierID);
 
-            if (Connector.Stereotype != "XisAssociation" && Connector.Stereotype != "XisEntityInheritance"
+            if (Connector.Stereotype != "XisEntityAssociation" && Connector.Stereotype != "XisEntityInheritance"
                 && client.Stereotype == "XisEntity" && supplier.Stereotype == "XisEntity")
             {
                 Project.PublishResult(LookupMap(rule07), EA.EnumMVErrorType.mvError, GetRuleStr(rule07));
@@ -397,7 +394,7 @@ namespace XISMobileEAPlugin
             {
                 Project.PublishResult(LookupMap(rule09), EA.EnumMVErrorType.mvError, GetRuleStr(rule09));
                 isValid = false;
-	        }
+            }
         }
 
         //// XisInteractionSpace composed of XisWidgets
