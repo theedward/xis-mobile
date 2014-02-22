@@ -21,8 +21,8 @@ namespace XISMobileEAPlugin
         private const string rule05 = "Rule05";
         private const string rule06 = "Rule06";
         private const string rule07 = "Rule07";
-        //private const string rule08 = "Rule08";
-        //private const string rule09 = "Rule09";
+        private const string rule08 = "Rule08";
+        private const string rule09 = "Rule09";
 
         public Rules()
         {
@@ -72,7 +72,11 @@ namespace XISMobileEAPlugin
                 case rule06:
                     return "A XisEntity must only have attributes with stereotype «XisEntityAttribute»!";
                 case rule07:
-                    return "A XisEntity must be connected only by XisEntityAssociation or XisEntityInheritance!";
+                    return "XisEntities must be connected only by XisEntityAssociation or XisEntityInheritance!";
+                case rule08:
+                    return "XisEntityAssociation must only connect XisEntities!";
+                case rule09:
+                    return "XisEntityInheritance must only connect XisEntities!";
                 //case rule04A:
                 //    // validar tipos attrs
                 //    return "XisInteractionSpace must contain at least 1 XisWidget!";
@@ -106,14 +110,14 @@ namespace XISMobileEAPlugin
         {
             EA.Project Project = Repository.GetProjectInterface();
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule01)), rule01);
-            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule02)), rule01);
-            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule03)), rule01);
-            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule04)), rule01);
+            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule02)), rule02);
+            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule03)), rule03);
+            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule04)), rule04);
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule05)), rule05);
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule06)), rule06);
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule07)), rule07);
-            //AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule08)), rule08);
-            //AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule09)), rule09);
+            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule08)), rule08);
+            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule09)), rule09);
             // TODO: expand this list
         }
 
@@ -175,6 +179,12 @@ namespace XISMobileEAPlugin
                 {
                     case rule07:
                         DoRule07(Repository, Connector);
+                        break;
+                    case rule08:
+                        DoRule08(Repository, Connector);
+                        break;
+                    case rule09:
+                        DoRule09(Repository, Connector);
                         break;
                     default:
                         break;
@@ -351,39 +361,44 @@ namespace XISMobileEAPlugin
         private void DoRule07(EA.Repository Repository, EA.Connector Connector)
         {
             EA.Project Project = Repository.GetProjectInterface();
-            if (Connector.Stereotype != "XisEntityAssociation")
+            EA.Element client = Repository.GetElementByID(Connector.ClientID);
+            EA.Element supplier = Repository.GetElementByID(Connector.SupplierID);
+
+            if (Connector.Stereotype != "XisAssociation" && Connector.Stereotype != "XisEntityInheritance"
+                && client.Stereotype == "XisEntity" && supplier.Stereotype == "XisEntity")
             {
-                EA.Element client = Repository.GetElementByID(Connector.ClientID);
-                EA.Element supplier = Repository.GetElementByID(Connector.SupplierID);
-                if (client.Stereotype == "XisEntity" && supplier.Stereotype == "XisEntity")
-                {
-                    Project.PublishResult(LookupMap(rule07), EA.EnumMVErrorType.mvError, GetRuleStr(rule07));
-                    isValid = false;        
-                }
+                Project.PublishResult(LookupMap(rule07), EA.EnumMVErrorType.mvError, GetRuleStr(rule07));
+                isValid = false;
             }
         }
 
-        //private void DoRule03(EA.Repository Repository, EA.Connector Connector)
-        //{
-        //    EA.Element client = Repository.GetElementByID(Connector.ClientID);
-        //    EA.Element supplier = Repository.GetElementByID(Connector.SupplierID);
+        private void DoRule08(EA.Repository Repository, EA.Connector Connector)
+        {
+            EA.Project Project = Repository.GetProjectInterface();
+            EA.Element client = Repository.GetElementByID(Connector.ClientID);
+            EA.Element supplier = Repository.GetElementByID(Connector.SupplierID);
 
-        //    if (Connector.Stereotype == "XisEntityAssociation")
-        //    {
-        //        if (client.Stereotype != "XisEntity" || supplier.Stereotype != "XisEntity")
-        //        {
-        //            EA.Project Project = Repository.GetProjectInterface();
-        //            Project.PublishResult(LookupMap(rule03), EA.EnumMVErrorType.mvError, GetRuleStr(rule03A));
-        //            isValid = false;
-        //        }
-        //    }
-        //    else if (client.Stereotype == "XisEntity" && supplier.Stereotype == "XisEntity")
-        //    {
-        //        EA.Project Project = Repository.GetProjectInterface();
-        //        Project.PublishResult(LookupMap(rule03), EA.EnumMVErrorType.mvError, GetRuleStr(rule03B));
-        //        isValid = false;
-        //    }
-        //}
+            if (Connector.Stereotype == "XisEntityAssociation"
+                && (client.Stereotype != "XisEntity" || supplier.Stereotype != "XisEntity"))
+            {
+                Project.PublishResult(LookupMap(rule08), EA.EnumMVErrorType.mvError, GetRuleStr(rule08));
+                isValid = false;
+            }
+        }
+
+        private void DoRule09(EA.Repository Repository, EA.Connector Connector)
+        {
+            EA.Project Project = Repository.GetProjectInterface();
+            EA.Element client = Repository.GetElementByID(Connector.ClientID);
+            EA.Element supplier = Repository.GetElementByID(Connector.SupplierID);
+
+            if (Connector.Stereotype == "XisEntityInheritance"
+                && (client.Stereotype != "XisEntity" || supplier.Stereotype != "XisEntity"))
+            {
+                Project.PublishResult(LookupMap(rule09), EA.EnumMVErrorType.mvError, GetRuleStr(rule09));
+                isValid = false;
+	        }
+        }
 
         //// XisInteractionSpace composed of XisWidgets
         //private void DoRule04(EA.Repository Repository, EA.Element Element)
