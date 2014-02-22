@@ -25,6 +25,7 @@ namespace XISMobileEAPlugin
         private const string rule09 = "Rule09";
         private const string rule10 = "Rule10";
         private const string rule11 = "Rule11";
+        private const string rule12 = "Rule12";
 
         public Rules()
         {
@@ -83,6 +84,8 @@ namespace XISMobileEAPlugin
                     return "A XisEnumeration must have at least 1 XisEnumerationValue!";
                 case rule11:
                     return "A XisEnumeration must only have attributes with stereotype «XisEnumerationValue»!";
+                case rule12:
+                    return "A XisEntityAttribute must have a valid type!";
                 //case rule04A:
                 //    // validar tipos attrs
                 //    return "XisInteractionSpace must contain at least 1 XisWidget!";
@@ -123,6 +126,7 @@ namespace XISMobileEAPlugin
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule09)), rule09);
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule10)), rule10);
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule11)), rule11);
+            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule12)), rule12);
             // TODO: expand this list
         }
 
@@ -177,6 +181,22 @@ namespace XISMobileEAPlugin
                         DoRule11(Repository, Element);
                         break;
                     default: break;
+                }
+            }
+        }
+
+        public void RunAttributeRule(EA.Repository Repository, string sRuleID, string AttributeGUID, long ObjectID)
+        {
+            EA.Attribute Attribute = Repository.GetAttributeByGuid(AttributeGUID);
+            if (Attribute != null)
+            {
+                switch (LookupMapEx(sRuleID))
+                {
+                    case rule12:
+                        DoRule12(Repository, Attribute);
+                        break;
+                    default:
+                        break;
                 }
             }
         }
@@ -437,6 +457,22 @@ namespace XISMobileEAPlugin
                         break;
                     }
                 }
+            }
+        }
+
+        private void DoRule12(EA.Repository Repository, EA.Attribute Attribute)
+        {
+            if (Attribute.Stereotype == "XisEntityAttribute")
+            {
+                // TODO: Add attribute types;
+
+                //switch (Attribute.Type)
+                //{
+                //    case "int":
+                //    case "integer":
+                //    default:
+                //        break;
+                //}
             }
         }
 
