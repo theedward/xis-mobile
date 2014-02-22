@@ -161,9 +161,6 @@ namespace XISMobileEAPlugin
                     case rule06:
                         DoRule06(Repository, Element);
                         break;
-                    case rule07:
-                        DoRule07(Repository, Element);
-                        break;
                     default: break;
                 }
             }
@@ -176,9 +173,9 @@ namespace XISMobileEAPlugin
             {
                 switch (LookupMapEx(sRuleID))
                 {
-                    //case rule03:
-                    //    DoRule03(Repository, Connector);
-                    //    break;
+                    case rule07:
+                        DoRule07(Repository, Connector);
+                        break;
                     default:
                         break;
                 }
@@ -351,25 +348,17 @@ namespace XISMobileEAPlugin
             }
         }
 
-        private void DoRule07(EA.Repository Repository, EA.Element Element)
+        private void DoRule07(EA.Repository Repository, EA.Connector Connector)
         {
-            if (Element.Type == "Class" && Element.Stereotype == "XisEntity")
+            EA.Project Project = Repository.GetProjectInterface();
+            if (Connector.Stereotype != "XisEntityAssociation")
             {
-                EA.Project Project = Repository.GetProjectInterface();
-                EA.Connector c = null;
-                for (short i = 0; i < Element.Connectors.Count; i++)
+                EA.Element client = Repository.GetElementByID(Connector.ClientID);
+                EA.Element supplier = Repository.GetElementByID(Connector.SupplierID);
+                if (client.Stereotype == "XisEntity" && supplier.Stereotype == "XisEntity")
                 {
-                    c = Element.Connectors.GetAt(i);
-                    if (c.Stereotype != "XisEntityAssociation")
-                    {
-                        EA.Element client = Repository.GetElementByID(c.ClientID);
-                        EA.Element supplier = Repository.GetElementByID(c.SupplierID);
-                        if (client.Stereotype == "XisEntity" && supplier.Stereotype == "XisEntity")
-                        {
-                            Project.PublishResult(LookupMap(rule07), EA.EnumMVErrorType.mvError, GetRuleStr(rule07));
-                            isValid = false;        
-                        }
-                    }
+                    Project.PublishResult(LookupMap(rule07), EA.EnumMVErrorType.mvError, GetRuleStr(rule07));
+                    isValid = false;        
                 }
             }
         }
