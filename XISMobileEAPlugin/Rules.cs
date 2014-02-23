@@ -462,17 +462,39 @@ namespace XISMobileEAPlugin
 
         private void DoRule12(EA.Repository Repository, EA.Attribute Attribute)
         {
-            if (Attribute.Stereotype == "XisEntityAttribute")
+            if (Attribute.Stereotype == "XisEntityAttribute" && Attribute.Type != null)
             {
-                // TODO: Add attribute types;
+                bool primitive = false;
+                switch (Attribute.Type.ToLower())
+                {
+                    case "int":
+                    case "integer":
+                    case "double":
+                    case "float":
+                    case "long":
+                    case "short":
+                    case "char":
+                    case "string":
+                    case "bool":
+                    case "boolean":
+                    case "byte":
+                    case "date":
+                    case "time":
+                    case "image":
+                    case "url":
+                        primitive = true;
+                        break;
+                    default:
+                        break;
+                }
 
-                //switch (Attribute.Type)
-                //{
-                //    case "int":
-                //    case "integer":
-                //    default:
-                //        break;
-                //}
+                if (!primitive)
+                {
+                    // Check if attribute is an enumeration/class defined in the domain model
+                    EA.Project Project = Repository.GetProjectInterface();
+                    Project.PublishResult(LookupMap(rule12), EA.EnumMVErrorType.mvError, GetRuleStr(rule12));
+                    isValid = false;
+                }
             }
         }
 
