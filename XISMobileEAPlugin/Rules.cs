@@ -43,6 +43,12 @@ namespace XISMobileEAPlugin
         private const string rule23 = "Rule23";
         private const string rule24 = "Rule24";
         private const string rule25 = "Rule25";
+        private const string rule26 = "Rule26";
+        private const string rule27 = "Rule27";
+        private const string rule28 = "Rule28";
+        private const string rule29 = "Rule29";
+        // NavigationSpace View Rules
+        private const string rule30 = "Rule30";
 
         public Rules()
         {
@@ -129,6 +135,16 @@ namespace XISMobileEAPlugin
                     return "A XisMobileApp-ServiceAssociation must connect XisMobileApp (source) to a XisService (target)!";
                 case rule25:
                     return "A XisService must have at least 1 XisServiceMethod!";
+                case rule26:
+                    return "A XisService must only have methods with stereotype «XisMethod»!";
+                case rule27:
+                    return "A XisInternalProvider must realize a XisInternalService!";
+                case rule28:
+                    return "A XisServer must realize a XisRemoteService!";
+                case rule29:
+                    return "A XisClientMobileApp must realize a XisRemoteService!";
+                case rule30:
+                    return "A XisNavigationAssociation must only connect XisInteractionSpaces!";
                 //case rule04A:
                 //    // validar tipos attrs
                 //    return "XisInteractionSpace must contain at least 1 XisWidget!";
@@ -183,6 +199,10 @@ namespace XISMobileEAPlugin
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule23)), rule23);
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule24)), rule24);
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule25)), rule25);
+            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule26)), rule26);
+            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule27)), rule27);
+            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule28)), rule28);
+            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule29)), rule29);
             // TODO: expand this list
         }
 
@@ -251,6 +271,21 @@ namespace XISMobileEAPlugin
                     case rule23:
                         DoRule23(Repository, Element);
                         break;
+                    case rule25:
+                        DoRule25(Repository, Element);
+                        break;
+                    case rule26:
+                        DoRule26(Repository, Element);
+                        break;
+                    case rule27:
+                        DoRule27(Repository, Element);
+                        break;
+                    case rule28:
+                        DoRule28(Repository, Element);
+                        break;
+                    case rule29:
+                        DoRule29(Repository, Element);
+                        break;
                     default:
                         break;
                 }
@@ -309,6 +344,9 @@ namespace XISMobileEAPlugin
                         break;
                     case rule24:
                         DoRule24(Repository, Connector);
+                        break;
+                    case rule30:
+                        DoRule30(Repository, Connector);
                         break;
                     default:
                         break;
@@ -887,6 +925,97 @@ namespace XISMobileEAPlugin
                 {
                     EA.Project Project = Repository.GetProjectInterface();
                     Project.PublishResult(LookupMap(rule24), EA.EnumMVErrorType.mvError, GetRuleStr(rule24));
+                    isValid = false;
+                }
+            }
+        }
+
+        private void DoRule25(EA.Repository Repository, EA.Element Element)
+        {
+            if (Element.Type == "Interface" && (Element.Stereotype == "XisInternalService" || Element.Stereotype == "XisRemoteService"))
+            {
+                if (Element.Methods.Count == 0)
+                {
+                    EA.Project Project = Repository.GetProjectInterface();
+                    Project.PublishResult(LookupMap(rule25), EA.EnumMVErrorType.mvError, GetRuleStr(rule25));
+                    isValid = false;
+                }
+            }
+        }
+
+        private void DoRule26(EA.Repository Repository, EA.Element Element)
+        {
+            if (Element.Type == "Interface" && (Element.Stereotype == "XisInternalService" || Element.Stereotype == "XisRemoteService"))
+            {
+                if (Element.Methods.Count > 0)
+                {
+                    EA.Method method = null;
+
+                    for (short i = 0; i < Element.Methods.Count; i++)
+                    {
+                        method = Element.Methods.GetAt(i);
+
+                        if (method.Stereotype != "XisMethod")
+                        {
+                            EA.Project Project = Repository.GetProjectInterface();
+                            Project.PublishResult(LookupMap(rule26), EA.EnumMVErrorType.mvError, GetRuleStr(rule26));
+                            isValid = false;       
+                        }
+                    }
+                }
+            }
+        }
+
+        private void DoRule27(EA.Repository Repository, EA.Element Element)
+        {
+            if (Element.Type == "Class" && Element.Stereotype == "XisInternalProvider")
+            {
+                if (Element.Connectors.Count == 0)
+                {
+                    EA.Project Project = Repository.GetProjectInterface();
+                    Project.PublishResult(LookupMap(rule27), EA.EnumMVErrorType.mvError, GetRuleStr(rule27));
+                    isValid = false; 
+                }
+            }
+        }
+
+        private void DoRule28(EA.Repository Repository, EA.Element Element)
+        {
+            if (Element.Type == "Class" && Element.Stereotype == "XisServer")
+            {
+                if (Element.Connectors.Count == 0)
+                {
+                    EA.Project Project = Repository.GetProjectInterface();
+                    Project.PublishResult(LookupMap(rule28), EA.EnumMVErrorType.mvError, GetRuleStr(rule28));
+                    isValid = false;
+                }
+            }
+        }
+
+        private void DoRule29(EA.Repository Repository, EA.Element Element)
+        {
+            if (Element.Type == "Class" && Element.Stereotype == "XisClientMobileApp")
+            {
+                if (Element.Connectors.Count == 0)
+                {
+                    EA.Project Project = Repository.GetProjectInterface();
+                    Project.PublishResult(LookupMap(rule29), EA.EnumMVErrorType.mvError, GetRuleStr(rule29));
+                    isValid = false;
+                }
+            }
+        }
+
+        private void DoRule30(EA.Repository Repository, EA.Connector Connector)
+        {
+            if (Connector.Stereotype == "XisNavigationAssociation")
+            {
+                EA.Element client = Repository.GetElementByID(Connector.ClientID);
+                EA.Element supplier = Repository.GetElementByID(Connector.SupplierID);
+
+                if (client.Stereotype != "XisInteractionSpace" || supplier.Stereotype != "XisInteractionSpace")
+                {
+                    EA.Project Project = Repository.GetProjectInterface();
+                    Project.PublishResult(LookupMap(rule30), EA.EnumMVErrorType.mvError, GetRuleStr(rule30));
                     isValid = false;
                 }
             }
