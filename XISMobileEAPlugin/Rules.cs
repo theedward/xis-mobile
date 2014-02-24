@@ -105,6 +105,14 @@ namespace XISMobileEAPlugin
                     return "A XisBE-EntityReferenceAssociation must connect a XisBusinessEntity (source) to a XisEntity (target)";
                 case rule16:
                     return "XisBusinessEntities must have 1 XisBE-EntityMasterAssociation!";
+                case rule17:
+                    return "There must be 1 starting XisUseCase!";
+                case rule18:
+                    return "XisEntityUseCases must be connected to XisBusinessEntities!";
+                case rule19:
+                    return "XisServiceUseCases must be connected to XisBusinessEntities and/or XisProviders!";
+                case rule20:
+                    return "";
                 //case rule04A:
                 //    // validar tipos attrs
                 //    return "XisInteractionSpace must contain at least 1 XisWidget!";
@@ -150,6 +158,9 @@ namespace XISMobileEAPlugin
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule14)), rule14);
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule15)), rule15);
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule16)), rule16);
+            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule17)), rule17);
+            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule18)), rule18);
+            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule19)), rule19);
             // TODO: expand this list
         }
 
@@ -162,6 +173,9 @@ namespace XISMobileEAPlugin
                 {
                     case rule01:
                         DoRule01_04(Repository, Package);
+                        break;
+                    case rule17:
+                        DoRule17(Repository, Package);
                         break;
                     default:
                         break;
@@ -297,6 +311,7 @@ namespace XISMobileEAPlugin
                     for (short i = 0; i < view.Packages.Count; i++)
                     {
                         p = view.Packages.GetAt(i);
+
                         if (p.StereotypeEx == "Architectural View")
                         {
                             arch = true;
@@ -341,6 +356,7 @@ namespace XISMobileEAPlugin
                     for (short i = 0; i < view.Packages.Count; i++)
                     {
                         p = view.Packages.GetAt(i);
+
                         if (p.StereotypeEx == "Architectural View")
                         {
                             arch = true;
@@ -409,9 +425,11 @@ namespace XISMobileEAPlugin
                 if (Element.Attributes.Count > 0)
                 {
                     EA.Attribute attr = null;
+
                     for (short i = 0; i < Element.Attributes.Count; i++)
                     {
                         attr = Element.Attributes.GetAt(i);
+
                         if (attr.Stereotype != "XisEntityAttribute")
                         {
                             EA.Project Project = Repository.GetProjectInterface();
@@ -484,6 +502,7 @@ namespace XISMobileEAPlugin
                 for (short i = 0; i < Element.Attributes.Count; i++)
                 {
                     attr = Element.Attributes.GetAt(i);
+
                     if (attr.Stereotype != "XisEnumerationValue")
                     {
                         EA.Project Project = Repository.GetProjectInterface();
@@ -540,6 +559,7 @@ namespace XISMobileEAPlugin
                         for (short i = 0; i < package.Elements.Count; i++)
                         {
                             el = package.Elements.GetAt(i);
+
                             if (el.Name == Attribute.Type && (el.Stereotype == "XisEntity" || el.Stereotype == "XisEntityInheritance"))
                             {
                                 exists = true;
@@ -610,6 +630,7 @@ namespace XISMobileEAPlugin
                 for (short i = 0; i < Element.Connectors.Count; i++)
                 {
                     conn = Element.Connectors.GetAt(i);
+
                     if (conn.Stereotype == "XisBE-EntityMasterAssociation")
                     {
                         hasMaster = true;
@@ -622,6 +643,46 @@ namespace XISMobileEAPlugin
                     EA.Project Project = Repository.GetProjectInterface();
                     Project.PublishResult(LookupMap(rule16), EA.EnumMVErrorType.mvError, GetRuleStr(rule16));
                     isValid = false;
+                }
+            }
+        }
+
+        private void DoRule17(EA.Repository Repository, EA.Package Package)
+        {
+            if (Package.StereotypeEx == "UseCases View")
+            {
+                List<EA.Element> useCases = new List<EA.Element>();
+                EA.Element el = null;
+
+                for (short i = 0; i < Package.Elements.Count; i++)
+                {
+                    el = Package.Elements.GetAt(i);
+                    if (el.Type == "UseCase" && (el.Stereotype == "XisEntityUseCase" || el.Stereotype == "XisServiceUseCase"))
+                    {
+                        useCases.Add(el);
+                    }
+                }
+
+                if (useCases.Count > 1)
+                {
+                    bool isStartingUseCase = false;
+                    int startingCounter = 0;
+
+                    foreach (EA.Element uc in useCases)
+                    {
+                        isStartingUseCase = bool.Parse(M2MTransformer.GetTaggedValue(el.TaggedValues, "isStartingUseCase").Value);
+                        if (isStartingUseCase)
+                        {
+                            startingCounter++;    
+                        }
+                    }
+
+                    if (startingCounter != 1)
+                    {
+                        EA.Project Project = Repository.GetProjectInterface();
+                        Project.PublishResult(LookupMap(rule17), EA.EnumMVErrorType.mvError, GetRuleStr(rule17));
+                        isValid = false;    
+                    }
                 }
             }
         }
