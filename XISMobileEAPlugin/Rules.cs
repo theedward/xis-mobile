@@ -32,7 +32,7 @@ namespace XISMobileEAPlugin
         private const string rule14 = "Rule14";
         private const string rule15 = "Rule15";
         private const string rule16 = "Rule16";
-
+        // UseCases View Rules
         private const string rule17 = "Rule17";
         private const string rule18 = "Rule18";
         private const string rule19 = "Rule19";
@@ -98,13 +98,13 @@ namespace XISMobileEAPlugin
                 case rule12:
                     return "A XisEntityAttribute must have a valid type!";
                 case rule13:
-                    return "A XisBE_EntityMasterAssociation must connect a XisBusinessEntity (source) to a XisEntity (target)";
+                    return "A XisBE-EntityMasterAssociation must connect a XisBusinessEntity (source) to a XisEntity (target)";
                 case rule14:
-                    return "A XisBE_EntityDetailAssociation must connect a XisBusinessEntity (source) to a XisEntity (target)";
+                    return "A XisBE-EntityDetailAssociation must connect a XisBusinessEntity (source) to a XisEntity (target)";
                 case rule15:
-                    return "A XisBE_EntityReferenceAssociation must connect a XisBusinessEntity (source) to a XisEntity (target)";
+                    return "A XisBE-EntityReferenceAssociation must connect a XisBusinessEntity (source) to a XisEntity (target)";
                 case rule16:
-                    return "XisBusinessEntities must have 1 XisBE_EntityMasterAssociation!";
+                    return "XisBusinessEntities must have 1 XisBE-EntityMasterAssociation!";
                 //case rule04A:
                 //    // validar tipos attrs
                 //    return "XisInteractionSpace must contain at least 1 XisWidget!";
@@ -563,7 +563,7 @@ namespace XISMobileEAPlugin
             EA.Element client = Repository.GetElementByID(Connector.ClientID);
             EA.Element supplier = Repository.GetElementByID(Connector.SupplierID);
 
-            if (Connector.Stereotype == "XisBE_EntityMasterAssociation"
+            if (Connector.Stereotype == "XisBE-EntityMasterAssociation"
                 && (client.Stereotype != "XisBusinessEntity" || supplier.Stereotype != "XisEntity"))
             {
                 EA.Project Project = Repository.GetProjectInterface();
@@ -577,7 +577,7 @@ namespace XISMobileEAPlugin
             EA.Element client = Repository.GetElementByID(Connector.ClientID);
             EA.Element supplier = Repository.GetElementByID(Connector.SupplierID);
 
-            if (Connector.Stereotype == "XisBE_EntityDetailAssociation"
+            if (Connector.Stereotype == "XisBE-EntityDetailAssociation"
                 && (client.Stereotype != "XisBusinessEntity" || supplier.Stereotype != "XisEntity"))
             {
                 EA.Project Project = Repository.GetProjectInterface();
@@ -591,7 +591,7 @@ namespace XISMobileEAPlugin
             EA.Element client = Repository.GetElementByID(Connector.ClientID);
             EA.Element supplier = Repository.GetElementByID(Connector.SupplierID);
 
-            if (Connector.Stereotype == "XisBE_EntityReferenceAssociation"
+            if (Connector.Stereotype == "XisBE-EntityReferenceAssociation"
                 && (client.Stereotype != "XisBusinessEntity" || supplier.Stereotype != "XisEntity"))
             {
                 EA.Project Project = Repository.GetProjectInterface();
@@ -610,7 +610,7 @@ namespace XISMobileEAPlugin
                 for (short i = 0; i < Element.Connectors.Count; i++)
                 {
                     conn = Element.Connectors.GetAt(i);
-                    if (conn.Stereotype == "XisBE_EntityMasterAssociation")
+                    if (conn.Stereotype == "XisBE-EntityMasterAssociation")
                     {
                         hasMaster = true;
                         break;
