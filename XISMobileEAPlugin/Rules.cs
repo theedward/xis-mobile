@@ -39,6 +39,10 @@ namespace XISMobileEAPlugin
         private const string rule20 = "Rule20";
         private const string rule21 = "Rule21";
         private const string rule22 = "Rule22";
+        // Architectural View Rules
+        private const string rule23 = "Rule23";
+        private const string rule24 = "Rule24";
+        private const string rule25 = "Rule25";
 
         public Rules()
         {
@@ -100,11 +104,11 @@ namespace XISMobileEAPlugin
                 case rule12:
                     return "A XisEntityAttribute must have a valid type!";
                 case rule13:
-                    return "A XisBE-EntityMasterAssociation must connect a XisBusinessEntity (source) to a XisEntity (target)";
+                    return "A XisBE-EntityMasterAssociation must connect a XisBusinessEntity (source) to a XisEntity (target)!";
                 case rule14:
-                    return "A XisBE-EntityDetailAssociation must connect a XisBusinessEntity (source) to a XisEntity (target)";
+                    return "A XisBE-EntityDetailAssociation must connect a XisBusinessEntity (source) to a XisEntity (target)!";
                 case rule15:
-                    return "A XisBE-EntityReferenceAssociation must connect a XisBusinessEntity (source) to a XisEntity (target)";
+                    return "A XisBE-EntityReferenceAssociation must connect a XisBusinessEntity (source) to a XisEntity (target)!";
                 case rule16:
                     return "XisBusinessEntities must have 1 XisBE-EntityMasterAssociation!";
                 case rule17:
@@ -114,11 +118,17 @@ namespace XISMobileEAPlugin
                 case rule19:
                     return "XisServiceUseCases must be connected to XisBusinessEntities and/or XisProviders by XisServiceUC-BEAssociations and XisServiceUC-ProviderAssociations, respectively!";
                 case rule20:
-                    return "A XisEntityUC-BEAssociation must connect a XisEntityUseCase (source) to a XisBusinessEntity (target)";
+                    return "A XisEntityUC-BEAssociation must connect a XisEntityUseCase (source) to a XisBusinessEntity (target)!";
                 case rule21:
-                    return "A XisServiceUC-BEAssociation must connect a XisServiceUseCase (source) to a XisBusinessEntity (target)";
+                    return "A XisServiceUC-BEAssociation must connect a XisServiceUseCase (source) to a XisBusinessEntity (target)!";
                 case rule22:
-                    return "A XisServiceUC-ProviderAssociation must connect a XisServiceUseCase (source) to a XisProvider (target)";
+                    return "A XisServiceUC-ProviderAssociation must connect a XisServiceUseCase (source) to a XisProvider (target)!";
+                case rule23:
+                    return "XisMobileApp must be connected to XisServices by XisMobileApp-ServiceAssociations!";
+                case rule24:
+                    return "A XisMobileApp-ServiceAssociation must connect XisMobileApp (source) to a XisService (target)!";
+                case rule25:
+                    return "A XisService must have at least 1 XisServiceMethod!";
                 //case rule04A:
                 //    // validar tipos attrs
                 //    return "XisInteractionSpace must contain at least 1 XisWidget!";
@@ -170,6 +180,9 @@ namespace XISMobileEAPlugin
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule20)), rule20);
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule21)), rule21);
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule22)), rule22);
+            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule23)), rule23);
+            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule24)), rule24);
+            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule25)), rule25);
             // TODO: expand this list
         }
 
@@ -235,7 +248,11 @@ namespace XISMobileEAPlugin
                     case rule19:
                         DoRule19(Repository, Element);
                         break;
-                    default: break;
+                    case rule23:
+                        DoRule23(Repository, Element);
+                        break;
+                    default:
+                        break;
                 }
             }
         }
@@ -289,6 +306,9 @@ namespace XISMobileEAPlugin
                         break;
                     case rule22:
                         DoRule22(Repository, Connector);
+                        break;
+                    case rule24:
+                        DoRule24(Repository, Connector);
                         break;
                     default:
                         break;
@@ -821,6 +841,52 @@ namespace XISMobileEAPlugin
                 {
                     EA.Project Project = Repository.GetProjectInterface();
                     Project.PublishResult(LookupMap(rule22), EA.EnumMVErrorType.mvError, GetRuleStr(rule22));
+                    isValid = false;
+                }
+            }
+        }
+
+        private void DoRule23(EA.Repository Repository, EA.Element Element)
+        {
+            if (Element.Type == "Class" && Element.Stereotype == "XisMobileApp")
+            {
+                EA.Project Project = Repository.GetProjectInterface();
+
+                if (Element.Connectors.Count > 0)
+                {
+                    EA.Connector conn = null;
+
+                    for (short i = 0; i < Element.Connectors.Count; i++)
+                    {
+                        conn = Element.Connectors.GetAt(i);
+
+                        if (conn.Stereotype != "XisMobileApp-ServiceAssociation")
+                        {
+                            Project.PublishResult(LookupMap(rule23), EA.EnumMVErrorType.mvError, GetRuleStr(rule23));
+                            isValid = false;
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    Project.PublishResult(LookupMap(rule23), EA.EnumMVErrorType.mvError, GetRuleStr(rule23));
+                    isValid = false;
+                }
+            }
+        }
+
+        private void DoRule24(EA.Repository Repository, EA.Connector Connector)
+        {
+            if (Connector.Stereotype == "XisMobileApp-ServiceAssociation")
+            {
+                EA.Element client = Repository.GetElementByID(Connector.ClientID);
+                EA.Element supplier = Repository.GetElementByID(Connector.SupplierID);
+
+                if (client.Stereotype != "XisMobileApp" || supplier.Stereotype != "XisService")
+                {
+                    EA.Project Project = Repository.GetProjectInterface();
+                    Project.PublishResult(LookupMap(rule24), EA.EnumMVErrorType.mvError, GetRuleStr(rule24));
                     isValid = false;
                 }
             }
