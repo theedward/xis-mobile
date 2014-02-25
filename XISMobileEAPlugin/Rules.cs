@@ -161,11 +161,11 @@ namespace XISMobileEAPlugin
                 case rule33:
                     return "All XisInteractionSpace elements must be XisWidgets!";
                 case rule34:
-                    return "";
+                    return "A XisIS-BEAssociation must connect a XisInteractionSpace (source) to a XisBusinessEntity (target)!";
                 case rule35:
-                    return "";
+                    return "A XisIS-MenuAssociation must connect a XisInteractionSpace (source) to a XisMenu (target)!";
                 case rule36:
-                    return "";
+                    return "A XisIS-DialogAssociation must connect a XisInteractionSpace (source) to a XisDialog (target)!";
                 case rule37:
                     return "";
                 case rule38:
@@ -232,6 +232,9 @@ namespace XISMobileEAPlugin
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule31)), rule31);
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule32)), rule32);
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule33)), rule33);
+            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule34)), rule34);
+            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule35)), rule35);
+            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule36)), rule36);
             // TODO: expand this list
         }
 
@@ -385,6 +388,15 @@ namespace XISMobileEAPlugin
                         break;
                     case rule30:
                         DoRule30(Repository, Connector);
+                        break;
+                    case rule34:
+                        DoRule34(Repository, Connector);
+                        break;
+                    case rule35:
+                        DoRule35(Repository, Connector);
+                        break;
+                    case rule36:
+                        DoRule36(Repository, Connector);
                         break;
                     default:
                         break;
@@ -1146,6 +1158,54 @@ namespace XISMobileEAPlugin
                         Project.PublishResult(LookupMap(rule33), EA.EnumMVErrorType.mvError, GetRuleStr(rule33));
                         isValid = false;
                     }  
+                }
+            }
+        }
+
+        private void DoRule34(EA.Repository Repository, EA.Connector Connector)
+        {
+            if (Connector.Stereotype == "XisIS-BEAssociation")
+            {
+                EA.Element client = Repository.GetElementByID(Connector.ClientID);
+                EA.Element supplier = Repository.GetElementByID(Connector.SupplierID);
+
+                if (client.Stereotype != "XisInteractionSpace" || supplier.Stereotype != "XisBusinessEntity")
+                {
+                    EA.Project Project = Repository.GetProjectInterface();
+                    Project.PublishResult(LookupMap(rule34), EA.EnumMVErrorType.mvError, GetRuleStr(rule34));
+                    isValid = false;
+                }
+            }
+        }
+
+        private void DoRule35(EA.Repository Repository, EA.Connector Connector)
+        {
+            if (Connector.Stereotype == "XisIS-MenuAssociation")
+            {
+                EA.Element client = Repository.GetElementByID(Connector.ClientID);
+                EA.Element supplier = Repository.GetElementByID(Connector.SupplierID);
+
+                if (client.Stereotype != "XisInteractionSpace" || supplier.Stereotype != "XisMenu")
+                {
+                    EA.Project Project = Repository.GetProjectInterface();
+                    Project.PublishResult(LookupMap(rule35), EA.EnumMVErrorType.mvError, GetRuleStr(rule35));
+                    isValid = false;
+                }
+            }
+        }
+
+        private void DoRule36(EA.Repository Repository, EA.Connector Connector)
+        {
+            if (Connector.Stereotype == "XisIS-DialogAssociation")
+            {
+                EA.Element client = Repository.GetElementByID(Connector.ClientID);
+                EA.Element supplier = Repository.GetElementByID(Connector.SupplierID);
+
+                if (client.Stereotype != "XisInteractionSpace" || supplier.Stereotype != "XisDialog")
+                {
+                    EA.Project Project = Repository.GetProjectInterface();
+                    Project.PublishResult(LookupMap(rule36), EA.EnumMVErrorType.mvError, GetRuleStr(rule36));
+                    isValid = false;
                 }
             }
         }
