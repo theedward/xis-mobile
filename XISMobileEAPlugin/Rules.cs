@@ -58,6 +58,12 @@ namespace XISMobileEAPlugin
         private const string rule36 = "Rule36";
         private const string rule37 = "Rule37";
         private const string rule38 = "Rule38";
+        private const string rule39 = "Rule39";
+        private const string rule40 = "Rule40";
+        private const string rule41 = "Rule41";
+        private const string rule42 = "Rule42";
+        private const string rule43 = "Rule43";
+        private const string rule44 = "Rule44";
 
         public Rules()
         {
@@ -167,9 +173,19 @@ namespace XISMobileEAPlugin
                 case rule36:
                     return "A XisIS-DialogAssociation must connect a XisInteractionSpace (source) to a XisDialog (target)!";
                 case rule37:
-                    return "";
+                    return "A XisGesture must have 1 XisAction!";
                 case rule38:
-                    return "";
+                    return "A XisWidget-GestureAssociation must connect a XisWidget (source) to a XisGesture (target)!";
+                case rule39:
+                    return "A XisList can only contain XisListItems or XisListGroups!";
+                case rule40:
+                    return "A XisList must contain 1 XisListItem or XisListGroup!";
+                case rule41:
+                    return "A XisListGroup must contain 1 XisListItem!";
+                case rule42:
+                    return "A XisListGroup can only contain 1 XisListItem!";
+                case rule43:
+                    return "A XisListItem can only contain XisWidgets!";
                 //case rule04A:
                 //    // validar tipos attrs
                 //    return "XisInteractionSpace must contain at least 1 XisWidget!";
@@ -235,6 +251,13 @@ namespace XISMobileEAPlugin
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule34)), rule34);
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule35)), rule35);
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule36)), rule36);
+            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule37)), rule37);
+            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule38)), rule38);
+            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule39)), rule39);
+            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule40)), rule40);
+            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule41)), rule41);
+            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule42)), rule42);
+            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule43)), rule43);
             // TODO: expand this list
         }
 
@@ -327,6 +350,24 @@ namespace XISMobileEAPlugin
                     case rule33:
                         DoRule33(Repository, Element);
                         break;
+                    case rule37:
+                        DoRule37(Repository, Element);
+                        break;
+                    case rule39:
+                        DoRule39(Repository, Element);
+                        break;
+                    case rule40:
+                        DoRule40(Repository, Element);
+                        break;
+                    case rule41:
+                        DoRule41(Repository, Element);
+                        break;
+                    case rule42:
+                        DoRule42(Repository, Element);
+                        break;
+                    case rule43:
+                        DoRule43(Repository, Element);
+                        break;
                     default:
                         break;
                 }
@@ -397,6 +438,9 @@ namespace XISMobileEAPlugin
                         break;
                     case rule36:
                         DoRule36(Repository, Connector);
+                        break;
+                    case rule38:
+                        DoRule38(Repository, Connector);
                         break;
                     default:
                         break;
@@ -805,7 +849,7 @@ namespace XISMobileEAPlugin
                         isStartingUseCase = bool.Parse(M2MTransformer.GetTaggedValue(el.TaggedValues, "isStartingUseCase").Value);
                         if (isStartingUseCase)
                         {
-                            startingCounter++;    
+                            startingCounter++;
                         }
                     }
 
@@ -813,7 +857,7 @@ namespace XISMobileEAPlugin
                     {
                         EA.Project Project = Repository.GetProjectInterface();
                         Project.PublishResult(LookupMap(rule17), EA.EnumMVErrorType.mvError, GetRuleStr(rule17));
-                        isValid = false;    
+                        isValid = false;
                     }
                 }
             }
@@ -1009,7 +1053,7 @@ namespace XISMobileEAPlugin
                         {
                             EA.Project Project = Repository.GetProjectInterface();
                             Project.PublishResult(LookupMap(rule26), EA.EnumMVErrorType.mvError, GetRuleStr(rule26));
-                            isValid = false;       
+                            isValid = false;
                         }
                     }
                 }
@@ -1024,7 +1068,7 @@ namespace XISMobileEAPlugin
                 {
                     EA.Project Project = Repository.GetProjectInterface();
                     Project.PublishResult(LookupMap(rule27), EA.EnumMVErrorType.mvError, GetRuleStr(rule27));
-                    isValid = false; 
+                    isValid = false;
                 }
             }
         }
@@ -1157,7 +1201,7 @@ namespace XISMobileEAPlugin
                         EA.Project Project = Repository.GetProjectInterface();
                         Project.PublishResult(LookupMap(rule33), EA.EnumMVErrorType.mvError, GetRuleStr(rule33));
                         isValid = false;
-                    }  
+                    }
                 }
             }
         }
@@ -1210,6 +1254,174 @@ namespace XISMobileEAPlugin
             }
         }
 
+        private void DoRule37(EA.Repository Repository, EA.Element Element)
+        {
+            if (Element.Type == "Class" && Element.Stereotype == "XisGesture")
+            {
+                if (Element.Methods.Count == 1)
+                {
+                    EA.Method method = Element.Methods.GetAt(0);
+
+                    if (method.Stereotype != "XisAction")
+                    {
+                        EA.Project Project = Repository.GetProjectInterface();
+                        Project.PublishResult(LookupMap(rule37), EA.EnumMVErrorType.mvError, GetRuleStr(rule37));
+                        isValid = false;
+                    }
+                }
+                else
+                {
+                    EA.Project Project = Repository.GetProjectInterface();
+                    Project.PublishResult(LookupMap(rule37), EA.EnumMVErrorType.mvError, GetRuleStr(rule37));
+                    isValid = false;
+                }
+            }
+        }
+
+        private void DoRule38(EA.Repository Repository, EA.Connector Connector)
+        {
+            if (Connector.Stereotype == "XisWidget-GestureAssociation")
+            {
+                EA.Element client = Repository.GetElementByID(Connector.ClientID);
+                EA.Element supplier = Repository.GetElementByID(Connector.SupplierID);
+
+                if (supplier.Stereotype != "XisGesture" ||
+                    (client.Stereotype != "XisLabel" && client.Stereotype != "XisTextBox" && client.Stereotype != "XisCheckBox"
+                     && client.Stereotype != "Button" && client.Stereotype != "Link" && client.Stereotype != "XisImage"
+                     && client.Stereotype != "XisDatePicker" && client.Stereotype != "XisTimePicker" && client.Stereotype != "XisDropdown"
+                     && client.Stereotype != "XisListItem" && client.Stereotype != "XisMenuItem"))
+                {
+                    EA.Project Project = Repository.GetProjectInterface();
+                    Project.PublishResult(LookupMap(rule38), EA.EnumMVErrorType.mvError, GetRuleStr(rule38));
+                    isValid = false;
+                }
+            }
+        }
+
+        private void DoRule39(EA.Repository Repository, EA.Element Element)
+        {
+            if (Element.Type == "Class" && Element.Stereotype == "XisList")
+            {
+                if (Element.Elements.Count == 0)
+                {
+                    EA.Project Project = Repository.GetProjectInterface();
+                    Project.PublishResult(LookupMap(rule39), EA.EnumMVErrorType.mvError, GetRuleStr(rule39));
+                    isValid = false;
+                }
+            }
+        }
+
+        private void DoRule40(EA.Repository Repository, EA.Element Element)
+        {
+            if (Element.Type == "Class" && Element.Stereotype == "XisList")
+            {
+                if (Element.Elements.Count > 0)
+                {
+                    EA.Element el = null;
+
+                    for (short i = 0; i < Element.Elements.Count; i++)
+                    {
+                        if (el.Stereotype != "XisListItem" && el.Stereotype != "XisListGroup")
+                        {
+                            EA.Project Project = Repository.GetProjectInterface();
+                            Project.PublishResult(LookupMap(rule40), EA.EnumMVErrorType.mvError, GetRuleStr(rule40));
+                            isValid = false;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        private void DoRule41(EA.Repository Repository, EA.Element Element)
+        {
+            if (Element.Type == "Class" && Element.Stereotype == "XisListGroup")
+            {
+                if (Element.Elements.Count > 0)
+                {
+                    bool hasItem = false;
+                    EA.Element el = null;
+
+                    for (short i = 0; i < Element.Elements.Count; i++)
+                    {
+                        if (el.Stereotype == "XisListItem")
+                        {
+                            hasItem = true;
+                            break;
+                        }
+                    }
+
+                    if (!hasItem)
+                    {
+                        EA.Project Project = Repository.GetProjectInterface();
+                        Project.PublishResult(LookupMap(rule41), EA.EnumMVErrorType.mvError, GetRuleStr(rule41));
+                        isValid = false;
+                    }
+                }
+                else
+                {
+                    EA.Project Project = Repository.GetProjectInterface();
+                    Project.PublishResult(LookupMap(rule41), EA.EnumMVErrorType.mvError, GetRuleStr(rule41));
+                    isValid = false;
+                }
+            }
+        }
+
+        private void DoRule42(EA.Repository Repository, EA.Element Element)
+        {
+            if (Element.Type == "Class" && Element.Stereotype == "XisListGroup")
+            {
+                if (Element.Elements.Count > 0)
+                {
+                    int itemCounter = 0;
+                    EA.Element el = null;
+
+                    for (short i = 0; i < Element.Elements.Count; i++)
+                    {
+                        if (el.Stereotype == "XisListItem")
+                        {
+                            itemCounter++;
+                        }
+
+                        if (itemCounter > 1)
+                        {
+                            EA.Project Project = Repository.GetProjectInterface();
+                            Project.PublishResult(LookupMap(rule42), EA.EnumMVErrorType.mvError, GetRuleStr(rule42));
+                            isValid = false;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        private void DoRule43(EA.Repository Repository, EA.Element Element)
+        {
+            if (Element.Type == "Class" && Element.Stereotype == "XisListItem")
+            {
+                if (Element.Elements.Count > 0)
+                {
+                    EA.Element el = null;
+
+                    for (short i = 0; i < Element.Elements.Count; i++)
+                    {
+                        el = Element.Elements.GetAt(i);
+
+                        if (el.Stereotype != "XisLabel" && el.Stereotype != "XisTextBox" && el.Stereotype != "XisCheckBox"
+                            && el.Stereotype != "Button" && el.Stereotype != "Link" && el.Stereotype != "XisImage"
+                            && el.Stereotype != "XisDatePicker" && el.Stereotype != "XisTimePicker" && el.Stereotype != "XisWebView"
+                            && el.Stereotype != "XisMapView" && el.Stereotype != "XisDropdown")
+                        {
+                            EA.Project Project = Repository.GetProjectInterface();
+                            Project.PublishResult(LookupMap(rule43), EA.EnumMVErrorType.mvError, GetRuleStr(rule43));
+                            isValid = false;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
         //private void DoRule05(EA.Repository Repository, EA.Element Element)
         //{
         //    EA.Package model = (EA.Package)Repository.Models.GetAt(0);
@@ -1237,36 +1449,6 @@ namespace XISMobileEAPlugin
         //                    }
         //                }
         //            }
-        //        }
-        //    }
-        //}
-
-        //// XisGesture must have 1 XisAction
-        //private void DoRule06(EA.Repository Repository, EA.Element Element)
-        //{
-        //    if (Element.Type == "Class" && Element.Stereotype == "XisGesture")
-        //    {
-        //        bool valid = true;
-
-        //        if (Element.Methods.Count == 1)
-        //        {
-        //            EA.Method action = Element.Methods.GetAt(0);
-
-        //            if (action.Stereotype != "XisAction")
-        //            {
-        //                valid = false;
-        //            }
-        //        }
-        //        else
-        //        {
-        //            valid = false;
-        //        }
-
-        //        if (!valid)
-        //        {
-        //            EA.Project Project = Repository.GetProjectInterface();
-        //            Project.PublishResult(LookupMap(rule06), EA.EnumMVErrorType.mvError, GetRuleStr(rule06));
-        //            isValid = false;
         //        }
         //    }
         //}
