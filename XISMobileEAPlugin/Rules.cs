@@ -64,6 +64,10 @@ namespace XISMobileEAPlugin
         private const string rule42 = "Rule42";
         private const string rule43 = "Rule43";
         private const string rule44 = "Rule44";
+        private const string rule45 = "Rule45";
+        private const string rule46 = "Rule46";
+        private const string rule47 = "Rule47";
+        private const string rule48 = "Rule48";
 
         public Rules()
         {
@@ -177,24 +181,25 @@ namespace XISMobileEAPlugin
                 case rule38:
                     return "A XisWidget-GestureAssociation must connect a XisWidget (source) to a XisGesture (target)!";
                 case rule39:
-                    return "A XisList can only contain XisListItems or XisListGroups!";
-                case rule40:
                     return "A XisList must contain 1 XisListItem or XisListGroup!";
+                case rule40:
+                    return "A XisList can only contain XisListItems or XisListGroups!";
                 case rule41:
                     return "A XisListGroup must contain 1 XisListItem!";
                 case rule42:
                     return "A XisListGroup can only contain 1 XisListItem!";
                 case rule43:
                     return "A XisListItem can only contain XisWidgets!";
-                //case rule04A:
-                //    // validar tipos attrs
-                //    return "XisInteractionSpace must contain at least 1 XisWidget!";
-                //case rule04B:
-                //    return "XisInteractionSpace must be only composed of XisWidgets!";
-                //case rule05:
-                //    return "XisLists can only be composed of XisListGroups or XisListItems!";
-                //case rule06:
-                //    return "XisGestures must have 1 XisAction!";
+                case rule44:
+                    return "A XisMenu must contain at least 1 XisMenuItem or XisMenuGroup!";
+                case rule45:
+                    return "A XisMenu can only contain XisMenuItems or XisMenuGroups!";
+                case rule46:
+                    return "A XisMenuGroup must contain at least 1 XisMenuItem!";
+                case rule47:
+                    return "A XisMenuGroup can only contain XisMenuItems!";
+                case rule48:
+                    return "A XisMenuItem cannot contain other elements!";
                 //case rule07:
                 //    return "XisActions must be owned only by XisGestures!";
                 //case rule08:
@@ -258,6 +263,11 @@ namespace XISMobileEAPlugin
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule41)), rule41);
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule42)), rule42);
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule43)), rule43);
+            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule44)), rule44);
+            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule45)), rule45);
+            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule46)), rule46);
+            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule47)), rule47);
+            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule48)), rule48);
             // TODO: expand this list
         }
 
@@ -367,6 +377,21 @@ namespace XISMobileEAPlugin
                         break;
                     case rule43:
                         DoRule43(Repository, Element);
+                        break;
+                    case rule44:
+                        DoRule44(Repository, Element);
+                        break;
+                    case rule45:
+                        DoRule45(Repository, Element);
+                        break;
+                    case rule46:
+                        DoRule46(Repository, Element);
+                        break;
+                    case rule47:
+                        DoRule47(Repository, Element);
+                        break;
+                    case rule48:
+                        DoRule48(Repository, Element);
                         break;
                     default:
                         break;
@@ -1418,6 +1443,110 @@ namespace XISMobileEAPlugin
                             break;
                         }
                     }
+                }
+            }
+        }
+
+        private void DoRule44(EA.Repository Repository, EA.Element Element)
+        {
+            if (Element.Type == "Class" && Element.Stereotype == "XisMenu")
+            {
+                if (Element.Elements.Count == 0)
+                {
+                    EA.Project Project = Repository.GetProjectInterface();
+                    Project.PublishResult(LookupMap(rule44), EA.EnumMVErrorType.mvError, GetRuleStr(rule44));
+                    isValid = false;
+                }
+            }
+        }
+
+        private void DoRule45(EA.Repository Repository, EA.Element Element)
+        {
+            if (Element.Type == "Class" && Element.Stereotype == "XisMenu")
+            {
+                if (Element.Elements.Count > 0)
+                {
+                    EA.Element el = null;
+
+                    for (short i = 0; i < Element.Elements.Count; i++)
+                    {
+                        if (el.Stereotype != "XisMenuItem" && el.Stereotype != "XisMenuGroup")
+                        {
+                            EA.Project Project = Repository.GetProjectInterface();
+                            Project.PublishResult(LookupMap(rule45), EA.EnumMVErrorType.mvError, GetRuleStr(rule45));
+                            isValid = false;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        private void DoRule46(EA.Repository Repository, EA.Element Element)
+        {
+            if (Element.Type == "Class" && Element.Stereotype == "XisMenuGroup")
+            {
+                if (Element.Elements.Count > 0)
+                {
+                    bool hasItem = false;
+                    EA.Element el = null;
+
+                    for (short i = 0; i < Element.Elements.Count; i++)
+                    {
+                        if (el.Stereotype == "XisMenuItem")
+                        {
+                            hasItem = true;
+                            break;
+                        }
+                    }
+
+                    if (!hasItem)
+                    {
+                        EA.Project Project = Repository.GetProjectInterface();
+                        Project.PublishResult(LookupMap(rule46), EA.EnumMVErrorType.mvError, GetRuleStr(rule46));
+                        isValid = false;
+                    }
+                }
+                else
+                {
+                    EA.Project Project = Repository.GetProjectInterface();
+                    Project.PublishResult(LookupMap(rule46), EA.EnumMVErrorType.mvError, GetRuleStr(rule46));
+                    isValid = false;
+                }
+            }
+        }
+
+        private void DoRule47(EA.Repository Repository, EA.Element Element)
+        {
+            if (Element.Type == "Class" && Element.Stereotype == "XisMenuGroup")
+            {
+                if (Element.Elements.Count > 0)
+                {
+                    EA.Element el = null;
+
+                    for (short i = 0; i < Element.Elements.Count; i++)
+                    {
+                        if (el.Stereotype != "XisListItem")
+                        {
+                            EA.Project Project = Repository.GetProjectInterface();
+                            Project.PublishResult(LookupMap(rule47), EA.EnumMVErrorType.mvError, GetRuleStr(rule47));
+                            isValid = false;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        private void DoRule48(EA.Repository Repository, EA.Element Element)
+        {
+            if (Element.Type == "Class" && Element.Stereotype == "XisMenuItem")
+            {
+                if (Element.Elements.Count > 0)
+                {
+                    EA.Project Project = Repository.GetProjectInterface();
+                    Project.PublishResult(LookupMap(rule48), EA.EnumMVErrorType.mvError, GetRuleStr(rule48));
+                    isValid = false;
                 }
             }
         }
