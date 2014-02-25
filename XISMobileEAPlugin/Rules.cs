@@ -49,6 +49,15 @@ namespace XISMobileEAPlugin
         private const string rule29 = "Rule29";
         // NavigationSpace View Rules
         private const string rule30 = "Rule30";
+        // InteractionSpace View Rules
+        private const string rule31 = "Rule31";
+        private const string rule32 = "Rule32";
+        private const string rule33 = "Rule33";
+        private const string rule34 = "Rule34";
+        private const string rule35 = "Rule35";
+        private const string rule36 = "Rule36";
+        private const string rule37 = "Rule37";
+        private const string rule38 = "Rule38";
 
         public Rules()
         {
@@ -145,6 +154,22 @@ namespace XISMobileEAPlugin
                     return "A XisClientMobileApp must realize a XisRemoteService!";
                 case rule30:
                     return "A XisNavigationAssociation must only connect XisInteractionSpaces!";
+                case rule31:
+                    return "There must be 1 XisInteractionSpace that is main screen!";
+                case rule32:
+                    return "";
+                case rule33:
+                    return "";
+                case rule34:
+                    return "";
+                case rule35:
+                    return "";
+                case rule36:
+                    return "";
+                case rule37:
+                    return "";
+                case rule38:
+                    return "";
                 //case rule04A:
                 //    // validar tipos attrs
                 //    return "XisInteractionSpace must contain at least 1 XisWidget!";
@@ -203,6 +228,7 @@ namespace XISMobileEAPlugin
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule27)), rule27);
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule28)), rule28);
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule29)), rule29);
+            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule30)), rule30);
             // TODO: expand this list
         }
 
