@@ -155,11 +155,11 @@ namespace XISMobileEAPlugin
                 case rule30:
                     return "A XisNavigationAssociation must only connect XisInteractionSpaces!";
                 case rule31:
-                    return "There must be 1 XisInteractionSpace that is main screen!";
+                    return "There must be 1 XisInteractionSpace that is the main screen!";
                 case rule32:
-                    return "";
+                    return "A XisInteractionSpace must have at least 1 XisWidget!";
                 case rule33:
-                    return "";
+                    return "All XisInteractionSpace elements must be XisWidgets!";
                 case rule34:
                     return "";
                 case rule35:
@@ -230,6 +230,8 @@ namespace XISMobileEAPlugin
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule29)), rule29);
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule30)), rule30);
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule31)), rule31);
+            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule32)), rule32);
+            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule33)), rule33);
             // TODO: expand this list
         }
 
@@ -315,6 +317,12 @@ namespace XISMobileEAPlugin
                         break;
                     case rule29:
                         DoRule29(Repository, Element);
+                        break;
+                    case rule32:
+                        DoRule32(Repository, Element);
+                        break;
+                    case rule33:
+                        DoRule33(Repository, Element);
                         break;
                     default:
                         break;
@@ -1082,55 +1090,65 @@ namespace XISMobileEAPlugin
             }
         }
 
-        //// XisInteractionSpace composed of XisWidgets
-        //private void DoRule04(EA.Repository Repository, EA.Element Element)
-        //{
-        //    if (Element.Type == "Class" && Element.Stereotype == "XisInteractionSpace")
-        //    {
-        //        if (Element.Elements.Count < 1)
-        //        {
-        //            EA.Project Project = Repository.GetProjectInterface();
-        //            Project.PublishResult(LookupMap(rule04), EA.EnumMVErrorType.mvError, GetRuleStr(rule04A));
-        //            isValid = false;
-        //        }
-        //        else
-        //        {
-        //            bool valid = true;
-        //            EA.Element widget = null;
+        private void DoRule32(EA.Repository Repository, EA.Element Element)
+        {
+            if (Element.Type == "Class" && Element.Stereotype == "XisInteractionSpace")
+            {
+                if (Element.Elements.Count == 0)
+                {
+                    EA.Project Project = Repository.GetProjectInterface();
+                    Project.PublishResult(LookupMap(rule32), EA.EnumMVErrorType.mvError, GetRuleStr(rule32));
+                    isValid = false;
+                }
+            }
+        }
 
-        //            for (short i = 0; i < Element.Elements.Count && valid; i++)
-        //            {
-        //                widget = Element.Elements.GetAt(i);
+        private void DoRule33(EA.Repository Repository, EA.Element Element)
+        {
+            if (Element.Type == "Class" && Element.Stereotype == "XisInteractionSpace")
+            {
+                if (Element.Elements.Count > 0)
+                {
+                    bool valid = true;
+                    EA.Element widget = null;
 
-        //                switch (widget.Stereotype)
-        //                {
-        //                    case "XisCompositeWidget":
-        //                    case "XisLabel":
-        //                    case "XisTextBox":
-        //                    case "XisCheckBox":
-        //                    case "XisButton":
-        //                    case "XisLink":
-        //                    case "XisDatePicker":
-        //                    case "XisTimePicker":
-        //                    case "XisImage":
-        //                    case "XisWebView":
-        //                    case "XisMapView":
-        //                        break;
-        //                    default:
-        //                        valid = false;
-        //                        break;
-        //                }
-        //            }
+                    for (short i = 0; i < Element.Elements.Count && valid; i++)
+                    {
+                        widget = Element.Elements.GetAt(i);
 
-        //            if (!valid)
-        //            {
-        //                EA.Project Project = Repository.GetProjectInterface();
-        //                Project.PublishResult(LookupMap(rule04), EA.EnumMVErrorType.mvError, GetRuleStr(rule04B));
-        //                isValid = false;
-        //            }
-        //        }
-        //    }
-        //}
+                        switch (widget.Stereotype)
+                        {
+                            case "XisLabel":
+                            case "XisTextBox":
+                            case "XisCheckBox":
+                            case "XisButton":
+                            case "XisLink":
+                            case "XisImage":
+                            case "XisDatePicker":
+                            case "XisTimePicker":
+                            case "XisWebView":
+                            case "XisMapView":
+                            case "XisDropDown":
+                            case "XisList":
+                            case "XisForm":
+                            case "XisVisibilityBoundary":
+                            case "XisMenu":
+                                break;
+                            default:
+                                valid = false;
+                                break;
+                        }
+                    }
+
+                    if (!valid)
+                    {
+                        EA.Project Project = Repository.GetProjectInterface();
+                        Project.PublishResult(LookupMap(rule33), EA.EnumMVErrorType.mvError, GetRuleStr(rule33));
+                        isValid = false;
+                    }  
+                }
+            }
+        }
 
         //private void DoRule05(EA.Repository Repository, EA.Element Element)
         //{
