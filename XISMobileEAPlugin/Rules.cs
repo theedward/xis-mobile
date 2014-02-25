@@ -68,6 +68,7 @@ namespace XISMobileEAPlugin
         private const string rule46 = "Rule46";
         private const string rule47 = "Rule47";
         private const string rule48 = "Rule48";
+        private const string rule49 = "Rule49";
 
         public Rules()
         {
@@ -200,6 +201,8 @@ namespace XISMobileEAPlugin
                     return "A XisMenuGroup can only contain XisMenuItems!";
                 case rule48:
                     return "A XisMenuItem cannot contain other elements!";
+                case rule49:
+                    return "A XisMenu of type 'OptionsMenu' must be associated to a XisInteractionSpace!";
                 //case rule07:
                 //    return "XisActions must be owned only by XisGestures!";
                 //case rule08:
@@ -268,6 +271,7 @@ namespace XISMobileEAPlugin
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule46)), rule46);
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule47)), rule47);
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule48)), rule48);
+            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule49)), rule49);
             // TODO: expand this list
         }
 
@@ -392,6 +396,9 @@ namespace XISMobileEAPlugin
                         break;
                     case rule48:
                         DoRule48(Repository, Element);
+                        break;
+                    case rule49:
+                        DoRule49(Repository, Element);
                         break;
                     default:
                         break;
@@ -1547,6 +1554,63 @@ namespace XISMobileEAPlugin
                     EA.Project Project = Repository.GetProjectInterface();
                     Project.PublishResult(LookupMap(rule48), EA.EnumMVErrorType.mvError, GetRuleStr(rule48));
                     isValid = false;
+                }
+            }
+        }
+
+        private void DoRule49(EA.Repository Repository, EA.Element Element)
+        {
+            if (Element.Type == "Class" && Element.Stereotype == "XisMenu")
+            {
+                EA.TaggedValue menuType = M2MTransformer.GetTaggedValue(Element.TaggedValues, "type");
+
+                if (menuType != null && menuType.Value == "OptionsMenu")
+                {
+                    if (Element.ParentID > 0)
+                    {
+                        EA.Element parent = Repository.GetElementByID(Element.ParentID);
+
+                        if (parent.Stereotype != "XisInteractionSpace")
+                        {
+                            EA.Project Project = Repository.GetProjectInterface();
+                            Project.PublishResult(LookupMap(rule49), EA.EnumMVErrorType.mvError, GetRuleStr(rule49));
+                            isValid = false;
+                        }
+                    }
+                    else if (Element.Connectors.Count > 0)
+                    {
+                        EA.Connector conn = null;
+                        EA.Element end = null;
+
+                        for (short i = 0; i < Element.Connectors.Count; i++)
+                        {
+                            conn = Element.Connectors.GetAt(i);
+
+                            if (conn.ClientID != Element.ElementID)
+                            {
+                                end = Repository.GetElementByID(conn.ClientID);
+                            }
+                            else
+                            {
+                                end = Repository.GetElementByID(conn.SupplierID);
+                            }
+
+                            if ((conn.Stereotype == "XisIS-MenuAssociation" && end.Stereotype != "XisInteractionSpace")
+                                || (conn.Stereotype != "XisIS-MenuAssociation" && end.Stereotype == "XisInteractionSpace"))
+                            {
+                                EA.Project Project = Repository.GetProjectInterface();
+                                Project.PublishResult(LookupMap(rule49), EA.EnumMVErrorType.mvError, GetRuleStr(rule49));
+                                isValid = false;
+                                break;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        EA.Project Project = Repository.GetProjectInterface();
+                        Project.PublishResult(LookupMap(rule49), EA.EnumMVErrorType.mvError, GetRuleStr(rule49));
+                        isValid = false;
+                    }
                 }
             }
         }
