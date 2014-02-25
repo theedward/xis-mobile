@@ -229,6 +229,7 @@ namespace XISMobileEAPlugin
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule28)), rule28);
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule29)), rule29);
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule30)), rule30);
+            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule31)), rule31);
             // TODO: expand this list
         }
 
@@ -244,6 +245,9 @@ namespace XISMobileEAPlugin
                         break;
                     case rule17:
                         DoRule17(Repository, Package);
+                        break;
+                    case rule31:
+                        DoRule31(Repository, Package);
                         break;
                     default:
                         break;
@@ -1042,6 +1046,37 @@ namespace XISMobileEAPlugin
                 {
                     EA.Project Project = Repository.GetProjectInterface();
                     Project.PublishResult(LookupMap(rule30), EA.EnumMVErrorType.mvError, GetRuleStr(rule30));
+                    isValid = false;
+                }
+            }
+        }
+
+        private void DoRule31(EA.Repository Repository, EA.Package Package)
+        {
+            if (Package.StereotypeEx == "InteractionSpace View")
+            {
+                int mainScreenCounter = 0;
+                EA.Element el = null;
+                bool isMainScreen = false;
+
+                for (short i = 0; i < Package.Elements.Count; i++)
+                {
+                    el = Package.Elements.GetAt(i);
+
+                    if (el.Stereotype == "XisInteractionSpace")
+                    {
+                        isMainScreen = bool.Parse(M2MTransformer.GetTaggedValue(el.TaggedValues, "isMainScreen").Value);
+                        if (isMainScreen)
+                        {
+                            mainScreenCounter++;
+                        }
+                    }
+                }
+
+                if (mainScreenCounter != 1)
+                {
+                    EA.Project Project = Repository.GetProjectInterface();
+                    Project.PublishResult(LookupMap(rule31), EA.EnumMVErrorType.mvError, GetRuleStr(rule31));
                     isValid = false;
                 }
             }
