@@ -1682,6 +1682,38 @@ namespace XISMobileEAPlugin
             {
                 String onTap = M2MTransformer.GetTaggedValue(Element.TaggedValues, "onTap").Value;
 
+                if (Element.Methods.Count > 0)
+                {
+                    EA.Method method = null;
+                    bool noOnTap = false;
+
+                    for (short i = 0; i < Element.Methods.Count; i++)
+                    {
+                        method = Element.Methods.GetAt(i);
+
+                        if (method.Stereotype == "XisAction" && method.Name != onTap)
+                        {
+                            noOnTap = true;
+                            break;
+                        }
+                    }
+
+                    if (!noOnTap)
+                    {
+                        EA.Project Project = Repository.GetProjectInterface();
+                        Project.PublishResult(LookupMap(rule51), EA.EnumMVErrorType.mvError, GetRuleStr(rule51));
+                        isValid = false;
+                    }
+                }
+            }
+        }
+
+        private void DoRule52(EA.Repository Repository, EA.Element Element)
+        {
+            if (Element.Type == "Class" && Element.Stereotype == "XisButton")
+            {
+                String onTap = M2MTransformer.GetTaggedValue(Element.TaggedValues, "onTap").Value;
+
                 if (!string.IsNullOrEmpty(onTap))
                 {
                     if (Element.Methods.Count > 0)
@@ -1703,51 +1735,16 @@ namespace XISMobileEAPlugin
                         if (!exists)
                         {
                             EA.Project Project = Repository.GetProjectInterface();
-                            Project.PublishResult(LookupMap(rule51), EA.EnumMVErrorType.mvError, GetRuleStr(rule51));
+                            Project.PublishResult(LookupMap(rule52), EA.EnumMVErrorType.mvError, GetRuleStr(rule52));
                             isValid = false;
                         }
                     }
                     else
                     {
                         EA.Project Project = Repository.GetProjectInterface();
-                        Project.PublishResult(LookupMap(rule51), EA.EnumMVErrorType.mvError, GetRuleStr(rule51));
+                        Project.PublishResult(LookupMap(rule52), EA.EnumMVErrorType.mvError, GetRuleStr(rule52));
                         isValid = false;
                     }
-                }
-            }
-        }
-
-        private void DoRule52(EA.Repository Repository, EA.Element Element)
-        {
-            if (Element.Type == "Class" && Element.Stereotype == "XisButton")
-            {
-                String onTap = M2MTransformer.GetTaggedValue(Element.TaggedValues, "onTap").Value;
-
-                if (string.IsNullOrEmpty(onTap))
-                {
-                    if (Element.Methods.Count > 0)
-                    {
-                        EA.Method method = null;
-                        bool exists = false;
-
-                        for (short i = 0; i < Element.Methods.Count; i++)
-                        {
-                            method = Element.Methods.GetAt(i);
-
-                            if (method.Stereotype == "XisAction")
-                            {
-                                exists = true;
-                                break;
-                            }
-                        }
-
-                        if (!exists)
-                        {
-                            EA.Project Project = Repository.GetProjectInterface();
-                            Project.PublishResult(LookupMap(rule52), EA.EnumMVErrorType.mvError, GetRuleStr(rule52));
-                            isValid = false;
-                        }
-                    } 
                 }
             }
         }
