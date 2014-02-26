@@ -72,6 +72,8 @@ namespace XISMobileEAPlugin
         private const string rule50 = "Rule50";
         private const string rule51 = "Rule51";
         private const string rule52 = "Rule52";
+        private const string rule53 = "Rule53";
+        private const string rule54 = "Rule54";
 
         public Rules()
         {
@@ -209,9 +211,11 @@ namespace XISMobileEAPlugin
                 case rule50:
                     return "A XisMenu of type 'OptionsMenu' must be associated to a XisInteractionSpace!";
                 case rule51:
-                    return "A XisButton can only have 1 XisAction!";
+                    return "A XisButton with a XisAction must have a corresponding 'onTap' value!";
                 case rule52:
-                    return "";
+                    return "A XisButton with 'onTap' value filled must have a corresponding XisAction!";
+                case rule53:
+                    return "A XisButton can only have 1 XisAction!";
                 //case rule07:
                 //    return "XisActions must be owned only by XisGestures!";
                 //case rule08:
@@ -283,6 +287,8 @@ namespace XISMobileEAPlugin
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule49)), rule49);
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule50)), rule50);
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule51)), rule51);
+            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule52)), rule52);
+            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule53)), rule53);
             // TODO: expand this list
         }
 
@@ -413,6 +419,9 @@ namespace XISMobileEAPlugin
                         break;
                     case rule51:
                         DoRule51(Repository, Element);
+                        break;
+                    case rule52:
+                        DoRule52(Repository, Element);
                         break;
                     default:
                         break;
@@ -1684,7 +1693,7 @@ namespace XISMobileEAPlugin
                         {
                             method = Element.Methods.GetAt(i);
 
-                            if (method.Name == onTap)
+                            if (method.Stereotype == "XisAction" && method.Name == onTap)
                             {
                                 exists = true;
                                 break;
@@ -1695,13 +1704,77 @@ namespace XISMobileEAPlugin
                         {
                             EA.Project Project = Repository.GetProjectInterface();
                             Project.PublishResult(LookupMap(rule51), EA.EnumMVErrorType.mvError, GetRuleStr(rule51));
-                            isValid = false;    
+                            isValid = false;
                         }
                     }
                     else
                     {
                         EA.Project Project = Repository.GetProjectInterface();
                         Project.PublishResult(LookupMap(rule51), EA.EnumMVErrorType.mvError, GetRuleStr(rule51));
+                        isValid = false;
+                    }
+                }
+            }
+        }
+
+        private void DoRule52(EA.Repository Repository, EA.Element Element)
+        {
+            if (Element.Type == "Class" && Element.Stereotype == "XisButton")
+            {
+                String onTap = M2MTransformer.GetTaggedValue(Element.TaggedValues, "onTap").Value;
+
+                if (string.IsNullOrEmpty(onTap))
+                {
+                    if (Element.Methods.Count > 0)
+                    {
+                        EA.Method method = null;
+                        bool exists = false;
+
+                        for (short i = 0; i < Element.Methods.Count; i++)
+                        {
+                            method = Element.Methods.GetAt(i);
+
+                            if (method.Stereotype == "XisAction")
+                            {
+                                exists = true;
+                                break;
+                            }
+                        }
+
+                        if (!exists)
+                        {
+                            EA.Project Project = Repository.GetProjectInterface();
+                            Project.PublishResult(LookupMap(rule52), EA.EnumMVErrorType.mvError, GetRuleStr(rule52));
+                            isValid = false;
+                        }
+                    } 
+                }
+            }
+        }
+
+        private void DoRule53(EA.Repository Repository, EA.Element Element)
+        {
+            if (Element.Type == "Class" && Element.Stereotype == "XisButton")
+            {
+                if (Element.Methods.Count > 0)
+                {
+                    EA.Method method = null;
+                    int actionCounter = 0;
+
+                    for (short i = 0; i < Element.Methods.Count; i++)
+                    {
+                        method = Element.Methods.GetAt(i);
+
+                        if (method.Stereotype == "XisAction")
+                        {
+                            actionCounter++;
+                        }
+                    }
+
+                    if (actionCounter > 1)
+                    {
+                        EA.Project Project = Repository.GetProjectInterface();
+                        Project.PublishResult(LookupMap(rule53), EA.EnumMVErrorType.mvError, GetRuleStr(rule53));
                         isValid = false;
                     }
                 }
