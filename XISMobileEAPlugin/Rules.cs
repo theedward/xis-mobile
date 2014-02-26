@@ -805,11 +805,12 @@ namespace XISMobileEAPlugin
                 {
                     bool hasAssociation = false;
                     EA.Connector conn = null;
-                    EA.Connector supplier = null;
+                    EA.Element supplier = null;
 
                     for (short i = 0; i < Element.Connectors.Count; i++)
                     {
                         conn = Element.Connectors.GetAt(i);
+                        supplier = Repository.GetElementByID(conn.SupplierID);
 
                         if ((conn.Stereotype == "XisBE-EntityMasterAssociation"
                             || conn.Stereotype == "XisBE-EntityDetailAssociation"
