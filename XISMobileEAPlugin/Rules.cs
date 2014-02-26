@@ -74,6 +74,11 @@ namespace XISMobileEAPlugin
         private const string rule52 = "Rule52";
         private const string rule53 = "Rule53";
         private const string rule54 = "Rule54";
+        private const string rule55 = "Rule55";
+        private const string rule56 = "Rule56";
+        private const string rule57 = "Rule57";
+        private const string rule58 = "Rule58";
+        private const string rule59 = "Rule59";
 
         public Rules()
         {
@@ -216,6 +221,18 @@ namespace XISMobileEAPlugin
                     return "A XisButton with 'onTap' value filled must have a corresponding XisAction!";
                 case rule53:
                     return "A XisButton can only have 1 XisAction!";
+                case rule54:
+                    return "A XisLink with a XisAction must have a corresponding 'onTap' value!";
+                case rule55:
+                    return "A XisLink with 'onTap' value filled must have a corresponding XisAction!";
+                case rule56:
+                    return "A XisLink can only have 1 XisAction!";
+                case rule57:
+                    return "A XisMenuItem with a XisAction must have a corresponding 'onTap' value!";
+                case rule58:
+                    return "A XisMenuItem with 'onTap' value filled must have a corresponding XisAction!";
+                case rule59:
+                    return "A XisMenuItem can only have 1 XisAction!";
                 //case rule07:
                 //    return "XisActions must be owned only by XisGestures!";
                 //case rule08:
@@ -289,6 +306,9 @@ namespace XISMobileEAPlugin
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule51)), rule51);
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule52)), rule52);
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule53)), rule53);
+            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule54)), rule54);
+            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule55)), rule55);
+            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule56)), rule56);
             // TODO: expand this list
         }
 
@@ -418,10 +438,22 @@ namespace XISMobileEAPlugin
                         DoRule50(Repository, Element);
                         break;
                     case rule51:
-                        DoRule51(Repository, Element);
+                        DoRule51(Repository, Element, "XisButton");
                         break;
                     case rule52:
-                        DoRule52(Repository, Element);
+                        DoRule52(Repository, Element, "XisButton");
+                        break;
+                    case rule53:
+                        DoRule53(Repository, Element, "XisButton");
+                        break;
+                    case rule54:
+                        DoRule51(Repository, Element, "XisLink");
+                        break;
+                    case rule55:
+                        DoRule52(Repository, Element, "XisLink");
+                        break;
+                    case rule56:
+                        DoRule53(Repository, Element, "XisLink");
                         break;
                     default:
                         break;
@@ -1676,9 +1708,9 @@ namespace XISMobileEAPlugin
             }
         }
 
-        private void DoRule51(EA.Repository Repository, EA.Element Element)
+        private void DoRule51(EA.Repository Repository, EA.Element Element, String stereotype)
         {
-            if (Element.Type == "Class" && Element.Stereotype == "XisButton")
+            if (Element.Type == "Class" && Element.Stereotype == stereotype)
             {
                 String onTap = M2MTransformer.GetTaggedValue(Element.TaggedValues, "onTap").Value;
 
@@ -1708,9 +1740,9 @@ namespace XISMobileEAPlugin
             }
         }
 
-        private void DoRule52(EA.Repository Repository, EA.Element Element)
+        private void DoRule52(EA.Repository Repository, EA.Element Element, String stereotype)
         {
-            if (Element.Type == "Class" && Element.Stereotype == "XisButton")
+            if (Element.Type == "Class" && Element.Stereotype == stereotype)
             {
                 String onTap = M2MTransformer.GetTaggedValue(Element.TaggedValues, "onTap").Value;
 
@@ -1749,9 +1781,9 @@ namespace XISMobileEAPlugin
             }
         }
 
-        private void DoRule53(EA.Repository Repository, EA.Element Element)
+        private void DoRule53(EA.Repository Repository, EA.Element Element, String stereotype)
         {
-            if (Element.Type == "Class" && Element.Stereotype == "XisButton")
+            if (Element.Type == "Class" && Element.Stereotype == stereotype)
             {
                 if (Element.Methods.Count > 0)
                 {
