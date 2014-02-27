@@ -2166,7 +2166,7 @@ namespace XISMobileEAPlugin
 
         private void DoRule65(EA.Repository Repository, EA.Element Element)
         {
-            if (Element.Type == "Class" && Element.Stereotype == "XisDialog")
+            if (Element.Type == "Class" && Element.Stereotype == "XisMapView")
             {
                 if (Element.Elements.Count > 0)
                 {
@@ -2190,7 +2190,7 @@ namespace XISMobileEAPlugin
 
         private void DoRule66_to_75(EA.Repository Repository, EA.Element Element, string stereotype)
         {
-            if (Element.Type == "Class" && Element.Stereotype == "XisDialog")
+            if (Element.Type == "Class" && Element.Stereotype == stereotype)
             {
                 if (Element.Elements.Count > 0)
                 {
@@ -2232,6 +2232,7 @@ namespace XISMobileEAPlugin
                 }
             }
         }
+
         //private void DoRule05(EA.Repository Repository, EA.Element Element)
         //{
         //    EA.Package model = (EA.Package)Repository.Models.GetAt(0);
