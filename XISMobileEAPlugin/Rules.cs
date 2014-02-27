@@ -1898,7 +1898,32 @@ namespace XISMobileEAPlugin
         {
             if (Element.Type == "Class" && Element.Stereotype == "XisListItem")
             {
+                String onTap = M2MTransformer.GetTaggedValue(Element.TaggedValues, "onTap").Value;
+                String onLongTap = M2MTransformer.GetTaggedValue(Element.TaggedValues, "onLongTap").Value;
 
+                if (Element.Methods.Count > 0)
+                {
+                    EA.Method method = null;
+                    bool noDefaultGestures = false;
+
+                    for (short i = 0; i < Element.Methods.Count; i++)
+                    {
+                        method = Element.Methods.GetAt(i);
+
+                        if (method.Stereotype == "XisAction" && method.Name != onTap && method.Name != onLongTap)
+                        {
+                            noDefaultGestures = true;
+                            break;
+                        }
+                    }
+
+                    if (!noDefaultGestures)
+                    {
+                        EA.Project Project = Repository.GetProjectInterface();
+                        Project.PublishResult(LookupMap(rule60), EA.EnumMVErrorType.mvError, GetRuleStr(rule60));
+                        isValid = false;
+                    }
+                }
             }
         }
 
@@ -1906,7 +1931,40 @@ namespace XISMobileEAPlugin
         {
             if (Element.Type == "Class" && Element.Stereotype == "XisListItem")
             {
+                String onTap = M2MTransformer.GetTaggedValue(Element.TaggedValues, "onTap").Value;
 
+                if (!string.IsNullOrEmpty(onTap))
+                {
+                    if (Element.Methods.Count > 0)
+                    {
+                        EA.Method method = null;
+                        bool exists = false;
+
+                        for (short i = 0; i < Element.Methods.Count; i++)
+                        {
+                            method = Element.Methods.GetAt(i);
+
+                            if (method.Stereotype == "XisAction" && method.Name == onTap)
+                            {
+                                exists = true;
+                                break;
+                            }
+                        }
+
+                        if (!exists)
+                        {
+                            EA.Project Project = Repository.GetProjectInterface();
+                            Project.PublishResult(LookupMap(rule61), EA.EnumMVErrorType.mvError, GetRuleStr(rule61));
+                            isValid = false;
+                        }
+                    }
+                    else
+                    {
+                        EA.Project Project = Repository.GetProjectInterface();
+                        Project.PublishResult(LookupMap(rule61), EA.EnumMVErrorType.mvError, GetRuleStr(rule61));
+                        isValid = false;
+                    }
+                }
             }
         }
 
@@ -1914,7 +1972,40 @@ namespace XISMobileEAPlugin
         {
             if (Element.Type == "Class" && Element.Stereotype == "XisListItem")
             {
+                String onLongTap = M2MTransformer.GetTaggedValue(Element.TaggedValues, "onLongTap").Value;
 
+                if (!string.IsNullOrEmpty(onLongTap))
+                {
+                    if (Element.Methods.Count > 0)
+                    {
+                        EA.Method method = null;
+                        bool exists = false;
+
+                        for (short i = 0; i < Element.Methods.Count; i++)
+                        {
+                            method = Element.Methods.GetAt(i);
+
+                            if (method.Stereotype == "XisAction" && method.Name == onLongTap)
+                            {
+                                exists = true;
+                                break;
+                            }
+                        }
+
+                        if (!exists)
+                        {
+                            EA.Project Project = Repository.GetProjectInterface();
+                            Project.PublishResult(LookupMap(rule62), EA.EnumMVErrorType.mvError, GetRuleStr(rule62));
+                            isValid = false;
+                        }
+                    }
+                    else
+                    {
+                        EA.Project Project = Repository.GetProjectInterface();
+                        Project.PublishResult(LookupMap(rule62), EA.EnumMVErrorType.mvError, GetRuleStr(rule62));
+                        isValid = false;
+                    }
+                }
             }
         }
 
@@ -1922,7 +2013,28 @@ namespace XISMobileEAPlugin
         {
             if (Element.Type == "Class" && Element.Stereotype == "XisListItem")
             {
+                if (Element.Methods.Count > 0)
+                {
+                    EA.Method method = null;
+                    int actionCounter = 0;
 
+                    for (short i = 0; i < Element.Methods.Count; i++)
+                    {
+                        method = Element.Methods.GetAt(i);
+
+                        if (method.Stereotype == "XisAction")
+                        {
+                            actionCounter++;
+                        }
+                    }
+
+                    if (actionCounter > 2)
+                    {
+                        EA.Project Project = Repository.GetProjectInterface();
+                        Project.PublishResult(LookupMap(rule63), EA.EnumMVErrorType.mvError, GetRuleStr(rule63));
+                        isValid = false;
+                    }
+                }
             }
         }
 
