@@ -83,6 +83,7 @@ namespace XISMobileEAPlugin
         private const string rule61 = "Rule61";
         private const string rule62 = "Rule62";
         private const string rule63 = "Rule63";
+        private const string rule64 = "Rule64";
 
         public Rules()
         {
@@ -245,6 +246,8 @@ namespace XISMobileEAPlugin
                     return "A XisListItem with 'onLongTap' value filled must have a corresponding XisAction!";
                 case rule63:
                     return "A XisListItem can only have at most 2 XisActions!";
+                case rule64:
+                    return "A XisDialog can only contain XisButtons (up to 3)!";
                 //case rule07:
                 //    return "XisActions must be owned only by XisGestures!";
                 //case rule08:
@@ -328,6 +331,7 @@ namespace XISMobileEAPlugin
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule61)), rule61);
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule62)), rule62);
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule63)), rule63);
+            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule64)), rule64);
             // TODO: expand this list
         }
 
@@ -494,6 +498,9 @@ namespace XISMobileEAPlugin
                         break;
                     case rule63:
                         DoRule63(Repository, Element);
+                        break;
+                    case rule64:
+                        DoRule64(Repository, Element);
                         break;
                     default:
                         break;
@@ -2032,6 +2039,42 @@ namespace XISMobileEAPlugin
                     {
                         EA.Project Project = Repository.GetProjectInterface();
                         Project.PublishResult(LookupMap(rule63), EA.EnumMVErrorType.mvError, GetRuleStr(rule63));
+                        isValid = false;
+                    }
+                }
+            }
+        }
+
+        private void DoRule64(EA.Repository Repository, EA.Element Element)
+        {
+            if (Element.Type == "Class" && Element.Stereotype == "XisDialog")
+            {
+                if (Element.Elements.Count > 0)
+                {
+                    EA.Element el = null;
+                    int buttonCounter = 0;
+
+                    for (short i = 0; i < Element.Elements.Count; i++)
+                    {
+                        el = Element.Elements.GetAt(i);
+
+                        if (el.Stereotype == "Class" && el.Stereotype == "XisButton")
+                        {
+                            buttonCounter++;
+                        }
+                        else
+                        {
+                            EA.Project Project = Repository.GetProjectInterface();
+                            Project.PublishResult(LookupMap(rule64), EA.EnumMVErrorType.mvError, GetRuleStr(rule64));
+                            isValid = false;
+                            break;
+                        }
+                    }
+
+                    if (buttonCounter > 3)
+                    {
+                        EA.Project Project = Repository.GetProjectInterface();
+                        Project.PublishResult(LookupMap(rule64), EA.EnumMVErrorType.mvError, GetRuleStr(rule64));
                         isValid = false;
                     }
                 }
