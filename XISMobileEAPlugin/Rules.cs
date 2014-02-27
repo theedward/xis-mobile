@@ -298,15 +298,9 @@ namespace XISMobileEAPlugin
                 case rule80:
                     return "A XisAction of type 'WebService' must have the same parameters of the associated XisMethod!";
                 case rule81:
-                    return "A XisAction of type 'Navigate' must have the 'navigation' value filled!";
+                    return "A XisAction of type 'Navigate' must have the 'navigation' value filled with a XisInteractionSpace name!";
                 //case rule08:
                 //    return "All XisActions parameters must be XisArguments!";
-                //case rule09A:
-                //    return "XisActions must have a type!";
-                //case rule09B:
-                //    return "XisActions of type 'NavigateTo' must have a XisArgument named 'navigationSpace'!";
-                //case rule09C:
-                //    return "XisActions of type 'WebService' must have a XisArgument named 'url'!";
                 default:
                     return "";
             }
@@ -2334,7 +2328,7 @@ namespace XISMobileEAPlugin
             {
                 string type = M2MTransformer.GetMethodTag(method.TaggedValues, "type").Value;
 
-                if (type == "WebService")
+                if (type == "OpenBrowser")
                 {
                     if (method.Parameters.Count == 1)
                     {
@@ -2367,9 +2361,85 @@ namespace XISMobileEAPlugin
                 {
                     if (method.Name.Contains('.'))
                     {
-                        string[] service = method.Name.Split('.');
+                        string[] serviceName = method.Name.Split('.');
 
-                        
+                        if (serviceName.Length == 2)
+                        {
+                            EA.Package model = Repository.GetPackageByID(Repository.GetElementByID(method.ParentID).PackageID);
+                            EA.Package package = null;
+                            EA.Package architectural = null;
+
+                            for (short i = 0; i < model.Packages.Count; i++)
+                            {
+                                package = model.Packages.GetAt(i);
+
+                                if (package.StereotypeEx == "Architectural View")
+                                {
+                                    architectural = package;
+                                    break;
+                                }
+                            }
+
+                            if (architectural != null)
+                            {
+                                EA.Element el = null;
+                                EA.Element service = null;
+
+                                for (short i = 0; i < architectural.Elements.Count; i++)
+                                {
+                                    el = architectural.Elements.GetAt(i);
+
+                                    if ((el.Stereotype == "XisInternalService" || el.Stereotype == "XisRemoteService")
+                                        && el.Name == serviceName[0])
+                                    {
+                                        service = el;
+                                        break;
+                                    }
+                                }
+
+                                if (service != null && service.Methods.Count > 0)
+                                {
+                                    EA.Method m = null;
+                                    bool hasMethod = false;
+
+                                    for (short i = 0; i < service.Methods.Count; i++)
+                                    {
+                                        m = service.Methods.GetAt(i);
+
+                                        if (m.Stereotype == "XisServiceMethod" && m.Name == serviceName[1])
+                                        {
+                                            hasMethod = true;
+                                            break;
+                                        }
+                                    }
+
+                                    if (!hasMethod)
+                                    {
+                                        EA.Project Project = Repository.GetProjectInterface();
+                                        Project.PublishResult(LookupMap(rule79), EA.EnumMVErrorType.mvError, GetRuleStr(rule79));
+                                        isValid = false;
+                                    }
+                                }
+                                else
+                                {
+                                    EA.Project Project = Repository.GetProjectInterface();
+                                    Project.PublishResult(LookupMap(rule79), EA.EnumMVErrorType.mvError, GetRuleStr(rule79));
+                                    isValid = false;
+                                }
+                            }
+                            else
+                            {
+                                EA.Project Project = Repository.GetProjectInterface();
+                                Project.PublishResult(LookupMap(rule79), EA.EnumMVErrorType.mvError, GetRuleStr(rule79));
+                                isValid = false;
+                            }
+                        }
+                        else
+                        {
+                            EA.Project Project = Repository.GetProjectInterface();
+                            Project.PublishResult(LookupMap(rule79), EA.EnumMVErrorType.mvError, GetRuleStr(rule79));
+                            isValid = false;
+                        }
                     }
                     else
                     {
@@ -2391,11 +2461,89 @@ namespace XISMobileEAPlugin
                 {
                     if (method.Name.Contains('.'))
                     {
-                        string[] service = method.Name.Split('.');
+                        string[] serviceName = method.Name.Split('.');
 
-                        EA.Project Project = Repository.GetProjectInterface();
-                        Project.PublishResult(LookupMap(rule80), EA.EnumMVErrorType.mvError, GetRuleStr(rule80));
-                        isValid = false;
+                        if (serviceName.Length == 2)
+                        {
+                            EA.Package model = Repository.GetPackageByID(Repository.GetElementByID(method.ParentID).PackageID);
+                            EA.Package package = null;
+                            EA.Package architectural = null;
+
+                            for (short i = 0; i < model.Packages.Count; i++)
+                            {
+                                package = model.Packages.GetAt(i);
+
+                                if (package.StereotypeEx == "Architectural View")
+                                {
+                                    architectural = package;
+                                    break;
+                                }
+                            }
+
+                            if (architectural != null)
+                            {
+                                EA.Element el = null;
+                                EA.Element service = null;
+
+                                for (short i = 0; i < architectural.Elements.Count; i++)
+                                {
+                                    el = architectural.Elements.GetAt(i);
+
+                                    if ((el.Stereotype == "XisInternalService" || el.Stereotype == "XisRemoteService")
+                                        && el.Name == serviceName[0])
+                                    {
+                                        service = el;
+                                        break;
+                                    }
+                                }
+
+                                if (service != null && service.Methods.Count > 0)
+                                {
+                                    EA.Method m = null;
+                                    bool hasMethod = false;
+
+                                    for (short i = 0; i < service.Methods.Count; i++)
+                                    {
+                                        m = service.Methods.GetAt(i);
+
+                                        if (m.Stereotype == "XisServiceMethod" && m.Name == serviceName[1])
+                                        {
+                                            hasMethod = true;
+                                            break;
+                                        }
+                                    }
+
+                                    if (hasMethod)
+                                    {
+                                        if (m.Parameters.Count == method.Parameters.Count)
+                                        {
+                                            EA.Parameter p1 = null;
+                                            EA.Parameter p2 = null;
+
+                                            for (short i = 0; i < m.Parameters.Count; i++)
+                                            {
+                                                p1 = m.Parameters.GetAt(i);
+                                                p2 = method.Parameters.GetAt(i);
+
+                                                if (p1.Name == p2.Name)
+                                                {
+                                                    EA.Project Project = Repository.GetProjectInterface();
+                                                    Project.PublishResult(LookupMap(rule80), EA.EnumMVErrorType.mvError, GetRuleStr(rule80));
+                                                    isValid = false;
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                        else
+                                        {
+                                            EA.Project Project = Repository.GetProjectInterface();
+                                            Project.PublishResult(LookupMap(rule80), EA.EnumMVErrorType.mvError, GetRuleStr(rule80));
+                                            isValid = false;
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -2411,7 +2559,54 @@ namespace XISMobileEAPlugin
                 {
                     string navigation = M2MTransformer.GetMethodTag(method.TaggedValues, "navigation").Value;
 
-                    if (string.IsNullOrEmpty(navigation))
+                    if (!string.IsNullOrEmpty(navigation))
+                    {
+                        EA.Package model = Repository.GetPackageByID(Repository.GetElementByID(method.ParentID).PackageID);
+                        EA.Package package = null;
+                        EA.Package interaction = null;
+
+                        for (short i = 0; i < model.Packages.Count; i++)
+                        {
+                            package = model.Packages.GetAt(i);
+
+                            if (package.StereotypeEx == "InteractionSpace View")
+                            {
+                                interaction = package;
+                                break;
+                            }
+                        }
+
+                        if (interaction != null)
+                        {
+                            EA.Element el = null;
+                            bool exists = false;
+
+                            for (short i = 0; i < interaction.Elements.Count; i++)
+                            {
+                                el = interaction.Elements.GetAt(i);
+
+                                if (el.Stereotype == "XisInteractionSpace" && el.Name == navigation)
+                                {
+                                    exists = true;
+                                    break;
+                                }
+                            }
+
+                            if (!exists)
+	                        {
+		                        EA.Project Project = Repository.GetProjectInterface();
+                                Project.PublishResult(LookupMap(rule81), EA.EnumMVErrorType.mvError, GetRuleStr(rule81));
+                                isValid = false;
+	                        }
+                        }
+                        else
+                        {
+                            EA.Project Project = Repository.GetProjectInterface();
+                            Project.PublishResult(LookupMap(rule81), EA.EnumMVErrorType.mvError, GetRuleStr(rule81));
+                            isValid = false;
+                        }
+                    }
+                    else
                     {
                         EA.Project Project = Repository.GetProjectInterface();
                         Project.PublishResult(LookupMap(rule81), EA.EnumMVErrorType.mvError, GetRuleStr(rule81));
@@ -2420,37 +2615,6 @@ namespace XISMobileEAPlugin
                 }
             }
         }
-
-        //private void DoRule05(EA.Repository Repository, EA.Element Element)
-        //{
-        //    EA.Package model = (EA.Package)Repository.Models.GetAt(0);
-
-        //    if (Element.Type == "Class" && Element.Stereotype == "XisCompositeWidget")
-        //    {
-        //        EA.TaggedValue tv = Element.TaggedValues.GetByName("type");
-        //        if (!string.IsNullOrEmpty(tv.Name) && tv.Name == "type")
-        //        {
-        //            if (tv.Value == "Menu" || tv.Value == "List")
-        //            {
-        //                if (Element.Elements.Count > 0)
-        //                {
-        //                    EA.Element el = null;
-        //                    for (short i = 0; i < Element.Elements.Count; i++)
-        //                    {
-        //                        el = Element.Elements.GetAt(i);
-        //                        if (el.Type != "Class" || (el.Stereotype != "Group" || el.Stereotype != "Item"))
-        //                        {
-        //                            isValid = false;
-        //                            EA.Project Project = Repository.GetProjectInterface();
-        //                            Project.PublishResult(LookupMap(rule05), EA.EnumMVErrorType.mvError, GetRuleStr(rule05));
-        //                            break;
-        //                        }
-        //                    }
-        //                }
-        //            }
-        //        }
-        //    }
-        //}
 
         //// XisAction with XisArguments
         //private void DoRule08(EA.Repository Repository, EA.Method method)
