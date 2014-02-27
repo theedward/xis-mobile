@@ -767,13 +767,13 @@ namespace XISMobileEAPlugin
                         }
                     }
 
-                    if (arch && (!dummy.ContainsKey("Architectural View") || !dummy.ContainsKey("BusinessEntities View")
+                    if (arch && (!dummy.ContainsKey("BusinessEntities View")
                         || !dummy.ContainsKey("Domain View") || !dummy.ContainsKey("InteractionSpace View")
                         || !dummy.ContainsKey("NavigationSpace View") || dummy["Architectural View"] != 1
                         || dummy["BusinessEntities View"] != 1 || dummy["Domain View"] != 1
                         || dummy["InteractionSpace View"] != 1 || dummy["NavigationSpace View"] != 1))
                     {
-                        Project.PublishResult(LookupMap(rule01), EA.EnumMVErrorType.mvError, GetRuleStr(rule03));
+                        Project.PublishResult(LookupMap(rule01), EA.EnumMVErrorType.mvError, GetRuleStr(rule04));
                         isValid = false;
                     }
                     else if (!dummy.ContainsKey("BusinessEntities View") || !dummy.ContainsKey("Domain View")
@@ -781,7 +781,7 @@ namespace XISMobileEAPlugin
                             || dummy["BusinessEntities View"] != 1 || dummy["Domain View"] != 1
                             || dummy["InteractionSpace View"] != 1 || dummy["NavigationSpace View"] != 1)
                     {
-                        Project.PublishResult(LookupMap(rule01), EA.EnumMVErrorType.mvError, GetRuleStr(rule04));
+                        Project.PublishResult(LookupMap(rule01), EA.EnumMVErrorType.mvError, GetRuleStr(rule03));
                         isValid = false;
                     }
                 }
@@ -1867,15 +1867,19 @@ namespace XISMobileEAPlugin
                         {
                             case "XisButton":
                                 Project.PublishResult(LookupMap(rule51), EA.EnumMVErrorType.mvError, GetRuleStr(rule51));
+                                isValid = false;
                                 break;
                             case "XisLink":
                                 Project.PublishResult(LookupMap(rule54), EA.EnumMVErrorType.mvError, GetRuleStr(rule54));
+                                isValid = false;
                                 break;
                             case "XisMenuItem":
                                 Project.PublishResult(LookupMap(rule57), EA.EnumMVErrorType.mvError, GetRuleStr(rule57));
+                                isValid = false;
+                                break;
+                            default:
                                 break;
                         }
-                        isValid = false;
                     }
                 }
             }
@@ -1912,15 +1916,19 @@ namespace XISMobileEAPlugin
                             {
                                 case "XisButton":
                                     Project.PublishResult(LookupMap(rule52), EA.EnumMVErrorType.mvError, GetRuleStr(rule52));
+                                    isValid = false;
                                     break;
                                 case "XisLink":
                                     Project.PublishResult(LookupMap(rule55), EA.EnumMVErrorType.mvError, GetRuleStr(rule55));
+                                    isValid = false;
                                     break;
                                 case "XisMenuItem":
                                     Project.PublishResult(LookupMap(rule58), EA.EnumMVErrorType.mvError, GetRuleStr(rule58));
+                                    isValid = false;
+                                    break;
+                                default:
                                     break;
                             }
-                            isValid = false;
                         }
                     }
                     else
@@ -1930,15 +1938,19 @@ namespace XISMobileEAPlugin
                         {
                             case "XisButton":
                                 Project.PublishResult(LookupMap(rule52), EA.EnumMVErrorType.mvError, GetRuleStr(rule52));
+                                isValid = false;
                                 break;
                             case "XisLink":
                                 Project.PublishResult(LookupMap(rule55), EA.EnumMVErrorType.mvError, GetRuleStr(rule55));
+                                isValid = false;
                                 break;
                             case "XisMenuItem":
                                 Project.PublishResult(LookupMap(rule58), EA.EnumMVErrorType.mvError, GetRuleStr(rule58));
+                                isValid = false;
+                                break;
+                            default:
                                 break;
                         }
-                        isValid = false;
                     }
                 }
             }
@@ -1970,15 +1982,19 @@ namespace XISMobileEAPlugin
                         {
                             case "XisButton":
                                 Project.PublishResult(LookupMap(rule53), EA.EnumMVErrorType.mvError, GetRuleStr(rule53));
+                                isValid = false;
                                 break;
                             case "XisLink":
                                 Project.PublishResult(LookupMap(rule56), EA.EnumMVErrorType.mvError, GetRuleStr(rule56));
+                                isValid = false;
                                 break;
                             case "XisMenuItem":
                                 Project.PublishResult(LookupMap(rule59), EA.EnumMVErrorType.mvError, GetRuleStr(rule59));
+                                isValid = false;
+                                break;
+                            default:
                                 break;
                         }
-                        isValid = false;
                     }
                 }
             }
@@ -2199,36 +2215,47 @@ namespace XISMobileEAPlugin
                     {
                         case "XisLabel":
                             Project.PublishResult(LookupMap(rule66), EA.EnumMVErrorType.mvError, GetRuleStr(rule66));
+                            isValid = false;
                             break;
                         case "XisTextBox":
                             Project.PublishResult(LookupMap(rule67), EA.EnumMVErrorType.mvError, GetRuleStr(rule67));
+                            isValid = false;
                             break;
                         case "XisCheckBox":
                             Project.PublishResult(LookupMap(rule68), EA.EnumMVErrorType.mvError, GetRuleStr(rule68));
+                            isValid = false;
                             break;
                         case "XisButton":
                             Project.PublishResult(LookupMap(rule69), EA.EnumMVErrorType.mvError, GetRuleStr(rule69));
+                            isValid = false;
                             break;
                         case "XisLink":
                             Project.PublishResult(LookupMap(rule70), EA.EnumMVErrorType.mvError, GetRuleStr(rule70));
+                            isValid = false;
                             break;
                         case "XisImage":
                             Project.PublishResult(LookupMap(rule71), EA.EnumMVErrorType.mvError, GetRuleStr(rule71));
+                            isValid = false;
                             break;
                         case "XisDatePicker":
                             Project.PublishResult(LookupMap(rule72), EA.EnumMVErrorType.mvError, GetRuleStr(rule72));
+                            isValid = false;
                             break;
                         case "XisTimePicker":
                             Project.PublishResult(LookupMap(rule73), EA.EnumMVErrorType.mvError, GetRuleStr(rule73));
+                            isValid = false;
                             break;
                         case "XisWebView":
                             Project.PublishResult(LookupMap(rule74), EA.EnumMVErrorType.mvError, GetRuleStr(rule74));
+                            isValid = false;
                             break;
                         case "XisDropdown":
                             Project.PublishResult(LookupMap(rule75), EA.EnumMVErrorType.mvError, GetRuleStr(rule75));
+                            isValid = false;
+                            break;
+                        default:
                             break;
                     }
-                    isValid = false;
                 }
             }
         }
