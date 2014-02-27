@@ -84,6 +84,17 @@ namespace XISMobileEAPlugin
         private const string rule62 = "Rule62";
         private const string rule63 = "Rule63";
         private const string rule64 = "Rule64";
+        private const string rule65 = "Rule65";
+        private const string rule66 = "Rule66";
+        private const string rule67 = "Rule67";
+        private const string rule68 = "Rule68";
+        private const string rule69 = "Rule69";
+        private const string rule70 = "Rule70";
+        private const string rule71 = "Rule71";
+        private const string rule72 = "Rule72";
+        private const string rule73 = "Rule73";
+        private const string rule74 = "Rule74";
+        private const string rule75 = "Rule75";
 
         public Rules()
         {
@@ -248,6 +259,28 @@ namespace XISMobileEAPlugin
                     return "A XisListItem can only have at most 2 XisActions!";
                 case rule64:
                     return "A XisDialog can only contain XisButtons (up to 3)!";
+                case rule65:
+                    return "A XisMapView can only contain XisMapMarkers!";
+                case rule66:
+                    return "A XisLabel cannot contain other elements!";
+                case rule67:
+                    return "A XisTextBox cannot contain other elements!";
+                case rule68:
+                    return "A XisCheckBox cannot contain other elements!";
+                case rule69:
+                    return "A XisButton cannot contain other elements!";
+                case rule70:
+                    return "A XisLink cannot contain other elements!";
+                case rule71:
+                    return "A XisImage cannot contain other elements!";
+                case rule72:
+                    return "A XisDatePicker cannot contain other elements!";
+                case rule73:
+                    return "A XisTimePicker cannot contain other elements!";
+                case rule74:
+                    return "A XisWebView cannot contain other elements!";
+                case rule75:
+                    return "A XisDropdown cannot contain other elements!";
                 //case rule07:
                 //    return "XisActions must be owned only by XisGestures!";
                 //case rule08:
@@ -332,6 +365,17 @@ namespace XISMobileEAPlugin
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule62)), rule62);
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule63)), rule63);
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule64)), rule64);
+            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule65)), rule65);
+            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule66)), rule66);
+            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule67)), rule67);
+            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule68)), rule68);
+            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule69)), rule69);
+            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule70)), rule70);
+            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule71)), rule71);
+            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule72)), rule72);
+            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule73)), rule73);
+            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule74)), rule74);
+            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule75)), rule75);
             // TODO: expand this list
         }
 
@@ -343,7 +387,7 @@ namespace XISMobileEAPlugin
                 switch (LookupMapEx(sRuleID))
                 {
                     case rule01:
-                        DoRule01_04(Repository, Package);
+                        DoRule01_to_04(Repository, Package);
                         break;
                     case rule18:
                         DoRule18(Repository, Package);
@@ -502,6 +546,39 @@ namespace XISMobileEAPlugin
                     case rule64:
                         DoRule64(Repository, Element);
                         break;
+                    case rule65:
+                        DoRule65(Repository, Element);
+                        break;
+                    case rule66:
+                        DoRule66_to_75(Repository, Element, "XisLabel");
+                        break;
+                    case rule67:
+                        DoRule66_to_75(Repository, Element, "XisTextBox");
+                        break;
+                    case rule68:
+                        DoRule66_to_75(Repository, Element, "XisTextBox");
+                        break;
+                    case rule69:
+                        DoRule66_to_75(Repository, Element, "XisButton");
+                        break;
+                    case rule70:
+                        DoRule66_to_75(Repository, Element, "XisLink");
+                        break;
+                    case rule71:
+                        DoRule66_to_75(Repository, Element, "XisImage");
+                        break;
+                    case rule72:
+                        DoRule66_to_75(Repository, Element, "XisDatePicker");
+                        break;
+                    case rule73:
+                        DoRule66_to_75(Repository, Element, "XisTimePicker");
+                        break;
+                    case rule74:
+                        DoRule66_to_75(Repository, Element, "XisWebView");
+                        break;
+                    case rule75:
+                        DoRule66_to_75(Repository, Element, "XisDropdown");
+                        break;
                     default:
                         break;
                 }
@@ -596,7 +673,7 @@ namespace XISMobileEAPlugin
         }
 
         // Validate number of views
-        private void DoRule01_04(EA.Repository Repository, EA.Package Package)
+        private void DoRule01_to_04(EA.Repository Repository, EA.Package Package)
         {
             EA.Project Project = Repository.GetProjectInterface();
             EA.Package model = (EA.Package)Repository.Models.GetAt(0);
@@ -867,7 +944,7 @@ namespace XISMobileEAPlugin
                         {
                             el = package.Elements.GetAt(i);
 
-                            if (el.Name == Attribute.Type && (el.Stereotype == "XisEntity" || el.Stereotype == "XisEntityInheritance"))
+                            if (el.Name == Attribute.Type && (el.Stereotype == "XisEntity" || el.Stereotype == "XisEnumeration"))
                             {
                                 exists = true;
                                 break;
@@ -1617,6 +1694,8 @@ namespace XISMobileEAPlugin
 
                     for (short i = 0; i < Element.Elements.Count; i++)
                     {
+                        el = Element.Elements.GetAt(i);
+
                         if (el.Stereotype != "XisMenuItem" && el.Stereotype != "XisMenuGroup")
                         {
                             EA.Project Project = Repository.GetProjectInterface();
@@ -1640,6 +1719,8 @@ namespace XISMobileEAPlugin
 
                     for (short i = 0; i < Element.Elements.Count; i++)
                     {
+                        el = Element.Elements.GetAt(i);
+
                         if (el.Stereotype == "XisMenuItem")
                         {
                             hasItem = true;
@@ -1673,6 +1754,8 @@ namespace XISMobileEAPlugin
 
                     for (short i = 0; i < Element.Elements.Count; i++)
                     {
+                        el = Element.Elements.GetAt(i);
+
                         if (el.Stereotype != "XisListItem")
                         {
                             EA.Project Project = Repository.GetProjectInterface();
@@ -1777,7 +1860,7 @@ namespace XISMobileEAPlugin
                         }
                     }
 
-                    if (!noOnTap)
+                    if (noOnTap)
                     {
                         EA.Project Project = Repository.GetProjectInterface();
                         switch (stereotype)
@@ -2081,6 +2164,74 @@ namespace XISMobileEAPlugin
             }
         }
 
+        private void DoRule65(EA.Repository Repository, EA.Element Element)
+        {
+            if (Element.Type == "Class" && Element.Stereotype == "XisDialog")
+            {
+                if (Element.Elements.Count > 0)
+                {
+                    EA.Element el = null;
+
+                    for (short i = 0; i < Element.Elements.Count; i++)
+                    {
+                        el = Element.Elements.GetAt(i);
+
+                        if (el.Stereotype != "Class" || el.Stereotype != "XisMapMarker")
+                        {
+                            EA.Project Project = Repository.GetProjectInterface();
+                            Project.PublishResult(LookupMap(rule65), EA.EnumMVErrorType.mvError, GetRuleStr(rule65));
+                            isValid = false;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        private void DoRule66_to_75(EA.Repository Repository, EA.Element Element, string stereotype)
+        {
+            if (Element.Type == "Class" && Element.Stereotype == "XisDialog")
+            {
+                if (Element.Elements.Count > 0)
+                {
+                    EA.Project Project = Repository.GetProjectInterface();
+                    switch (stereotype)
+                    {
+                        case "XisLabel":
+                            Project.PublishResult(LookupMap(rule66), EA.EnumMVErrorType.mvError, GetRuleStr(rule66));
+                            break;
+                        case "XisTextBox":
+                            Project.PublishResult(LookupMap(rule67), EA.EnumMVErrorType.mvError, GetRuleStr(rule67));
+                            break;
+                        case "XisCheckBox":
+                            Project.PublishResult(LookupMap(rule68), EA.EnumMVErrorType.mvError, GetRuleStr(rule68));
+                            break;
+                        case "XisButton":
+                            Project.PublishResult(LookupMap(rule69), EA.EnumMVErrorType.mvError, GetRuleStr(rule69));
+                            break;
+                        case "XisLink":
+                            Project.PublishResult(LookupMap(rule70), EA.EnumMVErrorType.mvError, GetRuleStr(rule70));
+                            break;
+                        case "XisImage":
+                            Project.PublishResult(LookupMap(rule71), EA.EnumMVErrorType.mvError, GetRuleStr(rule71));
+                            break;
+                        case "XisDatePicker":
+                            Project.PublishResult(LookupMap(rule72), EA.EnumMVErrorType.mvError, GetRuleStr(rule72));
+                            break;
+                        case "XisTimePicker":
+                            Project.PublishResult(LookupMap(rule73), EA.EnumMVErrorType.mvError, GetRuleStr(rule73));
+                            break;
+                        case "XisWebView":
+                            Project.PublishResult(LookupMap(rule74), EA.EnumMVErrorType.mvError, GetRuleStr(rule74));
+                            break;
+                        case "XisDropdown":
+                            Project.PublishResult(LookupMap(rule75), EA.EnumMVErrorType.mvError, GetRuleStr(rule75));
+                            break;
+                    }
+                    isValid = false;
+                }
+            }
+        }
         //private void DoRule05(EA.Repository Repository, EA.Element Element)
         //{
         //    EA.Package model = (EA.Package)Repository.Models.GetAt(0);
