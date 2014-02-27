@@ -1644,7 +1644,7 @@ namespace XISMobileEAPlugin
             return null;
         }
 
-        private static EA.ConnectorTag GetConnectorTag(EA.Collection taggedValues, string name)
+        public static EA.ConnectorTag GetConnectorTag(EA.Collection taggedValues, string name)
         {
             foreach (EA.ConnectorTag tv in taggedValues)
             {
@@ -1656,9 +1656,21 @@ namespace XISMobileEAPlugin
             return null;
         }
 
-        private static EA.AttributeTag GetAttributeTag(EA.Collection taggedValues, string name)
+        public static EA.AttributeTag GetAttributeTag(EA.Collection taggedValues, string name)
         {
             foreach (EA.AttributeTag tv in taggedValues)
+            {
+                if (tv.Name == name)
+                {
+                    return tv;
+                }
+            }
+            return null;
+        }
+
+        public static EA.MethodTag GetMethodTag(EA.Collection taggedValues, string name)
+        {
+            foreach (EA.MethodTag tv in taggedValues)
             {
                 if (tv.Name == name)
                 {
