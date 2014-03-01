@@ -2508,19 +2508,19 @@ namespace XISMobileEAPlugin
                                                 isValid = false;
                                                 break;
                                             case "Read":
-                                                Project.PublishResult(LookupMap(rule79), EA.EnumMVErrorType.mvError, GetRuleStr(rule79));
+                                                Project.PublishResult(LookupMap(rule80), EA.EnumMVErrorType.mvError, GetRuleStr(rule80));
                                                 isValid = false;
                                                 break;
                                             case "Update":
-                                                Project.PublishResult(LookupMap(rule79), EA.EnumMVErrorType.mvError, GetRuleStr(rule79));
+                                                Project.PublishResult(LookupMap(rule81), EA.EnumMVErrorType.mvError, GetRuleStr(rule81));
                                                 isValid = false;
                                                 break;
                                             case "Delete":
-                                                Project.PublishResult(LookupMap(rule79), EA.EnumMVErrorType.mvError, GetRuleStr(rule79));
+                                                Project.PublishResult(LookupMap(rule82), EA.EnumMVErrorType.mvError, GetRuleStr(rule82));
                                                 isValid = false;
                                                 break;
                                             case "DeleteAll":
-                                                Project.PublishResult(LookupMap(rule79), EA.EnumMVErrorType.mvError, GetRuleStr(rule79));
+                                                Project.PublishResult(LookupMap(rule83), EA.EnumMVErrorType.mvError, GetRuleStr(rule83));
                                                 isValid = false;
                                                 break;
                                             default:
@@ -2539,19 +2539,19 @@ namespace XISMobileEAPlugin
                                             isValid = false;
                                             break;
                                         case "Read":
-                                            Project.PublishResult(LookupMap(rule79), EA.EnumMVErrorType.mvError, GetRuleStr(rule79));
+                                            Project.PublishResult(LookupMap(rule80), EA.EnumMVErrorType.mvError, GetRuleStr(rule80));
                                             isValid = false;
                                             break;
                                         case "Update":
-                                            Project.PublishResult(LookupMap(rule79), EA.EnumMVErrorType.mvError, GetRuleStr(rule79));
+                                            Project.PublishResult(LookupMap(rule81), EA.EnumMVErrorType.mvError, GetRuleStr(rule81));
                                             isValid = false;
                                             break;
                                         case "Delete":
-                                            Project.PublishResult(LookupMap(rule79), EA.EnumMVErrorType.mvError, GetRuleStr(rule79));
+                                            Project.PublishResult(LookupMap(rule82), EA.EnumMVErrorType.mvError, GetRuleStr(rule82));
                                             isValid = false;
                                             break;
                                         case "DeleteAll":
-                                            Project.PublishResult(LookupMap(rule79), EA.EnumMVErrorType.mvError, GetRuleStr(rule79));
+                                            Project.PublishResult(LookupMap(rule83), EA.EnumMVErrorType.mvError, GetRuleStr(rule83));
                                             isValid = false;
                                             break;
                                         default:
@@ -2570,19 +2570,19 @@ namespace XISMobileEAPlugin
                                         isValid = false;
                                         break;
                                     case "Read":
-                                        Project.PublishResult(LookupMap(rule79), EA.EnumMVErrorType.mvError, GetRuleStr(rule79));
+                                        Project.PublishResult(LookupMap(rule80), EA.EnumMVErrorType.mvError, GetRuleStr(rule80));
                                         isValid = false;
                                         break;
                                     case "Update":
-                                        Project.PublishResult(LookupMap(rule79), EA.EnumMVErrorType.mvError, GetRuleStr(rule79));
+                                        Project.PublishResult(LookupMap(rule81), EA.EnumMVErrorType.mvError, GetRuleStr(rule81));
                                         isValid = false;
                                         break;
                                     case "Delete":
-                                        Project.PublishResult(LookupMap(rule79), EA.EnumMVErrorType.mvError, GetRuleStr(rule79));
+                                        Project.PublishResult(LookupMap(rule82), EA.EnumMVErrorType.mvError, GetRuleStr(rule82));
                                         isValid = false;
                                         break;
                                     case "DeleteAll":
-                                        Project.PublishResult(LookupMap(rule79), EA.EnumMVErrorType.mvError, GetRuleStr(rule79));
+                                        Project.PublishResult(LookupMap(rule83), EA.EnumMVErrorType.mvError, GetRuleStr(rule83));
                                         isValid = false;
                                         break;
                                     default:
@@ -2601,19 +2601,19 @@ namespace XISMobileEAPlugin
                                     isValid = false;
                                     break;
                                 case "Read":
-                                    Project.PublishResult(LookupMap(rule79), EA.EnumMVErrorType.mvError, GetRuleStr(rule79));
+                                    Project.PublishResult(LookupMap(rule80), EA.EnumMVErrorType.mvError, GetRuleStr(rule80));
                                     isValid = false;
                                     break;
                                 case "Update":
-                                    Project.PublishResult(LookupMap(rule79), EA.EnumMVErrorType.mvError, GetRuleStr(rule79));
+                                    Project.PublishResult(LookupMap(rule81), EA.EnumMVErrorType.mvError, GetRuleStr(rule81));
                                     isValid = false;
                                     break;
                                 case "Delete":
-                                    Project.PublishResult(LookupMap(rule79), EA.EnumMVErrorType.mvError, GetRuleStr(rule79));
+                                    Project.PublishResult(LookupMap(rule82), EA.EnumMVErrorType.mvError, GetRuleStr(rule82));
                                     isValid = false;
                                     break;
                                 case "DeleteAll":
-                                    Project.PublishResult(LookupMap(rule79), EA.EnumMVErrorType.mvError, GetRuleStr(rule79));
+                                    Project.PublishResult(LookupMap(rule83), EA.EnumMVErrorType.mvError, GetRuleStr(rule83));
                                     isValid = false;
                                     break;
                                 default:
