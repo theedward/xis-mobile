@@ -107,6 +107,8 @@ namespace XISMobileEAPlugin
         private const string rule85 = "Rule85";
         private const string rule86 = "Rule86";
         private const string rule87 = "Rule87";
+        private const string rule88 = "Rule88";
+        private const string rule89 = "Rule89";
 
         public Rules()
         {
@@ -317,6 +319,10 @@ namespace XISMobileEAPlugin
                     return "A XisAction of type 'WebService' must have the same parameters of the associated XisMethod!";
                 case rule87:
                     return "A XisAction of type 'Navigate' must have the 'navigation' value filled with a XisInteractionSpace name!";
+                case rule88:
+                    return "A XisForm must have the 'entityName' value filled!";
+                case rule89:
+                    return "A XisForm must have the 'entityName' value filled with a valida XisEntity name!";
                 //case rule08:
                 //    return "All XisActions parameters must be XisArguments!";
                 default:
@@ -416,6 +422,8 @@ namespace XISMobileEAPlugin
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule85)), rule85);
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule86)), rule86);
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule87)), rule87);
+            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule87)), rule88);
+            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule87)), rule89);
             // TODO: expand this list
         }
 
@@ -618,6 +626,12 @@ namespace XISMobileEAPlugin
                         break;
                     case rule75:
                         DoRule66_to_75(Repository, Element, "XisDropdown");
+                        break;
+                    case rule88:
+                        DoRule88(Repository, Element);
+                        break;
+                    case rule89:
+                        DoRule89(Repository, Element);
                         break;
                     default:
                         break;
@@ -2858,6 +2872,119 @@ namespace XISMobileEAPlugin
                     {
                         EA.Project Project = Repository.GetProjectInterface();
                         Project.PublishResult(LookupMap(rule87), EA.EnumMVErrorType.mvError, GetRuleStr(rule87));
+                        isValid = false;
+                    }
+                }
+            }
+        }
+
+        private void DoRule88(EA.Repository Repository, EA.Element Element)
+        {
+            if (Element.Type == "Class" && Element.Stereotype == "XisForm")
+            {
+                string entityName = M2MTransformer.GetTaggedValue(Element.TaggedValues, "entityName").Value;
+
+                if (string.IsNullOrEmpty(entityName))
+                {
+                    EA.Project Project = Repository.GetProjectInterface();
+                    Project.PublishResult(LookupMap(rule88), EA.EnumMVErrorType.mvError, GetRuleStr(rule88));
+                    isValid = false;
+                }
+            }
+        }
+
+        private void DoRule89(EA.Repository Repository, EA.Element Element)
+        {
+            if (Element.Type == "Class" && Element.Stereotype == "XisForm")
+            {
+                string entityName = M2MTransformer.GetTaggedValue(Element.TaggedValues, "entityName").Value;
+
+                if (!string.IsNullOrEmpty(entityName))
+                {
+                    EA.Element space = null;
+                    EA.Element el = null;
+                    EA.Connector conn = null;
+                    EA.Connector assoc = null;
+                    int parentID = Element.ParentID;
+
+                    while (parentID > 0)
+                    {
+                        el = Repository.GetElementByID(parentID);
+
+                        if (el.Type == "Class" && el.Stereotype == "XisInteractionSpace")
+                        {
+                            space = el;
+                            break;
+                        }
+                        parentID = el.ParentID;
+                    }
+
+                    if (space != null)
+                    {
+                        for (short i = 0; i < space.Connectors.Count; i++)
+                        {
+                            conn = space.Connectors.GetAt(i);
+
+                            if (conn.Stereotype == "XisIS-BEAssociation")
+                            {
+                                assoc = conn;
+                                break;
+                            }
+                        }
+
+                        if (assoc != null)
+                        {
+                            EA.Element be = Repository.GetElementByID(assoc.SupplierID);
+                            bool hasEntity = false;
+
+                            if (be.Stereotype == "XisBusinessEntity" && be.Connectors.Count > 0)
+                            {
+                                EA.Element entity = null;
+
+                                for (short i = 0; i < be.Connectors.Count; i++)
+                                {
+                                    conn = be.Connectors.GetAt(i);
+
+                                    if (conn.Stereotype == "XisBE-EntityMasterAssociation"
+                                        || conn.Stereotype == "XisBE-EntityDetailAssociation"
+                                        || conn.Stereotype == "XisBE-EntityReferenceAssociation")
+                                    {
+                                        entity = Repository.GetElementByID(conn.SupplierID);
+
+                                        if (entity.Type == "Class" && entity.Stereotype == "XisEntity"
+                                            && entity.Name == entityName)
+                                        {
+                                            hasEntity = true;
+                                            break;
+                                        }
+                                    }
+                                }
+
+                                if (!hasEntity)
+                                {
+                                    EA.Project Project = Repository.GetProjectInterface();
+                                    Project.PublishResult(LookupMap(rule89), EA.EnumMVErrorType.mvError, GetRuleStr(rule89));
+                                    isValid = false;
+                                }
+                            }
+                            else
+                            {
+                                EA.Project Project = Repository.GetProjectInterface();
+                                Project.PublishResult(LookupMap(rule89), EA.EnumMVErrorType.mvError, GetRuleStr(rule89));
+                                isValid = false;
+                            }
+                        }
+                        else
+                        {
+                            EA.Project Project = Repository.GetProjectInterface();
+                            Project.PublishResult(LookupMap(rule89), EA.EnumMVErrorType.mvError, GetRuleStr(rule89));
+                            isValid = false;
+                        }
+                    }
+                    else
+                    {
+                        EA.Project Project = Repository.GetProjectInterface();
+                        Project.PublishResult(LookupMap(rule89), EA.EnumMVErrorType.mvError, GetRuleStr(rule89));
                         isValid = false;
                     }
                 }
