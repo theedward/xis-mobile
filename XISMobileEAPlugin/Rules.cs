@@ -2428,9 +2428,9 @@ namespace XISMobileEAPlugin
 
                 if (type == crud)
                 {
-                    EA.Element owner = Repository.GetElementByID(method.ParentID);
-                    EA.Element parent = owner;
+                    EA.Element parent = Repository.GetElementByID(method.ParentID);
                     bool needsParam = false;
+                    bool publishResult = false;
 
                     while (parent != null)
                     {
@@ -2464,162 +2464,105 @@ namespace XISMobileEAPlugin
                         {
                             EA.Parameter p = method.Parameters.GetAt(0);
 
-                            if (p.Name == "entityName" && !string.IsNullOrEmpty(p.Default))
+                            if (parent.Connectors.Count > 0 && p.Name == "entityName" && !string.IsNullOrEmpty(p.Default))
                             {
-                                EA.Package model = Repository.GetPackageByID(owner.PackageID);
-                                EA.Package package = null;
-                                EA.Package domainView = null;
+                                EA.Connector conn = null;
+                                EA.Connector assoc = null;
 
-                                for (short i = 0; i < model.Packages.Count; i++)
+                                for (short i = 0; i < parent.Connectors.Count; i++)
                                 {
-                                    package = model.Packages.GetAt(i);
+                                    conn = parent.Connectors.GetAt(i);
 
-                                    if (package.StereotypeEx == "InteractionSpaceView View")
+                                    if (conn.Stereotype == "XisIS-BEAssociation")
                                     {
-                                        domainView = package;
+                                        assoc = conn;
                                         break;
                                     }
                                 }
 
-                                if (domainView != null)
+                                if (assoc != null)
                                 {
-                                    EA.Element el = null;
+                                    EA.Element be = Repository.GetElementByID(assoc.SupplierID);
                                     bool hasEntity = false;
 
-                                    for (short i = 0; i < domainView.Elements.Count; i++)
+                                    if (be.Stereotype == "XisBusinessEntity" && be.Connectors.Count > 0)
                                     {
-                                        el = domainView.Elements.GetAt(i);
+                                        EA.Element entity = null;
 
-                                        if (el.Type == "Class" && el.Stereotype == "XisEntity" && el.Name == p.Default)
+                                        for (short i = 0; i < be.Connectors.Count; i++)
                                         {
-                                            hasEntity = true;
-                                            break;
+                                            conn = be.Connectors.GetAt(i);
+
+                                            if (conn.Stereotype == "XisBE-EntityMasterAssociation"
+                                                || conn.Stereotype == "XisBE-EntityDetailAssociation"
+                                                || conn.Stereotype == "XisBE-EntityReferenceAssociation")
+                                            {
+                                                entity = Repository.GetElementByID(conn.SupplierID);
+
+                                                if (entity.Type == "Class" && entity.Stereotype == "XisEntity"
+                                                    && entity.Name == p.Default)
+                                                {
+                                                    hasEntity = true;
+                                                    break;
+                                                }
+                                            }
+                                        }
+
+                                        if (!hasEntity)
+                                        {
+                                            publishResult = true;
                                         }
                                     }
-
-                                    if (!hasEntity)
+                                    else
                                     {
-                                        EA.Project Project = Repository.GetProjectInterface();
-
-                                        switch (crud)
-                                        {
-                                            case "Create":
-                                                Project.PublishResult(LookupMap(rule79), EA.EnumMVErrorType.mvError, GetRuleStr(rule79));
-                                                isValid = false;
-                                                break;
-                                            case "Read":
-                                                Project.PublishResult(LookupMap(rule80), EA.EnumMVErrorType.mvError, GetRuleStr(rule80));
-                                                isValid = false;
-                                                break;
-                                            case "Update":
-                                                Project.PublishResult(LookupMap(rule81), EA.EnumMVErrorType.mvError, GetRuleStr(rule81));
-                                                isValid = false;
-                                                break;
-                                            case "Delete":
-                                                Project.PublishResult(LookupMap(rule82), EA.EnumMVErrorType.mvError, GetRuleStr(rule82));
-                                                isValid = false;
-                                                break;
-                                            case "DeleteAll":
-                                                Project.PublishResult(LookupMap(rule83), EA.EnumMVErrorType.mvError, GetRuleStr(rule83));
-                                                isValid = false;
-                                                break;
-                                            default:
-                                                break;
-                                        }
+                                        publishResult = true;
                                     }
                                 }
                                 else
                                 {
-                                    EA.Project Project = Repository.GetProjectInterface();
-
-                                    switch (crud)
-                                    {
-                                        case "Create":
-                                            Project.PublishResult(LookupMap(rule79), EA.EnumMVErrorType.mvError, GetRuleStr(rule79));
-                                            isValid = false;
-                                            break;
-                                        case "Read":
-                                            Project.PublishResult(LookupMap(rule80), EA.EnumMVErrorType.mvError, GetRuleStr(rule80));
-                                            isValid = false;
-                                            break;
-                                        case "Update":
-                                            Project.PublishResult(LookupMap(rule81), EA.EnumMVErrorType.mvError, GetRuleStr(rule81));
-                                            isValid = false;
-                                            break;
-                                        case "Delete":
-                                            Project.PublishResult(LookupMap(rule82), EA.EnumMVErrorType.mvError, GetRuleStr(rule82));
-                                            isValid = false;
-                                            break;
-                                        case "DeleteAll":
-                                            Project.PublishResult(LookupMap(rule83), EA.EnumMVErrorType.mvError, GetRuleStr(rule83));
-                                            isValid = false;
-                                            break;
-                                        default:
-                                            break;
-                                    }
+                                    publishResult = true;
                                 }
                             }
                             else
                             {
-                                EA.Project Project = Repository.GetProjectInterface();
-
-                                switch (crud)
-                                {
-                                    case "Create":
-                                        Project.PublishResult(LookupMap(rule79), EA.EnumMVErrorType.mvError, GetRuleStr(rule79));
-                                        isValid = false;
-                                        break;
-                                    case "Read":
-                                        Project.PublishResult(LookupMap(rule80), EA.EnumMVErrorType.mvError, GetRuleStr(rule80));
-                                        isValid = false;
-                                        break;
-                                    case "Update":
-                                        Project.PublishResult(LookupMap(rule81), EA.EnumMVErrorType.mvError, GetRuleStr(rule81));
-                                        isValid = false;
-                                        break;
-                                    case "Delete":
-                                        Project.PublishResult(LookupMap(rule82), EA.EnumMVErrorType.mvError, GetRuleStr(rule82));
-                                        isValid = false;
-                                        break;
-                                    case "DeleteAll":
-                                        Project.PublishResult(LookupMap(rule83), EA.EnumMVErrorType.mvError, GetRuleStr(rule83));
-                                        isValid = false;
-                                        break;
-                                    default:
-                                        break;
-                                }
+                                publishResult = true;
                             }
                         }
                         else
                         {
-                            EA.Project Project = Repository.GetProjectInterface();
+                            publishResult = true;
+                        }
+                    }
 
-                            switch (crud)
-                            {
-                                case "Create":
-                                    Project.PublishResult(LookupMap(rule79), EA.EnumMVErrorType.mvError, GetRuleStr(rule79));
-                                    isValid = false;
-                                    break;
-                                case "Read":
-                                    Project.PublishResult(LookupMap(rule80), EA.EnumMVErrorType.mvError, GetRuleStr(rule80));
-                                    isValid = false;
-                                    break;
-                                case "Update":
-                                    Project.PublishResult(LookupMap(rule81), EA.EnumMVErrorType.mvError, GetRuleStr(rule81));
-                                    isValid = false;
-                                    break;
-                                case "Delete":
-                                    Project.PublishResult(LookupMap(rule82), EA.EnumMVErrorType.mvError, GetRuleStr(rule82));
-                                    isValid = false;
-                                    break;
-                                case "DeleteAll":
-                                    Project.PublishResult(LookupMap(rule83), EA.EnumMVErrorType.mvError, GetRuleStr(rule83));
-                                    isValid = false;
-                                    break;
-                                default:
-                                    break;
-                            }
-                        } 
+                    if (publishResult)
+                    {
+                        EA.Project Project = Repository.GetProjectInterface();
+
+                        switch (crud)
+                        {
+                            case "Create":
+                                Project.PublishResult(LookupMap(rule79), EA.EnumMVErrorType.mvError, GetRuleStr(rule79));
+                                isValid = false;
+                                break;
+                            case "Read":
+                                Project.PublishResult(LookupMap(rule80), EA.EnumMVErrorType.mvError, GetRuleStr(rule80));
+                                isValid = false;
+                                break;
+                            case "Update":
+                                Project.PublishResult(LookupMap(rule81), EA.EnumMVErrorType.mvError, GetRuleStr(rule81));
+                                isValid = false;
+                                break;
+                            case "Delete":
+                                Project.PublishResult(LookupMap(rule82), EA.EnumMVErrorType.mvError, GetRuleStr(rule82));
+                                isValid = false;
+                                break;
+                            case "DeleteAll":
+                                Project.PublishResult(LookupMap(rule83), EA.EnumMVErrorType.mvError, GetRuleStr(rule83));
+                                isValid = false;
+                                break;
+                            default:
+                                break;
+                        }
                     }
                 }
             }
