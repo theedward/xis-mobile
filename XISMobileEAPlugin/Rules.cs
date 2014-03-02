@@ -322,7 +322,7 @@ namespace XISMobileEAPlugin
                 case rule88:
                     return "A XisForm must have the 'entityName' value filled!";
                 case rule89:
-                    return "A XisForm must have the 'entityName' value filled with a valida XisEntity name!";
+                    return "A XisForm must have the 'entityName' value filled with a valid XisEntity name!";
                 //case rule08:
                 //    return "All XisActions parameters must be XisArguments!";
                 default:
