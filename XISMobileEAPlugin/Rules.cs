@@ -109,6 +109,10 @@ namespace XISMobileEAPlugin
         private const string rule87 = "Rule87";
         private const string rule88 = "Rule88";
         private const string rule89 = "Rule89";
+        private const string rule90 = "Rule90";
+        private const string rule91 = "Rule91";
+        private const string rule92 = "Rule92";
+        private const string rule93 = "Rule93";
 
         public Rules()
         {
@@ -323,6 +327,14 @@ namespace XISMobileEAPlugin
                     return "A XisForm must have the 'entityName' value filled!";
                 case rule89:
                     return "A XisForm must have the 'entityName' value filled with a valid XisEntity name!";
+                case rule90:
+                    return "A XisList must have the 'entityName' value filled with a valid XisEntity name!";
+                case rule91:
+                    return "A XisListGroup only can have the 'entityName' value filled with a valid XisEntity name!";
+                case rule92:
+                    return "A XisVisibilityBoundary must have the 'entityName' value filled with a valid XisEntity name!";
+                case rule93:
+                    return "A XisMenu only can have the 'entityName' value filled with a valid XisEntity name!";
                 //case rule08:
                 //    return "All XisActions parameters must be XisArguments!";
                 default:
@@ -422,8 +434,12 @@ namespace XISMobileEAPlugin
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule85)), rule85);
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule86)), rule86);
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule87)), rule87);
-            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule87)), rule88);
-            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule87)), rule89);
+            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule88)), rule88);
+            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule89)), rule89);
+            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule90)), rule90);
+            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule91)), rule91);
+            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule92)), rule92);
+            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule93)), rule93);
             // TODO: expand this list
         }
 
@@ -632,6 +648,18 @@ namespace XISMobileEAPlugin
                         break;
                     case rule89:
                         DoRule89(Repository, Element);
+                        break;
+                    case rule90:
+                        //DoRule90(Repository, Element);
+                        break;
+                    case rule91:
+                        
+                        break;
+                    case rule92:
+                        
+                        break;
+                    case rule93:
+                        
                         break;
                     default:
                         break;
