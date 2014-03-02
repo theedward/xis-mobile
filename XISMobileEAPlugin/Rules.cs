@@ -330,11 +330,11 @@ namespace XISMobileEAPlugin
                 case rule90:
                     return "A XisList must have the 'entityName' value filled with a valid XisEntity name!";
                 case rule91:
-                    return "A XisListGroup only can have the 'entityName' value filled with a valid XisEntity name!";
+                    return "A XisListGroup can only have the 'entityName' value filled with a valid XisEntity name!";
                 case rule92:
                     return "A XisVisibilityBoundary must have the 'entityName' value filled with a valid XisEntity name!";
                 case rule93:
-                    return "A XisMenu only can have the 'entityName' value filled with a valid XisEntity name!";
+                    return "A XisMenu can only have the 'entityName' value filled with a valid XisEntity name!";
                 //case rule08:
                 //    return "All XisActions parameters must be XisArguments!";
                 default:
@@ -647,19 +647,19 @@ namespace XISMobileEAPlugin
                         DoRule88(Repository, Element);
                         break;
                     case rule89:
-                        DoRule89(Repository, Element);
+                        DoRule89_to_93(Repository, Element, "XisForm");
                         break;
                     case rule90:
-                        //DoRule90(Repository, Element);
+                        DoRule89_to_93(Repository, Element, "XisList");
                         break;
                     case rule91:
-                        
+                        DoRule89_to_93(Repository, Element, "XisListGroup");
                         break;
                     case rule92:
-                        
+                        DoRule89_to_93(Repository, Element, "XisVisibilityBoundary");
                         break;
                     case rule93:
-                        
+                        DoRule89_to_93(Repository, Element, "XisMenu");
                         break;
                     default:
                         break;
@@ -2921,9 +2921,9 @@ namespace XISMobileEAPlugin
             }
         }
 
-        private void DoRule89(EA.Repository Repository, EA.Element Element)
+        private void DoRule89_to_93(EA.Repository Repository, EA.Element Element, string stereotype)
         {
-            if (Element.Type == "Class" && Element.Stereotype == "XisForm")
+            if (Element.Type == "Class" && Element.Stereotype == stereotype)
             {
                 string entityName = M2MTransformer.GetTaggedValue(Element.TaggedValues, "entityName").Value;
 
@@ -2933,6 +2933,7 @@ namespace XISMobileEAPlugin
                     EA.Element el = null;
                     EA.Connector conn = null;
                     EA.Connector assoc = null;
+                    bool publishResult = false;
                     int parentID = Element.ParentID;
 
                     while (parentID > 0)
@@ -2990,30 +2991,53 @@ namespace XISMobileEAPlugin
 
                                 if (!hasEntity)
                                 {
-                                    EA.Project Project = Repository.GetProjectInterface();
-                                    Project.PublishResult(LookupMap(rule89), EA.EnumMVErrorType.mvError, GetRuleStr(rule89));
-                                    isValid = false;
+                                    publishResult = true;
                                 }
                             }
                             else
                             {
-                                EA.Project Project = Repository.GetProjectInterface();
-                                Project.PublishResult(LookupMap(rule89), EA.EnumMVErrorType.mvError, GetRuleStr(rule89));
-                                isValid = false;
+                                publishResult = true;
                             }
                         }
                         else
                         {
-                            EA.Project Project = Repository.GetProjectInterface();
-                            Project.PublishResult(LookupMap(rule89), EA.EnumMVErrorType.mvError, GetRuleStr(rule89));
-                            isValid = false;
+                            publishResult = true;
                         }
                     }
                     else
                     {
+                        publishResult = true;
+                    }
+
+                    if (publishResult)
+                    {
                         EA.Project Project = Repository.GetProjectInterface();
-                        Project.PublishResult(LookupMap(rule89), EA.EnumMVErrorType.mvError, GetRuleStr(rule89));
-                        isValid = false;
+
+                        switch (stereotype)
+                        {
+                            case "XisForm":
+                                Project.PublishResult(LookupMap(rule89), EA.EnumMVErrorType.mvError, GetRuleStr(rule89));
+                                isValid = false;
+                                break;
+                            case "XisList":
+                                Project.PublishResult(LookupMap(rule90), EA.EnumMVErrorType.mvError, GetRuleStr(rule90));
+                                isValid = false;
+                                break;
+                            case "XisListGroup":
+                                Project.PublishResult(LookupMap(rule91), EA.EnumMVErrorType.mvError, GetRuleStr(rule91));
+                                isValid = false;
+                                break;
+                            case "XisVisibilityBoundary":
+                                Project.PublishResult(LookupMap(rule92), EA.EnumMVErrorType.mvError, GetRuleStr(rule92));
+                                isValid = false;
+                                break;
+                            case "XisMenu":
+                                Project.PublishResult(LookupMap(rule93), EA.EnumMVErrorType.mvError, GetRuleStr(rule93));
+                                isValid = false;
+                                break;
+                            default:
+                                break;
+                        }
                     }
                 }
             }
