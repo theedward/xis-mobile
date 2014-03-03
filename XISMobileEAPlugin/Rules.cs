@@ -678,16 +678,16 @@ namespace XISMobileEAPlugin
                         DoRule89_to_93(Repository, Element, "XisMenu");
                         break;
                     case rule94:
-                        DoRule94(Repository, Element);
+                        DoRule94_95(Repository, Element, "searchBy");
                         break;
                     case rule95:
-                        DoRule95(Repository, Element);
+                        DoRule94_95(Repository, Element, "orderBy");
                         break;
                     case rule96:
-                        DoRule96(Repository, Element);
+                        DoRule96_97(Repository, Element, "searchBy");
                         break;
                     case rule97:
-                        DoRule97(Repository, Element);
+                        DoRule96_97(Repository, Element, "orderBy");
                         break;
                     default:
                         break;
@@ -3071,15 +3071,169 @@ namespace XISMobileEAPlugin
             }
         }
 
-        private void DoRule94(EA.Repository Repository, EA.Element Element)
+        private void DoRule94_95(EA.Repository Repository, EA.Element Element, string filter)
         {
             if (Element.Type == "Class" && Element.Stereotype == "XisList")
             {
-                string entityName = M2MTransformer.GetTaggedValue(Element.TaggedValues, "searchBy").Value;
+                string entityName = M2MTransformer.GetTaggedValue(Element.TaggedValues, filter).Value;
 
-                if (!string.IsNullOrEmpty(entityName))
+                if (!string.IsNullOrEmpty(entityName) && !entityName.Contains('.'))
                 {
+                    EA.Project Project = Repository.GetProjectInterface();
+                        
+                    switch (filter)
+                    {
+                        case "searchBy":
+                            Project.PublishResult(LookupMap(rule94), EA.EnumMVErrorType.mvError, GetRuleStr(rule94));
+                            isValid = false;
+                            break;
+                        case "orderBy":
+                            Project.PublishResult(LookupMap(rule95), EA.EnumMVErrorType.mvError, GetRuleStr(rule95));
+                            isValid = false;
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+        }
 
+        private void DoRule96_97(EA.Repository Repository, EA.Element Element, string filter)
+        {
+            if (Element.Type == "Class" && Element.Stereotype == "XisList")
+            {
+                string domainRef = M2MTransformer.GetTaggedValue(Element.TaggedValues, filter).Value;
+
+                if (!string.IsNullOrEmpty(domainRef) && domainRef.Contains('.'))
+                {
+                    bool publishResult = false;
+                    string[] values = domainRef.Split('.');
+
+                    if (values.Length == 2)
+                    {
+                        EA.Element space = null;
+                        EA.Element el = null;
+                        EA.Connector conn = null;
+                        EA.Connector assoc = null;
+                        int parentID = Element.ParentID;
+
+                        while (parentID > 0)
+                        {
+                            el = Repository.GetElementByID(parentID);
+
+                            if (el.Type == "Class" && el.Stereotype == "XisInteractionSpace")
+                            {
+                                space = el;
+                                break;
+                            }
+                            parentID = el.ParentID;
+                        }
+
+                        if (space != null)
+                        {
+                            for (short i = 0; i < space.Connectors.Count; i++)
+                            {
+                                conn = space.Connectors.GetAt(i);
+
+                                if (conn.Stereotype == "XisIS-BEAssociation")
+                                {
+                                    assoc = conn;
+                                    break;
+                                }
+                            }
+
+                            if (assoc != null)
+                            {
+                                EA.Element be = Repository.GetElementByID(assoc.SupplierID);
+                                bool hasEntity = false;
+
+                                if (be.Stereotype == "XisBusinessEntity" && be.Connectors.Count > 0)
+                                {
+                                    EA.Element entity = null;
+
+                                    for (short i = 0; i < be.Connectors.Count; i++)
+                                    {
+                                        conn = be.Connectors.GetAt(i);
+
+                                        if (conn.Stereotype == "XisBE-EntityMasterAssociation"
+                                            || conn.Stereotype == "XisBE-EntityDetailAssociation"
+                                            || conn.Stereotype == "XisBE-EntityReferenceAssociation")
+                                        {
+                                            entity = Repository.GetElementByID(conn.SupplierID);
+
+                                            if (entity.Type == "Class" && entity.Stereotype == "XisEntity"
+                                                && entity.Name == values[0])
+                                            {
+                                                hasEntity = true;
+                                                break;
+                                            }
+                                        }
+                                    }
+
+                                    if (hasEntity && entity.Attributes.Count > 0)
+                                    {
+                                        bool attrExists = false;
+                                        EA.Attribute attr = null;
+
+                                        for (short i = 0; i < entity.Attributes.Count; i++)
+                                        {
+                                            attr = entity.Attributes.GetAt(i);
+
+                                            if (attr.Stereotype == "XisEntityAttribute" && attr.Name == values[1])
+                                            {
+                                                attrExists = true;
+                                                break;
+                                            }
+                                        }
+
+                                        if (!attrExists)
+                                        {
+                                            publishResult = true;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        publishResult = true;
+                                    }
+                                }
+                                else
+                                {
+                                    publishResult = true;
+                                }
+                            }
+                            else
+                            {
+                                publishResult = true;
+                            }
+                        }
+                        else
+                        {
+                            publishResult = true;
+                        }
+                    }
+                    else
+                    {
+                        publishResult = true;
+                    }
+
+                    if (publishResult)
+                    {
+                        EA.Project Project = Repository.GetProjectInterface();
+
+                        switch (filter)
+                        {
+                            case "searchBy":
+                                Project.PublishResult(LookupMap(rule96), EA.EnumMVErrorType.mvError, GetRuleStr(rule96));
+                                isValid = false;
+                                break;
+                            case "orderBy":
+                                Project.PublishResult(LookupMap(rule97), EA.EnumMVErrorType.mvError, GetRuleStr(rule97));
+                                isValid = false;
+                                break;
+                            default:
+                                break;
+                        }
+                    }
                 }
             }
         }
