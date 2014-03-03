@@ -125,6 +125,12 @@ namespace XISMobileEAPlugin
         private const string rule103 = "Rule103";
         private const string rule104 = "Rule104";
         private const string rule105 = "Rule105";
+        private const string rule106 = "Rule106";
+        private const string rule107 = "Rule107";
+        private const string rule108 = "Rule108";
+        private const string rule109 = "Rule109";
+        private const string rule110 = "Rule110";
+        private const string rule111 = "Rule111";
 
         public Rules()
         {
@@ -371,6 +377,18 @@ namespace XISMobileEAPlugin
                     return "A XisTimePicker must have a value assigned!";
                 case rule105:
                     return "A XisDropdown must have a value assigned!";
+                case rule106:
+                    return "A Architectural View package can only contain a Architectural View Diagram!";
+                case rule107:
+                    return "A Domain View package can only contain a Domain View Diagram!";
+                case rule108:
+                    return "A BusinessEntities View package can only contain a BusinessEntities View Diagram!";
+                case rule109:
+                    return "A UseCases View package can only contain a UseCases View Diagram!";
+                case rule110:
+                    return "A InteractionSpace View package can only contain a InteractionSpace View Diagram!";
+                case rule111:
+                    return "A NavigationSpace View package can only contain a NavigationSpace View Diagram!";
                 //case rule08:
                 //    return "All XisActions parameters must be XisArguments!";
                 default:
@@ -488,6 +506,12 @@ namespace XISMobileEAPlugin
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule103)), rule103);
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule104)), rule104);
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule105)), rule105);
+            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule106)), rule106);
+            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule107)), rule107);
+            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule108)), rule108);
+            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule109)), rule109);
+            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule110)), rule110);
+            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule111)), rule111);
             // TODO: expand this list
         }
 
@@ -506,6 +530,24 @@ namespace XISMobileEAPlugin
                         break;
                     case rule32:
                         DoRule32(Repository, Package);
+                        break;
+                    case rule106:
+                        DoRule106(Repository, Package);
+                        break;
+                    case rule107:
+                        DoRule107(Repository, Package);
+                        break;
+                    case rule108:
+                        DoRule108(Repository, Package);
+                        break;
+                    case rule109:
+                        DoRule109(Repository, Package);
+                        break;
+                    case rule110:
+                        DoRule110(Repository, Package);
+                        break;
+                    case rule111:
+                        DoRule111(Repository, Package);
                         break;
                     default:
                         break;
@@ -3342,6 +3384,165 @@ namespace XISMobileEAPlugin
                             break;
                         default:
                             break;
+                    }
+                }
+            }
+        }
+
+        private void DoRule106(EA.Repository Repository, EA.Package Package)
+        {
+            if (Package.StereotypeEx == "Architectural View")
+            {
+                if (Package.Diagrams.Count > 0 )
+                {
+                    if (Package.Diagrams.Count == 1)
+                    {
+                        EA.Diagram diagram = Package.Diagrams.GetAt(0);
+
+                        if (diagram.MetaType != "XIS-Mobile_Diagrams::ArchitecturalViewModel")
+                        {
+                            EA.Project Project = Repository.GetProjectInterface();
+                            Project.PublishResult(LookupMap(rule106), EA.EnumMVErrorType.mvError, GetRuleStr(rule106));
+                            isValid = false;
+                        }
+                    }
+                    else
+                    {
+                        EA.Project Project = Repository.GetProjectInterface();
+                        Project.PublishResult(LookupMap(rule106), EA.EnumMVErrorType.mvError, GetRuleStr(rule106));
+                        isValid = false;
+                    }
+                }
+            }
+        }
+
+        private void DoRule107(EA.Repository Repository, EA.Package Package)
+        {
+            if (Package.StereotypeEx == "Domain View")
+            {
+                if (Package.Diagrams.Count > 0)
+                {
+                    if (Package.Diagrams.Count == 1)
+                    {
+                        EA.Diagram diagram = Package.Diagrams.GetAt(0);
+
+                        if (diagram.MetaType != "XIS-Mobile_Diagrams::DomainViewModel")
+                        {
+                            EA.Project Project = Repository.GetProjectInterface();
+                            Project.PublishResult(LookupMap(rule107), EA.EnumMVErrorType.mvError, GetRuleStr(rule107));
+                            isValid = false;
+                        }
+                    }
+                    else
+                    {
+                        EA.Project Project = Repository.GetProjectInterface();
+                        Project.PublishResult(LookupMap(rule107), EA.EnumMVErrorType.mvError, GetRuleStr(rule107));
+                        isValid = false;
+                    }
+                }
+            }
+        }
+
+        private void DoRule108(EA.Repository Repository, EA.Package Package)
+        {
+            if (Package.StereotypeEx == "BusinessEntities View")
+            {
+                if (Package.Diagrams.Count > 0)
+                {
+                    if (Package.Diagrams.Count == 1)
+                    {
+                        EA.Diagram diagram = Package.Diagrams.GetAt(0);
+
+                        if (diagram.MetaType != "XIS-Mobile_Diagrams::BusinessEntitiesViewModel")
+                        {
+                            EA.Project Project = Repository.GetProjectInterface();
+                            Project.PublishResult(LookupMap(rule108), EA.EnumMVErrorType.mvError, GetRuleStr(rule108));
+                            isValid = false;
+                        }
+                    }
+                    else
+                    {
+                        EA.Project Project = Repository.GetProjectInterface();
+                        Project.PublishResult(LookupMap(rule108), EA.EnumMVErrorType.mvError, GetRuleStr(rule108));
+                        isValid = false;
+                    }
+                }
+            }
+        }
+
+        private void DoRule109(EA.Repository Repository, EA.Package Package)
+        {
+            if (Package.StereotypeEx == "UseCases View")
+            {
+                if (Package.Diagrams.Count > 0)
+                {
+                    if (Package.Diagrams.Count == 1)
+                    {
+                        EA.Diagram diagram = Package.Diagrams.GetAt(0);
+
+                        if (diagram.MetaType != "XIS-Mobile_Diagrams::UseCasesViewModel")
+                        {
+                            EA.Project Project = Repository.GetProjectInterface();
+                            Project.PublishResult(LookupMap(rule109), EA.EnumMVErrorType.mvError, GetRuleStr(rule109));
+                            isValid = false;
+                        }
+                    }
+                    else
+                    {
+                        EA.Project Project = Repository.GetProjectInterface();
+                        Project.PublishResult(LookupMap(rule109), EA.EnumMVErrorType.mvError, GetRuleStr(rule109));
+                        isValid = false;
+                    }
+                }
+            }
+        }
+
+        private void DoRule110(EA.Repository Repository, EA.Package Package)
+        {
+            if (Package.StereotypeEx == "InteractionSpace View")
+            {
+                if (Package.Diagrams.Count > 0)
+                {
+                    EA.Diagram diagram = null;
+
+                    for (short i = 0; i < Package.Diagrams.Count; i++)
+                    {
+                        diagram = Package.Diagrams.GetAt(i);
+
+                        if (diagram.MetaType != "XIS-Mobile_Diagrams::InteractionSpaceViewModel")
+                        {
+                            EA.Project Project = Repository.GetProjectInterface();
+                            Project.PublishResult(LookupMap(rule110), EA.EnumMVErrorType.mvError, GetRuleStr(rule110));
+                            isValid = false;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        private void DoRule111(EA.Repository Repository, EA.Package Package)
+        {
+            if (Package.StereotypeEx == "NavigationSpace View")
+            {
+                if (Package.Diagrams.Count > 0)
+                {
+                    if (Package.Diagrams.Count == 1)
+                    {
+                        EA.Diagram diagram = Package.Diagrams.GetAt(0);
+
+                        if (diagram.MetaType != "XIS-Mobile_Diagrams::NavigationSpaceViewModel")
+                        {
+                            EA.Project Project = Repository.GetProjectInterface();
+                            Project.PublishResult(LookupMap(rule111), EA.EnumMVErrorType.mvError, GetRuleStr(rule111));
+                            isValid = false;
+                        }
+                    }
+                    else
+                    {
+                        EA.Project Project = Repository.GetProjectInterface();
+                        Project.PublishResult(LookupMap(rule111), EA.EnumMVErrorType.mvError, GetRuleStr(rule111));
+                        isValid = false;
                     }
                 }
             }
