@@ -117,6 +117,14 @@ namespace XISMobileEAPlugin
         private const string rule95 = "Rule95";
         private const string rule96 = "Rule96";
         private const string rule97 = "Rule97";
+        private const string rule98 = "Rule98";
+        private const string rule99 = "Rule99";
+        private const string rule100 = "Rule100";
+        private const string rule101 = "Rule101";
+        private const string rule102 = "Rule102";
+        private const string rule103 = "Rule103";
+        private const string rule104 = "Rule104";
+        private const string rule105 = "Rule105";
 
         public Rules()
         {
@@ -340,13 +348,29 @@ namespace XISMobileEAPlugin
                 case rule93:
                     return "A XisMenu can only have the 'entityName' value filled with a valid XisEntity name!";
                 case rule94:
-                    return "A XisList can only have the 'searchBy' value filled in the format <XisEntity.name>.<XisEntityAttribute>!";
+                    return "A XisList can only have the 'searchBy' value filled in the format <XisEntity.name>.<XisEntityAttribute.name>!";
                 case rule95:
-                    return "A XisList can only have the 'orderBy' value filled in the format <XisEntity.name>.<XisEntityAttribute>!";
+                    return "A XisList can only have the 'orderBy' value filled in the format <XisEntity.name>.<XisEntityAttribute.name>!";
                 case rule96:
                     return "A XisList can only have the 'searchBy' value filled with a valid XisEntityAttribute name!";
                 case rule97:
                     return "A XisList can only have the 'orderBy' value filled with a valid XisEntityAttribute name!";
+                case rule98:
+                    return "A XisLabel must have a value assigned!";
+                case rule99:
+                    return "A XisTextBox must have a value assigned!";
+                case rule100:
+                    return "A XisCheckBox must have a value assigned!";
+                case rule101:
+                    return "A XisButton must have a value assigned!";
+                case rule102:
+                    return "A XisLink must have a value assigned!";
+                case rule103:
+                    return "A XisDatePicker must have a value assigned!";
+                case rule104:
+                    return "A XisTimePicker must have a value assigned!";
+                case rule105:
+                    return "A XisDropdown must have a value assigned!";
                 //case rule08:
                 //    return "All XisActions parameters must be XisArguments!";
                 default:
@@ -456,6 +480,14 @@ namespace XISMobileEAPlugin
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule95)), rule95);
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule96)), rule96);
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule97)), rule97);
+            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule98)), rule98);
+            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule99)), rule99);
+            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule100)), rule100);
+            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule101)), rule101);
+            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule102)), rule102);
+            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule103)), rule103);
+            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule104)), rule104);
+            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule105)), rule105);
             // TODO: expand this list
         }
 
@@ -688,6 +720,30 @@ namespace XISMobileEAPlugin
                         break;
                     case rule97:
                         DoRule96_97(Repository, Element, "orderBy");
+                        break;
+                    case rule98:
+                        DoRule98_to_105(Repository, Element, "XisLabel");
+                        break;
+                    case rule99:
+                        DoRule98_to_105(Repository, Element, "XisTextBox");
+                        break;
+                    case rule100:
+                        DoRule98_to_105(Repository, Element, "XisCheckBox");
+                        break;
+                    case rule101:
+                        DoRule98_to_105(Repository, Element, "XisButton");
+                        break;
+                    case rule102:
+                        DoRule98_to_105(Repository, Element, "XisLink");
+                        break;
+                    case rule103:
+                        DoRule98_to_105(Repository, Element, "XisDatePicker");
+                        break;
+                    case rule104:
+                        DoRule98_to_105(Repository, Element, "XisTimePicker");
+                        break;
+                    case rule105:
+                        DoRule98_to_105(Repository, Element, "XisDropdown");
                         break;
                     default:
                         break;
@@ -3233,6 +3289,59 @@ namespace XISMobileEAPlugin
                             default:
                                 break;
                         }
+                    }
+                }
+            }
+        }
+
+        private void DoRule98_to_105(EA.Repository Repository, EA.Element Element, string stereotype)
+        {
+            if (Element.Type == "Class" && Element.Stereotype == stereotype)
+            {
+                string value = M2MTransformer.GetTaggedValue(Element.TaggedValues, "value").Value;
+                string valueFromExpression = M2MTransformer.GetTaggedValue(Element.TaggedValues, "valueFromExpression").Value;
+                string entityAttributeName = M2MTransformer.GetTaggedValue(Element.TaggedValues, "entityAttributeName").Value;
+
+                if (string.IsNullOrEmpty(value) && string.IsNullOrEmpty(valueFromExpression) && string.IsNullOrEmpty(entityAttributeName))
+                {
+                    EA.Project Project = Repository.GetProjectInterface();
+
+                    switch (stereotype)
+                    {
+                        case "XisLabel":
+                            Project.PublishResult(LookupMap(rule98), EA.EnumMVErrorType.mvError, GetRuleStr(rule98));
+                            isValid = false;
+                            break;
+                        case "XisTextBox":
+                            Project.PublishResult(LookupMap(rule99), EA.EnumMVErrorType.mvError, GetRuleStr(rule99));
+                            isValid = false;
+                            break;
+                        case "XisCheckBox":
+                            Project.PublishResult(LookupMap(rule100), EA.EnumMVErrorType.mvError, GetRuleStr(rule100));
+                            isValid = false;
+                            break;
+                        case "XisButton":
+                            Project.PublishResult(LookupMap(rule101), EA.EnumMVErrorType.mvError, GetRuleStr(rule101));
+                            isValid = false;
+                            break;
+                        case "XisLink":
+                            Project.PublishResult(LookupMap(rule102), EA.EnumMVErrorType.mvError, GetRuleStr(rule102));
+                            isValid = false;
+                            break;
+                        case "XisDatePicker":
+                            Project.PublishResult(LookupMap(rule103), EA.EnumMVErrorType.mvError, GetRuleStr(rule103));
+                            isValid = false;
+                            break;
+                        case "XisTimePicker":
+                            Project.PublishResult(LookupMap(rule104), EA.EnumMVErrorType.mvError, GetRuleStr(rule104));
+                            isValid = false;
+                            break;
+                        case "XisDropdown":
+                            Project.PublishResult(LookupMap(rule105), EA.EnumMVErrorType.mvError, GetRuleStr(rule105));
+                            isValid = false;
+                            break;
+                        default:
+                            break;
                     }
                 }
             }
