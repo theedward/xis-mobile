@@ -378,7 +378,7 @@ namespace XISMobileEAPlugin
                 case rule105:
                     return "A XisDropdown must have a value assigned!";
                 case rule106:
-                    return "A Architectural View package can only contain a Architectural View Diagram!";
+                    return "An Architectural View package can only contain a Architectural View Diagram!";
                 case rule107:
                     return "A Domain View package can only contain a Domain View Diagram!";
                 case rule108:
@@ -386,9 +386,10 @@ namespace XISMobileEAPlugin
                 case rule109:
                     return "A UseCases View package can only contain a UseCases View Diagram!";
                 case rule110:
-                    return "A InteractionSpace View package can only contain a InteractionSpace View Diagram!";
+                    return "An InteractionSpace View package can only contain InteractionSpace View Diagrams!";
                 case rule111:
                     return "A NavigationSpace View package can only contain a NavigationSpace View Diagram!";
+                // TODO: Add Gesture validation rules
                 //case rule08:
                 //    return "All XisActions parameters must be XisArguments!";
                 default:
