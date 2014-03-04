@@ -74,7 +74,7 @@ public class Services {
 		StringBuilder builder = new StringBuilder();
 		List<Generalization> gens = c.getGeneralizations(); 
 
-		if (gens.size() == 1 && ServiceUtils.isXisInheritance(gens.get(0))) {
+		if (gens.size() == 1 && ServiceUtils.isXisEntityInheritance(gens.get(0))) {
 			Class cl = (Class) gens.get(0).getTargets()
 					.get(0);
 			builder.append(" extends ").append(cl.getName());
@@ -121,7 +121,7 @@ public class Services {
 		Type second = null;
 
 		for (Association a : c.getAssociations()) {
-			if (ServiceUtils.isXisDomainAssociation(a)) {
+			if (ServiceUtils.isXisIS_BEAssociation(a)) {
 				first = a.getEndTypes().get(0);
 				second = a.getEndTypes().get(1);
 				if (ServiceUtils.isXisBusinessEntity(first)) {
@@ -134,7 +134,7 @@ public class Services {
 
 		for (Class cl : bes) {
 			for (Association a : cl.getAssociations()) {
-				if (ServiceUtils.isXisMasterAssociation(a)) {
+				if (ServiceUtils.isXisBE_EntityMasterAssociation(a)) {
 					first = a.getEndTypes().get(0);
 					second = a.getEndTypes().get(1);
 					if (ServiceUtils.isXisEntity((Class) first)) {
@@ -155,7 +155,7 @@ public class Services {
 		Type second = null;
 
 		for (Association a : c.getAssociations()) {
-			if (ServiceUtils.isXisDomainAssociation(a)) {
+			if (ServiceUtils.isXisIS_BEAssociation(a)) {
 				first = a.getEndTypes().get(0);
 				second = a.getEndTypes().get(1);
 				if (ServiceUtils.isXisBusinessEntity(first)) {
@@ -168,7 +168,7 @@ public class Services {
 
 		for (Class cl : bes) {
 			for (Association a : cl.getAssociations()) {
-				if (ServiceUtils.isXisDetailAssociation(a)) {
+				if (ServiceUtils.isXisBE_EntityDetailAssociation(a)) {
 					first = a.getEndTypes().get(0);
 					second = a.getEndTypes().get(1);
 					if (ServiceUtils.isXisEntity((Class) first)) {
@@ -189,7 +189,7 @@ public class Services {
 		Type second = null;
 
 		for (Association a : c.getAssociations()) {
-			if (ServiceUtils.isXisDomainAssociation(a)) {
+			if (ServiceUtils.isXisIS_BEAssociation(a)) {
 				first = a.getEndTypes().get(0);
 				second = a.getEndTypes().get(1);
 				if (ServiceUtils.isXisBusinessEntity(first)) {
@@ -202,7 +202,7 @@ public class Services {
 
 		for (Class cl : bes) {
 			for (Association a : cl.getAssociations()) {
-				if (ServiceUtils.isXisReferenceAssociation(a)) {
+				if (ServiceUtils.isXisBE_EntityReferenceAssociation(a)) {
 					first = a.getEndTypes().get(0);
 					second = a.getEndTypes().get(1);
 					if (ServiceUtils.isXisEntity((Class) first)) {
@@ -224,7 +224,7 @@ public class Services {
 		Type second = null;
 
 		for (Association a : c.getAssociations()) {
-			if (ServiceUtils.isXisDomainAssociation(a)) {
+			if (ServiceUtils.isXisIS_BEAssociation(a)) {
 				assocs.add(a);
 			}
 		}
@@ -241,8 +241,8 @@ public class Services {
 
 		for (Class cl : bes) {
 			for (Association a : cl.getAssociations()) {
-				if (ServiceUtils.isXisMasterAssociation(a) || ServiceUtils.isXisDetailAssociation(a)
-						|| ServiceUtils.isXisReferenceAssociation(a)) {
+				if (ServiceUtils.isXisBE_EntityMasterAssociation(a) || ServiceUtils.isXisBE_EntityDetailAssociation(a)
+						|| ServiceUtils.isXisBE_EntityReferenceAssociation(a)) {
 					first = a.getEndTypes().get(0);
 					second = a.getEndTypes().get(1);
 					if (ServiceUtils.isXisEntity((Class) first)) {
@@ -261,7 +261,7 @@ public class Services {
 		List<Association> associations = new ArrayList<Association>();
 
 		for (Association a : c.getAssociations()) {
-			if (ServiceUtils.isXisNavigationAssociation(a)) {
+			if (ServiceUtils.isXisInteractionSpaceAssociation(a)) {
 				Property first = a.getMemberEnds().get(0);
 				Property second = a.getMemberEnds().get(1);
 				if (first.isNavigable()) {
@@ -284,7 +284,7 @@ public class Services {
 		List<Operation> operations = new ArrayList<Operation>();
 		
 		for (Association a : space.getAssociations()) {
-			if (ServiceUtils.isXisNavigationAssociation(a)) {
+			if (ServiceUtils.isXisInteractionSpaceAssociation(a)) {
 				Property first = a.getMemberEnds().get(0);
 				Property second = a.getMemberEnds().get(1);
 				
@@ -371,7 +371,7 @@ public class Services {
 		List<Operation> operations = new ArrayList<Operation>();
 
 		for (Association a : c.getAssociations()) {
-			if (ServiceUtils.isXisNavigationAssociation(a)) {
+			if (ServiceUtils.isXisInteractionSpaceAssociation(a)) {
 				Property first = a.getMemberEnds().get(0);
 				Property second = a.getMemberEnds().get(1);
 				if (first.isNavigable()) {
@@ -702,7 +702,7 @@ public class Services {
 
 		if (ServiceUtils.isXisMenu(c) && c.getOwner() == null) {
 			for (Association a : c.getAssociations()) {
-				if (ServiceUtils.isXisMenuAssociation(a)) {
+				if (ServiceUtils.isXisIS_MenuAssociation(a)) {
 					Property first = a.getMemberEnds().get(0);
 					Property second = a.getMemberEnds().get(1);
 					
@@ -1056,7 +1056,7 @@ public class Services {
 	public boolean hasXisDialogs(Class c) {
 		if (c.getAssociations().size() > 0) {
 			for (Association a : c.getAssociations()) {
-				if (ServiceUtils.isXisDialogAssociation(a)) {
+				if (ServiceUtils.isXisIS_DialogAssociation(a)) {
 					return true;
 				}
 			}

@@ -100,17 +100,9 @@
 	not c.getXisBusinessEntity().oclIsUndefined()
 /]
 
-[query public isXisDomainAssociation(a : Association) : Boolean =
-	not a.getAppliedStereotype('XIS-Mobile::XisDomainAssociation').oclIsUndefined()
-/]
-
 [query public getAllBusinessEntities(m : Model) : OrderedSet(Class) =
 	m.allOwnedElements()->selectByType(Class)->select(
 		c : Class | c.isXisBusinessEntity())
-/]
-
-[query public getXisDomainAssociations(c : Class) : Set(Association) =
-	c.getAssociations()->select(a : Association | a.isXisDomainAssociation())
 /]
 
 [**
@@ -130,12 +122,12 @@
 		c : Class | c.isXisInteractionSpace())
 /]
 
-[query public getXisNavigationAssociation(a : Association) : Stereotype = 
-	a.getAppliedStereotype('XIS-Mobile::XisNavigationAssociation')
+[query public getXisInteractionSpaceAssociation(a : Association) : Stereotype = 
+	a.getAppliedStereotype('XIS-Mobile::XisInteractionSpaceAssociation')
 /]
 
-[query public isXisNavigationAssociation(a : Association) : Boolean = 
-	not a.getXisNavigationAssociation().oclIsUndefined()
+[query public isXisInteractionSpaceAssociation(a : Association) : Boolean = 
+	not a.getXisInteractionSpaceAssociation().oclIsUndefined()
 /]
 
 [query public isMainScreen (el : Element) : Boolean =
@@ -199,12 +191,12 @@
 	c.getXisDialogButtons()->size() > 0
 /]
 
-[query public getXisDialogAssociation(a : Association) : Stereotype =
-	a.getAppliedStereotype('XIS-Mobile::XisDialogAssociation')
+[query public getXisIS_DialogAssociation(a : Association) : Stereotype =
+	a.getAppliedStereotype('XIS-Mobile::XisIS-DialogAssociation')
 /]
 
-[query public isXisDialogAssociation(a : Association) : Boolean =
-	not a.getXisDialogAssociation().oclIsUndefined()
+[query public isXisIS_DialogAssociation(a : Association) : Boolean =
+	not a.getXisIS_DialogAssociation().oclIsUndefined()
 /]
 
 [query public getXisMenu(c : Class) : Stereotype =
@@ -227,12 +219,12 @@
 	) = 'ContextMenu'
 /]
 
-[query public getXisMenuAssociation(a : Association) : Stereotype =
-	a.getAppliedStereotype('XIS-Mobile::XisMenuAssociation')
+[query public getXisIS_MenuAssociation(a : Association) : Stereotype =
+	a.getAppliedStereotype('XIS-Mobile::XisIS-MenuAssociation')
 /]
 
-[query public isXisMenuAssociation(a : Association) : Boolean =
-	not a.getXisMenuAssociation().oclIsUndefined()
+[query public isXisIS_MenuAssociation(a : Association) : Boolean =
+	not a.getXisIS_MenuAssociation().oclIsUndefined()
 /]
 
 [query public getXisMenuGroup(c : Class) : Stereotype =
