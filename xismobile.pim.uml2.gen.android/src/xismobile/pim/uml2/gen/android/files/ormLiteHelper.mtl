@@ -4,7 +4,6 @@
 [import xismobile::pim::uml2::gen::android::common::xisMobileUtils /]
 [import xismobile::pim::uml2::gen::android::common::utils /]
 [import xismobile::pim::uml2::gen::android::services::services /]
-[import xismobile::pim::uml2::gen::android::files::businessEntity /]
 
 [template public generateOrmLiteHelper(entities : OrderedSet(Class), model : Model)]
 
