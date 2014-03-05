@@ -6,7 +6,7 @@ XIS-Mobile is a Master's (MSc) Thesis project which intends to develop mobile ap
 The XIS-Mobile language reuses some of the best concepts used in the XIS UML profile, used for modeling interactive systems, and introduces new ones in order to be more appropriate to mobile applications design. The latest version of the XIS-Mobile language comprises six views:
 
 - **Domain View -** Describes the domain entities relevant to the problem domain, their attributes and the relationships among them;
-- **BusinessEntities View -** Describes higher-level entities that provide context to a certain use case and interaction space;
+- **BusinessEntities View -** Describes higher-level entities that provide context to a certain use case and interaction spaces;
 - **UseCases View -** Describes the operations a user can perform in the context of a business entity and/or an external service;
 - **InteractionSpace View -** Describes each application's screen, known as interaction space, namely the UI layout, the events a certain UI component can trigger and the gestures that can be performed;
 - **NavigationSpace View -** Describes the navigation flow between the several interaction spaces with which the user interacts;
