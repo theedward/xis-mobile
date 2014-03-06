@@ -560,14 +560,11 @@ namespace XISMobileEAPlugin.InteractionSpace
 	        {
                 case ActionType.OK:
                 case ActionType.Cancel:
-                case ActionType.Save:
                 case ActionType.Create:
                 case ActionType.Read:
                 case ActionType.Update:
                 case ActionType.Delete:
                 case ActionType.DeleteAll:
-                case ActionType.ZoomIn:
-                case ActionType.ZoomOut:
                 case ActionType.WebService:
                 case ActionType.Navigate:
                 case ActionType.Custom:
@@ -575,7 +572,8 @@ namespace XISMobileEAPlugin.InteractionSpace
                     break;
 	        }
 
-            action.Stereotype = "XisAction";
+            action.Stereotype = "XIS-Mobile::XisAction";
+            action.StereotypeEx = "XIS-Mobile::XisAction";
             action.Update();
 
             EA.MethodTag typeTv = action.TaggedValues.AddNew("type", "XIS-Mobile::ActionType");
@@ -616,7 +614,6 @@ namespace XISMobileEAPlugin.InteractionSpace
     {
         OK,
         Cancel,
-        Save,
         Create,
         Read,
         Update,
