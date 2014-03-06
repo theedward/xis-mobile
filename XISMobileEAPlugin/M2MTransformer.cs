@@ -44,15 +44,15 @@ namespace XISMobileEAPlugin
                         {
                             switch (beConn.Stereotype)
                             {
-                                case "XisMasterAssociation":
+                                case "XisBE-EntityMasterAssociation":
                                     master = new XisEntity(repository.GetElementByID(beConn.SupplierID),
                                         GetConnectorTag(beConn.TaggedValues, "filter").Value);
                                     break;
-                                case "XisDetailAssociation":
+                                case "XisBE-EntityDetailAssociation":
                                     details.Add(new XisEntity(repository.GetElementByID(beConn.SupplierID),
                                         GetConnectorTag(beConn.TaggedValues, "filter").Value));
                                     break;
-                                case "XisReferenceAssociation":
+                                case "XisBE-EntityReferenceAssociation":
                                     references.Add(new XisEntity(repository.GetElementByID(beConn.SupplierID),
                                         GetConnectorTag(beConn.TaggedValues, "filter").Value));
                                     break;
@@ -244,7 +244,7 @@ namespace XISMobileEAPlugin
                 case "Springboard":
                     XisButton b = new XisButton(repository, homeIS, homeDiagram, useCase.Name, actionName);
                     XISMobileHelper.CreateXisAction(repository, b.Element, actionName, ActionType.Navigate, targetIS.Element.Name);
-                    CreateXisNavigationAssociation(actionName, homeIS, targetIS);
+                    CreateXisInteractionSpaceAssociation(actionName, homeIS, targetIS);
                     break;
                 case "List Menu":
                     XisList list = null;
@@ -258,7 +258,7 @@ namespace XISMobileEAPlugin
                     }
                     XisListItem item = new XisListItem(repository, homeDiagram, list, useCase.Name, actionName);
                     XISMobileHelper.CreateXisAction(repository, item.Element, actionName, ActionType.Navigate, targetIS.Element.Name);
-                    CreateXisNavigationAssociation(actionName, homeIS, targetIS);
+                    CreateXisInteractionSpaceAssociation(actionName, homeIS, targetIS);
                     break;
                 case "Tab Menu":
                     // TODO: Implement Tab
@@ -417,14 +417,14 @@ namespace XISMobileEAPlugin
                     XisMenuItem mItem = detailModes[key];
                     XISMobileHelper.CreateXisAction(repository, mItem.Element, mItem.GetOnTapAction(),
                         key, detailIS.Element.Name);
-                    CreateXisNavigationAssociation(mItem.GetOnTapAction(), listIS, detailIS);
+                    CreateXisInteractionSpaceAssociation(mItem.GetOnTapAction(), listIS, detailIS);
                 }
 
                 if (item.GetOnTapAction() != null)
                 {
                     XISMobileHelper.CreateXisAction(repository, item.Element, item.GetOnTapAction(),
                         ActionType.Update, detailIS.Element.Name);
-                    CreateXisNavigationAssociation(item.GetOnTapAction(), listIS, detailIS);
+                    CreateXisInteractionSpaceAssociation(item.GetOnTapAction(), listIS, detailIS);
                 }
             }
 
@@ -455,7 +455,7 @@ namespace XISMobileEAPlugin
             if (!isStartingUC)
             {
                 // TODO: Link subspaces
-                //CreateXisNavigationAssociation(repository, "goTo" + listIS.Element.Name, homeIS, listIS);
+                //CreateXisInteractionSpaceAssociation(repository, "goTo" + listIS.Element.Name, homeIS, listIS);
             }
         }
 
@@ -501,7 +501,7 @@ namespace XISMobileEAPlugin
                     btn.SetValue("Manage " + d.Element.Name);
                     XisInteractionSpace managerIS = CreateDetailOrRefManagerIS(package, d, detailIS, useCase, true, be);
                     XISMobileHelper.CreateXisAction(repository, btn.Element, actionName, ActionType.Navigate, managerIS.Element.Name);
-                    CreateXisNavigationAssociation(actionName, detailIS, managerIS);
+                    CreateXisInteractionSpaceAssociation(actionName, detailIS, managerIS);
                 }
                 else
                 {
@@ -521,7 +521,7 @@ namespace XISMobileEAPlugin
                             btn.SetValue(d.Element.Name);
                             XisInteractionSpace editorIS = CreateDetailOrRefEditorIS(package, d, detailIS, useCase, true, be);
                             XISMobileHelper.CreateXisAction(repository, btn.Element, actionName, ActionType.Navigate, editorIS.Element.Name);
-                            CreateXisNavigationAssociation(actionName, detailIS, editorIS);
+                            CreateXisInteractionSpaceAssociation(actionName, detailIS, editorIS);
                         }
                         else
                         {
@@ -558,7 +558,7 @@ namespace XISMobileEAPlugin
                         btn.SetValue(d.Element.Name);
                         XisInteractionSpace editorIS = CreateDetailOrRefEditorIS(package, d, detailIS, useCase, true, be);
                         XISMobileHelper.CreateXisAction(repository, btn.Element, actionName, ActionType.Navigate, editorIS.Element.Name);
-                        CreateXisNavigationAssociation(actionName, detailIS, editorIS);
+                        CreateXisInteractionSpaceAssociation(actionName, detailIS, editorIS);
                     }
                     else
                     {
@@ -602,7 +602,7 @@ namespace XISMobileEAPlugin
                     btn.SetValue("Manage " + r.Element.Name);
                     XisInteractionSpace viewIS = CreateDetailOrRefManagerIS(package, r, detailIS, useCase, false, be);
                     XISMobileHelper.CreateXisAction(repository, btn.Element, actionName, ActionType.Navigate, viewIS.Element.Name);
-                    CreateXisNavigationAssociation(actionName, detailIS, viewIS);
+                    CreateXisInteractionSpaceAssociation(actionName, detailIS, viewIS);
                 }
                 else
                 {
@@ -622,7 +622,7 @@ namespace XISMobileEAPlugin
                             btn.SetValue(r.Element.Name);
                             XisInteractionSpace editorIS = CreateDetailOrRefEditorIS(package, r, detailIS, useCase, false, be);
                             XISMobileHelper.CreateXisAction(repository, btn.Element, actionName, ActionType.Navigate, editorIS.Element.Name);
-                            CreateXisNavigationAssociation(actionName, detailIS, editorIS);
+                            CreateXisInteractionSpaceAssociation(actionName, detailIS, editorIS);
                         }
                         else
                         {
@@ -659,7 +659,7 @@ namespace XISMobileEAPlugin
                         btn.SetValue(r.Element.Name);
                         XisInteractionSpace editorIS = CreateDetailOrRefEditorIS(package, r, detailIS, useCase, false, be);
                         XISMobileHelper.CreateXisAction(repository, btn.Element, actionName, ActionType.Navigate, editorIS.Element.Name);
-                        CreateXisNavigationAssociation(actionName, detailIS, editorIS);
+                        CreateXisInteractionSpaceAssociation(actionName, detailIS, editorIS);
                     }
                     else
                     {
@@ -734,7 +734,7 @@ namespace XISMobileEAPlugin
             if (!isStartingUC)
             {
                 // TODO: Link subspaces
-                //CreateXisNavigationAssociation("goTo" + detailIS.Element.Name, homeIS, detailIS);
+                //CreateXisInteractionSpaceAssociation("goTo" + detailIS.Element.Name, homeIS, detailIS);
             }
         }
 
@@ -775,7 +775,7 @@ namespace XISMobileEAPlugin
                     btn.SetValue("Manage " + d.Element.Name);
                     XisInteractionSpace managerIS = CreateDetailOrRefManagerIS(package, d, detailIS, useCase, true, be);
                     XISMobileHelper.CreateXisAction(repository, btn.Element, actionName, ActionType.Navigate, managerIS.Element.Name);
-                    CreateXisNavigationAssociation(actionName, detailIS, managerIS);
+                    CreateXisInteractionSpaceAssociation(actionName, detailIS, managerIS);
                 }
                 else
                 {
@@ -795,7 +795,7 @@ namespace XISMobileEAPlugin
                             btn.SetValue(d.Element.Name);
                             XisInteractionSpace editorIS = CreateDetailOrRefEditorIS(package, d, detailIS, useCase, true, be);
                             XISMobileHelper.CreateXisAction(repository, btn.Element, actionName, ActionType.Navigate, editorIS.Element.Name);
-                            CreateXisNavigationAssociation(actionName, detailIS, editorIS);
+                            CreateXisInteractionSpaceAssociation(actionName, detailIS, editorIS);
                         }
                         else
                         {
@@ -832,7 +832,7 @@ namespace XISMobileEAPlugin
                         btn.SetValue(d.Element.Name);
                         XisInteractionSpace editorIS = CreateDetailOrRefEditorIS(package, d, detailIS, useCase, true, be);
                         XISMobileHelper.CreateXisAction(repository, btn.Element, actionName, ActionType.Navigate, editorIS.Element.Name);
-                        CreateXisNavigationAssociation(actionName, detailIS, editorIS);
+                        CreateXisInteractionSpaceAssociation(actionName, detailIS, editorIS);
                     }
                     else
                     {
@@ -876,7 +876,7 @@ namespace XISMobileEAPlugin
                     btn.SetValue("Manage " + r.Element.Name);
                     XisInteractionSpace viewIS = CreateDetailOrRefManagerIS(package, r, detailIS, useCase, false, be);
                     XISMobileHelper.CreateXisAction(repository, btn.Element, actionName, ActionType.Navigate, viewIS.Element.Name);
-                    CreateXisNavigationAssociation(actionName, detailIS, viewIS);
+                    CreateXisInteractionSpaceAssociation(actionName, detailIS, viewIS);
                 }
                 else
                 {
@@ -896,7 +896,7 @@ namespace XISMobileEAPlugin
                             btn.SetValue(r.Element.Name);
                             XisInteractionSpace editorIS = CreateDetailOrRefEditorIS(package, r, detailIS, useCase, false, be);
                             XISMobileHelper.CreateXisAction(repository, btn.Element, actionName, ActionType.Navigate, editorIS.Element.Name);
-                            CreateXisNavigationAssociation(actionName, detailIS, editorIS);
+                            CreateXisInteractionSpaceAssociation(actionName, detailIS, editorIS);
                         }
                         else
                         {
@@ -933,7 +933,7 @@ namespace XISMobileEAPlugin
                         btn.SetValue(r.Element.Name);
                         XisInteractionSpace editorIS = CreateDetailOrRefEditorIS(package, r, detailIS, useCase, false, be);
                         XISMobileHelper.CreateXisAction(repository, btn.Element, actionName, ActionType.Navigate, editorIS.Element.Name);
-                        CreateXisNavigationAssociation(actionName, detailIS, editorIS);
+                        CreateXisInteractionSpaceAssociation(actionName, detailIS, editorIS);
                     }
                     else
                     {
@@ -981,13 +981,13 @@ namespace XISMobileEAPlugin
 
                 XisMenuItem menuItem = new XisMenuItem(repository, diagram, parent, "Save" + master.Element.Name, actionName);
                 XISMobileHelper.CreateXisAction(repository, menuItem.Element, actionName, ActionType.Save, previousIS.Element.Name);
-                CreateXisNavigationAssociation(actionName, detailIS, previousIS);
+                CreateXisInteractionSpaceAssociation(actionName, detailIS, previousIS);
             }
 
             string cancelAction = "cancel" + master.Element.Name;
             XisMenuItem cancelItem = new XisMenuItem(repository, diagram, menu, "Cancel" + master.Element.Name, cancelAction);
             XISMobileHelper.CreateXisAction(repository, cancelItem.Element, cancelAction, ActionType.Cancel, previousIS.Element.Name);
-            CreateXisNavigationAssociation(cancelAction, detailIS, previousIS);
+            CreateXisInteractionSpaceAssociation(cancelAction, detailIS, previousIS);
 
             ComputePositions(detailIS, diagram);
 
@@ -1028,13 +1028,13 @@ namespace XISMobileEAPlugin
                 string actionName = "save" + entity.Element.Name;
                 XisMenuItem menuItem = new XisMenuItem(repository, diagram, menu, "Save" + entity.Element.Name, actionName);
                 XISMobileHelper.CreateXisAction(repository, menuItem.Element, actionName, ActionType.Save, previousIS.Element.Name);
-                CreateXisNavigationAssociation(actionName, detailIS, previousIS);
+                CreateXisInteractionSpaceAssociation(actionName, detailIS, previousIS);
             }
 
             string cancelAction = "cancel" + entity.Element.Name;
             XisMenuItem cancelItem = new XisMenuItem(repository, diagram, menu, "Cancel" + entity.Element.Name, cancelAction);
             XISMobileHelper.CreateXisAction(repository, cancelItem.Element, cancelAction, ActionType.Cancel);
-            CreateXisNavigationAssociation("cancel" + entity.Element.Name, detailIS, previousIS);
+            CreateXisInteractionSpaceAssociation("cancel" + entity.Element.Name, detailIS, previousIS);
 
             ComputePositions(detailIS, diagram);
             // Associate BE
@@ -1147,7 +1147,7 @@ namespace XISMobileEAPlugin
             XisMenuItem backMenuItem = new XisMenuItem(repository, diagram, menu,
                 "Back" + entity.Element.Name + "Item", actionBack);
             XISMobileHelper.CreateXisAction(repository, backMenuItem.Element, actionBack, ActionType.Cancel);
-            CreateXisNavigationAssociation(actionBack, managerIS, previousIS);
+            CreateXisInteractionSpaceAssociation(actionBack, managerIS, previousIS);
 
             managerIS.Menu = menu;
             #endregion
@@ -1160,14 +1160,14 @@ namespace XISMobileEAPlugin
                     XisMenuItem mItem = detailModes[key];
                     XISMobileHelper.CreateXisAction(repository, mItem.Element, mItem.GetOnTapAction(),
                         key, detailIS.Element.Name);
-                    CreateXisNavigationAssociation(mItem.GetOnTapAction(), managerIS, detailIS);
+                    CreateXisInteractionSpaceAssociation(mItem.GetOnTapAction(), managerIS, detailIS);
                 }
 
                 if (item.GetOnTapAction() != null)
                 {
                     XISMobileHelper.CreateXisAction(repository, item.Element, item.GetOnTapAction(),
                         ActionType.Update, detailIS.Element.Name);
-                    CreateXisNavigationAssociation(item.GetOnTapAction(), managerIS, detailIS);
+                    CreateXisInteractionSpaceAssociation(item.GetOnTapAction(), managerIS, detailIS);
                 }
             }
 
@@ -1427,7 +1427,7 @@ namespace XISMobileEAPlugin
             }
         }
 
-        private static void CreateXisNavigationAssociation(string actionName, XisInteractionSpace source, XisInteractionSpace target)
+        private static void CreateXisInteractionSpaceAssociation(string actionName, XisInteractionSpace source, XisInteractionSpace target)
         {
             int across = 260;
             int down = 180;
@@ -1526,7 +1526,7 @@ namespace XISMobileEAPlugin
             c.ClientID = source.Element.ElementID;
             c.SupplierID = target.Element.ElementID;
             c.Direction = "Source -> Destination";
-            c.Stereotype = "XisNavigationAssociation";
+            c.Stereotype = "XisInteractionSpaceAssociation";
             c.Update();
             source.Element.Update();
             source.Element.Connectors.Refresh();
@@ -1551,7 +1551,7 @@ namespace XISMobileEAPlugin
                             auxBE = repository.GetElementByID(c.SupplierID);
                             foreach (EA.Connector conn in auxBE.Connectors)
                             {
-                                if (conn.Stereotype == "XisMasterAssociation")
+                                if (conn.Stereotype == "XisBE-EntityMasterAssociation")
                                 {
                                     entityName = repository.GetElementByID(conn.SupplierID).Name;
                                 }
