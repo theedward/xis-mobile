@@ -31,5 +31,18 @@ namespace XISMobileEAPlugin.InteractionSpace
         {
             Widgets = new List<XisWidget>();
         }
+
+        public void SetEntityName(string entityName)
+        {
+            foreach (EA.TaggedValue tv in Element.TaggedValues)
+            {
+                if (tv.Name == "entityName")
+                {
+                    tv.Value = entityName;
+                    tv.Update();
+                    break;
+                }
+            }
+        }
     }
 }
