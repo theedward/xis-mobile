@@ -1608,7 +1608,7 @@ namespace XISMobileEAPlugin
 
         private void DoRule32(EA.Repository Repository, EA.Package Package)
         {
-            if (Package.StereotypeEx == "InteractionSpace View")
+            if (Package.StereotypeEx == "InteractionSpace View" && Package.Elements.Count > 0)
             {
                 int mainScreenCounter = 0;
                 EA.Element el = null;
