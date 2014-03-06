@@ -341,6 +341,11 @@
 				</TaggedValues>
 			</Stereotype>
 			<Stereotype name="XisMapMarker" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
+				<AppliesTo>
+					<Apply type="Class">
+						<Property name="isActive" value=""/>
+					</Apply>
+				</AppliesTo>
 				<TaggedValues>
 					<Tag name="title" type="String" description="" unit="" values="" default=""/>
 					<Tag name="description" type="String" description="" unit="" values="" default=""/>
@@ -490,11 +495,6 @@ OUNCXTCOQdU9mm/M4fVWbzrCOz1i8m1Oew9jxTh/6y2YjsXlcMtMj/3EPM14Eg4Fu8i6SmyE
 NW3yNdwwKlGT+IVbG+XiTzG+zLH93tsneel+dfb2Ht2dn1vTUyH/AVBLAQIXCxQAAAAIAAyQ
 eUMMDeZzogEAADQIAAAHAAkAAAAAAAAAAAAAgAAAAABzdHIuZGF0VVQFAAc2kJNSUEsFBgAA
 AAABAAEAPgAAANgBAAAAAA==</Image>
-				<AppliesTo>
-					<Apply type="Class">
-						<Property name="isActive" value=""/>
-					</Apply>
-				</AppliesTo>
 				<TaggedValues>
 					<Tag name="Create" type="boolean" description="" unit="" values="true,false" default="false"/>
 					<Tag name="View" type="boolean" description="" unit="" values="true,false" default="false"/>
