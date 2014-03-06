@@ -3,7 +3,7 @@
 	<Documentation id="AD6AF231-0" name="Architectural View Diagram" version="1.0" notes="Architectural View Diagram"/>
 	<Content>
 		<Stereotypes>
-			<Stereotype name="Architectural_View_Elements" alias="Architectural View Elements" notes="Elements for Architectural View Diagrams" cx="286" cy="150" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
+			<Stereotype name="Architectural_View_Elements" alias="Architectural View Elements" notes="Elements for Architectural View Diagrams" cx="286" cy="126" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
 				<AppliesTo>
 					<Apply type="ToolboxPage"/>
 				</AppliesTo>
@@ -12,20 +12,18 @@
 					<Tag name="XIS-Mobile::XisInternalService" type="" description="" unit="" values="" default="XisInternalService"/>
 					<Tag name="XIS-Mobile::XisRemoteService" type="" description="" unit="" values="" default="XisRemoteService"/>
 					<Tag name="XIS-Mobile::XisServiceMethod" type="" description="" unit="" values="" default="XisServiceMethod"/>
-					<Tag name="XIS-Mobile::XisLocationProvider" type="" description="" unit="" values="" default="XisLocationProvider"/>
-					<Tag name="XIS-Mobile::XisContactsProvider" type="" description="" unit="" values="" default="XisContactsrProvider"/>
-					<Tag name="XIS-Mobile::XisCalendarProvider" type="" description="" unit="" values="" default="XisCalendarProvider"/>
+					<Tag name="XIS-Mobile::XisInternalProvider" type="" description="" unit="" values="" default="XisInternalProvider"/>
 					<Tag name="XIS-Mobile::XisClientMobileApp" type="" description="" unit="" values="" default="XisClientMobileApp"/>
 					<Tag name="XIS-Mobile::XisServer" type="" description="" unit="" values="" default="XisServer"/>
 				</TaggedValues>
 			</Stereotype>
-			<Stereotype name="Architectural_View_Relationships" alias="Architectural View Relationships" notes="Relationships for Architectural View Diagrams" cx="308" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
+			<Stereotype name="Architectural_View_Relationships" alias="Architectural View Relationships" notes="Relationships for Architectural View Diagrams" cx="346" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
 				<AppliesTo>
 					<Apply type="ToolboxPage"/>
 				</AppliesTo>
 				<TaggedValues>
-					<Tag name="XIS-Mobile::XisRemoteConnection" type="" description="" unit="" values="" default="XisRemoteConnection"/>
-					<Tag name="UML::Realization" type="" description="" unit="" values="" default="Realization"/>
+					<Tag name="XIS-Mobile::XisMobileApp-ServiceAssociation" type="" description="" unit="" values="" default="XisMobileApp-ServiceAssociation"/>
+					<Tag name="XIS-Mobile::XisProvider-ServiceRealization" type="" description="" unit="" values="" default="XisProvider-ServiceRealization"/>
 				</TaggedValues>
 			</Stereotype>
 		</Stereotypes>

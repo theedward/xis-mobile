@@ -20,7 +20,7 @@
 				</AppliesTo>
 				<TaggedValues>
 					<Tag name="XIS-Mobile::XisEntityAssociation" type="" description="" unit="" values="" default="XisEntityAssociation"/>
-					<Tag name="XIS-Mobile::XisInheritance" type="" description="" unit="" values="" default="XisInheritance"/>
+					<Tag name="XIS-Mobile::XisEntityInheritance" type="" description="" unit="" values="" default="XisEntityInheritance"/>
 				</TaggedValues>
 			</Stereotype>
 		</Stereotypes>

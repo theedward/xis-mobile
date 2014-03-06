@@ -11,14 +11,14 @@
 					<Tag name="XIS-Mobile::XisBusinessEntity" type="" description="" unit="" values="" default="XisBusinessEntity"/>
 				</TaggedValues>
 			</Stereotype>
-			<Stereotype name="BusinessEntity_Relationships" alias="BusinessEntity_Relationships" notes="Relationships for BusinessEntity Diagrams" cx="294" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
+			<Stereotype name="BusinessEntity_Relationships" alias="BusinessEntity_Relationships" notes="Relationships for BusinessEntity Diagrams" cx="340" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
 				<AppliesTo>
 					<Apply type="ToolboxPage"/>
 				</AppliesTo>
 				<TaggedValues>
-					<Tag name="XIS-Mobile::XisMasterAssociation" type="" description="" unit="" values="" default="XisMasterAssociation"/>
-					<Tag name="XIS-Mobile::XisDetailAssociation" type="" description="" unit="" values="" default="XisDetailAssociation"/>
-					<Tag name="XIS-Mobile::XisReferenceAssociation" type="" description="" unit="" values="" default="XisReferenceAssociation"/>
+					<Tag name="XIS-Mobile::XisBE-EntityMasterAssociation" type="" description="" unit="" values="" default="XisBE-EntityMasterAssociation"/>
+					<Tag name="XIS-Mobile::XisBE-EntityDetailAssociation" type="" description="" unit="" values="" default="XisBE-EntityDetailAssociation"/>
+					<Tag name="XIS-Mobile::XisBE-EntityReferenceAssociation" type="" description="" unit="" values="" default="XisBE-EntityReferenceAssociation"/>
 				</TaggedValues>
 			</Stereotype>
 		</Stereotypes>
