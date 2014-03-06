@@ -32,7 +32,7 @@ namespace XISMobileEAPlugin
             {
                 foreach (EA.Connector connector in useCase.Connectors)
                 {
-                    if (connector.Stereotype == "XisOperatesOnAssociation")
+                    if (connector.Stereotype == "XisEntityUC-BEAssociation")
                     {
                         EA.Element be = repository.GetElementByID(connector.SupplierID);
                         XisEntity master = null;
@@ -113,7 +113,7 @@ namespace XISMobileEAPlugin
 
                             if (ucType != null)
                             {
-                                if (ucType.Value == "Manager")
+                                if (ucType.Value == "EntityManagement")
                                 {
                                     if (isStartingUC && useCases.Count > 1)
                                     {
@@ -125,7 +125,7 @@ namespace XISMobileEAPlugin
                                         ProcessManagerUseCase(interactionPackage, master, useCase, be, isStartingUC, null, patternType);
                                     }
                                 }
-                                else if (ucType.Value == "Detail")
+                                else if (ucType.Value == "EntityConfiguration")
                                 {
                                     if (isStartingUC && useCases.Count > 1)
                                     {
@@ -437,13 +437,13 @@ namespace XISMobileEAPlugin
                 listIS.ContextMenu.SetPosition(listDiagram, obj.right + 50, obj.right + 330, -obj.top, -obj.top + 70);
                 ComputePositions(listIS.ContextMenu, listDiagram);
                 
-                // Create XisMenuAssociation
+                // Create XisIS-MenuAssociation
                 EA.DiagramObject sourceObj = item.GetDiagramObject(listDiagram);
                 EA.Connector c = item.Element.Connectors.AddNew("", "Association");
                 c.ClientID = item.Element.ElementID;
                 c.SupplierID = listIS.ContextMenu.Element.ElementID;
                 c.Direction = "Source -> Destination";
-                c.Stereotype = "XisMenuAssociation";
+                c.Stereotype = "XisIS-MenuAssociation";
                 c.Update();
                 item.Element.Update();
                 item.Element.Connectors.Refresh();
@@ -719,7 +719,7 @@ namespace XISMobileEAPlugin
 
                 string actionName = "save" + master.Element.Name;
                 XisMenuItem menuItem = new XisMenuItem(repository, detailDiagram, menu, "Save" + master.Element.Name, actionName);
-                XISMobileHelper.CreateXisAction(repository, menuItem.Element, actionName, ActionType.Save); 
+                XISMobileHelper.CreateXisAction(repository, menuItem.Element, actionName, ActionType.OK); 
             }
 
             ComputePositions(detailIS, detailDiagram);
@@ -980,7 +980,7 @@ namespace XISMobileEAPlugin
                 }
 
                 XisMenuItem menuItem = new XisMenuItem(repository, diagram, parent, "Save" + master.Element.Name, actionName);
-                XISMobileHelper.CreateXisAction(repository, menuItem.Element, actionName, ActionType.Save, previousIS.Element.Name);
+                XISMobileHelper.CreateXisAction(repository, menuItem.Element, actionName, ActionType.OK, previousIS.Element.Name);
                 CreateXisInteractionSpaceAssociation(actionName, detailIS, previousIS);
             }
 
@@ -1027,7 +1027,7 @@ namespace XISMobileEAPlugin
             {
                 string actionName = "save" + entity.Element.Name;
                 XisMenuItem menuItem = new XisMenuItem(repository, diagram, menu, "Save" + entity.Element.Name, actionName);
-                XISMobileHelper.CreateXisAction(repository, menuItem.Element, actionName, ActionType.Save, previousIS.Element.Name);
+                XISMobileHelper.CreateXisAction(repository, menuItem.Element, actionName, ActionType.OK, previousIS.Element.Name);
                 CreateXisInteractionSpaceAssociation(actionName, detailIS, previousIS);
             }
 
@@ -1180,13 +1180,13 @@ namespace XISMobileEAPlugin
                 managerIS.ContextMenu.SetPosition(diagram, obj.right + 50, obj.right + 330, -obj.top, -obj.top + 70);
                 ComputePositions(managerIS.ContextMenu, diagram);
 
-                // Create XisMenuAssociation
+                // Create XisIS-MenuAssociation
                 EA.DiagramObject sourceObj = item.GetDiagramObject(diagram);
                 EA.Connector c = item.Element.Connectors.AddNew("", "Association");
                 c.ClientID = item.Element.ElementID;
                 c.SupplierID = managerIS.ContextMenu.Element.ElementID;
                 c.Direction = "Source -> Destination";
-                c.Stereotype = "XisMenuAssociation";
+                c.Stereotype = "XisIS-MenuAssociation";
                 c.Update();
                 item.Element.Update();
                 item.Element.Connectors.Refresh();
@@ -1544,7 +1544,7 @@ namespace XISMobileEAPlugin
             {
                 foreach (EA.Connector c in uc.Connectors)
                 {
-                    if (c.Stereotype == "XisOperatesOnAssociation")
+                    if (c.Stereotype == "XisEntityUC-BEAssociation")
                     {
                         if (c.SupplierID != beID)
                         {
@@ -1594,7 +1594,7 @@ namespace XISMobileEAPlugin
             c.ClientID = source.Element.ElementID;
             c.SupplierID = be.ElementID;
             c.Direction = "Source -> Destination";
-            c.Stereotype = "XisDomainAssociation";
+            c.Stereotype = "XisIS-BEAssociation";
             c.Update();
             source.Element.Update();
             source.Element.Connectors.Refresh();
