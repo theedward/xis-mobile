@@ -284,7 +284,7 @@ namespace XISMobileEAPlugin
 
             // List Creation
             XisList list = new XisList(repository, listDiagram, listIS, master.Element.Name + "List");
-            list.SetValue(master.Element.Name);
+            list.SetEntityName(master.Element.Name);
 
             //if (ContainsSearch(operations))
             //{
@@ -327,14 +327,14 @@ namespace XISMobileEAPlugin
                 EA.Attribute first = master.Element.Attributes.GetAt(0);
                 EA.Attribute second = master.Element.Attributes.GetAt(1);
                 XisLabel lbl1 = new XisLabel(repository, item, listDiagram, first.Name + "Lbl");
-                lbl1.SetValue(master.Element.Name + "." + first.Name);
+                lbl1.SetEntityAttributeName(master.Element.Name + "." + first.Name);
                 XisLabel lbl2 = new XisLabel(repository, item, listDiagram, second.Name + "Lbl");
-                lbl2.SetValue(master.Element.Name + "." + second.Name);
+                lbl2.SetEntityAttributeName(master.Element.Name + "." + second.Name);
             }
             else if (master.Element.Attributes.Count == 1)
             {
                 EA.Attribute attr = master.Element.Attributes.GetAt(0);
-                item.SetValue(master.Element.Name + "." + attr.Name);
+                item.SetValueFromExpression(master.Element.Name + "." + attr.Name);
             }
 
             // Read, Update, Create
@@ -1053,7 +1053,7 @@ namespace XISMobileEAPlugin
                 "Manage " + entity.Element.Name, false, isFirstSubScreen);
 
             XisList list = new XisList(repository, diagram, managerIS, entity.Element.Name + "List");
-            list.SetValue(entity.Element.Name);
+            list.SetEntityName(entity.Element.Name);
 
             XisListItem item = new XisListItem(repository, diagram, list, list.Element.Name + "Item");
             if (entity.Element.Attributes.Count > 1)
@@ -1061,14 +1061,14 @@ namespace XISMobileEAPlugin
                 EA.Attribute first = entity.Element.Attributes.GetAt(0);
                 EA.Attribute second = entity.Element.Attributes.GetAt(1);
                 XisLabel lbl1 = new XisLabel(repository, item, diagram, first.Name + "Lbl");
-                lbl1.SetValue(entity.Element.Name + "." + first.Name);
+                lbl1.SetEntityAttributeName(entity.Element.Name + "." + first.Name);
                 XisLabel lbl2 = new XisLabel(repository, item, diagram, second.Name + "Lbl");
-                lbl2.SetValue(entity.Element.Name + "." + second.Name);
+                lbl2.SetEntityAttributeName(entity.Element.Name + "." + second.Name);
             }
             else if (entity.Element.Attributes.Count == 1)
             {
                 EA.Attribute attr = entity.Element.Attributes.GetAt(0);
-                item.SetValue(entity.Element.Name + "." + attr.Name);
+                item.SetValueFromExpression(entity.Element.Name + "." + attr.Name);
             }
 
             if ((isDetail && ContainsUpdateDetail(useCase))
