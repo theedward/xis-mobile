@@ -12,5 +12,18 @@ namespace XISMobileEAPlugin.InteractionSpace
         {
             Repository = repository;
         }
+
+        public void SetEntityAttributeName(string entityAttributeName)
+        {
+            foreach (EA.TaggedValue tv in Element.TaggedValues)
+            {
+                if (tv.Name == "entityAttributeName")
+                {
+                    tv.Value = entityAttributeName;
+                    tv.Update();
+                    break;
+                }
+            }
+        }
     }
 }
