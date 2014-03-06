@@ -78,7 +78,20 @@ namespace XISMobileEAPlugin.InteractionSpace
                 {
                     tv.Value = value;
                     tv.Update();
-                    return;
+                    break;
+                }
+            }
+        }
+
+        public void SetValueFromExpression(string valueFromExpression)
+        {
+            foreach (EA.TaggedValue tv in Element.TaggedValues)
+            {
+                if (tv.Name == "valueFromExpression")
+                {
+                    tv.Value = valueFromExpression;
+                    tv.Update();
+                    break;
                 }
             }
         }
