@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <uml:Profile xmi:version="20110701" xmlns:xmi="http://www.omg.org/spec/XMI/20110701" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/4.0.0/UML" xmi:id="_EUKFkB9vEeOZ6al_I843SA" name="XIS-Mobile" metaclassReference="_bXM0UB94EeOZ6al_I843SA _bXM0UR94EeOZ6al_I843SA _bXM0Uh94EeOZ6al_I843SA _bXM0Ux94EeOZ6al_I843SA _bXM0VB94EeOZ6al_I843SA _bXM0VR94EeOZ6al_I843SA _4TQucB-NEeOZ6al_I843SA _4TQucR-NEeOZ6al_I843SA _ZDo4sKUvEeOq3tG3yoDpZw" metamodelReference="_EUKFkR9vEeOZ6al_I843SA">
   <eAnnotations xmi:id="_HyRyQB9vEeOZ6al_I843SA" source="http://www.eclipse.org/uml2/2.0.0/UML">
-    <contents xmi:type="ecore:EPackage" xmi:id="_usHfMKU-EeOq3tG3yoDpZw" name="XISMobile" nsURI="http:///schemas/XISMobile/_usFqAKU-EeOq3tG3yoDpZw/23" nsPrefix="XISMobile">
+    <contents xmi:type="ecore:EPackage" xmi:id="_usFqAKU-EeOq3tG3yoDpZw" name="XISMobile" nsURI="http:///schemas/XISMobile/_usFqAKU-EeOq3tG3yoDpZw/23" nsPrefix="XISMobile">
       <eAnnotations xmi:id="_utv24KU-EeOq3tG3yoDpZw" source="PapyrusVersion">
         <details xmi:id="_utv24aU-EeOq3tG3yoDpZw" key="Version" value="8.0.7"/>
         <details xmi:id="_utv24qU-EeOq3tG3yoDpZw" key="Comment" value=""/>
