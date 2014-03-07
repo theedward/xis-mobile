@@ -52,17 +52,17 @@ public class Services {
 			second = memberEnds.get(1);
 			if (!first.isNavigable() && !second.isNavigable()
 					|| first.isNavigable() && second.isNavigable()) {
-				if (endTypes.get(0).getName().compareTo(c.getName()) == 0) {
+				if (endTypes.get(0).getName().equals(c.getName())) {
 					result.add(second);
 				} else {
 					result.add(first);
 				}
 			} else if (first.isNavigable()) {
-				if (endTypes.get(0).getName().compareTo(c.getName()) != 0) {
+				if (endTypes.get(0).getName().equals(c.getName())) {
 					result.add(first);
 				}
 			} else if (second.isNavigable()) {
-				if (endTypes.get(1).getName().compareTo(c.getName()) != 0) {
+				if (endTypes.get(1).getName().equals(c.getName())) {
 					result.add(second);
 				}
 			}
@@ -560,6 +560,7 @@ public class Services {
 	 */
 	public void addLibrary(String jar) {
 		try {
+			boolean jarExists = false;
 			String target = Uml2Android.targetFolderPath + "/libs/";
 			JarFile srcFile = new JarFile(Uml2Android.jarPath + "/AndroidGenerator.jar");
 			File destFolder = new File(target);
@@ -574,33 +575,36 @@ public class Services {
 			
 			while (entries.hasMoreElements()) {
 				entry = (JarEntry) entries.nextElement();
-				if (entry.getName().compareTo("libs/" + jar) == 0) {
+				if (entry.getName().equals("libs/" + jar)) {
+					jarExists = true;
 					break;
 	            }
 			}
 			
-			InputStream is = null;
-			FileOutputStream os = null;
-			
-			try {
-				is = srcFile.getInputStream(entry);
-	            os = new FileOutputStream(destFile);
-	            byte[] buffer = new byte[1024];
-	            int length;
-	            while ((length = is.read(buffer)) > 0) {
-	                os.write(buffer, 0, length);
-	            }
-			} catch (Exception e) {
-				e.printStackTrace();
-			} finally {
-				if (is != null) {
-					is.close();
-				}
-				if (os != null) {
-					os.close();
-				}
-				if (srcFile != null) {
-					srcFile.close();
+			if (jarExists) {
+				InputStream is = null;
+				FileOutputStream os = null;
+				
+				try {
+					is = srcFile.getInputStream(entry);
+		            os = new FileOutputStream(destFile);
+		            byte[] buffer = new byte[1024];
+		            int length;
+		            while ((length = is.read(buffer)) > 0) {
+		                os.write(buffer, 0, length);
+		            }
+				} catch (Exception e) {
+					e.printStackTrace();
+				} finally {
+					if (is != null) {
+						is.close();
+					}
+					if (os != null) {
+						os.close();
+					}
+					if (srcFile != null) {
+						srcFile.close();
+					}
 				}
 			}
 		} catch (Exception e) {
@@ -616,6 +620,7 @@ public class Services {
 	 */
 	public void addDrawable(String fileName, String resolution) {
 		try {
+			boolean fileExists = false;
 			String folder = getResolutionFolder(resolution);
 			
 			String target = Uml2Android.targetFolderPath + "/res/" + folder + "/";
@@ -633,32 +638,35 @@ public class Services {
 			while (entries.hasMoreElements()) {
 				entry = (JarEntry) entries.nextElement();
 				if (entry.getName().equals("icons/" + folder + "/" + fileName)) {
+					fileExists = true;
 					break;
 	            }
 			}
 			
-			InputStream is = null;
-			FileOutputStream os = null;
-			
-			try {
-				is = srcFile.getInputStream(entry);
-	            os = new FileOutputStream(destFile);
-	            byte[] buffer = new byte[1024];
-	            int length;
-	            while ((length = is.read(buffer)) > 0) {
-	                os.write(buffer, 0, length);
-	            }
-			} catch (Exception e) {
-				e.printStackTrace();
-			} finally {
-				if (is != null) {
-					is.close();
-				}
-				if (os != null) {
-					os.close();
-				}
-				if (srcFile != null) {
-					srcFile.close();
+			if (fileExists) {
+				InputStream is = null;
+				FileOutputStream os = null;
+				
+				try {
+					is = srcFile.getInputStream(entry);
+		            os = new FileOutputStream(destFile);
+		            byte[] buffer = new byte[1024];
+		            int length;
+		            while ((length = is.read(buffer)) > 0) {
+		                os.write(buffer, 0, length);
+		            }
+				} catch (Exception e) {
+					e.printStackTrace();
+				} finally {
+					if (is != null) {
+						is.close();
+					}
+					if (os != null) {
+						os.close();
+					}
+					if (srcFile != null) {
+						srcFile.close();
+					}
 				}
 			}
 		} catch (Exception e) {
