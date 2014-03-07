@@ -379,8 +379,8 @@ public final class ServiceUtils {
 			s = getXisList(c);
 		} else if (isXisVisibilityBoundary(c)) {
 			s = getXisVisibilityBoundary(c);
-		} else if (isXisCompositeWidget(c)) {
-			s = getXisCompositeWidget(c);
+		} else if (isXisForm(c)) {
+			s = getXisForm(c);
 		}
 		return s;
 	}
