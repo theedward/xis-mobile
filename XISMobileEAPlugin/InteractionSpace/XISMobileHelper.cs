@@ -347,23 +347,26 @@ namespace XISMobileEAPlugin.InteractionSpace
                 case "int":
                 case "double":
                 case "string":
-                    widget = new XisTextBox(repository, parent, diagram, entityName + attribute.Name + "TxtBox", attribute.Name, attribute.Name);
+                    widget = new XisTextBox(repository, parent, diagram, entityName + ToUpperFirst(attribute.Name) + "TxtBox", attribute.Name, attribute.Name);
+                    widget.SetEntityAttributeName(entityName + "." + attribute.Name);
                     break;
                 case "bool":
                 case "boolean":
                     // Dropdown
-                    widget = new XisDropdown(repository, parent, diagram, entityName + attribute.Name + "Dropdown", attribute.Name);
+                    widget = new XisDropdown(repository, parent, diagram, entityName + ToUpperFirst(attribute.Name) + "Dropdown", attribute.Name);
+                    widget.SetEntityAttributeName(entityName + "." + attribute.Name);
                     break;
                 case "date":
-                    widget = new XisDatePicker(repository, parent, diagram, entityName + attribute.Name + "DatePicker");
+                    widget = new XisDatePicker(repository, parent, diagram, entityName + ToUpperFirst(attribute.Name) + "DatePicker");
+                    widget.SetEntityAttributeName(entityName + "." + attribute.Name);
                     break;
                 case "time":
-                    widget = new XisTimePicker(repository, parent, diagram, entityName + attribute.Name + "TimePicker");
+                    widget = new XisTimePicker(repository, parent, diagram, entityName + ToUpperFirst(attribute.Name) + "TimePicker");
+                    widget.SetEntityAttributeName(entityName + "." + attribute.Name);
                     break;
                 default:
                     break;
             }
-            widget.SetEntityAttributeName(entityName + "." + attribute.Name);
 
             return widget;
         }
@@ -583,6 +586,22 @@ namespace XISMobileEAPlugin.InteractionSpace
             parent.Methods.Refresh();
 
             return action;
+        }
+
+        private static string ToUpperFirst(string s)
+        {
+            if (!string.IsNullOrEmpty(s))
+            {
+                if (s.Length > 1)
+                {
+                    s = s.Substring(0, 1).ToUpper() + s.Substring(1, s.Length - 1);
+                }
+                else
+                {
+                    s = s.ToUpper();
+                }
+            }
+            return s;
         }
     }
 
