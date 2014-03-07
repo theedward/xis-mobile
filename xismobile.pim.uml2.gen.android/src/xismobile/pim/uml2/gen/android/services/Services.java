@@ -421,9 +421,9 @@ public class Services {
 					}
 				} else if (ServiceUtils.isXisList(owner) &&
 						   ServiceUtils.getXisCompositeWidgetEntityName(owner,
-							   ServiceUtils.getXisForm(owner)) != null) {
+							   ServiceUtils.getXisList(owner)) != null) {
 					entityName = ServiceUtils.getXisCompositeWidgetEntityName(
-							owner, ServiceUtils.getXisForm(owner));
+							owner, ServiceUtils.getXisList(owner));
 					if (!entities.contains(entityName)) {
 						entities.add(entityName);
 						break;
@@ -432,7 +432,7 @@ public class Services {
 						   ServiceUtils.getXisCompositeWidgetEntityName(owner,
 								ServiceUtils.getXisListGroup(owner)) != null) {
 					entityName = ServiceUtils.getXisCompositeWidgetEntityName(
-							owner, ServiceUtils.getXisForm(owner));
+							owner, ServiceUtils.getXisListGroup(owner));
 					if (!entities.contains(entityName)) {
 						entities.add(entityName);
 						break;
@@ -441,7 +441,7 @@ public class Services {
 						   ServiceUtils.getXisCompositeWidgetEntityName(owner,
 								ServiceUtils.getXisMenu(owner)) != null) {
 					entityName = ServiceUtils.getXisCompositeWidgetEntityName(
-							owner, ServiceUtils.getXisForm(owner));
+							owner, ServiceUtils.getXisMenu(owner));
 					if (!entities.contains(entityName)) {
 						entities.add(entityName);
 						break;
@@ -561,7 +561,7 @@ public class Services {
 	public void addLibrary(String jar) {
 		try {
 			String target = Uml2Android.targetFolderPath + "/libs/";
-			JarFile srcFile = new JarFile("AndroidGenerator.jar");
+			JarFile srcFile = new JarFile(Uml2Android.jarPath + "/AndroidGenerator.jar");
 			File destFolder = new File(target);
 			File destFile = new File(target + jar);
 			
@@ -619,7 +619,7 @@ public class Services {
 			String folder = getResolutionFolder(resolution);
 			
 			String target = Uml2Android.targetFolderPath + "/res/" + folder + "/";
-			JarFile srcFile = new JarFile("AndroidGenerator.jar");
+			JarFile srcFile = new JarFile(Uml2Android.jarPath + "/AndroidGenerator.jar");
 			File destFolder = new File(target);
 			File destFile = new File(target + fileName);
 			
