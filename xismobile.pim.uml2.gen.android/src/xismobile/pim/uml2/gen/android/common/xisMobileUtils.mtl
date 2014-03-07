@@ -838,13 +838,9 @@
 /]
 
 [query public getXisListEntity(c : Class) : Class = 
-	let name : String = c.getXisWidgetValue(c.getXisList()) in
+	let name : String = c.getXisCompositeWidgetEntityName(c.getXisList()) in
 	c.getModel().allOwnedElements()->selectByType(Class)->
 		select(e : Class | e.name.toLower() = name.toLower() and e.isXisList())
-/]
-
-[query public hasXisWidgetDomainValue(c : Class, s : Stereotype) : Boolean =
-	not c.getValue(s, 'domainValue').oclIsUndefined()
 /]
 
 [query public getXisGesture(c : Class) : Stereotype =
