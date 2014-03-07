@@ -337,6 +337,30 @@ namespace XISMobileEAPlugin.InteractionSpace
             return item;
         }
 
+        public static EA.Element CreateXisForm(EA.Element parent, string name, string entityName)
+        {
+            EA.Element form = parent.Elements.AddNew(name, "Class");
+            form.Stereotype = "XisForm";
+            form.Update();
+
+            foreach (EA.TaggedValue tv in form.TaggedValues)
+            {
+                switch (tv.Name)
+                {
+                    case "name":
+                        tv.Value = name;
+                        break;
+                    case "entityName":
+                        tv.Value = entityName;
+                        break;
+                    default:
+                        break;
+                }
+                tv.Update();
+            }
+            return form;
+        }
+
         public static XisSimpleWidget ProcessXisAttribute(EA.Repository repository, EA.Diagram diagram,
             XisWidget parent, EA.Attribute attribute, string entityName)
         {
