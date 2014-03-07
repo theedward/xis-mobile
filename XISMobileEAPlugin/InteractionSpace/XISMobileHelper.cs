@@ -122,7 +122,7 @@ namespace XISMobileEAPlugin.InteractionSpace
             }
         }
 
-        public static EA.Element CreateXisCompositeWidget(EA.Package package, string name, CompositeWidgetType type, string onTap = null,
+        public static EA.Element CreateXisCompositeWidget(EA.Package package, string name, string onTap = null,
             string onLongTap = null, string searchBy = null, string orderBy = null)
         {
             EA.Element composite = package.Elements.AddNew(name, "Class");
@@ -135,9 +135,6 @@ namespace XISMobileEAPlugin.InteractionSpace
                 {
                     case "name":
                         tv.Value = name;
-                        break;
-                    case "type":
-                        tv.Value = type.ToString();
                         break;
                     case "onTap":
                         tv.Value = onTap;
@@ -159,7 +156,7 @@ namespace XISMobileEAPlugin.InteractionSpace
             return composite;
         }
 
-        public static EA.Element CreateXisCompositeWidget(EA.Element parent, string name, CompositeWidgetType type, string onTap = null,
+        public static EA.Element CreateXisCompositeWidget(EA.Element parent, string name, string onTap = null,
             string onLongTap = null, string searchBy = null, string orderBy = null)
         {
             EA.Element composite = parent.Elements.AddNew(name, "Class");
@@ -172,9 +169,6 @@ namespace XISMobileEAPlugin.InteractionSpace
                 {
                     case "name":
                         tv.Value = name;
-                        break;
-                    case "type":
-                        tv.Value = type.ToString();
                         break;
                     case "onTap":
                         tv.Value = onTap;
@@ -343,33 +337,33 @@ namespace XISMobileEAPlugin.InteractionSpace
             return item;
         }
 
-        public static XisWidget ProcessXisAttribute(EA.Repository repository, EA.Diagram diagram,
+        public static XisSimpleWidget ProcessXisAttribute(EA.Repository repository, EA.Diagram diagram,
             XisWidget parent, EA.Attribute attribute, string entityName)
         {
-            XisWidget widget = null;
+            XisSimpleWidget widget = null;
 
             switch (attribute.Type.ToLower())
             {
                 case "int":
                 case "double":
                 case "string":
-                    widget = new XisTextBox(repository, parent, diagram, attribute.Name + "TxtBox", attribute.Name, attribute.Name);
+                    widget = new XisTextBox(repository, parent, diagram, entityName + attribute.Name + "TxtBox", attribute.Name, attribute.Name);
                     break;
                 case "bool":
                 case "boolean":
-                    // DropDown
-                    widget = new XisDropdown(repository, parent, diagram, attribute.Name + "Dropdown", attribute.Name);
+                    // Dropdown
+                    widget = new XisDropdown(repository, parent, diagram, entityName + attribute.Name + "Dropdown", attribute.Name);
                     break;
                 case "date":
-                    widget = new XisDatePicker(repository, parent, diagram, attribute.Name + "DatePicker");
+                    widget = new XisDatePicker(repository, parent, diagram, entityName + attribute.Name + "DatePicker");
                     break;
                 case "time":
-                    widget = new XisTimePicker(repository, parent, diagram, attribute.Name + "TimePicker");
+                    widget = new XisTimePicker(repository, parent, diagram, entityName + attribute.Name + "TimePicker");
                     break;
                 default:
                     break;
             }
-            widget.SetValue(entityName + "." + attribute.Name);
+            widget.SetEntityAttributeName(entityName + "." + attribute.Name);
 
             return widget;
         }
@@ -592,12 +586,6 @@ namespace XISMobileEAPlugin.InteractionSpace
         }
     }
 
-    enum CompositeWidgetType
-    {
-        Form,
-        Tab
-    }
-
     enum MenuType
     {
         OptionsMenu,
@@ -623,8 +611,6 @@ namespace XISMobileEAPlugin.InteractionSpace
         Update,
         Delete,
         DeleteAll,
-        ZoomIn,
-        ZoomOut,
         WebService,
         Navigate,
         Custom
@@ -637,6 +623,8 @@ namespace XISMobileEAPlugin.InteractionSpace
         String,
         Boolean,
         Date,
-        Time
+        Time,
+        Image,
+        URL
     }
 }
