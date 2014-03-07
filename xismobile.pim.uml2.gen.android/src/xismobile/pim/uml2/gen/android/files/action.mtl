@@ -77,7 +77,7 @@ intent.putExtra("[entity.name.toUpperFirst()/]Id", [entity.name.toLowerFirst()/]
 [elseif (o.isCustomAction())]
 [o.writeCustomActionCall()/]
 [/if]
-[if (o.performsNavigation())]
+[if (not o.isCancelAction() and o.performsNavigation())]
 startActivity(intent);
 [/if]
 [/template]
