@@ -243,7 +243,7 @@
 						<Tag name="name" type="String" description="" unit="" values="" default=""/>
 					</TaggedValues>
 				</Stereotype>
-				<Stereotype name="XisForm" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0" generalizes="XisCompositeWidget" baseStereotypes="XisCompositeWidget"/>
+				<Stereotype name="XisForm" notes="" cx="90" cy="70" bgcolor="13353215" fontcolor="-1" bordercolor="-1" borderwidth="1" hideicon="0" generalizes="XisCompositeWidget" baseStereotypes="XisCompositeWidget"/>
 				<Stereotype name="XisGesture" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
 					<AppliesTo>
 						<Apply type="Class">
