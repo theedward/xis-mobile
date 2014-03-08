@@ -817,7 +817,7 @@ namespace XISMobileEAPlugin
                             {
                                 if (ContainsCreateDetail(useCase) || ContainsUpdateDetail(useCase))
                                 {
-                                    XisVisibilityBoundary b = new XisVisibilityBoundary(repository, diagram, detailIS,
+                                    XisVisibilityBoundary b = new XisVisibilityBoundary(repository, diagram, form,
                                         "Save" + d.Element.Name + "Boundary", ContainsCreateDetail(useCase), false, ContainsUpdateDetail(useCase));
                                     string actionName = "save" + d.Element.Name;
                                     XisButton btn = new XisButton(repository, b, diagram, d.Element.Name + "SaveButton", actionName);
@@ -828,7 +828,7 @@ namespace XISMobileEAPlugin
                             else if (ContainsCreateDetail(useCase) || ContainsUpdateDetail(useCase))
                             {
                                 string actionName = "save" + d.Element.Name;
-                                XisButton btn = new XisButton(repository, detailIS, diagram, d.Element.Name + "SaveButton", actionName);
+                                XisButton btn = new XisButton(repository, form, diagram, d.Element.Name + "SaveButton", actionName);
                                 btn.SetValue("Save " + d.Element.Name);
                                 XISMobileHelper.CreateXisAction(repository, btn.Element, actionName, ActionType.OK);
                             }
@@ -855,7 +855,7 @@ namespace XISMobileEAPlugin
                         {
                             if (ContainsCreateDetail(useCase) || ContainsUpdateDetail(useCase))
                             {
-                                XisVisibilityBoundary b = new XisVisibilityBoundary(repository, diagram, detailIS,
+                                XisVisibilityBoundary b = new XisVisibilityBoundary(repository, diagram, form,
                                     "Save" + d.Element.Name + "Boundary", ContainsCreateDetail(useCase), false, ContainsUpdateDetail(useCase));
                                 string actionName = "save" + d.Element.Name;
                                 XisButton btn = new XisButton(repository, b, diagram, d.Element.Name + "SaveButton", actionName);
@@ -866,7 +866,7 @@ namespace XISMobileEAPlugin
                         else if (ContainsCreateDetail(useCase) || ContainsUpdateDetail(useCase))
                         {
                             string actionName = "save" + d.Element.Name;
-                            XisButton btn = new XisButton(repository, detailIS, diagram, d.Element.Name + "SaveButton", actionName);
+                            XisButton btn = new XisButton(repository, form, diagram, d.Element.Name + "SaveButton", actionName);
                             btn.SetValue("Save " + d.Element.Name);
                             XISMobileHelper.CreateXisAction(repository, btn.Element, actionName, ActionType.OK);
                         }
@@ -920,7 +920,7 @@ namespace XISMobileEAPlugin
                             {
                                 if (ContainsCreateReference(useCase) || ContainsUpdateReference(useCase))
                                 {
-                                    XisVisibilityBoundary b = new XisVisibilityBoundary(repository, diagram, detailIS,
+                                    XisVisibilityBoundary b = new XisVisibilityBoundary(repository, diagram, form,
                                         "Save" + r.Element.Name + "Boundary", ContainsCreateReference(useCase), false, ContainsUpdateReference(useCase));
                                     string actionName = "save" + r.Element.Name;
                                     XisButton btn = new XisButton(repository, b, diagram, r.Element.Name + "SaveButton", actionName);
@@ -931,7 +931,7 @@ namespace XISMobileEAPlugin
                             else if (ContainsCreateReference(useCase) || ContainsUpdateReference(useCase))
                             {
                                 string actionName = "save" + r.Element.Name;
-                                XisButton btn = new XisButton(repository, detailIS, diagram, r.Element.Name + "SaveButton", actionName);
+                                XisButton btn = new XisButton(repository, form, diagram, r.Element.Name + "SaveButton", actionName);
                                 btn.SetValue("Save " + r.Element.Name);
                                 XISMobileHelper.CreateXisAction(repository, btn.Element, actionName, ActionType.OK);
                             }
@@ -958,7 +958,7 @@ namespace XISMobileEAPlugin
                         {
                             if (ContainsCreateReference(useCase) || ContainsUpdateReference(useCase))
                             {
-                                XisVisibilityBoundary b = new XisVisibilityBoundary(repository, diagram, detailIS,
+                                XisVisibilityBoundary b = new XisVisibilityBoundary(repository, diagram, form,
                                     "Save" + r.Element.Name + "Boundary", ContainsCreateReference(useCase), false, ContainsUpdateReference(useCase));
                                 string actionName = "save" + r.Element.Name;
                                 XisButton btn = new XisButton(repository, b, diagram, r.Element.Name + "SaveButton", actionName);
@@ -969,7 +969,7 @@ namespace XISMobileEAPlugin
                         else if (ContainsCreateReference(useCase) || ContainsUpdateReference(useCase))
                         {
                             string actionName = "save" + r.Element.Name;
-                            XisButton btn = new XisButton(repository, detailIS, diagram, r.Element.Name + "SaveButton", actionName);
+                            XisButton btn = new XisButton(repository, form, diagram, r.Element.Name + "SaveButton", actionName);
                             btn.SetValue("Save " + r.Element.Name);
                             XISMobileHelper.CreateXisAction(repository, btn.Element, actionName, ActionType.OK);
                         }
