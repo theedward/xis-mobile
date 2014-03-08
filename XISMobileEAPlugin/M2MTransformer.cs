@@ -475,17 +475,19 @@ namespace XISMobileEAPlugin
             #region Process Master attributes
             if (!string.IsNullOrEmpty(master.Filter))
             {
+                XisForm form = new XisForm(repository, detailDiagram, detailIS, master.Element.Name + "Form", master.Element.Name);
                 List<EA.Attribute> filtered = GetFilteredAttributeList(master);
                 foreach (EA.Attribute attr in filtered)
                 {
-                    XISMobileHelper.ProcessXisAttribute(repository, detailDiagram, detailIS, attr, master.Element.Name);
+                    XISMobileHelper.ProcessXisAttribute(repository, detailDiagram, form, attr, master.Element.Name);
                 }
             }
             else
             {
+                XisForm form = new XisForm(repository, detailDiagram, detailIS, master.Element.Name + "Form", master.Element.Name);
                 foreach (EA.Attribute attr in master.Element.Attributes)
                 {
-                    XISMobileHelper.ProcessXisAttribute(repository, detailDiagram, detailIS, attr, master.Element.Name);
+                    XISMobileHelper.ProcessXisAttribute(repository, detailDiagram, form, attr, master.Element.Name);
                 }
             }
             #endregion
@@ -525,9 +527,10 @@ namespace XISMobileEAPlugin
                         }
                         else
                         {
+                            XisForm form = new XisForm(repository, detailDiagram, detailIS, d.Element.Name + "Form", d.Element.Name);
                             foreach (EA.Attribute attr in filtered)
                             {
-                                XISMobileHelper.ProcessXisAttribute(repository, detailDiagram, detailIS, attr, d.Element.Name);
+                                XISMobileHelper.ProcessXisAttribute(repository, detailDiagram, form, attr, d.Element.Name);
                             }
 
                             if (ContainsReadDetail(useCase))
@@ -562,9 +565,10 @@ namespace XISMobileEAPlugin
                     }
                     else
                     {
+                        XisForm form = new XisForm(repository, detailDiagram, detailIS, d.Element.Name + "Form", d.Element.Name);
                         foreach (EA.Attribute attr in d.Element.Attributes)
                         {
-                            XISMobileHelper.ProcessXisAttribute(repository, detailDiagram, detailIS, attr, d.Element.Name);
+                            XISMobileHelper.ProcessXisAttribute(repository, detailDiagram, form, attr, d.Element.Name);
                         }
 
                         if (ContainsReadDetail(useCase))
@@ -626,9 +630,10 @@ namespace XISMobileEAPlugin
                         }
                         else
                         {
+                            XisForm form = new XisForm(repository, detailDiagram, detailIS, r.Element.Name + "Form", r.Element.Name);
                             foreach (EA.Attribute attr in filtered)
                             {
-                                XISMobileHelper.ProcessXisAttribute(repository, detailDiagram, detailIS, attr, r.Element.Name);
+                                XISMobileHelper.ProcessXisAttribute(repository, detailDiagram, form, attr, r.Element.Name);
                             }
 
                             if (ContainsReadReference(useCase))
@@ -663,9 +668,10 @@ namespace XISMobileEAPlugin
                     }
                     else
                     {
+                        XisForm form = new XisForm(repository, detailDiagram, detailIS, r.Element.Name + "Form", r.Element.Name);
                         foreach (EA.Attribute attr in r.Element.Attributes)
                         {
-                            XISMobileHelper.ProcessXisAttribute(repository, detailDiagram, detailIS, attr, r.Element.Name);
+                            XISMobileHelper.ProcessXisAttribute(repository, detailDiagram, form, attr, r.Element.Name);
                         }
 
                         if (ContainsReadReference(useCase))
@@ -749,17 +755,19 @@ namespace XISMobileEAPlugin
             #region Process Master attributes
             if (!string.IsNullOrEmpty(master.Filter))
             {
+                XisForm form = new XisForm(repository, diagram, detailIS, master.Element.Name + "Form", master.Element.Name);
                 List<EA.Attribute> filtered = GetFilteredAttributeList(master);
                 foreach (EA.Attribute attr in filtered)
                 {
-                    XISMobileHelper.ProcessXisAttribute(repository, diagram, detailIS, attr, master.Element.Name);
+                    XISMobileHelper.ProcessXisAttribute(repository, diagram, form, attr, master.Element.Name);
                 }
             }
             else
             {
+                XisForm form = new XisForm(repository, diagram, detailIS, master.Element.Name + "Form", master.Element.Name);
                 foreach (EA.Attribute attr in master.Element.Attributes)
                 {
-                    XISMobileHelper.ProcessXisAttribute(repository, diagram, detailIS, attr, master.Element.Name);
+                    XISMobileHelper.ProcessXisAttribute(repository, diagram, form, attr, master.Element.Name);
                 }
             }
             #endregion
@@ -799,9 +807,10 @@ namespace XISMobileEAPlugin
                         }
                         else
                         {
+                            XisForm form = new XisForm(repository, diagram, detailIS, d.Element.Name + "Form", d.Element.Name);
                             foreach (EA.Attribute attr in filtered)
                             {
-                                XISMobileHelper.ProcessXisAttribute(repository, diagram, detailIS, attr, d.Element.Name);
+                                XISMobileHelper.ProcessXisAttribute(repository, diagram, form, attr, d.Element.Name);
                             }
 
                             if (ContainsReadDetail(useCase))
@@ -836,9 +845,10 @@ namespace XISMobileEAPlugin
                     }
                     else
                     {
+                        XisForm form = new XisForm(repository, diagram, detailIS, d.Element.Name + "Form", d.Element.Name);
                         foreach (EA.Attribute attr in d.Element.Attributes)
                         {
-                            XISMobileHelper.ProcessXisAttribute(repository, diagram, detailIS, attr, d.Element.Name);
+                            XISMobileHelper.ProcessXisAttribute(repository, diagram, form, attr, d.Element.Name);
                         }
 
                         if (ContainsReadDetail(useCase))
@@ -900,9 +910,10 @@ namespace XISMobileEAPlugin
                         }
                         else
                         {
+                            XisForm form = new XisForm(repository, diagram, detailIS, r.Element.Name + "Form", r.Element.Name);
                             foreach (EA.Attribute attr in filtered)
                             {
-                                XISMobileHelper.ProcessXisAttribute(repository, diagram, detailIS, attr, r.Element.Name);
+                                XISMobileHelper.ProcessXisAttribute(repository, diagram, form, attr, r.Element.Name);
                             }
 
                             if (ContainsReadReference(useCase))
@@ -937,9 +948,10 @@ namespace XISMobileEAPlugin
                     }
                     else
                     {
+                        XisForm form = new XisForm(repository, diagram, detailIS, r.Element.Name + "Form", r.Element.Name);
                         foreach (EA.Attribute attr in r.Element.Attributes)
                         {
-                            XISMobileHelper.ProcessXisAttribute(repository, diagram, detailIS, attr, r.Element.Name);
+                            XISMobileHelper.ProcessXisAttribute(repository, diagram, form, attr, r.Element.Name);
                         }
 
                         if (ContainsReadReference(useCase))
