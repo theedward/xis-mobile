@@ -347,6 +347,7 @@ namespace XISMobileEAPlugin
 
                 if (ContainsReadMaster(useCase))
                 {
+                    context.SetEntityName(master.Element.Name);
                     string actionName = "view" + master.Element.Name;
                     XisMenuItem contextItem = new XisMenuItem(repository, listDiagram, context,
                         "View" + master.Element.Name + "Item", actionName);
@@ -355,6 +356,7 @@ namespace XISMobileEAPlugin
                 
                 if (ContainsUpdateMaster(useCase))
                 {
+                    context.SetEntityName(master.Element.Name);
                     string actionName = "edit" + master.Element.Name;
                     XisMenuItem contextItem = new XisMenuItem(repository, listDiagram, context,
                         "Edit" + master.Element.Name + "Item", actionName);
@@ -363,6 +365,7 @@ namespace XISMobileEAPlugin
 
                 if (ContainsDeleteMaster(useCase))
                 {
+                    context.SetEntityName(master.Element.Name);
                     string actionName = "delete" + master.Element.Name;
                     XisMenuItem contextItem = new XisMenuItem(repository, listDiagram, context,
                         "Delete" + master.Element.Name + "Item", actionName);
@@ -392,6 +395,7 @@ namespace XISMobileEAPlugin
 
                 if (ContainsCreateMaster(useCase))
                 {
+                    menu.SetEntityName(master.Element.Name);
                     string actionName = "create" + master.Element.Name;
                     XisMenuItem menuItem = new XisMenuItem(repository, listDiagram, menu,
                         "Create" + master.Element.Name + "Item", actionName);
@@ -400,6 +404,7 @@ namespace XISMobileEAPlugin
 
                 if (ContainsDeleteMaster(useCase))
                 {
+                    menu.SetEntityName(master.Element.Name);
                     string actionName = "deleteAll" + master.Element.Name + "s";
                     XisMenuItem menuItem = new XisMenuItem(repository, listDiagram, menu,
                         "DeleteAll" + master.Element.Name + "Item", actionName);
@@ -722,6 +727,7 @@ namespace XISMobileEAPlugin
                 }
 
                 XisMenu menu = new XisMenu(repository, detailDiagram, parent, detailIS.Element.Name + "Menu", MenuType.OptionsMenu);
+                menu.SetEntityName(master.Element.Name);
 
                 string actionName = "save" + master.Element.Name;
                 XisMenuItem menuItem = new XisMenuItem(repository, detailDiagram, menu, "Save" + master.Element.Name, actionName);
@@ -982,6 +988,7 @@ namespace XISMobileEAPlugin
 
             if (ContainsCreateMaster(useCase) || ContainsUpdateMaster(useCase))
             {
+                menu.SetEntityName(master.Element.Name);
                 string actionName = "save" + master.Element.Name;
                 XisWidget parent = menu;
 
@@ -1037,6 +1044,7 @@ namespace XISMobileEAPlugin
             if ((isDetail && (ContainsCreateDetail(useCase) || ContainsUpdateDetail(useCase)))
                 || (!isDetail && (ContainsCreateReference(useCase) || ContainsUpdateReference(useCase))))
             {
+                menu.SetEntityName(entity.Element.Name);
                 string actionName = "save" + entity.Element.Name;
                 XisMenuItem menuItem = new XisMenuItem(repository, diagram, menu, "Save" + entity.Element.Name, actionName);
                 XISMobileHelper.CreateXisAction(repository, menuItem.Element, actionName, ActionType.OK, previousIS.Element.Name);
@@ -1107,6 +1115,7 @@ namespace XISMobileEAPlugin
                 if (isDetail && ContainsReadDetail(useCase)
                     || !isDetail && ContainsReadReference(useCase))
                 {
+                    context.SetEntityName(entity.Element.Name);
                     string actionName = "view" + entity.Element.Name;
                     XisMenuItem contextItem = new XisMenuItem(repository, diagram, context,
                         "View" + entity.Element.Name + "Item", actionName);
@@ -1116,6 +1125,7 @@ namespace XISMobileEAPlugin
                 if (isDetail && ContainsUpdateDetail(useCase)
                     || !isDetail && ContainsUpdateReference(useCase))
                 {
+                    context.SetEntityName(entity.Element.Name);
                     string actionName = "edit" + entity.Element.Name;
                     XisMenuItem contextItem = new XisMenuItem(repository, diagram, context,
                         "Edit" + entity.Element.Name + "Item", actionName);
@@ -1125,6 +1135,7 @@ namespace XISMobileEAPlugin
                 if (isDetail && ContainsUpdateDetail(useCase)
                     || !isDetail && ContainsUpdateReference(useCase))
                 {
+                    context.SetEntityName(entity.Element.Name);
                     string actionName = "delete" + entity.Element.Name;
                     XisMenuItem contextItem = new XisMenuItem(repository, diagram, context,
                         "Delete" + entity.Element.Name + "Item", actionName);
@@ -1140,6 +1151,7 @@ namespace XISMobileEAPlugin
             if ((isDetail && (ContainsCreateDetail(useCase) || ContainsDeleteDetail(useCase)))
                 || (!isDetail && (ContainsCreateReference(useCase) || ContainsDeleteReference(useCase))))
             {
+                menu.SetEntityName(entity.Element.Name);
                 string actionName = "create" + entity.Element.Name;
                 XisMenuItem menuItem = new XisMenuItem(repository, diagram, menu,
                     "Create" + entity.Element.Name + "Item", actionName);
@@ -1149,6 +1161,7 @@ namespace XISMobileEAPlugin
             if (isDetail && (ContainsDeleteDetail(useCase))
                 || !isDetail && (ContainsDeleteReference(useCase)))
             {
+                menu.SetEntityName(entity.Element.Name);
                 string actionName = "deleteAll" + entity.Element.Name + "s";
                 XisMenuItem menuItem = new XisMenuItem(repository, diagram, menu,
                     "DeleteAll" + entity.Element.Name + "Item", actionName);
