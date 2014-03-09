@@ -326,24 +326,36 @@ public class Services {
 			Class owner = (Class) o.getOwner();
 			
 			while (owner != null) {
-				if (ServiceUtils.isXisForm(owner) &&
-				    ServiceUtils.getXisCompositeWidgetEntityName(owner,
-						ServiceUtils.getXisForm(owner)).equalsIgnoreCase(entity)) {
+				if (ServiceUtils.isXisForm(owner)
+					&& ServiceUtils.getXisCompositeWidgetEntityName(owner,
+							ServiceUtils.getXisForm(owner)) != null
+				    && ServiceUtils.getXisCompositeWidgetEntityName(owner,
+				    		ServiceUtils.getXisForm(owner))
+				    		.equalsIgnoreCase(entity)) {
 					operations.add(o);
 					break;
-				} else if (ServiceUtils.isXisList(owner) &&
-						   ServiceUtils.getXisCompositeWidgetEntityName(owner,
-							   ServiceUtils.getXisForm(owner)).equalsIgnoreCase(entity)) {
+				} else if (ServiceUtils.isXisList(owner)
+						&& ServiceUtils.getXisCompositeWidgetEntityName(owner,
+								ServiceUtils.getXisList(owner)) != null
+						&& ServiceUtils.getXisCompositeWidgetEntityName(owner,
+								ServiceUtils.getXisList(owner))
+								.equalsIgnoreCase(entity)) {
 					operations.add(o);
 					break;
-				} else if (ServiceUtils.isXisListGroup(owner) &&
-						   ServiceUtils.getXisCompositeWidgetEntityName(owner,
-								ServiceUtils.getXisListGroup(owner)).equalsIgnoreCase(entity)) {
+				} else if (ServiceUtils.isXisListGroup(owner)
+						&& ServiceUtils.getXisCompositeWidgetEntityName(owner,
+								ServiceUtils.getXisListGroup(owner)) != null
+						&& ServiceUtils.getXisCompositeWidgetEntityName(owner,
+								ServiceUtils.getXisListGroup(owner))
+								.equalsIgnoreCase(entity)) {
 					operations.add(o);
 					break;
-				} else if (ServiceUtils.isXisMenu(owner) &&
-						   ServiceUtils.getXisCompositeWidgetEntityName(owner,
-								ServiceUtils.getXisMenu(owner)).equalsIgnoreCase(entity)) {
+				} else if (ServiceUtils.isXisMenu(owner)
+						&& ServiceUtils.getXisCompositeWidgetEntityName(owner,
+								ServiceUtils.getXisMenu(owner)) != null
+						&& ServiceUtils.getXisCompositeWidgetEntityName(owner,
+								ServiceUtils.getXisMenu(owner))
+								.equalsIgnoreCase(entity)) {
 					operations.add(o);
 					break;
 				} else if (ServiceUtils.isXisInteractionSpace(owner)) {
