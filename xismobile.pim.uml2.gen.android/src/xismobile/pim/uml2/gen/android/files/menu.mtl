@@ -2,6 +2,7 @@
 [module menu('http://www.eclipse.org/uml2/4.0.0/UML')]
 
 [import xismobile::pim::uml2::gen::android::common::xisMobileUtils /]
+[import xismobile::pim::uml2::gen::android::files::strings /]
 
 [template public generateOptionsMenu(c : Class) post (trim())]
 
@@ -72,7 +73,11 @@
 	android:icon="@android:drawable/[writeActionIcon(o)/]"
 	[/let]
 	[/if]
-    android:title="[c.name.toLowerCase()/]"/>
+	[if (not c.getXisWidgetValue(c.getXisMenuItem()).oclIsUndefined())]
+	android:title="[addString(c.name.toLowerCase() + '_item_title', c.getXisWidgetValue(c.getXisMenuItem()))/]"/>
+	[else]
+	android:title="[c.name/]"/>
+	[/if]
 [/template]
 
 [template private writeActionIcon(o : Operation) post (trim())]
