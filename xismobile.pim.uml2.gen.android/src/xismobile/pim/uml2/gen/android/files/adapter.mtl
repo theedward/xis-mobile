@@ -3,6 +3,7 @@
 
 [import xismobile::pim::uml2::gen::android::common::xisMobileUtils /]
 [import xismobile::pim::uml2::gen::android::common::utils /]
+[import xismobile::pim::uml2::gen::android::services::services /]
 
 [template public generateAdapter(widget : Class, entity : Class)]
 
@@ -16,13 +17,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-[if (widget.itemIsSelectable())]
+[comment][if (widget.itemIsSelectable())]
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
-[/if]
+[/if][/comment]
 
 import xis_mobile.library.widgets.*;
+
+import [widget.getPackagePath()/].domain.[entity.name.toUpperFirst()/];
 
 
 public class [entity.name.toUpperFirst()/]Adapter extends ArrayAdapter<[entity.name.toUpperFirst()/]> {
@@ -56,16 +59,16 @@ public class [entity.name.toUpperFirst()/]Adapter extends ArrayAdapter<[entity.n
 	public View getView(int position, View convertView, ViewGroup parent) {
 		final ViewHolder holder;
 		
-		if (view == null) {
+		if (convertView == null) {
 			LayoutInflater inflater = (LayoutInflater) context
-					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			convertView = inflater.inflate(row, null);
 			holder = new ViewHolder();
-	[let rowElements : OrderedSet(Class) = widget.getChildren()]
-		[for (el : Class | rowElements)]
+[comment]	[let rowElements : Collection(Class) = widget.getChildren()][/comment]
+		[for (el : Class | widget.getChildren())]
 			holder.[el.name.toLowerFirst()/] = [el.writeFindWidget()/]
 		[/for]
-			[if (widget.itemIsSelectable())]
+			[comment][if (widget.itemIsSelectable())]
 			holder.selected = (CheckBox) convertView.findViewById(R.id.checkBox[widget.name.toUpperFirst()/]Selected);
 			holder.selected.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 				@Override
@@ -73,16 +76,16 @@ public class [entity.name.toUpperFirst()/]Adapter extends ArrayAdapter<[entity.n
 					// TODO: Add implementation here...
 				}
 			});
-			[/if]
+			[/if][/comment]
 			convertView.setTag(holder);
-			[if (widget.itemIsSelectable())]
+			[comment][if (widget.itemIsSelectable())]
 			holder.selected.setTag(list.get(position));
-			[/if]
+			[/if][/comment]
 		} else {
 			holder = (ViewHolder) convertView.getTag();
-			[if (widget.itemIsSelectable())]
+			[comment][if (widget.itemIsSelectable())]
 			holder.selected.setTag(list.get(position));
-			[/if]
+			[/if][/comment]
 		}
 	 
 		if (list == null || (position + 1) > list.size())
@@ -91,9 +94,9 @@ public class [entity.name.toUpperFirst()/]Adapter extends ArrayAdapter<[entity.n
 		[entity.name.toUpperFirst()/] [entity.name.toLowerFirst()/] = list.get(position);
 
 		if ([entity.name.toLowerFirst()/] != null) {
-			[for (el : Class | rowElements)]
-			[let attr : String = el.getXisWidgetValue(el.getAppliedStereotypes()->asOrderedSet()->at(1))]
-			holder.[el.name.toLowerFirst()/].setText(String.valueOf([entity.name.toLowerFirst()/].get[attr.toUpperFirst()/]()));
+			[for (el : Class | widget.getChildren())]
+			[let attr : String = el.getXisSimpleWidgetEntityAttributeName(el.getAppliedStereotypes()->asOrderedSet()->at(1))]
+			holder.[el.name.toLowerFirst()/].setText(String.valueOf([entity.name.toLowerFirst()/].get[attr.getEntityAttributeOfWidget().toUpperFirst()/]()));
 			[/let]
 			[/for]
 		}
@@ -102,47 +105,47 @@ public class [entity.name.toUpperFirst()/]Adapter extends ArrayAdapter<[entity.n
 	}
 
 	public static class ViewHolder {
-		[for (el : Class | rowElements)]
+		[for (el : Class | widget.getChildren())]
 		public [el.writeWidgetType()/] [el.name.toLowerFirst()/];
 		[/for]
-		[if (widget.itemIsSelectable())]
+		[comment][if (widget.itemIsSelectable())]
 		public CheckBox selected;
-		[/if]
+		[/if][/comment]
 	}
-	[/let]
+[comment]	[/let][/comment]
 }
 [/file]
 [/template]
 
-[template private writeFindWidget(c : Class)]
+[template private writeFindWidget(c : Class) post (trim())]
 [if (c.isXisLabel())]
-(XisLabel) findViewById(R.id.label[c.name.toUpperFirst()/]);
+(XisLabel) convertView.findViewById(R.id.label[c.name.toUpperFirst()/]);
 [elseif (c.isXisTextBox())]
-(XisTextBox) findViewById(R.id.editText[c.name.toUpperFirst()/]);
+(XisTextBox) convertView.findViewById(R.id.editText[c.name.toUpperFirst()/]);
 [elseif (c.isXisCheckBox())]
-(XisCheckBox) findViewById(R.id.checkBox[c.name.toUpperFirst()/]);
+(XisCheckBox) convertView.findViewById(R.id.checkBox[c.name.toUpperFirst()/]);
 [elseif (c.isXisButton())]
-(XisButton) findViewById(R.id.button[c.name.toUpperFirst()/]);
+(XisButton) convertView.findViewById(R.id.button[c.name.toUpperFirst()/]);
 [elseif (c.isXisLink())]
-(XisLink) findViewById(R.id.link[c.name.toUpperFirst()/]);
+(XisLink) convertView.findViewById(R.id.link[c.name.toUpperFirst()/]);
 [elseif (c.isXisImage())]
-(XisImage) findViewById(R.id.image[c.name.toUpperFirst()/]);
+(XisImage) convertView.findViewById(R.id.image[c.name.toUpperFirst()/]);
 [elseif (c.isXisDatePicker())]
-(XisDatePicker) findViewById(R.id.datePicker[c.name.toUpperFirst()/]);
+(XisDatePicker) convertView.findViewById(R.id.datePicker[c.name.toUpperFirst()/]);
 [elseif (c.isXisTimePicker())]
 (XisTimePicker) findViewById(R.id.timePicker[c.name.toUpperFirst()/]);
 [elseif (c.isXisWebView())]
-(XisWebView) findViewById(R.id.web[c.name.toUpperFirst()/]);
+(XisWebView) convertView.findViewById(R.id.web[c.name.toUpperFirst()/]);
 [elseif (c.isXisMapView())]
-(XisMapView) findViewById(R.id.map[c.name.toUpperFirst()/]);
+(XisMapView) convertView.findViewById(R.id.map[c.name.toUpperFirst()/]);
 [elseif (c.isXisList())]
-(ListView) findViewById(R.id.list[c.name.toUpperFirst()/]);
+(ListView) convertView.findViewById(R.id.list[c.name.toUpperFirst()/]);
 [elseif (c.isXisDropdown())]
-(XisDropdown) findViewById(R.id.dropdown[c.name.toUpperFirst()/]);
+(XisDropdown) convertView.findViewById(R.id.dropdown[c.name.toUpperFirst()/]);
 [/if]
 [/template]
 
-[template private writeWidgetType(c : Class)]
+[template private writeWidgetType(c : Class) post (trim())]
 [if (c.isXisLabel())]
 XisLabel
 [elseif (c.isXisTextBox())]
