@@ -26,18 +26,42 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
 [for (el : Class | c.getChildren())]
-	[if (el.isXisMenuGroup())]
-	<group android:id="@+id/[el.name.toLowerCase()/]_group">
-	[for (it : Class | el.getChildren())]
-		[it.writeMenuItem()/]
-	[/for]
-	</group>
+	[if (el.isXisVisibilityBoundary())]
+	[el.processBoundary()/]
+	[elseif (el.isXisMenuGroup())]
+	[el.writeMenuGroup()/]
 	[elseif (el.isXisMenuItem())]
 	[el.writeMenuItem()/]
 	[/if]
 [/for]
 
 </menu>
+[/template]
+
+[template private processBoundary(c : Class) post (trim())]
+[if (c.getChildren()->size() > 0)]
+[for (it : Class | c.getChildren())]
+	[if (it.isXisVisibilityBoundary())]
+[it.processBoundary()/]
+	[elseif (it.isXisMenuGroup())]
+[it.writeMenuGroup()/]
+	[elseif (it.isXisMenuItem())]
+[it.writeMenuItem()/]
+	[/if]
+[/for]
+[/if]
+[/template]
+
+[template private writeMenuGroup(c : Class)]
+<group android:id="@+id/[c.name.toLowerCase()/]_group">
+[for (it : Class | c.getChildren())]
+	[if (it.isXisMenuItem())]
+	[it.writeMenuItem()/]
+	[elseif (it.isXisVisibilityBoundary())]
+	[it.processBoundary()/]
+	[/if]
+[/for]
+</group>
 [/template]
 
 [template private writeMenuItem(c : Class)]
