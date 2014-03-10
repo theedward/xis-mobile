@@ -416,7 +416,7 @@ namespace XISMobileEAPlugin
                     XISMobileHelper.CreateXisAction(repository, menuItem.Element, actionName, ActionType.DeleteAll);
                 }
                 listIS.Menu = menu;
-            } 
+            }
             #endregion
 
             if (detailModes.Count > 0 || item.GetOnTapAction() != null)
@@ -505,7 +505,7 @@ namespace XISMobileEAPlugin
             #region Process Details info
             foreach (XisEntity d in master.Details)
             {
-                if (d.Cardinality == "*")
+                if (d.Cardinality.Contains("*"))
                 {
                     // Needs Manager screen
                     string actionName = "goTo" + d.Element.Name + "ManagerIS";
@@ -608,7 +608,7 @@ namespace XISMobileEAPlugin
             #region Process References info
             foreach (XisEntity r in master.References)
             {
-                if (r.Cardinality == "*")
+                if (r.Cardinality.Contains("*"))
                 {
                     // Needs Manager screen
                     string actionName = "goTo" + r.Element.Name + "ManagerIS";
@@ -787,7 +787,7 @@ namespace XISMobileEAPlugin
             #region Write Details info
             foreach (XisEntity d in master.Details)
             {
-                if (d.Cardinality == "*")
+                if (d.Cardinality.Contains("*"))
                 {
                     // Needs Manager screen
                     string actionName = "goTo" + d.Element.Name + "ManagerIS";
@@ -890,7 +890,7 @@ namespace XISMobileEAPlugin
             #region Write References info
             foreach (XisEntity r in master.References)
             {
-                if (r.Cardinality == "*")
+                if (r.Cardinality.Contains("*"))
                 {
                     // Needs Manager screen
                     string actionName = "goTo" + r.Element.Name + "ManagerIS";
