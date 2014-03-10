@@ -623,7 +623,7 @@ public void onPinch() {
 	android:background="@drawable/form_border" >
 
 [let w : Sequence(Class) = orderWidgetsByPosition(c.getXisInteractionSpaceWidgets())]
-[for (cl : Class | widgets)]
+[for (cl : Class | w)]
 	[writeWidget(w, cl)/]
 [/for]
 [/let]
