@@ -587,7 +587,7 @@
 /]
 
 [query public getXisMenuItems(c : Class) : OrderedSet(Class) = 
-	c.ownedElement->selectByType(Class)->select(
+	c.allOwnedElements()->selectByType(Class)->select(
 		i : Class | i.isXisMenuItem())
 /]
 
@@ -835,12 +835,6 @@
 
 [query public getXisCompositeWidgetEntityName(c : Class, s : Stereotype) : String =
 	c.getValue(s, 'entityName')
-/]
-
-[query public getXisListEntity(c : Class) : Class = 
-	let name : String = c.getXisCompositeWidgetEntityName(c.getXisList()) in
-	c.getModel().allOwnedElements()->selectByType(Class)->
-		select(e : Class | e.name.toLower() = name.toLower() and e.isXisList())
 /]
 
 [query public getXisGesture(c : Class) : Stereotype =
