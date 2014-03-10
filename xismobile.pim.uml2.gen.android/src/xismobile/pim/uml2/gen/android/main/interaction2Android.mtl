@@ -4,6 +4,7 @@
 [import xismobile::pim::uml2::gen::android::common::xisMobileUtils /]
 [import xismobile::pim::uml2::gen::android::files::activity /]
 [import xismobile::pim::uml2::gen::android::files::layout /]
+[import xismobile::pim::uml2::gen::android::services::services /]
 
 [template public interaction2Android(m : Model)]
 
@@ -13,6 +14,9 @@
 			[generateActivity() /]
 			[generateLayout() /]
 		[/for]
+		[if (spaces.allOwnedElements()->selectByType(Class)->select(c : Class | c.isXisForm())->size() > 0)]
+		[addDrawable('form_border.xml', '')/]
+		[/if]
 	[/if]
 [/let]
 [/template]
