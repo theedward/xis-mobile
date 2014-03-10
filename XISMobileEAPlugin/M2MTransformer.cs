@@ -351,6 +351,7 @@ namespace XISMobileEAPlugin
                     string actionName = "view" + master.Element.Name;
                     XisMenuItem contextItem = new XisMenuItem(repository, listDiagram, context,
                         "View" + master.Element.Name + "Item", actionName);
+                    contextItem.SetValue("View " + master.Element.Name);
                     detailModes.Add(ActionType.Read, contextItem);
                 }
                 
@@ -360,6 +361,7 @@ namespace XISMobileEAPlugin
                     string actionName = "edit" + master.Element.Name;
                     XisMenuItem contextItem = new XisMenuItem(repository, listDiagram, context,
                         "Edit" + master.Element.Name + "Item", actionName);
+                    contextItem.SetValue("Edit " + master.Element.Name);
                     detailModes.Add(ActionType.Update, contextItem);
                 }
 
@@ -369,6 +371,7 @@ namespace XISMobileEAPlugin
                     string actionName = "delete" + master.Element.Name;
                     XisMenuItem contextItem = new XisMenuItem(repository, listDiagram, context,
                         "Delete" + master.Element.Name + "Item", actionName);
+                    contextItem.SetValue("Delete " + master.Element.Name);
                     XISMobileHelper.CreateXisAction(repository, contextItem.Element, actionName, ActionType.Delete);
                 }
                 listIS.ContextMenu = context;
@@ -399,6 +402,7 @@ namespace XISMobileEAPlugin
                     string actionName = "create" + master.Element.Name;
                     XisMenuItem menuItem = new XisMenuItem(repository, listDiagram, menu,
                         "Create" + master.Element.Name + "Item", actionName);
+                    menuItem.SetValue("Create " + master.Element.Name);
                     detailModes.Add(ActionType.Create, menuItem);
                 }
 
@@ -408,6 +412,7 @@ namespace XISMobileEAPlugin
                     string actionName = "deleteAll" + master.Element.Name + "s";
                     XisMenuItem menuItem = new XisMenuItem(repository, listDiagram, menu,
                         "DeleteAll" + master.Element.Name + "Item", actionName);
+                    menuItem.SetValue("Delete all " + master.Element.Name + "s");
                     XISMobileHelper.CreateXisAction(repository, menuItem.Element, actionName, ActionType.DeleteAll);
                 }
                 listIS.Menu = menu;
@@ -731,6 +736,7 @@ namespace XISMobileEAPlugin
 
                 string actionName = "save" + master.Element.Name;
                 XisMenuItem menuItem = new XisMenuItem(repository, detailDiagram, menu, "Save" + master.Element.Name, actionName);
+                menuItem.SetValue("Save " + master.Element.Name);
                 XISMobileHelper.CreateXisAction(repository, menuItem.Element, actionName, ActionType.OK); 
             }
 
@@ -999,12 +1005,14 @@ namespace XISMobileEAPlugin
                 }
 
                 XisMenuItem menuItem = new XisMenuItem(repository, diagram, parent, "Save" + master.Element.Name, actionName);
+                menuItem.SetValue("Save " + master.Element.Name);
                 XISMobileHelper.CreateXisAction(repository, menuItem.Element, actionName, ActionType.OK, previousIS.Element.Name);
                 CreateXisInteractionSpaceAssociation(actionName, detailIS, previousIS);
             }
 
             string cancelAction = "cancel" + master.Element.Name;
             XisMenuItem cancelItem = new XisMenuItem(repository, diagram, menu, "Cancel" + master.Element.Name, cancelAction);
+            cancelItem.SetValue("Cancel " + master.Element.Name);
             XISMobileHelper.CreateXisAction(repository, cancelItem.Element, cancelAction, ActionType.Cancel, previousIS.Element.Name);
             CreateXisInteractionSpaceAssociation(cancelAction, detailIS, previousIS);
 
@@ -1047,12 +1055,14 @@ namespace XISMobileEAPlugin
                 menu.SetEntityName(entity.Element.Name);
                 string actionName = "save" + entity.Element.Name;
                 XisMenuItem menuItem = new XisMenuItem(repository, diagram, menu, "Save" + entity.Element.Name, actionName);
+                menuItem.SetValue("Save " + entity.Element.Name);
                 XISMobileHelper.CreateXisAction(repository, menuItem.Element, actionName, ActionType.OK, previousIS.Element.Name);
                 CreateXisInteractionSpaceAssociation(actionName, detailIS, previousIS);
             }
 
             string cancelAction = "cancel" + entity.Element.Name;
             XisMenuItem cancelItem = new XisMenuItem(repository, diagram, menu, "Cancel" + entity.Element.Name, cancelAction);
+            cancelItem.SetValue("Cancel " + entity.Element.Name);
             XISMobileHelper.CreateXisAction(repository, cancelItem.Element, cancelAction, ActionType.Cancel);
             CreateXisInteractionSpaceAssociation("cancel" + entity.Element.Name, detailIS, previousIS);
 
@@ -1119,6 +1129,7 @@ namespace XISMobileEAPlugin
                     string actionName = "view" + entity.Element.Name;
                     XisMenuItem contextItem = new XisMenuItem(repository, diagram, context,
                         "View" + entity.Element.Name + "Item", actionName);
+                    contextItem.SetValue("View " + entity.Element.Name);
                     detailModes.Add(ActionType.Read, contextItem);
                 }
 
@@ -1129,6 +1140,7 @@ namespace XISMobileEAPlugin
                     string actionName = "edit" + entity.Element.Name;
                     XisMenuItem contextItem = new XisMenuItem(repository, diagram, context,
                         "Edit" + entity.Element.Name + "Item", actionName);
+                    contextItem.SetValue("Edit " + entity.Element.Name);
                     detailModes.Add(ActionType.Update, contextItem);
                 }
 
@@ -1139,6 +1151,7 @@ namespace XISMobileEAPlugin
                     string actionName = "delete" + entity.Element.Name;
                     XisMenuItem contextItem = new XisMenuItem(repository, diagram, context,
                         "Delete" + entity.Element.Name + "Item", actionName);
+                    contextItem.SetValue("Delete " + entity.Element.Name);
                     XISMobileHelper.CreateXisAction(repository, contextItem.Element, actionName, ActionType.Delete);
                 }
                 managerIS.ContextMenu = context;
@@ -1155,6 +1168,7 @@ namespace XISMobileEAPlugin
                 string actionName = "create" + entity.Element.Name;
                 XisMenuItem menuItem = new XisMenuItem(repository, diagram, menu,
                     "Create" + entity.Element.Name + "Item", actionName);
+                menuItem.SetValue("Create " + entity.Element.Name);
                 detailModes.Add(ActionType.Create, menuItem);
             }
 
@@ -1165,12 +1179,14 @@ namespace XISMobileEAPlugin
                 string actionName = "deleteAll" + entity.Element.Name + "s";
                 XisMenuItem menuItem = new XisMenuItem(repository, diagram, menu,
                     "DeleteAll" + entity.Element.Name + "Item", actionName);
+                menuItem.SetValue("Delete all " + entity.Element.Name + "s");
                 XISMobileHelper.CreateXisAction(repository, menuItem.Element, actionName, ActionType.DeleteAll);
             }
 
-            string actionBack = "back" + entity.Element.Name + "s";
+            string actionBack = "back" + entity.Element.Name;
             XisMenuItem backMenuItem = new XisMenuItem(repository, diagram, menu,
                 "Back" + entity.Element.Name + "Item", actionBack);
+            backMenuItem.SetValue("Back");
             XISMobileHelper.CreateXisAction(repository, backMenuItem.Element, actionBack, ActionType.Cancel);
             CreateXisInteractionSpaceAssociation(actionBack, managerIS, previousIS);
 
