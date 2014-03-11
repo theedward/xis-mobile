@@ -129,12 +129,12 @@ mList[c.name.toUpperFirst()/] = (ListView) findViewById(R.id.list[c.name.toUpper
 [let entity : Class = c.getXisListEntity()]
 [let item : Class = c.getXisListItems()->at(1)]
 mList[c.name.toUpperFirst()/].setAdapter(new [entity.name.toUpperFirst()/]Adapter(getApplicationContext(), R.layout.[item.name.toLower()/]_item, [entity.name.toLowerFirst()/]s));
-[if (c.hasContextMenu())]
+[if (item.hasContextMenu())]
 registerForContextMenu(mList[c.name.toUpperFirst()/]);
 [/if]
 [c.writeVisibility('mList' + c.name.toUpperFirst())/]
 [item.generateListItem()/]
-[c.generateAdapter(entity)/]
+[item.generateAdapter(entity)/]
 [/let]
 [/let]
 [/if]
@@ -428,7 +428,7 @@ public void onPinch() {
 	android:layout_height="wrap_content"
 	[writeWidgetRelativePositioning(widgets, c)/]
 [let value : String = c.getXisWidgetValue(c.getXisLabel())]
-	[if (not value.oclIsUndefined() and not value.contains('.'))]
+	[if (not value.oclIsUndefined())]
 	android:text="[addString(name + '_text', value)/]"
 	[/if]
 [/let]
@@ -454,7 +454,7 @@ public void onPinch() {
 	android:hint="[addString(name + '_hint', c.getXisTexBoxHint())/]"
 	[/if]
 [let value : String = c.getXisWidgetValue(c.getXisTextBox())]
-	[if (not value.oclIsUndefined() and not value.contains('.'))]
+	[if (not value.oclIsUndefined())]
 	android:text="[addString(name + '_text', value)/]"
 	[/if]
 [/let]
@@ -473,7 +473,7 @@ public void onPinch() {
 	android:onClick="[c.getXisAction().name.toLowerFirst()/]"
 	[/if]
 [let value : String = c.getXisWidgetValue(c.getXisCheckBox())]
-	[if (not value.oclIsUndefined() and not value.contains('.'))]
+	[if (not value.oclIsUndefined())]
 	android:text="[addString(name + '_text', value)/]"
 	[/if]
 [/let]
@@ -492,7 +492,7 @@ public void onPinch() {
 	android:onClick="[c.getXisAction().name.toLowerFirst()/]"
 	[/if]
 [let value : String = c.getXisWidgetValue(c.getXisButton())]
-	[if (not value.oclIsUndefined() and not value.contains('.'))]
+	[if (not value.oclIsUndefined())]
 	android:text="[addString(name + '_text', value)/]"
 	[/if]
 [/let]
@@ -533,7 +533,7 @@ public void onPinch() {
 	android:layout_height="wrap_content"
 	[writeWidgetRelativePositioning(widgets, c)/]
 [let value : String = c.getXisDatePickerValue()]
-	[if (not value.oclIsUndefined() and not value.contains('.'))]
+	[if (not value.oclIsUndefined())]
 	android:text="[addString(name + '_text', value)/]"
 	[/if]
 [/let]
@@ -549,7 +549,7 @@ public void onPinch() {
 	android:layout_height="wrap_content"
 	[writeWidgetRelativePositioning(widgets, c)/]
 [let value : String = c.getXisTimePickerValue()]
-	[if (not value.oclIsUndefined() and not value.contains('.'))]
+	[if (not value.oclIsUndefined())]
 	android:text="[addString(name + '_text', value)/]"
 	[/if]
 [/let]
