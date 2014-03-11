@@ -193,11 +193,11 @@ namespace XISMobileEAPlugin
         {
             if (!rules.isValid)
             {
-                MessageBox.Show("Validation ended with errors");
+                MessageBox.Show("Validation ended with errors!");
             }
             else
             {
-                MessageBox.Show("Validation ended successfully");
+                MessageBox.Show("Validation ended successfully!");
             }
         }
 
