@@ -42,8 +42,16 @@
 	invoke('xismobile.pim.uml2.gen.android.services.Services', 'getInboundCrudOperations(org.eclipse.uml2.uml.Class, java.lang.String)', Sequence{space, entity})
 /]
 
-[query public getInboundCrudOperationsEntities(c : Class) : Sequence(String) =
+[query public getInboundFilteredCrudOperations(space : Class, entity : String) : Sequence(Operation) = 
+	invoke('xismobile.pim.uml2.gen.android.services.Services', 'getInboundFilteredCrudOperations(org.eclipse.uml2.uml.Class, java.lang.String)', Sequence{space, entity})
+/]
+
+[query public getInboundCrudOperationsEntities(c : Class) : Sequence(Class) =
 	invoke('xismobile.pim.uml2.gen.android.services.Services', 'getInboundCrudOperationsEntities(org.eclipse.uml2.uml.Class)', Sequence{c})
+/]
+
+[query public needsModes(space : Class) : Boolean =
+	invoke('xismobile.pim.uml2.gen.android.services.Services', 'needsModes(org.eclipse.uml2.uml.Class)', Sequence{space})
 /]
 
 [query public getCrudOperationEntityContextWidget(o : Operation) : Class =
@@ -54,7 +62,15 @@
 	invoke('xismobile.pim.uml2.gen.android.services.Services', 'getCrudOperationEntity(org.eclipse.uml2.uml.Operation, org.eclipse.uml2.uml.Class)', Sequence{o, widget})
 /]
 
-[query public getEntityAttributeOfWidget(value : Class) : String = 
+[query public getXisListEntity(c : Class) : Class =
+	invoke('xismobile.pim.uml2.gen.android.services.Services', 'getXisListEntity(org.eclipse.uml2.uml.Class)', Sequence{c})
+/]
+
+[query public getAllOwnedListsEntities(c : Class) : Sequence(Class) =
+	invoke('xismobile.pim.uml2.gen.android.services.Services', 'getAllOwnedListsEntities(org.eclipse.uml2.uml.Class)', Sequence{c})
+/]
+
+[query public getEntityAttributeOfWidget(value : String) : String = 
 	invoke('xismobile.pim.uml2.gen.android.services.Services', 'getEntityAttributeOfWidget(java.lang.String)', Sequence{value})
 /]
 
