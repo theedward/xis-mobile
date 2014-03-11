@@ -81,7 +81,7 @@ public [c.name.toUpperFirst()/]([c.getXisAttributesForConstructor()/]) {
 [/template]
 
 [template private getXisAttributeTypeAndName(p : Property)]
-[p.getXisEntityAttributeType()/] [p.getXisEntityAttributeName().toLowerFirst()/]
+[p.type.name/] [p.getXisEntityAttributeName().toLowerFirst()/]
 [/template]
 
 [template private generateAttributes(c : Class) post (trim())]
@@ -107,11 +107,11 @@ public [if (c.isPersistent())]int[else]String[/if] getId() {
 }
 
 [for (p : Property | c.getXisEntityAttributes()) separator('\n')]
-public [p.getXisEntityAttributeType()/] get[p.getXisEntityAttributeName().toUpperFirst()/]() {
+public [p.type.name/] get[p.getXisEntityAttributeName().toUpperFirst()/]() {
 	return this.[p.getXisEntityAttributeName().toLowerFirst()/];
 }
 
-public void set[p.getXisEntityAttributeName().toUpperFirst()/]([p.getXisEntityAttributeType()/] [p.getXisEntityAttributeName().toLowerFirst()/]) {
+public void set[p.getXisEntityAttributeName().toUpperFirst()/]([p.type.name/] [p.getXisEntityAttributeName().toLowerFirst()/]) {
 	this.[p.getXisEntityAttributeName().toLowerFirst()/] = [p.getXisEntityAttributeName().toLowerFirst()/];
 }
 [/for]
@@ -153,7 +153,7 @@ this.[p.getXisEntityAttributeName()/] == c.[p.getXisEntityAttributeName()/]
 [template private getHashCodeCondition(ps : Set(Property)) post (trim())]
 [if (ps->size() > 1)]
 [ps.getXisEntityAttributeName().toLowerFirst()->sep(' + ')/]
-[elseif (ps.getXisEntityAttributeType() <> 'String')]
+[elseif (ps.type.name <> 'String')]
 [ps.getXisEntityAttributeName().toLowerFirst().concat('.toString()')/]
 [/if]
 [/template]
