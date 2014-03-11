@@ -7,13 +7,16 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
 import org.eclipse.uml2.uml.Association;
 import org.eclipse.uml2.uml.Class;
 import org.eclipse.uml2.uml.Element;
+import org.eclipse.uml2.uml.EnumerationLiteral;
 import org.eclipse.uml2.uml.Generalization;
 import org.eclipse.uml2.uml.Interface;
 import org.eclipse.uml2.uml.InterfaceRealization;
@@ -377,10 +380,31 @@ public class Services {
 		}
 		return operations;
 	}
+
+	public List<Operation> getInboundFilteredCrudOperations(Class space, String entity) {
+		List<Operation> cruds = getInboundCrudOperations(space, entity);
+		List<Operation> filtered = new ArrayList<Operation>();
+		Map<String, Operation> map = new HashMap<String, Operation>();
+		
+		for (Operation o : cruds) { 
+			Stereotype s = ServiceUtils.getXisAction(o);
+			String type = ((EnumerationLiteral) o.getValue(s, "type")).getName();
+			
+			if (!map.containsKey(type)) {
+				map.put(type, o);
+			}
+		}
+		
+		if (map.size() > 0) {
+			filtered.addAll(map.values());
+		}
+		return filtered;
+	}
 	
-	public List<String> getInboundCrudOperationsEntities(Class c) {
-		List<String> entities = new ArrayList<String>();
+	public List<Class> getInboundCrudOperationsEntities(Class c) {
 		List<Operation> operations = new ArrayList<Operation>();
+		List<String> entNames = new ArrayList<String>();
+		List<Class> entities = new ArrayList<Class>();
 
 		for (Association a : c.getAssociations()) {
 			if (ServiceUtils.isXisInteractionSpaceAssociation(a)) {
@@ -427,8 +451,8 @@ public class Services {
 						ServiceUtils.getXisForm(owner)) != null) {
 					entityName = ServiceUtils.getXisCompositeWidgetEntityName(
 							owner, ServiceUtils.getXisForm(owner));
-					if (!entities.contains(entityName)) {
-						entities.add(entityName);
+					if (!entNames.contains(entityName)) {
+						entNames.add(entityName);
 						break;
 					}
 				} else if (ServiceUtils.isXisList(owner) &&
@@ -436,8 +460,8 @@ public class Services {
 							   ServiceUtils.getXisList(owner)) != null) {
 					entityName = ServiceUtils.getXisCompositeWidgetEntityName(
 							owner, ServiceUtils.getXisList(owner));
-					if (!entities.contains(entityName)) {
-						entities.add(entityName);
+					if (!entNames.contains(entityName)) {
+						entNames.add(entityName);
 						break;
 					}
 				} else if (ServiceUtils.isXisListGroup(owner) &&
@@ -445,8 +469,8 @@ public class Services {
 								ServiceUtils.getXisListGroup(owner)) != null) {
 					entityName = ServiceUtils.getXisCompositeWidgetEntityName(
 							owner, ServiceUtils.getXisListGroup(owner));
-					if (!entities.contains(entityName)) {
-						entities.add(entityName);
+					if (!entNames.contains(entityName)) {
+						entNames.add(entityName);
 						break;
 					}
 				} else if (ServiceUtils.isXisMenu(owner) &&
@@ -454,16 +478,16 @@ public class Services {
 								ServiceUtils.getXisMenu(owner)) != null) {
 					entityName = ServiceUtils.getXisCompositeWidgetEntityName(
 							owner, ServiceUtils.getXisMenu(owner));
-					if (!entities.contains(entityName)) {
-						entities.add(entityName);
+					if (!entNames.contains(entityName)) {
+						entNames.add(entityName);
 						break;
 					}
 				} else if (ServiceUtils.isXisInteractionSpace(owner)) {
 					for (Parameter p : o.getOwnedParameters()) {
 						if (p.getName().equalsIgnoreCase("entityName") &&
 							!p.getDefault().isEmpty()) {
-							if (!entities.contains(p.getDefault())) {
-								entities.add(p.getDefault());
+							if (!entNames.contains(p.getDefault())) {
+								entNames.add(p.getDefault());
 								break;
 							}
 						}
@@ -477,9 +501,88 @@ public class Services {
 				}
 			}
 		}
+		
+		if (entNames.size() > 0) {
+			for (String name : entNames) {
+				for (Element el : c.getModel().allOwnedElements()) {
+					if (el instanceof Class
+						&& ((Class) el).getName().equalsIgnoreCase(name)
+						&& ServiceUtils.isXisEntity((Class) el)) {
+						entities.add((Class) el);
+						break;
+					}
+				}
+			}
+		}
 		return entities;
 	}
 
+	public boolean needsModes(Class space) {
+		List<Operation> operations = new ArrayList<Operation>();
+		boolean needsModes = false;
+		
+		for (Association a : space.getAssociations()) {
+			if (ServiceUtils.isXisInteractionSpaceAssociation(a)) {
+				Property first = a.getMemberEnds().get(0);
+				Property second = a.getMemberEnds().get(1);
+				
+				if (first.isNavigable()) {
+					if (a.getEndTypes().get(0).getName().equals(space.getName())) {
+						for (Element el : space.getModel().allOwnedElements()) {
+							if (el instanceof Operation) {
+								Operation o = (Operation) el;
+								if (a.getName().equals(o.getName())
+									&& ServiceUtils.isXisAction(o)
+									&& ServiceUtils.isCrudAction(o)) {
+									if (!operations.contains(o)) {
+										operations.add(o);
+									}
+								}
+							}
+						}
+					}
+				} else if (second.isNavigable()) {
+					if (a.getEndTypes().get(1).getName().equals(space.getName())) {
+						for (Element el : space.getModel().allOwnedElements()) {
+							if (el instanceof Operation) {
+								Operation o = (Operation) el;
+								if (a.getName().equals(o.getName())
+									&& ServiceUtils.isXisAction(o)
+									&& ServiceUtils.isCrudAction(o)) {
+									if (!operations.contains(o)) {
+										operations.add(o);
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		
+		if (operations.size() > 0) {
+			boolean hasCreate = false;
+			boolean hasUpdate = false;
+			
+			for (Operation o : operations) {
+				Stereotype s = ServiceUtils.getXisAction(o);
+				String type = ((EnumerationLiteral) o.getValue(s, "type")).getName();
+				
+				if (type.equals("Create")) {
+					hasCreate = true;
+				} else if (type.equals("Update")) {
+					hasUpdate = true;
+				}
+				
+				if (hasCreate && hasUpdate) {
+					needsModes = true;
+					break;
+				}
+			}
+		}
+		return needsModes;
+	}
+	
 	public Class getCrudOperationEntityContextWidget(Operation o) {
 		Class widget = null;
 		Class owner = (Class) o.getOwner();
@@ -560,7 +663,50 @@ public class Services {
 		}
 		return entity;
 	}
+	
+	public Class getXisListEntity(Class c) {
+		Class entity = null;
+		String entName = ServiceUtils.getXisCompositeWidgetEntityName(c, ServiceUtils.getXisList(c));
+		
+		for (Element el : c.getModel().allOwnedElements()) {
+			if (el instanceof Class
+				&& ((Class) el).getName().equalsIgnoreCase(entName)
+				&& ServiceUtils.isXisEntity((Class) el)) {
+				entity = (Class) el;
+				break;
+			}
+		}
+		return entity;
+	}
+	
+	public List<Class> getAllOwnedListsEntities(Class c) {
+		Map<String, Class> entNames = new HashMap<String, Class>();
+		List<Class> entities = new ArrayList<Class>();
+		
+		for (Element el : c.allOwnedElements()) {
+			if (el instanceof Class
+				&& ServiceUtils.isXisList((Class) el)) {
+				String name = ServiceUtils.getXisCompositeWidgetEntityName(
+						(Class) el, ServiceUtils.getXisList((Class) el));
+				if (name != null && !entNames.containsKey(name)) {
+					entNames.put(name, (Class) el);
+				}
+			}
+		}
+		
+		if (entNames.size() > 0) {
+			Class entity = null;
 
+			for (Class cl : entNames.values()) {
+				entity = getXisListEntity(cl);
+				if (entity != null) {
+					entities.add(entity);
+				}
+			}
+		}
+		return entities;
+	}
+	
 	public String getEntityAttributeOfWidget(String value) {
 		return value.split("\\.")[1];
 	}
@@ -793,11 +939,13 @@ public class Services {
 		final int BORDER = 10;
 		StringBuilder sb = new StringBuilder();
 		Class space = (Class) c.getOwner();
+		Class form = null;
 		
-		if (!ServiceUtils.isXisInteractionSpace(space)) {
-			do {
-				space = (Class) space.getOwner();
-			} while (!ServiceUtils.isXisInteractionSpace(space));
+		while (!ServiceUtils.isXisInteractionSpace(space)) {
+			if (ServiceUtils.isXisForm(space)) {
+				form = space;
+			}
+			space = (Class) space.getOwner();
 		}
 		
 		Class menu = ServiceUtils.geXisISOptionsMenu(space);
@@ -818,6 +966,18 @@ public class Services {
 			spaceBottom = menuY - menuHeight/2;
 		} else {
 			spaceBottom = spaceY + spaceHeight/2;
+		}
+		
+		if (form != null) {
+			s = ServiceUtils.getXisForm(form);
+			spaceX = ServiceUtils.getPosX(form, s);
+			spaceY = ServiceUtils.getPosY(form, s);
+			int formWidth = ServiceUtils.getWidth(form, s);
+			int formHeight = ServiceUtils.getHeight(form, s);
+			spaceLeft = spaceX - formWidth/2;
+			spaceRight = spaceX + formWidth/2;
+			spaceTop = spaceY - formHeight/2;
+			spaceBottom = spaceY + formHeight/2;
 		}
 		
 		s = ServiceUtils.getWidgetStereotype(c);
@@ -844,7 +1004,7 @@ public class Services {
 			sb.append("android:layout_centerHorizontal=\"true\"");
 		}
 		
-		if(predecessors.size() > 0) {
+		if (predecessors.size() > 0) {
 			if (sb.length() > 0) {
 				// only Y is missing
 				int closerTop = spaceTop;
@@ -862,7 +1022,7 @@ public class Services {
 						break;
 					} else if (wTop < top) {
 						int wMargin = top - wTop;
-						if (wMargin < closerMargin) {
+						if (wMargin <= closerMargin) {
 							closerTop = wTop;
 							closerMargin = wMargin;
 							closer = w;
@@ -879,7 +1039,7 @@ public class Services {
 				}
 				
 				if (closerMargin > 0) {
-					sb.append(newLine + "android:layout_marginTop=\"" + closerMargin + "dp\"");
+					sb.append(newLine + "android:layout_marginTop=\"" + (closerMargin*120/spaceHeight) + "dp\"");
 				}
 			} else {
 				int closerLeft = spaceLeft;
@@ -936,11 +1096,11 @@ public class Services {
 				}
 				
 				if (closerMarginX > 0) {
-					sb.append(newLine + "android:layout_marginLeft=\"" + closerMarginX + "dp\"");
+					sb.append(newLine + "android:layout_marginLeft=\"" + (closerMarginX*120/spaceWidth) + "dp\"");
 				}
 				
 				if (closerMarginY > 0) {
-					sb.append(newLine + "android:layout_marginTop=\"" + closerMarginY + "dp\"");
+					sb.append(newLine + "android:layout_marginTop=\"" + (closerMarginY*120/spaceHeight) + "dp\"");
 				}
 			}
 		} else {
@@ -949,22 +1109,16 @@ public class Services {
 				// only Y remaining
 				int distTop = top - spaceTop - TOP;
 				int distBottom = spaceBottom - bottom - BORDER;
-				int distTitleTop = top - spaceTop + TOP;
 				
-				if (distTop <= distBottom && distTop <= distTitleTop) {
+				if (distTop <= distBottom) {
 					sb.append(newLine + "android:layout_alignParentTop=\"true\"");
 					if (distTop > 0) {
-						sb.append(newLine + "android:layout_marginTop=\"" + distTop  + "dp\"");
-					}
-				} else if(distTitleTop < distTop && distTitleTop < distBottom) {
-					sb.append(newLine + "android:layout_below=\"@+id/label" + ServiceUtils.toUpperFirst(space.getName()) + "Title\"");
-					if (distTitleTop > 0) {
-						sb.append(newLine + "android:layout_marginTop=\"" + distTitleTop  + "dp\"");
+						sb.append(newLine + "android:layout_marginTop=\"" + (distTop*120/spaceHeight) + "dp\"");
 					}
 				} else {
 					sb.append(newLine + "android:layout_alignParentBottom=\"true\"");
 					if (distBottom > 0) {
-						sb.append(newLine + "android:layout_marginBottom=\"" + distBottom  + "dp\"");
+						sb.append(newLine + "android:layout_marginBottom=\"" + (distBottom*120/spaceHeight)  + "dp\"");
 					}
 				}
 			} else {
@@ -972,36 +1126,31 @@ public class Services {
 				int distRight = right -spaceRight;
 				int distTop = top - spaceTop - TOP;
 				int distBottom = spaceBottom - bottom - BORDER;
-				int distTitleTop = top - spaceTop + TOP;
+
 				// Set X positioning
 				if (distLeft <= distRight) {
 					sb.append("android:layout_alignParentLeft=\"true\"");
 					if (distLeft > 10) {
 						int margin = distLeft - BORDER;
-						sb.append(newLine + "android:layout_marginLeft=\"" + margin  + "dp\"");
+						sb.append(newLine + "android:layout_marginLeft=\"" + (margin*120/spaceWidth) + "dp\"");
 					}
 				} else {
 					sb.append("android:layout_alignParentRight=\"true\"");
 					if (distRight > 10) {
 						int margin = distRight - BORDER;
-						sb.append(newLine + "android:layout_marginRight=\"" + margin  + "dp\"");
+						sb.append(newLine + "android:layout_marginRight=\"" + (margin*120/spaceWidth) + "dp\"");
 					}
 				}
 				// Set Y positioning
-				if (distTop <= distBottom && distTop <= distTitleTop) {
+				if (distTop <= distBottom) {
 					sb.append(newLine + "android:layout_alignParentTop=\"true\"");
 					if (distTop > 0) {
-						sb.append(newLine + "android:layout_marginTop=\"" + distTop  + "dp\"");
-					}
-				} else if (distTitleTop < distTop && distTitleTop < distBottom) {
-					sb.append(newLine + "android:layout_below=\"@+id/label" + ServiceUtils.toUpperFirst(space.getName()) + "Title\"");
-					if (distTitleTop > 0) {
-						sb.append(newLine + "android:layout_marginTop=\"" + distTitleTop  + "dp\"");
+						sb.append(newLine + "android:layout_marginTop=\"" + (distTop*120/spaceHeight) + "dp\"");
 					}
 				} else {
 					sb.append(newLine + "android:layout_alignParentBottom=\"true\"");
 					if (distBottom > 0) {
-						sb.append(newLine + "android:layout_marginBottom=\"" + distBottom  + "dp\"");
+						sb.append(newLine + "android:layout_marginBottom=\"" + (distBottom*120/spaceHeight) + "dp\"");
 					}
 				}
 			}
