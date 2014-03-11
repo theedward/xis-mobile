@@ -130,8 +130,23 @@ namespace XISMobileEAPlugin
             string output = process.StandardOutput.ReadToEnd();
             string error = process.StandardError.ReadToEnd();
 
-            MessageBox.Show("output>>" + (String.IsNullOrEmpty(output) ? "(none)" : output));
-            MessageBox.Show("error>>" + (String.IsNullOrEmpty(error) ? "(none)" : error));
+            if (!string.IsNullOrEmpty(output))
+            {
+                MessageBox.Show("output>>" + output,
+                    "",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information,
+                    MessageBoxDefaultButton.Button1);
+            }
+
+            if (!string.IsNullOrEmpty(error))
+            {
+                MessageBox.Show("error>>" + error,
+                    "",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Stop,
+                    MessageBoxDefaultButton.Button1);
+            }
             process.Close();
         }
     }

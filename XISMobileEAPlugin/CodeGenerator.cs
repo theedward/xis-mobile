@@ -193,11 +193,19 @@ namespace XISMobileEAPlugin
         {
             if (!rules.isValid)
             {
-                MessageBox.Show("Validation ended with errors!");
+                MessageBox.Show("Validation ended with errors!",
+                    "XIS-Mobile Rules",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Stop,
+                    MessageBoxDefaultButton.Button1);
             }
             else
             {
-                MessageBox.Show("Validation ended successfully!");
+                MessageBox.Show("Validation ended successfully!",
+                    "XIS-Mobile Rules",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information,
+                    MessageBoxDefaultButton.Button1);
             }
         }
 
@@ -223,7 +231,11 @@ namespace XISMobileEAPlugin
             }
             catch (Exception e)
             {
-                MessageBox.Show("Error initializing XIS-Mobile MDG Technology: " + e.Message);
+                MessageBox.Show("Error initializing XIS-Mobile MDG Technology: " + e.Message,
+                    "XIS-Mobile MDG Technology",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Stop,
+                    MessageBoxDefaultButton.Button1);
             }
             return technology;
         }
