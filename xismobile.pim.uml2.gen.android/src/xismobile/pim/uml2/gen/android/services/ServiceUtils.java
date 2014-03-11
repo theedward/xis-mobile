@@ -235,31 +235,35 @@ public final class ServiceUtils {
 				Property second = a.getMemberEnds().get(1);
 				if (first.isNavigable()) {
 					if (type == MenuType.OptionsMenu) {
-						if (getOptionsMenu((Class)a.getEndTypes().get(0)) != null) {
+						if (getOptionsMenu((Class) a.getEndTypes().get(0)) != null) {
 							return true;
 						}
 					} else if (type == MenuType.ContextMenu) {
-						if (getContextMenu((Class)a.getEndTypes().get(0)) != null) {
+						if (getContextMenu((Class) a.getEndTypes().get(0)) != null) {
 							return true;
 						}
 					}
 				}
 				else if (second.isNavigable()) {
 					if (type == MenuType.OptionsMenu) {
-						if (getOptionsMenu((Class)a.getEndTypes().get(1)) != null) {
+						if (getOptionsMenu((Class) a.getEndTypes().get(1)) != null) {
 							return true;
 						}
 					} else if (type == MenuType.ContextMenu) {
-						if (getContextMenu((Class)a.getEndTypes().get(1)) != null) {
+						if (getContextMenu((Class) a.getEndTypes().get(1)) != null) {
 							return true;
 						}
 					}
 				}
 			}
 		}
+
 		for (Element e : c.allOwnedElements()) {
 			if (e instanceof Class) {
-				hasMenuFromMenuAssociation((Class)e, type);
+				if (hasMenuFromMenuAssociation((Class) e, type))
+				{
+					return true;
+				}
 			}
 		}
 		return false;
@@ -272,31 +276,35 @@ public final class ServiceUtils {
 				Property second = a.getMemberEnds().get(1);
 				if (first.isNavigable()) {
 					if (type == MenuType.OptionsMenu) {
-						if (getOptionsMenu((Class)a.getEndTypes().get(0)) != null) {
-							return (Class)a.getEndTypes().get(0);
+						if (getOptionsMenu((Class) a.getEndTypes().get(0)) != null) {
+							return (Class) a.getEndTypes().get(0);
 						}
 					} else if (type == MenuType.ContextMenu) {
-						if (getContextMenu((Class)a.getEndTypes().get(0)) != null) {
-							return (Class)a.getEndTypes().get(0);
+						if (getContextMenu((Class) a.getEndTypes().get(0)) != null) {
+							return (Class) a.getEndTypes().get(0);
 						}
 					}
 				}
 				else if (second.isNavigable()) {
 					if (type == MenuType.OptionsMenu) {
-						if (getOptionsMenu((Class)a.getEndTypes().get(1)) != null) {
-							return (Class)a.getEndTypes().get(1);
+						if (getOptionsMenu((Class) a.getEndTypes().get(1)) != null) {
+							return (Class) a.getEndTypes().get(1);
 						}
 					} else if (type == MenuType.ContextMenu) {
-						if (getContextMenu((Class)a.getEndTypes().get(1)) != null) {
-							return (Class)a.getEndTypes().get(1);
+						if (getContextMenu((Class) a.getEndTypes().get(1)) != null) {
+							return (Class) a.getEndTypes().get(1);
 						}
 					}
 				}
 			}
 		}
+
 		for (Element e : c.allOwnedElements()) {
 			if (e instanceof Class) {
-				hasMenuFromMenuAssociation((Class)e, type);
+				Class menu = getMenuFromMenuAssociation((Class) e, type);
+				if (menu != null) {
+					return menu;
+				}
 			}
 		}
 		return null;
