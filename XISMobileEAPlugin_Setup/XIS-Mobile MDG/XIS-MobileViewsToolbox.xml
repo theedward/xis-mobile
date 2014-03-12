@@ -3,7 +3,7 @@
 	<Documentation id="43C3DBE8-1" name="XIS-Mobile Views Diagram" version="1.0" notes="XIS-Mobile Views Diagram"/>
 	<Content>
 		<Stereotypes>
-			<Stereotype name="XIS-Mobile_Views_Packages" alias="XIS-Mobile Views Packages" notes="" cx="355" cy="111" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
+			<Stereotype name="XIS-Mobile_Views_Packages" alias="XIS-Mobile Views Packages" notes="Packages for XIS-Mobile Views Diagrams" cx="355" cy="111" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
 				<AppliesTo>
 					<Apply type="ToolboxPage"/>
 				</AppliesTo>

@@ -3,7 +3,7 @@
 	<Documentation id="C72493FD-8" name="InteractionSpace View Diagram" version="1.0" notes="InteractionSpace View Diagram"/>
 	<Content>
 		<Stereotypes>
-			<Stereotype name="InteractionSpace_Elements" alias="InteractionSpace Elements" notes="" cx="286" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
+			<Stereotype name="InteractionSpace_Elements" alias="InteractionSpace Elements" notes="Elements for InteractionSpace View Diagrams" cx="286" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
 				<AppliesTo>
 					<Apply type="ToolboxPage"/>
 				</AppliesTo>
@@ -13,7 +13,7 @@
 					<Tag name="XIS-Mobile::XisAction" type="" description="" unit="" values="" default="XisAction"/>
 				</TaggedValues>
 			</Stereotype>
-			<Stereotype name="Simple_Widget_Elements" alias="Simple Widget Elements" notes="" cx="292" cy="202" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
+			<Stereotype name="Simple_Widget_Elements" alias="Simple Widget Elements" notes="Simple Widget Elements for InteractionSpace View Diagrams" cx="292" cy="202" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
 				<AppliesTo>
 					<Apply type="ToolboxPage"/>
 				</AppliesTo>
@@ -33,7 +33,7 @@
 					<Tag name="XIS-Mobile::XisMenuItem" type="" description="" unit="" values="" default="XisMenuItem"/>
 				</TaggedValues>
 			</Stereotype>
-			<Stereotype name="InteractionSpace_Relationships" alias="InteractionSpace Relationships" notes="" cx="306" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
+			<Stereotype name="InteractionSpace_Relationships" alias="InteractionSpace Relationships" notes="Relationships for InteractionSpace View Diagrams" cx="323" cy="85" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
 				<AppliesTo>
 					<Apply type="ToolboxPage"/>
 				</AppliesTo>
@@ -44,7 +44,7 @@
 					<Tag name="XIS-Mobile::XisWidget-GestureAssociation" type="" description="" unit="" values="" default="XisWidget-GestureAssociation"/>
 				</TaggedValues>
 			</Stereotype>
-			<Stereotype name="Composite_Widget_Elements" alias="Composite Widgets Elements" notes="" cx="238" cy="124" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
+			<Stereotype name="Composite_Widget_Elements" alias="Composite Widgets Elements" notes="Composite Widget Elements for InteractionSpace View Diagrams" cx="238" cy="124" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
 				<AppliesTo>
 					<Apply type="ToolboxPage"/>
 				</AppliesTo>
@@ -58,7 +58,7 @@
 					<Tag name="XIS-Mobile::XisForm" type="" description="" unit="" values="" default="XisForm"/>
 				</TaggedValues>
 			</Stereotype>
-			<Stereotype name="Boundary_Elements" alias="Boundary Elements" notes="" cx="288" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
+			<Stereotype name="Boundary_Elements" alias="Boundary Elements" notes="Boundary Elements for InteractionSpace View Diagrams" cx="288" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
 				<AppliesTo>
 					<Apply type="ToolboxPage"/>
 				</AppliesTo>
