@@ -258,7 +258,7 @@ namespace XISMobileEAPlugin
                 case rule45:
                     return "A XisMenu must contain at least 1 XisMenuItem or XisMenuGroup!";
                 case rule46:
-                    return "A XisMenu can only contain XisMenuItems or XisMenuGroups!";
+                    return "A XisMenu can only contain XisMenuItems, XisMenuGroups or XisVisibilityBoundaries!";
                 case rule47:
                     return "A XisMenuGroup must contain at least 1 XisMenuItem!";
                 case rule48:
@@ -447,7 +447,7 @@ namespace XISMobileEAPlugin
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule43)), rule43);
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule44)), rule44);
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule45)), rule45);
-            //AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule46)), rule46);
+            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule46)), rule46);
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule47)), rule47);
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule48)), rule48);
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule49)), rule49);
@@ -461,7 +461,7 @@ namespace XISMobileEAPlugin
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule57)), rule57);
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule58)), rule58);
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule59)), rule59);
-            //AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule60)), rule60);
+            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule60)), rule60);
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule61)), rule61);
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule62)), rule62);
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule63)), rule63);
@@ -479,7 +479,7 @@ namespace XISMobileEAPlugin
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule75)), rule75);
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule76)), rule76);
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule77)), rule77);
-            //AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule78)), rule78);
+            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule78)), rule78);
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule79)), rule79);
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule80)), rule80);
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule81)), rule81);
@@ -488,13 +488,13 @@ namespace XISMobileEAPlugin
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule84)), rule84);
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule85)), rule85);
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule86)), rule86);
-            //AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule87)), rule87);
+            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule87)), rule87);
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule88)), rule88);
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule89)), rule89);
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule90)), rule90);
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule91)), rule91);
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule92)), rule92);
-            //AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule93)), rule93);
+            AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule93)), rule93);
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule94)), rule94);
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule95)), rule95);
             AddToMap(Project.DefineRule(m_sCategoryID, EA.EnumMVErrorType.mvError, GetRuleStr(rule96)), rule96);
@@ -1944,7 +1944,7 @@ namespace XISMobileEAPlugin
                     {
                         el = Element.Elements.GetAt(i);
 
-                        if (el.Stereotype != "XisMenuItem" && el.Stereotype != "XisMenuGroup")
+                        if (el.Stereotype != "XisMenuItem" && el.Stereotype != "XisMenuGroup" && el.Stereotype != "XisVisibilityBoundary")
                         {
                             EA.Project Project = Repository.GetProjectInterface();
                             Project.PublishResult(LookupMap(rule46), EA.EnumMVErrorType.mvError, GetRuleStr(rule46));
@@ -2271,7 +2271,7 @@ namespace XISMobileEAPlugin
                         }
                     }
 
-                    if (!noDefaultGestures)
+                    if (noDefaultGestures)
                     {
                         EA.Project Project = Repository.GetProjectInterface();
                         Project.PublishResult(LookupMap(rule60), EA.EnumMVErrorType.mvError, GetRuleStr(rule60));
@@ -2548,18 +2548,11 @@ namespace XISMobileEAPlugin
                 if (!string.IsNullOrEmpty(navigation))
                 {
                     EA.Package model = Repository.GetPackageByID(Repository.GetElementByID(method.ParentID).PackageID);
-                    EA.Package package = null;
                     EA.Package interactionSpaceView = null;
 
-                    for (short i = 0; i < model.Packages.Count; i++)
+                    if (model.StereotypeEx == "InteractionSpace View")
                     {
-                        package = model.Packages.GetAt(i);
-
-                        if (package.StereotypeEx == "InteractionSpaceView View")
-                        {
-                            interactionSpaceView = package;
-                            break;
-                        }
+                        interactionSpaceView = model;
                     }
 
                     if (interactionSpaceView != null)
@@ -2985,18 +2978,11 @@ namespace XISMobileEAPlugin
                     if (!string.IsNullOrEmpty(navigation))
                     {
                         EA.Package model = Repository.GetPackageByID(Repository.GetElementByID(method.ParentID).PackageID);
-                        EA.Package package = null;
                         EA.Package interaction = null;
 
-                        for (short i = 0; i < model.Packages.Count; i++)
+                        if (model.StereotypeEx == "InteractionSpace View")
                         {
-                            package = model.Packages.GetAt(i);
-
-                            if (package.StereotypeEx == "InteractionSpace View")
-                            {
-                                interaction = package;
-                                break;
-                            }
+                            interaction = model;
                         }
 
                         if (interaction != null)
@@ -3079,6 +3065,50 @@ namespace XISMobileEAPlugin
                             break;
                         }
                         parentID = el.ParentID;
+                    }
+
+                    if (space == null && stereotype == "XisMenu")
+                    {
+                        EA.Element end = null;
+
+                        for (short i = 0; i < Element.Connectors.Count; i++)
+                        {
+                            conn = Element.Connectors.GetAt(i);
+
+                            if (conn.ClientID != Element.ElementID)
+                            {
+                                end = Repository.GetElementByID(conn.ClientID);
+                            }
+                            else
+                            {
+                                end = Repository.GetElementByID(conn.SupplierID);
+                            }
+
+                            if (conn.Stereotype == "XisIS-MenuAssociation")
+                            {
+                                if (end.Stereotype == "XisInteractionSpace")
+                                {
+                                    space = end;
+                                    break;
+                                }
+                                else
+                                {
+                                    parentID = end.ParentID;
+
+                                    while (parentID > 0)
+                                    {
+                                        el = Repository.GetElementByID(parentID);
+
+                                        if (el.Type == "Class" && el.Stereotype == "XisInteractionSpace")
+                                        {
+                                            space = el;
+                                            break;
+                                        }
+                                        parentID = el.ParentID;
+                                    }
+                                }
+                            }
+                        }
                     }
 
                     if (space != null)
