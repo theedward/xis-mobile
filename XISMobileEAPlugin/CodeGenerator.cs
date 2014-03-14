@@ -278,7 +278,8 @@ namespace XISMobileEAPlugin
                 // Process all Use Cases
                 foreach (EA.Element element in useCaseView.Elements)
                 {
-                    if (element.Type == "UseCase")
+                    if (element.Type == "UseCase"
+                        && (element.Stereotype == "XisEntityUseCase" || element.Stereotype == "XisServiceUseCase"))
                     {
                         bool isStartingUseCase = bool.Parse(M2MTransformer.GetTaggedValue(element.TaggedValues, "isStartingUseCase").Value);
 
@@ -288,7 +289,24 @@ namespace XISMobileEAPlugin
                         }
                         else
                         {
-                            useCases.Add(element);
+                            EA.Connector conn = null;
+                            bool extends = false;
+
+                            for (short i = 0; i < element.Connectors.Count; i++)
+                            {
+                                conn = element.Connectors.GetAt(i);
+
+                                if (conn.Stereotype == "extend")
+                                {
+                                    extends = true;
+                                    break;
+                                }
+                            }
+
+                            if (!extends)
+                            {
+                                useCases.Add(element);   
+                            }
                         }
                     }
                 }
