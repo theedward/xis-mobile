@@ -258,8 +258,7 @@ namespace XISMobileEAPlugin
 
         private void GenerateModels(EA.Repository Repository)
         {
-            EA.Package rootModel = (EA.Package)Repository.Models.GetAt(0);
-            EA.Package rootPackage = (EA.Package)rootModel.Packages.GetAt(0);
+            EA.Package rootPackage = Repository.Models.GetAt(0).Packages.GetAt(0);
             EA.Package useCaseView = null;
             EA.Package navigationView = null;
             EA.Package interactionView = null;
