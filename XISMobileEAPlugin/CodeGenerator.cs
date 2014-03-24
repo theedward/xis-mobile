@@ -19,6 +19,7 @@ namespace XISMobileEAPlugin
         private const string menuValidateModel = "&Validate Model";
         private const string menuGenerateModels = "&Generate Models";
         private const string menuGenerateCode = "&Generate Code";
+        private const string menuDeleteGenModels = "&Delete Generated Models";
         public Rules rules;
 
         public CodeGenerator()
@@ -38,7 +39,7 @@ namespace XISMobileEAPlugin
             //No special processing required.
             return "XISMobileEAPlugin.CodeGenerator connected";
         }
- 
+
         ///
         /// Called when user Clicks Add-Ins Menu item from within EA.
         /// Populates the Menu with our desired selections.
@@ -60,13 +61,14 @@ namespace XISMobileEAPlugin
                     return new string[] {
                         menuValidateModel,
                         menuGenerateModels,
-                        menuGenerateCode
+                        menuGenerateCode,
+                        menuDeleteGenModels
                     };
                 default:
                     return "";
             }
         }
- 
+
         ///
         /// returns true if a project is currently opened
         ///
@@ -83,7 +85,7 @@ namespace XISMobileEAPlugin
                 return false;
             }
         }
- 
+
         ///
         /// Called once Menu has been opened to see what menu items should active.
         ///
@@ -108,6 +110,9 @@ namespace XISMobileEAPlugin
                     case menuGenerateCode:
                         IsEnabled = true;
                         break;
+                    case menuDeleteGenModels:
+                        IsEnabled = true;
+                        break;
                     default:
                         IsEnabled = false;
                         break;
@@ -119,7 +124,7 @@ namespace XISMobileEAPlugin
                 IsEnabled = false;
             }
         }
- 
+
         ///
         /// Called when user makes a selection in the menu.
         /// This is your main exit point to the rest of your Add-in
@@ -142,13 +147,16 @@ namespace XISMobileEAPlugin
                 case menuGenerateCode:
                     this.GenerateCode(Repository);
                     break;
+                case menuDeleteGenModels:
+                    this.DeleteGenModels(Repository);
+                    break;
                 default:
                     break;
             }
         }
 
         #region Rules Region
-        
+
         public void EA_OnInitializeUserRules(EA.Repository Repository)
         {
             if (Repository != null)
@@ -221,7 +229,7 @@ namespace XISMobileEAPlugin
             try
             {
                 string text = File.ReadAllText(mdgPath);
-                
+
                 if (text.Contains("%PATH%"))
                 {
                     text = text.Replace("%PATH%", dir + "\\XIS-Mobile_Template.xml");
@@ -305,7 +313,7 @@ namespace XISMobileEAPlugin
 
                             if (!extends)
                             {
-                                useCases.Add(element);   
+                                useCases.Add(element);
                             }
                         }
                     }
@@ -314,7 +322,7 @@ namespace XISMobileEAPlugin
                 if (startingUC != null)
                 {
                     useCases.Insert(0, startingUC);
-                    
+
                     if (useCases.Count > 0)
                     {
                         if (useCases.Count < 2)
@@ -334,7 +342,83 @@ namespace XISMobileEAPlugin
         {
             new CodeGenerationForm(Repository).Show();
         }
- 
+
+        private void DeleteGenModels(EA.Repository Repository)
+        {
+            DialogResult dialogResult = MessageBox.Show(
+                "Are you sure you want to delete the contents of «InteractionSpace View» and «NavigationSpace View»?",
+                "XIS-Mobile Plugin", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            
+            if (dialogResult == DialogResult.Yes)
+            {
+                EA.Package rootPackage = Repository.Models.GetAt(0).Packages.GetAt(0);
+                EA.Package navigationView = null;
+                EA.Package interactionView = null;
+
+                foreach (EA.Package package in rootPackage.Packages)
+                {
+                    if (package.StereotypeEx == "InteractionSpace View")
+                    {
+                        interactionView = package;
+                    }
+                    else if (package.StereotypeEx == "NavigationSpace View")
+                    {
+                        navigationView = package;
+                    }
+                }
+
+                if (interactionView != null)
+                {
+                    if (interactionView.Diagrams.Count > 0)
+                    {
+                        EA.Collection diagrams = interactionView.Diagrams;
+
+                        for (short i = 0; i < diagrams.Count; i++)
+                        {
+                            interactionView.Diagrams.Delete(i);
+                        }
+                    }
+
+                    if (interactionView.Elements.Count > 0)
+                    {
+                        EA.Collection elements = interactionView.Elements;
+
+                        for (short i = 0; i < elements.Count; i++)
+                        {
+                            interactionView.Elements.Delete(i);
+                        }
+                    }
+
+                    Repository.RefreshModelView(interactionView.PackageID);
+                }
+
+                if (navigationView != null)
+                {
+                    if (navigationView.Diagrams.Count > 0)
+                    {
+                        EA.Collection diagrams = navigationView.Diagrams;
+
+                        for (short i = 0; i < diagrams.Count; i++)
+                        {
+                            navigationView.Diagrams.Delete(i);
+                        }
+                    }
+
+                    if (navigationView.Elements.Count > 0)
+                    {
+                        EA.Collection elements = navigationView.Elements;
+
+                        for (short i = 0; i < elements.Count; i++)
+                        {
+                            navigationView.Elements.Delete(i);
+                        }
+                    }
+
+                    Repository.RefreshModelView(navigationView.PackageID);
+                }
+            }            
+        }
+
         ///
         /// EA calls this operation when it exits. Can be used to do some cleanup work.
         ///
@@ -343,6 +427,6 @@ namespace XISMobileEAPlugin
             GC.Collect();
             GC.WaitForPendingFinalizers();
         }
- 
+
     }
 }
