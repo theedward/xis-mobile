@@ -62,6 +62,7 @@ namespace XISMobileEAPlugin
                         menuValidateModel,
                         menuGenerateModels,
                         menuGenerateCode,
+                        "-",
                         menuDeleteGenModels
                     };
                 default:
