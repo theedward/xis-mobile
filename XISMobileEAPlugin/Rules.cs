@@ -2785,7 +2785,8 @@ namespace XISMobileEAPlugin
 
                         if (serviceName.Length == 2)
                         {
-                            EA.Package model = Repository.GetPackageByID(Repository.GetElementByID(method.ParentID).PackageID);
+                            EA.Package model = Repository.GetPackageByID(Repository.GetPackageByID(
+                                Repository.GetElementByID(method.ParentID).PackageID).ParentID);
                             EA.Package architectural = null;
 
                             foreach (EA.Package package in model.Packages)
@@ -2799,13 +2800,10 @@ namespace XISMobileEAPlugin
 
                             if (architectural != null)
                             {
-                                EA.Element el = null;
                                 EA.Element service = null;
 
-                                for (short i = 0; i < architectural.Elements.Count; i++)
+                                foreach (EA.Element el in architectural.Elements)
                                 {
-                                    el = architectural.Elements.GetAt(i);
-
                                     if (el.Type == "Interface"
                                         && (el.Stereotype == "XisInternalService" || el.Stereotype == "XisRemoteService")
                                         && el.Name == serviceName[0])
@@ -2817,13 +2815,10 @@ namespace XISMobileEAPlugin
 
                                 if (service != null && service.Methods.Count > 0)
                                 {
-                                    EA.Method m = null;
                                     bool hasMethod = false;
 
-                                    for (short i = 0; i < service.Methods.Count; i++)
+                                    foreach (EA.Method m in service.Methods)
                                     {
-                                        m = service.Methods.GetAt(i);
-
                                         if (m.Stereotype == "XisServiceMethod" && m.Name == serviceName[1])
                                         {
                                             hasMethod = true;
