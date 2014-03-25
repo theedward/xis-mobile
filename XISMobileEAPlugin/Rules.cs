@@ -220,7 +220,7 @@ namespace XISMobileEAPlugin
                 case rule26:
                     return "A XisService must have at least 1 XisServiceMethod!";
                 case rule27:
-                    return "A XisService must only have methods with stereotype «XisMethod»!";
+                    return "A XisService must only have methods with stereotype «XisServiceMethod»!";
                 case rule28:
                     return "A XisInternalProvider must realize a XisInternalService!";
                 case rule29:
@@ -336,9 +336,9 @@ namespace XISMobileEAPlugin
                 case rule84:
                     return "A XisAction of type 'OpenBrowser' must have a parameter named 'url' with a default value!";
                 case rule85:
-                    return "A XisAction of type 'WebService' must have a name in the format <XisService.name>.<XisMethod.name>!";
+                    return "A XisAction of type 'WebService' must have a name in the format <XisService.name>.<XisServiceMethod.name>!";
                 case rule86:
-                    return "A XisAction of type 'WebService' must have the same parameters of the associated XisMethod!";
+                    return "A XisAction of type 'WebService' must have the same parameters of the associated XisServiceMethod!";
                 case rule87:
                     return "A XisAction of type 'Navigate' must have the 'navigation' value filled with a XisInteractionSpace name!";
                 case rule88:
@@ -1319,11 +1319,9 @@ namespace XISMobileEAPlugin
             if (Package.StereotypeEx == "UseCases View")
             {
                 List<EA.Element> useCases = new List<EA.Element>();
-                EA.Element el = null;
 
-                for (short i = 0; i < Package.Elements.Count; i++)
+                foreach (EA.Element el in Package.Elements)
                 {
-                    el = Package.Elements.GetAt(i);
                     if (el.Type == "UseCase" && (el.Stereotype == "XisEntityUseCase" || el.Stereotype == "XisServiceUseCase"))
                     {
                         useCases.Add(el);
@@ -1337,7 +1335,7 @@ namespace XISMobileEAPlugin
 
                     foreach (EA.Element uc in useCases)
                     {
-                        isStartingUseCase = bool.Parse(M2MTransformer.GetTaggedValue(el.TaggedValues, "isStartingUseCase").Value);
+                        isStartingUseCase = bool.Parse(M2MTransformer.GetTaggedValue(uc.TaggedValues, "isStartingUseCase").Value);
                         if (isStartingUseCase)
                         {
                             startingCounter++;
@@ -1506,7 +1504,8 @@ namespace XISMobileEAPlugin
                 EA.Element client = Repository.GetElementByID(Connector.ClientID);
                 EA.Element supplier = Repository.GetElementByID(Connector.SupplierID);
 
-                if (client.Stereotype != "XisMobileApp" || supplier.Stereotype != "XisService")
+                if (client.Stereotype != "XisMobileApp"
+                    || (supplier.Stereotype != "XisInternalService" && supplier.Stereotype != "XisRemoteService"))
                 {
                     EA.Project Project = Repository.GetProjectInterface();
                     Project.PublishResult(LookupMap(rule25), EA.EnumMVErrorType.mvError, GetRuleStr(rule25));
@@ -1534,13 +1533,9 @@ namespace XISMobileEAPlugin
             {
                 if (Element.Methods.Count > 0)
                 {
-                    EA.Method method = null;
-
-                    for (short i = 0; i < Element.Methods.Count; i++)
+                    foreach (EA.Method method in Element.Methods)
                     {
-                        method = Element.Methods.GetAt(i);
-
-                        if (method.Stereotype != "XisMethod")
+                        if (method.Stereotype != "XisServiceMethod")
                         {
                             EA.Project Project = Repository.GetProjectInterface();
                             Project.PublishResult(LookupMap(rule27), EA.EnumMVErrorType.mvError, GetRuleStr(rule27));
@@ -1611,13 +1606,10 @@ namespace XISMobileEAPlugin
             if (Package.StereotypeEx == "InteractionSpace View" && Package.Elements.Count > 0)
             {
                 int mainScreenCounter = 0;
-                EA.Element el = null;
                 bool isMainScreen = false;
 
-                for (short i = 0; i < Package.Elements.Count; i++)
+                foreach (EA.Element el in Package.Elements)
                 {
-                    el = Package.Elements.GetAt(i);
-
                     if (el.Stereotype == "XisInteractionSpace")
                     {
                         isMainScreen = bool.Parse(M2MTransformer.GetTaggedValue(el.TaggedValues, "isMainScreen").Value);
@@ -2043,9 +2035,23 @@ namespace XISMobileEAPlugin
 
                         if (parent.Stereotype != "XisInteractionSpace")
                         {
-                            EA.Project Project = Repository.GetProjectInterface();
-                            Project.PublishResult(LookupMap(rule50), EA.EnumMVErrorType.mvError, GetRuleStr(rule50));
-                            isValid = false;
+                            if (parent.Stereotype == "XisVisibilityBoundary" && parent.ParentID > 0)
+                            {
+                                parent = Repository.GetElementByID(parent.ParentID);
+
+                                if (parent.Stereotype != "XisInteractionSpace")
+                                {
+                                    EA.Project Project = Repository.GetProjectInterface();
+                                    Project.PublishResult(LookupMap(rule50), EA.EnumMVErrorType.mvError, GetRuleStr(rule50));
+                                    isValid = false;    
+                                }
+                            }
+                            else
+                            {
+                                EA.Project Project = Repository.GetProjectInterface();
+                                Project.PublishResult(LookupMap(rule50), EA.EnumMVErrorType.mvError, GetRuleStr(rule50));
+                                isValid = false;
+                            }
                         }
                     }
                     else if (Element.Connectors.Count > 0)
@@ -2780,13 +2786,10 @@ namespace XISMobileEAPlugin
                         if (serviceName.Length == 2)
                         {
                             EA.Package model = Repository.GetPackageByID(Repository.GetElementByID(method.ParentID).PackageID);
-                            EA.Package package = null;
                             EA.Package architectural = null;
 
-                            for (short i = 0; i < model.Packages.Count; i++)
+                            foreach (EA.Package package in model.Packages)
                             {
-                                package = model.Packages.GetAt(i);
-
                                 if (package.StereotypeEx == "Architectural View")
                                 {
                                     architectural = package;
