@@ -24,7 +24,7 @@ public class [i.name.toUpperFirst()/]ServiceStub {
 	public static final String url = "[i.getRemoteServiceUrl()/]";
 
 	[for (o : Operation | i.getXisServiceMethods())]
-	public static [o.getReturnResultType()/] [o.name.toLowerFirst()/]([o.ownedParameter.writeParameterTypeAndName()->sep(', ')/]) {
+	public static [o.getReturnResultType()/] [o.name.toLowerFirst()/]([o.getInParameters().writeParameterTypeAndName()->sep(', ')/]) {
 		[o.writeMethodBody()/]
 	}
 	[/for]
@@ -42,7 +42,11 @@ void
 
 [template private getParameterType(t : Type) post (trim())]
 [if (not t.oclIsUndefined())]
-[let name : String = t.toString().toLower()]
+[let name : String = if t.name.oclIsUndefined()
+	then t.toString().toLower()
+	else t.name.toLower()
+	endif
+]
 [if (name.contains('int'))]
 int
 [elseif (name.contains('integer'))]
@@ -63,6 +67,8 @@ String
 byte
 [elseif (name.contains('boolean'))]
 boolean
+[elseif (name.contains('void'))]
+void
 [/if]
 [/let]
 [/if]
@@ -73,13 +79,14 @@ boolean
 [/template]
 
 [template private writeMethodBody(o : Operation) post (trim())]
-[if (not o.getReturnResult().oclIsUndefined())]
-[o.getReturnResult().type.name/] result = null;
+[if (not o.getReturnResult().oclIsUndefined())
+	 and o.getReturnResult().type.getParameterType() <> 'void']
+[o.getReturnResult().type.getParameterType()/] result = null;
 [/if]
-HttpGet request = new HttpGet(url + "/" + "[o.name.toLowerFirst()/]");
+HttpPost request = new HttpPost(url + "/" + "[o.name.toLowerFirst()/]");
 
 try {
-[if (o.ownedParameter->size() > 0)]
+[if (o.getInParameters()->size() > 0)]
 	ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
 	[for (p : Parameter | o.getInParameters())]
 	params.add(new BasicNameValuePair("[p.name.toLowerFirst()/]", [p.name.toLowerFirst()/]));
@@ -87,7 +94,8 @@ try {
 	request.setEntity(new UrlEncodedFormEntity(params));
 [/if]
 	WebServiceCallTask t = new WebServiceCallTask();
-	[if (not o.getReturnResult().oclIsUndefined())]
+	[if (not o.getReturnResult().oclIsUndefined())
+	 	 and o.getReturnResult().type.getParameterType() <> 'void']
     result = t.execute(request).get();
 	[else]
 	t.execute(request);
@@ -95,7 +103,8 @@ try {
 } catch (Exception e) {
 	Log.e("WS", "Exception while calling the service [o.name.toLowerFirst()/]: " + e);
 }
-[if (not o.getReturnResult().oclIsUndefined())]
+[if (not o.getReturnResult().oclIsUndefined())
+	 and o.getReturnResult().type.getParameterType() <> 'void']
 return result;
 [/if]
 [/template]
@@ -124,6 +133,7 @@ public class WebServiceCallTask extends AsyncTask<HttpRequestBase, Void, String>
 
 	@Override
 	protected String doInBackground(HttpRequestBase... params) {
+		String result = null;
 		HttpClient client = new DefaultHttpClient();
 
 		try {
@@ -143,7 +153,8 @@ public class WebServiceCallTask extends AsyncTask<HttpRequestBase, Void, String>
 			Log.e("WS", "Exception while calling web service: " + e.getMessage());
 		} catch (IOException e) {
 			Log.e("WS", "Exception while calling web service: " + e.getMessage());
-		}		
+		}
+		return result;
 	}
 }
 [/file]
