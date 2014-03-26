@@ -151,13 +151,7 @@
 					<Tag name="text" type="String" description="" unit="" values="" default=""/>
 				</TaggedValues>
 			</Stereotype>
-			<Stereotype name="XisClientMobileApp" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0" generalizes="XisProvider" baseStereotypes="XisProvider">
-				<AppliesTo>
-					<Apply type="Class">
-						<Property name="isActive" value=""/>
-					</Apply>
-				</AppliesTo>
-			</Stereotype>
+			<Stereotype name="XisClientMobileApp" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0" generalizes="XisProvider" baseStereotypes="XisProvider"/>
 			<Stereotype name="XisCompositeWidget" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="1" hideicon="0" isAbstract="true" generalizes="XisWidget" baseStereotypes="XisWidget">
 				<TaggedValues>
 					<Tag name="entityName" type="String" description="" unit="" values="" default=""/>
@@ -326,11 +320,6 @@
 				</TaggedValues>
 			</Stereotype>
 			<Stereotype name="XisInternalProvider" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0" generalizes="XisProvider" baseStereotypes="XisProvider">
-				<AppliesTo>
-					<Apply type="Class">
-						<Property name="isActive" value=""/>
-					</Apply>
-				</AppliesTo>
 				<TaggedValues>
 					<Tag name="type" type="enumeration" description="" unit="" values="Location,Contacts,Calendar,Media,Custom" default="Location"/>
 				</TaggedValues>
@@ -429,11 +418,6 @@
 				</TaggedValues>
 			</Stereotype>
 			<Stereotype name="XisServer" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0" generalizes="XisProvider" baseStereotypes="XisProvider">
-				<AppliesTo>
-					<Apply type="Class">
-						<Property name="isActive" value=""/>
-					</Apply>
-				</AppliesTo>
 				<TaggedValues>
 					<Tag name="address" type="String" description="" unit="" values="" default=""/>
 				</TaggedValues>
