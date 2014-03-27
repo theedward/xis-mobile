@@ -1309,6 +1309,18 @@ public class Services {
 		return provider;
 	}
 	
+	public List<Interface> getXisInternalServices(Class c) {
+		List<Interface> services = new ArrayList<Interface>();
+		
+		for (Relationship r : c.getRelationships()) {
+			if (r instanceof Realization
+				&& ((Realization) r).getTargets().size() == 1) {
+				services.add((Interface) ((Realization) r).getTargets().get(0));
+			}
+		}
+		return services;
+	}
+	
 	/**
 	 * Auxiliary Methods
 	 */

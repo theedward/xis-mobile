@@ -141,3 +141,8 @@
 [query public writeXisInternalServiceFullName(o : Operation) : Boolean =
 	invoke('xismobile.pim.uml2.gen.android.services.Services', 'writeXisInternalServiceFullName(org.eclipse.uml2.uml.Operation)', Sequence{o})
 /]
+
+[query public getXisInternalServices(c : Class) : Sequence(Interface) =
+	invoke('xismobile.pim.uml2.gen.android.services.Services', 'getXisInternalServices(org.eclipse.uml2.uml.Class)', Sequence{c})
+/]
+
