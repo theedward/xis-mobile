@@ -1288,8 +1288,13 @@ public class Services {
 		for (Relationship r : service.getRelationships()) {
 			if (r instanceof Realization
 				&& ((Realization) r).getSources().size() == 1) {
-				ip = (Class) ((Realization) r).getSources().get(0);
-				provider = ip.getName();
+				Element el = ((Realization) r).getSources().get(0);
+				
+				if (el instanceof Class
+					&& ServiceUtils.isXisInternalProvider((Class) el)) {
+					ip = (Class) el;
+					provider = ip.getName();
+				}
 			}
 		}
 		
@@ -1315,7 +1320,12 @@ public class Services {
 		for (Relationship r : c.getRelationships()) {
 			if (r instanceof Realization
 				&& ((Realization) r).getTargets().size() == 1) {
-				services.add((Interface) ((Realization) r).getTargets().get(0));
+				Element el = ((Realization) r).getTargets().get(0);
+				
+				if (el instanceof Interface
+					&& ServiceUtils.isXisInternalService((Interface) el)) {
+					services.add((Interface) el);
+				}
 			}
 		}
 		return services;
