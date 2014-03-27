@@ -216,6 +216,7 @@ namespace XISMobileEAPlugin
                     MessageBoxIcon.Information,
                     MessageBoxDefaultButton.Button1);
             }
+            rules.isValid = true;
         }
 
         #endregion
@@ -251,7 +252,7 @@ namespace XISMobileEAPlugin
 
         private void ValidateModel(EA.Repository Repository)
         {
-            EA.Package package = (EA.Package)Repository.Models.GetAt(0);
+            EA.Package package = Repository.Models.GetAt(0);
             EA.Project project = Repository.GetProjectInterface();
             project.ValidatePackage(package.PackageGUID);
         }
