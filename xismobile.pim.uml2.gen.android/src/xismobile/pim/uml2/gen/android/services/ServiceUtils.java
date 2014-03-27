@@ -492,6 +492,72 @@ public final class ServiceUtils {
 		return getXisRemoteService(i) != null;
 	}
 	
+	public static Stereotype getXisInternalService(Interface i) {
+		return i.getAppliedStereotype("XIS-Mobile::XisInternalService");
+	}
+	
+	public static boolean isXisInternalService(Interface i) {
+		return getXisInternalService(i) != null;
+	}
+	
+	public static Stereotype getXisInternalProvider(Class c) {
+		return c.getAppliedStereotype("XIS-Mobile::XisInternalProvider");
+	}
+	
+	public static boolean isXisInternalProvider(Class c) {
+		return getXisInternalProvider(c) != null;
+	}
+	
+	public static boolean isXisLocationProvider(Class c) {
+		if (isXisInternalProvider(c)) {
+			EnumerationLiteral type = (EnumerationLiteral) c.getValue(
+				getXisInternalProvider(c), "type");
+			return type.getName().equals("Location");			
+		} else {
+			return false;
+		}
+	}
+	
+	public static boolean isXisContactsProvider(Class c) {
+		if (isXisInternalProvider(c)) {
+			EnumerationLiteral type = (EnumerationLiteral) c.getValue(
+				getXisInternalProvider(c), "type");
+			return type.getName().equals("Contacts");			
+		} else {
+			return false;
+		}
+	}
+	
+	public static boolean isXisCalendarProvider(Class c) {
+		if (isXisInternalProvider(c)) {
+			EnumerationLiteral type = (EnumerationLiteral) c.getValue(
+				getXisInternalProvider(c), "type");
+			return type.getName().equals("Calendar");			
+		} else {
+			return false;
+		}
+	}
+	
+	public static boolean isXisMediaProvider(Class c) {
+		if (isXisInternalProvider(c)) {
+			EnumerationLiteral type = (EnumerationLiteral) c.getValue(
+				getXisInternalProvider(c), "type");
+			return type.getName().equals("Media");			
+		} else {
+			return false;
+		}
+	}
+	
+	public static boolean isXisCustomProvider(Class c) {
+		if (isXisInternalProvider(c)) {
+			EnumerationLiteral type = (EnumerationLiteral) c.getValue(
+				getXisInternalProvider(c), "type");
+			return type.getName().equals("Custom");			
+		} else {
+			return false;
+		}
+	}
+	
 	public static Stereotype getXisServiceMethod(Operation o) {
 		return o.getAppliedStereotype("XIS-Mobile::XisServiceMethod");
 	}
@@ -507,6 +573,20 @@ public final class ServiceUtils {
 			if (el instanceof Interface
 				&& ((Interface) el).getName().equalsIgnoreCase(name)
 				&& isXisRemoteService((Interface) el)) {
+				service = (Interface) el;
+				return service;
+			}
+		}
+		return service;
+	}
+	
+	public static Interface getXisInternalServiceByName(String name, Operation o) {
+		Interface service = null;
+		
+		for (Element el : o.getModel().allOwnedElements()) {
+			if (el instanceof Interface
+				&& ((Interface) el).getName().equalsIgnoreCase(name)
+				&& isXisInternalService((Interface) el)) {
 				service = (Interface) el;
 				return service;
 			}
