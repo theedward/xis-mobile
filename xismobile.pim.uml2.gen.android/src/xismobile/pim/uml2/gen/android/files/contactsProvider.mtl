@@ -22,6 +22,8 @@ import android.util.Log;
 
 public class [c.name.toUpperFirst()/]ContactsProvider {
 
+	private static [c.name.toUpperFirst()/]ContactsProvider instance = null;
+
 	private Context context;
 	private ContentResolver;
 	
@@ -39,11 +41,18 @@ public class [c.name.toUpperFirst()/]ContactsProvider {
 	private String DATA = ContactsContract.CommonDataKinds.Email.DATA;
 
 
-	public [c.name.toUpperFirst()/]ContactsProvider(Context context) {
+	protected [c.name.toUpperFirst()/]ContactsProvider(Context context) {
 		this.context = context;
 		this.contentResolver = this.context.getContentResolver();
 	}
 	
+	public static [c.name.toUpperFirst()/]ContactsProvider getInstance(Context context) {
+		if (instance == null) {
+			instance = new [c.name.toUpperFirst()/]ContactsProvider(context);
+		}
+		return instance;
+	}
+
 	public void createContact(Contact c) {
 		ArrayList<ContentProviderOperation> ops = new ArrayList<ContentProviderOperation>();
 		

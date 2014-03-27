@@ -24,12 +24,21 @@ import android.provider.CalendarContract.Events;
 
 public class [c.name.toUpperFirst()/]CalendarProvider {
 
+	private static [c.name.toUpperFirst()/]CalendarProvider instance = null;
+
 	private Context context;
 	private ContentResolver contentResolver;
 	
-	public [c.name.toUpperFirst()/]CalendarProvider(Context context) {
+	protected [c.name.toUpperFirst()/]CalendarProvider(Context context) {
 		this.context = context;
 		this.contentResolver = this.context.getContentResolver();
+	}
+
+	public static [c.name.toUpperFirst()/]CalendarProvider getInstance(Context context) {
+		if (instance == null) {
+			instance = new [c.name.toUpperFirst()/]CalendarProvider(context);
+		}
+		return instance;
 	}
 
 	@SuppressLint("NewApi")
