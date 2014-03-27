@@ -853,10 +853,18 @@
 	not c.getXisProvider().oclIsUndefined()
 /]
 
+[query public getXisInternalProvider(c : Class) : Stereotype = 
+	c.getAppliedStereotype('XIS-Mobile::XisInternalProvider')
+/]
+
+[query public isXisInternalProvider(c : Class) : Boolean = 
+	not c.getXisInternalProvider().oclIsUndefined()
+/]
+
 [query public isXisLocationProvider(c : Class) : Boolean = 
-	not c.getXisProvider().oclIsUndefined() and
+	not c.getXisInternalProvider().oclIsUndefined() and
 	c.getEnumValue(c.getValue(
-		c.getXisProvider(), 'type')
+		c.getXisInternalProvider(), 'type')
 	) = 'Location'
 /]
 
@@ -865,9 +873,9 @@
 /]
 
 [query public isXisContactsProvider(c : Class) : Boolean = 
-	not c.getXisProvider().oclIsUndefined() and
+	not c.getXisInternalProvider().oclIsUndefined() and
 	c.getEnumValue(c.getValue(
-		c.getXisProvider(), 'type')
+		c.getXisInternalProvider(), 'type')
 	) = 'Contacts'
 /]
 
@@ -876,9 +884,9 @@
 /]
 
 [query public isXisCalendarProvider(c : Class) : Boolean = 
-	not c.getXisProvider().oclIsUndefined() and
+	not c.getXisInternalProvider().oclIsUndefined() and
 	c.getEnumValue(c.getValue(
-		c.getXisProvider(), 'type')
+		c.getXisInternalProvider(), 'type')
 	) = 'Calendar'
 /]
 
@@ -887,9 +895,9 @@
 /]
 
 [query public isXisMediaProvider(c : Class) : Boolean = 
-	not c.getXisProvider().oclIsUndefined() and
+	not c.getXisInternalProvider().oclIsUndefined() and
 	c.getEnumValue(c.getValue(
-		c.getXisProvider(), 'type')
+		c.getXisInternalProvider(), 'type')
 	) = 'Media'
 /]
 
@@ -898,9 +906,9 @@
 /]
 
 [query public isXisCustomProvider(c : Class) : Boolean = 
-	not c.getXisProvider().oclIsUndefined() and
+	not c.getXisInternalProvider().oclIsUndefined() and
 	c.getEnumValue(c.getValue(
-		c.getXisProvider(), 'type')
+		c.getXisInternalProvider(), 'type')
 	) = 'Custom'
 /]
 
