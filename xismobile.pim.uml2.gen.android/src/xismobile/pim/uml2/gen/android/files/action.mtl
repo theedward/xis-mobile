@@ -81,8 +81,12 @@ if (inEditMode) {
 [/let]
 [/let]
 [/let]
-[elseif (o.isWebServiceAction() and o.xisRemoteServiceExists())]
-[writeXisRemoteServiceFullName(o.name)/]([o.writeXisRemoteServiceArguments()/]);
+[elseif (o.isWebServiceAction())]
+	[if (o.xisRemoteServiceExists())]
+[writeXisRemoteServiceFullName(o.name)/]([o.writeXisServiceArguments()/]);
+	[elseif (o.xisInternalServiceExists())]
+[writeXisInternalServiceFullName(o)/]([o.writeXisServiceArguments()/]);
+	[/if]
 [elseif (o.isCustomAction())]
 [o.writeCustomActionCall()/]
 [/if]
@@ -200,7 +204,7 @@ Time.valueOf(
 [/if]
 [/template]
 
-[template private writeXisRemoteServiceArguments(o : Operation) post (trim())]
+[template private writeXisServiceArguments(o : Operation) post (trim())]
 [o.getInParameters().writeParameterDefaultValue()->sep(', ')/]
 [/template]
 
