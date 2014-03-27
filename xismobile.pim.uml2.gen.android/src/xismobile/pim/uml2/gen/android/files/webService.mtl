@@ -3,6 +3,7 @@
 
 [import xismobile::pim::uml2::gen::android::common::utils /]
 [import xismobile::pim::uml2::gen::android::common::xisMobileUtils /]
+[import xismobile::pim::uml2::gen::android::files::provider /]
 
 [template public generateRemoteServiceStub(i : Interface)]
 
@@ -30,52 +31,6 @@ public class [i.name.toUpperFirst()/]ServiceStub {
 	[/for]
 }
 [/file]
-[/template]
-
-[template private getReturnResultType(o : Operation) post (trim())]
-[if (o.getReturnResult().oclIsUndefined())]
-void
-[else]
-[o.getReturnResult().type.getParameterType()/]
-[/if]
-[/template]
-
-[template private getParameterType(t : Type) post (trim())]
-[if (not t.oclIsUndefined())]
-[let name : String = if t.name.oclIsUndefined()
-	then t.toString().toLower()
-	else t.name.toLower()
-	endif
-]
-[if (name.contains('int'))]
-int
-[elseif (name.contains('integer'))]
-Integer
-[elseif (name.contains('float'))]
-float
-[elseif (name.contains('long'))]
-long
-[elseif (name.contains('short'))]
-short
-[elseif (name.contains('double'))]
-double
-[elseif (name.contains('char'))]
-char
-[elseif (name.contains('string'))]
-String
-[elseif (name.contains('byte'))]
-byte
-[elseif (name.contains('boolean'))]
-boolean
-[elseif (name.contains('void'))]
-void
-[/if]
-[/let]
-[/if]
-[/template]
-
-[template private writeParameterTypeAndName(p : Parameter) post (trim())]
-[p.type.getParameterType()/] [p.name.toLowerFirst()/]
 [/template]
 
 [template private writeMethodBody(o : Operation) post (trim())]
