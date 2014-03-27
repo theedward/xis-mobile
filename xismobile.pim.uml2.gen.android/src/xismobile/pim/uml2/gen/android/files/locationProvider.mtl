@@ -3,6 +3,8 @@
 
 [import xismobile::pim::uml2::gen::android::common::xisMobileUtils /]
 [import xismobile::pim::uml2::gen::android::common::utils /]
+[import xismobile::pim::uml2::gen::android::files::provider /]
+[import xismobile::pim::uml2::gen::android::services::services /]
 
 [template public generateLocationProvider(c : Class)]
 
@@ -50,7 +52,13 @@ public class [c.name.toUpperFirst()/]LocationProvider extends Service implements
 		}
 		return instance;
 	}
- 
+[let services : Sequence(Interface) = c.getXisInternalServices()]
+[if (services->size() > 0)]
+
+	[services->writeServiceArea()/]
+[/if]
+[/let]
+
     public boolean canGetLocation() {
         return canGetLocation;
     }
