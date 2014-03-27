@@ -24,6 +24,8 @@ import org.eclipse.uml2.uml.Model;
 import org.eclipse.uml2.uml.Operation;
 import org.eclipse.uml2.uml.Parameter;
 import org.eclipse.uml2.uml.Property;
+import org.eclipse.uml2.uml.Realization;
+import org.eclipse.uml2.uml.Relationship;
 import org.eclipse.uml2.uml.Stereotype;
 import org.eclipse.uml2.uml.Type;
 
@@ -1264,6 +1266,47 @@ public class Services {
 		String server = ServiceUtils.toUpperFirst(data[0]) + "ServiceStub";
 		String service = ServiceUtils.toLowerFirst(data[1]);
 		return server + "." + service;
+	}
+	
+	public boolean xisInternalServiceExists(Operation o) {
+		if (o.getName().contains(".")) {
+			String[] data = o.getName().split("\\.");
+			Interface service = ServiceUtils.getXisInternalServiceByName(data[0], o);
+			return service != null
+				&& ServiceUtils.getXisServiceMethodByName(data[1], service) != null;
+		} else {
+			return false;
+		}
+	}
+	
+	public String writeXisInternalServiceFullName(Operation o) {
+		String[] data = o.getName().split("\\.");
+		String provider = "";
+		Interface service = ServiceUtils.getXisInternalServiceByName(data[0], o);
+		Class ip = null;
+		
+		for (Relationship r : service.getRelationships()) {
+			if (r instanceof Realization
+				&& ((Realization) r).getSources().size() == 1) {
+				ip = (Class) ((Realization) r).getSources().get(0);
+				provider = ip.getName();
+			}
+		}
+		
+		if (ip != null) {
+			if (ServiceUtils.isXisLocationProvider(ip)) {
+				provider += "LocationProvider" + ".getInstance(getApplicationContext())." + data[1];
+			} else if (ServiceUtils.isXisContactsProvider(ip)) {
+				provider += "ContactsProvider" + ".getInstance(getApplicationContext())." + data[1];
+			} else if (ServiceUtils.isXisCalendarProvider(ip)) {
+				provider += "CalendarProvider" + ".getInstance(getApplicationContext())." + data[1];
+			} else if (ServiceUtils.isXisMediaProvider(ip)) {
+				provider += "MediaProvider" + ".getInstance(getApplicationContext())." + data[1];
+			} else if (ServiceUtils.isXisCustomProvider(ip)) {
+				provider += "CustomProvider" + ".getInstance(getApplicationContext())." + data[1];
+			}
+		}
+		return provider;
 	}
 	
 	/**

@@ -133,3 +133,11 @@
 [query public writeXisRemoteServiceFullName(name : String) : Boolean =
 	invoke('xismobile.pim.uml2.gen.android.services.Services', 'writeXisRemoteServiceFullName(java.lang.String)', Sequence{name})
 /]
+
+[query public xisInternalServiceExists(o : Operation) : Boolean =
+	invoke('xismobile.pim.uml2.gen.android.services.Services', 'xisInternalServiceExists(org.eclipse.uml2.uml.Operation)', Sequence{o})
+/]
+
+[query public writeXisInternalServiceFullName(o : Operation) : Boolean =
+	invoke('xismobile.pim.uml2.gen.android.services.Services', 'writeXisInternalServiceFullName(org.eclipse.uml2.uml.Operation)', Sequence{o})
+/]
