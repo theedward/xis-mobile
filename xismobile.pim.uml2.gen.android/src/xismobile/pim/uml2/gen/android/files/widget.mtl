@@ -40,35 +40,49 @@ mList[c.name.toUpperFirst()/]
 [template public initializeWidget(c : Class) post (trim())]
 [if (c.isXisLabel())]
 mLabel[c.name.toUpperFirst()/] = (XisLabel) findViewById(R.id.label[c.name.toUpperFirst()/]);
-[comment][if ((action = 'update' or action = 'read') and c.hasXisWidgetDomainValue(c.getXisWidget()))]
-String value = String.valueOf(<entity>.<attribute>);
-mLabel.setText(value);
-[/if][/comment]
+	[if (c.owner.oclIsTypeOf(Class) and c.owner.oclAsType(Class).isXisVisibilityBoundary())]
 [c.writeVisibility('mLabel' + c.name.toUpperFirst())/]
+	[/if]
 [elseif (c.isXisTextBox())]
 mTextBox[c.name.toUpperFirst()/] = (XisTextBox) findViewById(R.id.textBox[c.name.toUpperFirst()/]);
+	[if (c.owner.oclIsTypeOf(Class) and c.owner.oclAsType(Class).isXisVisibilityBoundary())]
 [c.writeVisibility('mTextBox' + c.name.toUpperFirst())/]
+	[/if]
 [elseif (c.isXisCheckBox())]
 mCheckBox[c.name.toUpperFirst()/] = (XisCheckBox) findViewById(R.id.checkBox[c.name.toUpperFirst()/]);
+	[if (c.owner.oclIsTypeOf(Class) and c.owner.oclAsType(Class).isXisVisibilityBoundary())]
 [c.writeVisibility('mCheckBox' + c.name.toUpperFirst())/]
+	[/if]
 [elseif (c.isXisButton())]
 mButton[c.name.toUpperFirst()/] = (XisButton) findViewById(R.id.button[c.name.toUpperFirst()/]);
+	[if (c.owner.oclIsTypeOf(Class) and c.owner.oclAsType(Class).isXisVisibilityBoundary())]
 [c.writeVisibility('mButton' + c.name.toUpperFirst())/]
+	[/if]
 [elseif (c.isXisLink())]
 mLink[c.name.toUpperFirst()/] = (XisLink) findViewById(R.id.link[c.name.toUpperFirst()/]);
+	[if (c.owner.oclIsTypeOf(Class) and c.owner.oclAsType(Class).isXisVisibilityBoundary())]
 [c.writeVisibility('mLink' + c.name.toUpperFirst())/]
+	[/if]
 [elseif (c.isXisImage())]
 mImage[c.name.toUpperFirst()/] = (XisImage) findViewById(R.id.image[c.name.toUpperFirst()/]);
+	[if (c.owner.oclIsTypeOf(Class) and c.owner.oclAsType(Class).isXisVisibilityBoundary())]
 [c.writeVisibility('mImage' + c.name.toUpperFirst())/]
+	[/if]
 [elseif (c.isXisDatePicker())]
 mDatePicker[c.name.toUpperFirst()/] = (XisDatePicker) findViewById(R.id.datePicker[c.name.toUpperFirst()/]);
+	[if (c.owner.oclIsTypeOf(Class) and c.owner.oclAsType(Class).isXisVisibilityBoundary())]
 [c.writeVisibility('mDatePicker' + c.name.toUpperFirst())/]
+	[/if]
 [elseif (c.isXisTimePicker())]
 mTimePicker[c.name.toUpperFirst()/] = (XisTimePicker) findViewById(R.id.timePicker[c.name.toUpperFirst()/]);
+	[if (c.owner.oclIsTypeOf(Class) and c.owner.oclAsType(Class).isXisVisibilityBoundary())]
 [c.writeVisibility('mTimePicker' + c.name.toUpperFirst())/]
+	[/if]
 [elseif (c.isXisWebView())]
 mWebView[c.name.toUpperFirst()/] = (XisWebView) findViewById(R.id.web[c.name.toUpperFirst()/]);
+	[if (c.owner.oclIsTypeOf(Class) and c.owner.oclAsType(Class).isXisVisibilityBoundary())]
 [c.writeVisibility('mWebView' + c.name.toUpperFirst())/]
+	[/if]
 [elseif (c.isXisMapView())]
 SupportMapFragment mv = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map[c.name.toUpperFirst()/]);
 mMap[c.name.toUpperFirst()/] = mv.getMap();
@@ -123,7 +137,9 @@ ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.s
 [comment @TODO Add Items to XisDropdown  /]
 adapter.add("TODO");
 mDropdown.setPrompt("Select [c.name/]...");
+	[if (c.owner.oclIsTypeOf(Class) and c.owner.oclAsType(Class).isXisVisibilityBoundary())]
 [c.writeVisibility('mDropdown' + c.name.toUpperFirst())/]
+	[/if]
 [elseif (c.isXisList())]
 mList[c.name.toUpperFirst()/] = (ListView) findViewById(R.id.list[c.name.toUpperFirst()/]);
 [let entity : Class = c.getXisListEntity()]
@@ -132,7 +148,9 @@ mList[c.name.toUpperFirst()/].setAdapter(new [entity.name.toUpperFirst()/]Adapte
 [if (item.hasContextMenu())]
 registerForContextMenu(mList[c.name.toUpperFirst()/]);
 [/if]
+[if (c.owner.oclIsTypeOf(Class) and c.owner.oclAsType(Class).isXisVisibilityBoundary())]
 [c.writeVisibility('mList' + c.name.toUpperFirst())/]
+[/if]
 [item.generateListItem()/]
 [item.generateAdapter(entity)/]
 [/let]
@@ -143,8 +161,11 @@ registerForContextMenu(mList[c.name.toUpperFirst()/]);
 [/if]
 [/template]
 
+[template private setWidgetValue(c : Class) post (trim())]
+
+[/template]
+
 [template private writeVisibility(c : Class, name : String) post (trim())]
-[if (c.owner.oclIsTypeOf(Class) and c.owner.oclAsType(Class).isXisVisibilityBoundary())]
 [let boundary : Class = c.owner.oclAsType(Class)]
 [let entity : String = boundary.getXisCompositeWidgetEntityName(boundary.getXisVisibilityBoundary())]
 [comment @FIXME Visibility Modes /]
@@ -191,7 +212,6 @@ if (inCreateMode) {
 [/if]
 [/let]
 [/let]
-[/if]
 [/template]
 
 [template private writeGestureBinding(c : Class) post (trim())]
