@@ -8,7 +8,9 @@
 [file ('src/' + entities->first().getPackageDirectoryPath()  + '/domain/DomainEntityManager.java', false, 'UTF-8')]
 package [entities->first().getPackagePath()/].domain;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import android.content.Context;
@@ -53,8 +55,8 @@ public class DomainEntityManager {
 		return [c.name.toLowerFirst()/];
 	}
 
-	public Set<[c.name.toUpperFirst()/]> getAll[c.name.toUpperFirst()/]s() {
-		return [c.name.toLowerFirst()/]s;
+	public List<[c.name.toUpperFirst()/]> getAll[c.name.toUpperFirst()/]s() {
+		return new ArrayList<[c.name.toUpperFirst()/]>([c.name.toLowerFirst()/]s);
 	}
 
 	public boolean delete[c.name.toUpperFirst()/]([c.name.toUpperFirst()/] [c.name.toLowerFirst()/]) {
