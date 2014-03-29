@@ -683,28 +683,12 @@
 	not c.getXisDatePicker().oclIsUndefined()
 /]
 
-[query public getXisDatePickerValue(c : Class) : String = 
-	let value : String = c.getXisWidgetValue(c.getXisDatePicker()) in
-	if value.oclIsUndefined()
-	then 'Date'
-	else value
-	endif
-/]
-
 [query public getXisTimePicker(c : Class) : Stereotype =
 	c.getAppliedStereotype('XIS-Mobile::XisTimePicker')
 /]
 
 [query public isXisTimePicker(c : Class) : Boolean =
 	not c.getXisTimePicker().oclIsUndefined()
-/]
-
-[query public getXisTimePickerValue(c : Class) : String = 
-	let value : String = c.getXisWidgetValue(c.getXisTimePicker()) in
-	if value.oclIsUndefined()
-	then 'Time'
-	else value
-	endif
 /]
 
 [query public hasDatePicker(cl : Set(Class)) : Boolean = 
