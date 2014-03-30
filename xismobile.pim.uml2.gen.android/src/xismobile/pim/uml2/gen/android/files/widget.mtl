@@ -39,25 +39,45 @@ mList[c.name.toUpperFirst()/]
 
 [template public initializeWidget(c : Class) post (trim())]
 [if (c.isXisLabel())]
-mLabel[c.name.toUpperFirst()/] = (XisLabel) findViewById(R.id.label[c.name.toUpperFirst()/]);
-	[if (c.owner.oclIsTypeOf(Class) and c.owner.oclAsType(Class).isXisVisibilityBoundary())]
-[c.writeVisibility('mLabel' + c.name.toUpperFirst())/]
+[let name : String = 'mLabel' + c.name.toUpperFirst()]
+[name/] = (XisLabel) findViewById(R.id.label[c.name.toUpperFirst()/]);
+	[if (c.getXisWidgetValue(c.getXisLabel()).oclIsUndefined())]
+[c.writeSetWidgetValue(c.getXisLabel(), name)/]
 	[/if]
+	[if (c.owner.oclIsTypeOf(Class) and c.owner.oclAsType(Class).isXisVisibilityBoundary())]
+[c.writeVisibility(name)/]
+	[/if]
+[/let]
 [elseif (c.isXisTextBox())]
-mTextBox[c.name.toUpperFirst()/] = (XisTextBox) findViewById(R.id.textBox[c.name.toUpperFirst()/]);
-	[if (c.owner.oclIsTypeOf(Class) and c.owner.oclAsType(Class).isXisVisibilityBoundary())]
-[c.writeVisibility('mTextBox' + c.name.toUpperFirst())/]
+[let name : String = 'mTextBox' + c.name.toUpperFirst()]
+[name/] = (XisTextBox) findViewById(R.id.textBox[c.name.toUpperFirst()/]);
+	[if (c.getXisWidgetValue(c.getXisTextBox()).oclIsUndefined())]
+[c.writeSetWidgetValue(c.getXisTextBox(), name)/]
 	[/if]
+	[if (c.owner.oclIsTypeOf(Class) and c.owner.oclAsType(Class).isXisVisibilityBoundary())]
+[c.writeVisibility(name)/]
+	[/if]
+[/let]
 [elseif (c.isXisCheckBox())]
-mCheckBox[c.name.toUpperFirst()/] = (XisCheckBox) findViewById(R.id.checkBox[c.name.toUpperFirst()/]);
+[let name : String = 'mCheckBox' + c.name.toUpperFirst()]
+[name/] = (XisCheckBox) findViewById(R.id.checkBox[c.name.toUpperFirst()/]);
+	[if (c.getXisWidgetValue(c.getXisCheckBox()).oclIsUndefined())]
+[c.writeSetWidgetValue(c.getXisCheckBox(), name)/]
+	[/if]
 	[if (c.owner.oclIsTypeOf(Class) and c.owner.oclAsType(Class).isXisVisibilityBoundary())]
 [c.writeVisibility('mCheckBox' + c.name.toUpperFirst())/]
 	[/if]
+[/let]
 [elseif (c.isXisButton())]
-mButton[c.name.toUpperFirst()/] = (XisButton) findViewById(R.id.button[c.name.toUpperFirst()/]);
-	[if (c.owner.oclIsTypeOf(Class) and c.owner.oclAsType(Class).isXisVisibilityBoundary())]
-[c.writeVisibility('mButton' + c.name.toUpperFirst())/]
+[let name : String = 'mButton' + c.name.toUpperFirst()]
+[name/] = (XisButton) findViewById(R.id.button[c.name.toUpperFirst()/]);
+	[if (c.getXisWidgetValue(c.getXisButton()).oclIsUndefined())]
+[c.writeSetWidgetValue(c.getXisButton(), name)/]
 	[/if]
+	[if (c.owner.oclIsTypeOf(Class) and c.owner.oclAsType(Class).isXisVisibilityBoundary())]
+[c.writeVisibility(name)/]
+	[/if]
+[/let]
 [elseif (c.isXisLink())]
 mLink[c.name.toUpperFirst()/] = (XisLink) findViewById(R.id.link[c.name.toUpperFirst()/]);
 	[if (c.owner.oclIsTypeOf(Class) and c.owner.oclAsType(Class).isXisVisibilityBoundary())]
@@ -69,15 +89,25 @@ mImage[c.name.toUpperFirst()/] = (XisImage) findViewById(R.id.image[c.name.toUpp
 [c.writeVisibility('mImage' + c.name.toUpperFirst())/]
 	[/if]
 [elseif (c.isXisDatePicker())]
-mDatePicker[c.name.toUpperFirst()/] = (XisDatePicker) findViewById(R.id.datePicker[c.name.toUpperFirst()/]);
-	[if (c.owner.oclIsTypeOf(Class) and c.owner.oclAsType(Class).isXisVisibilityBoundary())]
-[c.writeVisibility('mDatePicker' + c.name.toUpperFirst())/]
+[let name : String = 'mDatePicker' + c.name.toUpperFirst()]
+[name/] = (XisDatePicker) findViewById(R.id.datePicker[c.name.toUpperFirst()/]);
+	[if (c.getXisWidgetValue(c.getXisDatePicker()).oclIsUndefined())]
+[c.writeSetWidgetValue(c.getXisDatePicker(), name)/]
 	[/if]
+	[if (c.owner.oclIsTypeOf(Class) and c.owner.oclAsType(Class).isXisVisibilityBoundary())]
+[c.writeVisibility(name)/]
+	[/if]
+[/let]
 [elseif (c.isXisTimePicker())]
-mTimePicker[c.name.toUpperFirst()/] = (XisTimePicker) findViewById(R.id.timePicker[c.name.toUpperFirst()/]);
-	[if (c.owner.oclIsTypeOf(Class) and c.owner.oclAsType(Class).isXisVisibilityBoundary())]
-[c.writeVisibility('mTimePicker' + c.name.toUpperFirst())/]
+[let name : String = 'mTimePicker' + c.name.toUpperFirst()]
+[name/] = (XisTimePicker) findViewById(R.id.timePicker[c.name.toUpperFirst()/]);
+	[if (c.getXisWidgetValue(c.getXisTimePicker()).oclIsUndefined())]
+[c.writeSetWidgetValue(c.getXisTimePicker(), name)/]
 	[/if]
+	[if (c.owner.oclIsTypeOf(Class) and c.owner.oclAsType(Class).isXisVisibilityBoundary())]
+[c.writeVisibility(name)/]
+	[/if]
+[/let]
 [elseif (c.isXisWebView())]
 mWebView[c.name.toUpperFirst()/] = (XisWebView) findViewById(R.id.web[c.name.toUpperFirst()/]);
 	[if (c.owner.oclIsTypeOf(Class) and c.owner.oclAsType(Class).isXisVisibilityBoundary())]
@@ -159,10 +189,6 @@ registerForContextMenu(mList[c.name.toUpperFirst()/]);
 [if (not c.isXisList())]
 [c.writeGestureBinding()/]
 [/if]
-[/template]
-
-[template private setWidgetValue(c : Class) post (trim())]
-
 [/template]
 
 [template private writeVisibility(c : Class, name : String) post (trim())]
@@ -271,7 +297,7 @@ XisDropdownGestureManager
 [/if]
 [/template]
 
-[template private writeXisGestureManager(c : Class, gestures : OrderedSet(Class))]
+[template private writeXisGestureManager(c : Class, gestures : OrderedSet(Class)) post (trim())]
 [c.getWidgetName()/].setXisGestureManager(new [c.getXisGestureManagerName()/]() {
 	[writeOnDoubleTap(gestures)/]
 [if (c.isXisTextBox() or c.isXisImage() or c.isXisWebView() or c.isXisMapView())]
@@ -284,7 +310,7 @@ XisDropdownGestureManager
 });
 [/template]
 
-[template private writeOnTap(c : Class, gestures : OrderedSet(Class))]
+[template private writeOnTap(c : Class, gestures : OrderedSet(Class)) post (trim())]
 [c.getWidgetName()/].setOnClickListener(new OnClickListener() {
 	@Override
 	public void onClick(View v) {
@@ -301,7 +327,7 @@ XisDropdownGestureManager
 });
 [/template]
 
-[template private writeOnTapDefault(c : Class, op : Operation)]
+[template private writeOnTapDefault(c : Class, op : Operation) post (trim())]
 [c.getWidgetName()/].setOnClickListener(new OnClickListener() {
 	@Override
 	public void onClick(View v) {
@@ -310,7 +336,7 @@ XisDropdownGestureManager
 });
 [/template]
 	
-[template private writeOnDoubleTap(gestures : OrderedSet(Class))]
+[template private writeOnDoubleTap(gestures : OrderedSet(Class)) post (trim())]
 @Override
 public void onDoubleTap() {
 [let taps : OrderedSet(Class) = gestures->select(g : Class | g.isDoubleTapGesture())]
@@ -327,7 +353,7 @@ public void onDoubleTap() {
 }
 [/template]
 
-[template private writeOnLongTap(c : Class, gestures : OrderedSet(Class))]
+[template private writeOnLongTap(c : Class, gestures : OrderedSet(Class)) post (trim())]
 [c.getWidgetName()/].setOnLongClickListener(new OnLongClickListener() {
 	@Override
 	public void onLongClick(View v) {
@@ -344,7 +370,7 @@ public void onDoubleTap() {
 });
 [/template]
 
-[template private writeOnSwipe(gestures : OrderedSet(Class))]
+[template private writeOnSwipe(gestures : OrderedSet(Class)) post (trim())]
 @Override
 public void onSwipe() {
 [let taps : OrderedSet(Class) = gestures->select(g : Class | g.isSwipeGesture())]
@@ -361,7 +387,7 @@ public void onSwipe() {
 }
 [/template]
 
-[template private writeOnStretch(gestures : OrderedSet(Class))]
+[template private writeOnStretch(gestures : OrderedSet(Class)) post (trim())]
 @Override
 public void onStretch() {
 [let taps : OrderedSet(Class) = gestures->select(g : Class | g.isStretchGesture())]
@@ -378,7 +404,7 @@ public void onStretch() {
 }
 [/template]
 
-[template private writeOnPinch(gestures : OrderedSet(Class))]
+[template private writeOnPinch(gestures : OrderedSet(Class)) post (trim())]
 @Override
 public void onPinch() {
 [let taps : OrderedSet(Class) = gestures->select(g : Class | g.isPinchGesture())]
@@ -552,7 +578,7 @@ public void onPinch() {
 	android:layout_width="wrap_content"
 	android:layout_height="wrap_content"
 	[writeWidgetRelativePositioning(widgets, c)/]
-[let value : String = c.getXisDatePickerValue()]
+[let value : String = c.getXisWidgetValue(c.getXisDatePicker())]
 	[if (not value.oclIsUndefined())]
 	android:text="[addString(name + '_text', value)/]"
 	[/if]
@@ -568,7 +594,7 @@ public void onPinch() {
 	android:layout_width="wrap_content"
 	android:layout_height="wrap_content"
 	[writeWidgetRelativePositioning(widgets, c)/]
-[let value : String = c.getXisTimePickerValue()]
+[let value : String = c.getXisWidgetValue(c.getXisTimePicker())]
 	[if (not value.oclIsUndefined())]
 	android:text="[addString(name + '_text', value)/]"
 	[/if]
