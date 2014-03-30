@@ -74,6 +74,10 @@
 	invoke('xismobile.pim.uml2.gen.android.services.Services', 'getEntityAttributeOfWidget(java.lang.String)', Sequence{value})
 /]
 
+[query public writeSetWidgetValue(c : Class, s : Stereotype, name : String) : String = 
+	invoke('xismobile.pim.uml2.gen.android.services.Services', 'writeSetWidgetValue(org.eclipse.uml2.uml.Class, org.eclipse.uml2.uml.Stereotype, java.lang.String)', Sequence{c, s, name})
+/]
+
 [query public addLibrary(jar : String) : OclVoid = 
 	invoke('xismobile.pim.uml2.gen.android.services.Services', 'addLibrary(java.lang.String)', Sequence{jar})
 /]

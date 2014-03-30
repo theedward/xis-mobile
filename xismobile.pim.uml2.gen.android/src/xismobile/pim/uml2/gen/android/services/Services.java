@@ -713,6 +713,28 @@ public class Services {
 		return value.split("\\.")[1];
 	}
 	
+	public String writeSetWidgetValue(Class c, Stereotype s, String name) {
+		String ret = null;
+		String attributeName = ServiceUtils.getXisSimpleWidgetEntityAttributeName(c, s);
+		
+		if (attributeName != null && attributeName.contains(".")) {
+			if (ServiceUtils.isXisLabel(c) || ServiceUtils.isXisTextBox(c)
+				|| ServiceUtils.isXisButton(c) || ServiceUtils.isXisLink(c)
+				|| ServiceUtils.isXisDatePicker(c) || ServiceUtils.isXisTimePicker(c)) {
+				String[] attrArray = attributeName.split("\\.");
+				ret = name + ".setText(String.valueOf(";
+				ret += ServiceUtils.toLowerFirst(attrArray[0]) + ".";
+				ret += "get" + ServiceUtils.toUpperFirst(attrArray[1]) + "()));";
+			} else if (ServiceUtils.isXisCheckBox(c)) {
+				String[] attrArray = attributeName.split("\\.");
+				ret = name + ".setChecked(Boolean.valueOf(";
+				ret += ServiceUtils.toLowerFirst(attrArray[0]) + ".";
+				ret += "get" + ServiceUtils.toUpperFirst(attrArray[1]) + "()));";
+			}
+		}
+		return ret;
+	}
+	
 	/**
 	 * Copies the desired library jar into the target generation folder.
 	 * 
