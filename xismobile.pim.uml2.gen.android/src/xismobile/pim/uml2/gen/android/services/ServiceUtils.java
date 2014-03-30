@@ -155,6 +155,11 @@ public final class ServiceUtils {
 		return c.getAppliedStereotype("XIS-Mobile::XisDropdown");
 	}
 	
+	public static String getXisSimpleWidgetEntityAttributeName(Class c, Stereotype s) {
+		String entityAttributeName = (String) c.getValue(s, "entityAttributeName");
+		return entityAttributeName;
+	}
+	
 	public static boolean isXisCompositeWidget(Class c) {
 		return getXisCompositeWidget(c) != null;
 	}
