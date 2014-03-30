@@ -169,9 +169,21 @@ public class [c.name.toUpperFirst()/]Activity extends Activity {
 		[/for]
 	}
 
-	[for (w : Class | widgets) separator('\n')]
+[for (w : Class | widgets) separator('\n')]
+[if (w.isXisForm())]
+[let widgets : Sequence(Class) = w.getXisInteractionSpaceWidgets()]
+	[if (widgets->size() > 0)]
 	[w.writeWidgetInit()/]
+	[for (it : Class | widgets)]
+
+	[it.writeWidgetInit()/]
 	[/for]
+	[/if]
+[/let]
+[else]
+	[w.writeWidgetInit()/]
+[/if]
+[/for]
 [/if]
 [let m : Class = c.getOptionsMenu()]
 	[generateOptionsMenu(m)/]
@@ -259,20 +271,18 @@ private [w.writeWidgetTypeAndName()/];
 
 [template private writeWidgetInit(w : Class) post (trim())]
 public void initialize[w.getWidgetName().toUpperFirst()/]() {
-[if (w.isXisForm() and w.getXisInteractionSpaceWidgets()->size() > 0)]
-	[for (it : Class | w.getXisInteractionSpaceWidgets())]
+[if (w.isXisForm())]
+[let widgets : Sequence(Class) = w.getXisInteractionSpaceWidgets()]
+[if (widgets->size() > 0)]
+	[for (it : Class | widgets)]
 	initialize[it.getWidgetName().toUpperFirst()/]();
 	[/for]
+[/if]
+[/let]
 [else]
 	[w.initializeWidget()/]
 [/if]
 }
-[if (w.getXisInteractionSpaceWidgets()->size() > 0)]
-[for (it : Class | w.getXisInteractionSpaceWidgets())]
-
-[it.writeWidgetInit()/]
-[/for]
-[/if]
 [/template]
 
 [template private writeWidgetTypeAndName(c : Class) post (trim())]
