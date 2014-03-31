@@ -720,16 +720,32 @@ public class Services {
 		if (attributeName != null && attributeName.contains(".")) {
 			if (ServiceUtils.isXisLabel(c) || ServiceUtils.isXisTextBox(c)
 				|| ServiceUtils.isXisButton(c) || ServiceUtils.isXisLink(c)
-				|| ServiceUtils.isXisDatePicker(c) || ServiceUtils.isXisTimePicker(c)) {
+				|| ServiceUtils.isXisDatePicker(c) || ServiceUtils.isXisTimePicker(c)
+				|| ServiceUtils.isXisCheckBox(c)) {
 				String[] attrArray = attributeName.split("\\.");
-				ret = name + ".setText(String.valueOf(";
+				ret = "if (";
 				ret += ServiceUtils.toLowerFirst(attrArray[0]) + ".";
-				ret += "get" + ServiceUtils.toUpperFirst(attrArray[1]) + "()));";
-			} else if (ServiceUtils.isXisCheckBox(c)) {
-				String[] attrArray = attributeName.split("\\.");
-				ret = name + ".setChecked(Boolean.valueOf(";
-				ret += ServiceUtils.toLowerFirst(attrArray[0]) + ".";
-				ret += "get" + ServiceUtils.toUpperFirst(attrArray[1]) + "()));";
+				ret += "get" + ServiceUtils.toUpperFirst(attrArray[1]) + "()";
+				ret += " != null) {" + "\n\t";
+				
+				if (ServiceUtils.isXisCheckBox(c)) {
+					ret += name + ".setChecked(Boolean.valueOf(";
+					ret += ServiceUtils.toLowerFirst(attrArray[0]) + ".";
+					ret += "get" + ServiceUtils.toUpperFirst(attrArray[1]) + "()));";
+				} else {
+					ret += name + ".setText(String.valueOf(";
+					ret += ServiceUtils.toLowerFirst(attrArray[0]) + ".";
+					ret += "get" + ServiceUtils.toUpperFirst(attrArray[1]) + "()));";
+				}
+				
+				ret += "\n}";
+				
+				if (ServiceUtils.isXisDatePicker(c) || ServiceUtils.isXisTimePicker(c)) {
+					ret += " else {\n\t";
+					ret += name + ".setText(\"";
+					ret += ServiceUtils.isXisDatePicker(c) ? "Date" : "Time";
+					ret += "\");\n}";
+				}
 			}
 		}
 		return ret;
