@@ -1,10 +1,16 @@
 [comment encoding = UTF-8 /]
 [module configuration('http://www.eclipse.org/uml2/4.0.0/UML')]
 
+[import xismobile::pim::uml2::gen::windowsphone::common::xisMobileUtils /]
+
 [template public generateConfigFiles(m : Model)]
 	[m.generateSolutionFile()/]
 	[m.generateUserOptions()/]
+	[m.generateAppManifest()/]
 	[m.generateAppXaml()/]
+	[m.generateAppXamlCs()/]
+	[m.generateProject()/]
+	[m.generateAssemblyInfo()/]
 [/template]
 
 [template private generateSolutionFile(m : Model)]
@@ -121,33 +127,24 @@ EndGlobal
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="DetailsPage.xaml.cs">
-      <DependentUpon>DetailsPage.xaml</DependentUpon>
+	[for (i : Class | m.getAllXisInteractionSpaces())]
+	<Compile Include="[i.name.toUpperFirst()/]Page.xaml.cs">
+      <DependentUpon>[i.name.toUpperFirst()/].xaml</DependentUpon>
     </Compile>
-    <Compile Include="MainPage.xaml.cs">
-      <DependentUpon>MainPage.xaml</DependentUpon>
-    </Compile>
+	[/for]
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModels\ItemViewModel.cs" />
-    <Compile Include="ViewModels\MainViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
-    <Page Include="DetailsPage.xaml">
+	[for (i : Class | m.getAllXisInteractionSpaces())]
+	<Page Include="[i.name.toUpperFirst()/]Page.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="MainPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <DesignData Include="SampleData\MainViewModelSampleData.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </DesignData>
+	[/for]
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\AppManifest.xml" />
@@ -180,7 +177,7 @@ EndGlobal
 
 [template private generateAppXaml(m : Model)]
 
-[file ('App.xaml', false, 'UTF-8')]
+[file (m.name.toUpperFirst() + '/' + m.name.toUpperFirst() + '/App.xaml', false, 'UTF-8')]
 <Application 
     x:Class="[m.name.toUpperFirst()/].App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"       
@@ -200,5 +197,209 @@ EndGlobal
     </Application.ApplicationLifetimeObjects>
 
 </Application>
+[/file]
+[/template]
+
+[template private generateAppXamlCs(m : Model)]
+
+[file (m.name.toUpperFirst() + '/' + m.name.toUpperFirst() + '/App.xaml.cs', false, 'UTF-8')]
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Animation;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+using Microsoft.Phone.Controls;
+using Microsoft.Phone.Shell;
+
+namespace [m.name.toUpperFirst()/]
+{
+    public partial class App : Application
+    {
+        /// <summary>
+        /// Provides easy access to the root frame of the Phone Application.
+        /// </summary>
+        /// <returns>The root frame of the Phone Application.</returns>
+        public PhoneApplicationFrame RootFrame { get; private set; }
+
+        /// <summary>
+        /// Constructor for the Application object.
+        /// </summary>
+        public App()
+        {
+            // Global handler for uncaught exceptions. 
+            UnhandledException += Application_UnhandledException;
+
+            // Standard Silverlight initialization
+            InitializeComponent();
+
+            // Phone-specific initialization
+            InitializePhoneApplication();
+
+            // Show graphics profiling information while debugging.
+            if (System.Diagnostics.Debugger.IsAttached)
+            {
+                // Display the current frame rate counters.
+                Application.Current.Host.Settings.EnableFrameRateCounter = true;
+
+                // Show the areas of the app that are being redrawn in each frame.
+                //Application.Current.Host.Settings.EnableRedrawRegions = true;
+
+                // Enable non-production analysis visualization mode, 
+                // which shows areas of a page that are handed off to GPU with a colored overlay.
+                //Application.Current.Host.Settings.EnableCacheVisualization = true;
+
+                // Disable the application idle detection by setting the UserIdleDetectionMode property of the
+                // application's PhoneApplicationService object to Disabled.
+                // Caution:- Use this under debug mode only. Application that disables user idle detection will continue to run
+                // and consume battery power when the user is not using the phone.
+                PhoneApplicationService.Current.UserIdleDetectionMode = IdleDetectionMode.Disabled;
+            }
+
+        }
+
+        // Code to execute when the application is launching (eg, from Start)
+        // This code will not execute when the application is reactivated
+        private void Application_Launching(object sender, LaunchingEventArgs e)
+        {
+        }
+
+        // Code to execute when the application is activated (brought to foreground)
+        // This code will not execute when the application is first launched
+        private void Application_Activated(object sender, ActivatedEventArgs e)
+        {
+        }
+
+        // Code to execute when the application is deactivated (sent to background)
+        // This code will not execute when the application is closing
+        private void Application_Deactivated(object sender, DeactivatedEventArgs e)
+        {
+        }
+
+        // Code to execute when the application is closing (eg, user hit Back)
+        // This code will not execute when the application is deactivated
+        private void Application_Closing(object sender, ClosingEventArgs e)
+        {
+        }
+
+        // Code to execute if a navigation fails
+        private void RootFrame_NavigationFailed(object sender, NavigationFailedEventArgs e)
+        {
+            if (System.Diagnostics.Debugger.IsAttached)
+            {
+                // A navigation has failed; break into the debugger
+                System.Diagnostics.Debugger.Break();
+            }
+        }
+
+        // Code to execute on Unhandled Exceptions
+        private void Application_UnhandledException(object sender, ApplicationUnhandledExceptionEventArgs e)
+        {
+            if (System.Diagnostics.Debugger.IsAttached)
+            {
+                // An unhandled exception has occurred; break into the debugger
+                System.Diagnostics.Debugger.Break();
+            }
+        }
+
+        #region Phone application initialization
+
+        // Avoid double-initialization
+        private bool phoneApplicationInitialized = false;
+
+        // Do not add any additional code to this method
+        private void InitializePhoneApplication()
+        {
+            if (phoneApplicationInitialized)
+                return;
+
+            // Create the frame but don't set it as RootVisual yet; this allows the splash
+            // screen to remain active until the application is ready to render.
+            RootFrame = new PhoneApplicationFrame();
+            RootFrame.Navigated += CompleteInitializePhoneApplication;
+
+            // Handle navigation failures
+            RootFrame.NavigationFailed += RootFrame_NavigationFailed;
+
+            // Ensure we don't initialize again
+            phoneApplicationInitialized = true;
+        }
+
+        // Do not add any additional code to this method
+        private void CompleteInitializePhoneApplication(object sender, NavigationEventArgs e)
+        {
+            // Set the root visual to allow the application to render
+            if (RootVisual != RootFrame)
+                RootVisual = RootFrame;
+
+            // Remove this handler since it is no longer needed
+            RootFrame.Navigated -= CompleteInitializePhoneApplication;
+        }
+
+        #endregion
+    }
+}
+[/file]
+[/template]
+
+[template private generateAppManifest(m : Model)]
+
+[file (m.name.toUpperFirst() + '/' + m.name.toUpperFirst() + '/Properties/AppManifest.xaml', false, 'UTF-8')]
+<Deployment xmlns="http://schemas.microsoft.com/client/2007/deployment"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+>
+    <Deployment.Parts>
+    </Deployment.Parts>
+</Deployment>
+[/file]
+[/template]
+
+[template private generateAssemblyInfo(m : Model)]
+
+[file (m.name.toUpperFirst() + '/' + m.name.toUpperFirst() + '/Properties/AssemblyInfo.cs', false, 'UTF-8')]
+using System.Reflection;
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
+using System.Resources;
+
+// General Information about an assembly is controlled through the following 
+// set of attributes. Change these attribute values to modify the information
+// associated with an assembly.
+['['/]assembly: AssemblyTitle("[m.name.toUpperFirst()/]")]
+['['/]assembly: AssemblyDescription("")]
+['['/]assembly: AssemblyConfiguration("")]
+['['/]assembly: AssemblyCompany("")]
+['['/]assembly: AssemblyProduct("[m.name.toUpperFirst()/]")]
+['['/]assembly: AssemblyCopyright("Copyright ©  2014")]
+['['/]assembly: AssemblyTrademark("")]
+['['/]assembly: AssemblyCulture("")]
+
+// Setting ComVisible to false makes the types in this assembly not visible 
+// to COM components.  If you need to access a type in this assembly from 
+// COM, set the ComVisible attribute to true on that type.
+['['/]assembly: ComVisible(false)]
+
+// The following GUID is for the ID of the typelib if this project is exposed to COM
+['['/]assembly: Guid("18a21378-ec07-40fd-b6f9-47df589acbdf")]
+
+// Version information for an assembly consists of the following four values:
+//
+//      Major Version
+//      Minor Version 
+//      Build Number
+//      Revision
+//
+// You can specify all the values or you can default the Revision and Build Numbers 
+// by using the '*' as shown below:
+['['/]assembly: AssemblyVersion("1.0.0.0")]
+['['/]assembly: AssemblyFileVersion("1.0.0.0")]
+['['/]assembly: NeutralResourcesLanguageAttribute("en-US")]
+
 [/file]
 [/template]
