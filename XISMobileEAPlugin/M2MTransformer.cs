@@ -1353,7 +1353,8 @@ namespace XISMobileEAPlugin
             else if (entity.Element.Attributes.Count == 1)
             {
                 EA.Attribute attr = entity.Element.Attributes.GetAt(0);
-                item.SetValueFromExpression(entity.Element.Name + "." + attr.Name);
+                XisLabel lbl = new XisLabel(repository, item, diagram, attr.Name + "Lbl");
+                lbl.SetEntityAttributeName(entity.Element.Name + "." + attr.Name);
             }
 
             if ((isDetail && ContainsUpdateDetail(useCase))
