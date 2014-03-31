@@ -2,7 +2,6 @@ package xismobile.example.todolistapp;
 
 import java.util.Calendar;
 
-import xismobile.example.todolistapp.OperationLogger.OperationType;
 import xismobile.example.todolistapp.domain.Category;
 import xismobile.example.todolistapp.domain.OrmLiteHelper;
 import xismobile.example.todolistapp.domain.Task;
@@ -68,11 +67,6 @@ public class EditTaskActivity extends Activity {
 			task.setDate(mDatePickerBtn.getText().toString());
 			task.setCategory(helper.getCategoryById(1));
 			helper.createOrUpdateTask(task);
-			if (taskID == -1) {
-				OperationLogger.addtoLog(getApplicationContext(), OperationType.CreateTask, task);
-			} else {
-				OperationLogger.addtoLog(getApplicationContext(), OperationType.UpdateTask, task);
-			}
 			finish();
 			return true;
 		case R.id.action_cancel:

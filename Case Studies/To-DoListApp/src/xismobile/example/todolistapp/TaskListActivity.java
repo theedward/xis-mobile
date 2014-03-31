@@ -15,10 +15,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import xismobile.example.todolistapp.OperationLogger.OperationType;
 import xismobile.example.todolistapp.domain.OrmLiteHelper;
 import xismobile.example.todolistapp.domain.Task;
-import xismobile.example.xistodoapp.R;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -41,9 +39,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 public class TaskListActivity extends Activity {
-	
-//	private String jsonResult;
-	private String url = "http://demo--1.azurewebsites.net/JSON.php?f=getToDo";
+
 	private ListView lv;
 	private OrmLiteHelper helper;
 	private List<Task> tasks;
@@ -97,31 +93,9 @@ public class TaskListActivity extends Activity {
 			sync();
 			return true;
 		case R.id.action_delete:
-			List<Task> selTasks = new ArrayList<Task>();
-			for (Task t : tasks) {
-				if (t.isSelected()) {
-					OperationLogger.addtoLog(getApplicationContext(), OperationType.DeleteTask, t);
-					selTasks.add(t);
-				}
-			}
-			
-			if (selTasks.size() > 0) {
-				for (Task t : selTasks) {
-					helper.deleteTask(t);
-				}
-				tasks.removeAll(selTasks);
-				tasksAdapter.notifyDataSetChanged();
-				Toast.makeText(getApplicationContext(), "Selected Tasks deleted!",
-						Toast.LENGTH_SHORT).show();
-			}
-			else {
-				tasks.clear();
-				helper.deleteAllTasks();
-				tasksAdapter.notifyDataSetChanged();
-				Toast.makeText(getApplicationContext(), "All Tasks deleted!",
-						Toast.LENGTH_SHORT).show();
-//				OperationLogger.addtoLog(getApplicationContext(), OperationType.DeleteAll, dt);
-			}
+			tasks.clear();
+			helper.deleteAllTasks();
+			tasksAdapter.notifyDataSetChanged();
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
@@ -152,13 +126,9 @@ public class TaskListActivity extends Activity {
 			return true;
 		case R.id.delete:
 			Task t = tasks.get(info.position);
-			OperationLogger.addtoLog(getApplicationContext(), OperationType.DeleteTask, t);
 			tasks.remove(info.position);
 			helper.deleteTask(t);
 			tasksAdapter.notifyDataSetChanged();
-			Toast.makeText(getApplicationContext(),
-				"Task " + t.getTitle() + " deleted!",
-				Toast.LENGTH_SHORT).show();
 			return true;
 		default:
 			return super.onContextItemSelected(item);
