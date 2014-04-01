@@ -19,5 +19,6 @@ Require-Bundle: org.eclipse.core.runtime,
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
 Eclipse-LazyStart: true
-Export-Package: xismobile.pim.uml2.gen.windowsphone.main
+Export-Package: xismobile.pim.uml2.gen.windowsphone.main,
+ xismobile.pim.uml2.gen.windowsphone.services
 
