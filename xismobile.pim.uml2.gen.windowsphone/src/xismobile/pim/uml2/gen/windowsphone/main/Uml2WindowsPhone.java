@@ -46,6 +46,12 @@ public class Uml2WindowsPhone extends AbstractAcceleoGenerator {
     public static final String[] TEMPLATE_NAMES = { "uml2WindowsPhone" };
     
     /**
+     * The path of the output folder of the generation.
+     */
+    public static String targetFolderPath;
+    public static String jarPath;
+    
+    /**
      * The list of properties files from the launch parameters (Launch configuration).
      *
      * @generated
@@ -117,15 +123,17 @@ public class Uml2WindowsPhone extends AbstractAcceleoGenerator {
      * 
      * @param args
      *            Arguments of the generation.
-     * @generated
+     * @generated NOT
      */
     public static void main(String[] args) {
         try {
-            if (args.length < 2) {
-                System.out.println("Arguments not valid : {model, folder}.");
+        	if (args.length < 3) {
+                System.out.println("Arguments not valid : {jarPath, model, folder}.");
             } else {
-                URI modelURI = URI.createFileURI(args[0]);
-                File folder = new File(args[1]);
+                URI modelURI = URI.createFileURI(args[1]);
+                File folder = new File(args[2]);
+                jarPath = args[0];
+                targetFolderPath = args[2];
                 
                 List<String> arguments = new ArrayList<String>();
                 
@@ -154,7 +162,7 @@ public class Uml2WindowsPhone extends AbstractAcceleoGenerator {
                  * (Help -> Help Contents).
                  */
                  
-                for (int i = 2; i < args.length; i++) {
+                for (int i = 3; i < args.length; i++) {
                     generator.addPropertiesFile(args[i]);
                 }
                 
