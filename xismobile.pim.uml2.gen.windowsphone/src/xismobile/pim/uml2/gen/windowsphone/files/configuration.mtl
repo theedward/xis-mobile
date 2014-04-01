@@ -2,6 +2,7 @@
 [module configuration('http://www.eclipse.org/uml2/4.0.0/UML')]
 
 [import xismobile::pim::uml2::gen::windowsphone::common::xisMobileUtils /]
+[import xismobile::pim::uml2::gen::windowsphone::services::services /]
 
 [template public generateConfigFiles(m : Model)]
 	[m.generateSolutionFile()/]
@@ -152,13 +153,13 @@ EndGlobal
     <None Include="Properties\WMAppManifest.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ApplicationIcon.png">
+    <Content Include="[m.addIcon('ApplicationIcon.png', null)/]">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Images\new.png" />
-    <Content Include="Images\delete.png" />
-    <Content Include="SplashScreenImage.jpg" />
-    <Content Include="Background.png">
+    <Content Include="[m.addIcon('appbar.new.rest.png', 'Images')/]" />
+    <Content Include="[m.addIcon('appbar.delete.rest.png', 'Images')/]" />
+    <Content Include="[m.addIcon('SplashScreenImage.jpg', null)/]" />
+    <Content Include="[m.addIcon('Background.png', null)/]">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
@@ -354,7 +355,7 @@ namespace [m.name.replace('-', '_').replace(' ', '').toUpperFirst()/]
 
 [template private generateAppManifest(m : Model)]
 
-[file (m.name.toUpperFirst() + '/' + m.name.toUpperFirst() + '/Properties/AppManifest.xaml', false, 'UTF-8')]
+[file (m.name.toUpperFirst() + '/' + m.name.toUpperFirst() + '/Properties/AppManifest.xml', false, 'UTF-8')]
 <Deployment xmlns="http://schemas.microsoft.com/client/2007/deployment"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 >
@@ -452,4 +453,14 @@ using System.Resources;
 
 [/file]
 [/let]
+[/template]
+
+[template private addIcon(m : Model, fileName : String, folder : String) post (trim())]
+[if (folder.oclIsUndefined())]
+[addDrawable(fileName, m.name.toUpperFirst() + '/' + m.name.toUpperFirst(), null)/]
+[fileName/]
+[else]
+[addDrawable(fileName, m.name.toUpperFirst() + '/' + m.name.toUpperFirst(), folder)/]
+[folder/]\[fileName/]
+[/if]
 [/template]
