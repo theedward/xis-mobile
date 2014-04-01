@@ -91,14 +91,14 @@ namespace XISMobileEAPlugin
                             ExecuteCommand(exePath + "\\AndroidGenerator.jar\" " + exePath + "\" " + umlPath + " \"" + textBoxPath.Text + "\\src-gen\"");
                             break;
                         case "Windows Phone":
-                            //ExecuteCommand(exePath + "\\WPGenerator.jar\" " + exePath + "\" " + umlPath + " " + textBoxPath.Text + "\\src-gen");
+                            //ExecuteCommand(exePath + "\\WindowsPhoneGenerator.jar\" " + exePath + "\" " + umlPath + " " + textBoxPath.Text + "\\src-gen");
                             break;
                         case "iOS":
                             ExecuteCommand(exePath + "\\iOSGenerator.jar\" " + exePath + "\" " + umlPath + " \"" + textBoxPath.Text + "\\src-gen\"");
                             break;
                         case "All":
-                            ExecuteCommand(exePath + "\\AndroidGenerator.jar\" " + exePath + "\" " + umlPath + " \"" + textBoxPath.Text + "\\androis\\src-gen\"");
-                            //ExecuteCommand(exePath + "\\WPGenerator.jar\" " + exePath + "\" " + umlPath + " " + textBoxPath.Text + "\\wp\\src-gen");
+                            ExecuteCommand(exePath + "\\AndroidGenerator.jar\" " + exePath + "\" " + umlPath + " \"" + textBoxPath.Text + "\\android\\src-gen\"");
+                            //ExecuteCommand(exePath + "\\WindowsPhoneGenerator.jar\" " + exePath + "\" " + umlPath + " " + textBoxPath.Text + "\\windowsphone\\src-gen");
                             ExecuteCommand(exePath + "\\iOSGenerator.jar\" " + exePath + "\" " + umlPath + " \"" + textBoxPath.Text + "\\ios\\src-gen\"");
                             break;
                         default:
