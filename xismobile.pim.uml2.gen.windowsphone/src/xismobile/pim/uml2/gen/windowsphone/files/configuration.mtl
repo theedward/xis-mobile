@@ -437,7 +437,7 @@ using System.Resources;
       <Capability Name="ID_CAP_APPOINTMENTS"/>
     </Capabilities>
     <Tasks>
-      <DefaultTask  Name ="_default" NavigationPage="[m.getAllXisInteractionSpaces()->select(i : Class | i.isMainScreen()).name.toUpperFirst()/].xaml"/>
+      <DefaultTask  Name ="_default" NavigationPage="[m.getAllXisInteractionSpaces()->select(i : Class | i.isMainScreen()).name.toUpperFirst()/]Page.xaml"/>
     </Tasks>
     <Tokens>
       <PrimaryToken TokenID="[modelName/]Token" TaskName="_default">
