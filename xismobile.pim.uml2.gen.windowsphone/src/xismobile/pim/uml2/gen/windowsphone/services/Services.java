@@ -839,7 +839,7 @@ public class Services {
 			
 			while (entries.hasMoreElements()) {
 				entry = (JarEntry) entries.nextElement();
-				if (fileFolder != null && entry.getName().equals(icons + fileName)) {
+				if (entry.getName().equals(icons + fileName)) {
 					fileExists = true;
 					break;
 	            }
