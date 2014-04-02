@@ -415,4 +415,18 @@ public class Uml2WindowsPhone extends AbstractAcceleoGenerator {
         resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap().put(UMLResource.FILE_EXTENSION, UMLResource.Factory.INSTANCE);
     }
     
+    protected URI createTemplateURI(String entry) {
+    	if (entry.contains("rsrc:")) {
+			entry = entry.replace("rsrc:", "");
+			entry = "jar:file:/" + jarPath + "/WindowsPhoneGenerator.jar!/" + entry;
+//			entry = "jar:file:/" + System.getProperty("user.dir") + "/AndroidGenerator.jar!/" + entry;
+			System.out.println("DEBUG: " + entry);
+		}
+    	
+		if (entry.startsWith("file:") || entry.startsWith("jar:")) { //$NON-NLS-1$ //$NON-NLS-2$ 
+			return URI.createURI(URI.decode(entry));
+		}
+		return URI.createFileURI(URI.decode(entry));
+	}
+    
 }
