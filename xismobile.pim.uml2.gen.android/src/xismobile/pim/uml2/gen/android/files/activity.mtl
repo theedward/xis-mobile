@@ -88,6 +88,7 @@ public class [c.name.toUpperFirst()/]Activity extends Activity {
 	[/let]
 	[if (c.needsModes())]
 	private boolean inCreateMode = false;
+	private boolean inViewMode = false;
 	private boolean inEditMode = false;
 	[/if]
 [/if]
