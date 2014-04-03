@@ -228,7 +228,7 @@ namespace XISMobileEAPlugin
                 case rule30:
                     return "A XisClientMobileApp must realize a XisRemoteService!";
                 case rule31:
-                    return "A XisNavigationAssociation must only connect XisInteractionSpaces!";
+                    return "A XisInteractionSpaceAssociation must only connect XisInteractionSpaces!";
                 case rule32:
                     return "There must be 1 XisInteractionSpace that is the main screen!";
                 case rule33:
@@ -1587,7 +1587,7 @@ namespace XISMobileEAPlugin
 
         private void DoRule31(EA.Repository Repository, EA.Connector Connector)
         {
-            if (Connector.Stereotype == "XisNavigationAssociation")
+            if (Connector.Stereotype == "XisInteractionSpaceAssociation")
             {
                 EA.Element client = Repository.GetElementByID(Connector.ClientID);
                 EA.Element supplier = Repository.GetElementByID(Connector.SupplierID);
