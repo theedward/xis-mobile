@@ -116,6 +116,8 @@ manager
 [e.writeEntitySetter(el, el.getXisSimpleWidgetEntityAttributeName(el.getXisTimePicker()))/]
 	[elseif (el.isXisDropdown() and el.getXisSimpleWidgetEntityAttributeName(el.getXisDropdown()).contains(e.name))]
 [e.writeEntitySetter(el, el.getXisSimpleWidgetEntityAttributeName(el.getXisDropdown()))/]
+	[elseif (el.isXisRadioButton() and el.getXisSimpleWidgetEntityAttributeName(el.getXisRadioButton()).contains(e.name))]
+[e.writeEntitySetter(el, el.getXisSimpleWidgetEntityAttributeName(el.getXisRadioButton()))/]
 	[/if]
 [/for]
 [elseif (w.isXisMenu())]
@@ -134,6 +136,8 @@ manager
 [e.writeEntitySetter(el, el.getXisSimpleWidgetEntityAttributeName(el.getXisTimePicker()))/]
 	[elseif (el.isXisDropdown() and el.getXisSimpleWidgetEntityAttributeName(el.getXisDropdown()).contains(e.name))]
 [e.writeEntitySetter(el, el.getXisSimpleWidgetEntityAttributeName(el.getXisDropdown()))/]
+	[elseif (el.isXisRadioButton() and el.getXisSimpleWidgetEntityAttributeName(el.getXisRadioButton()).contains(e.name))]
+[e.writeEntitySetter(el, el.getXisSimpleWidgetEntityAttributeName(el.getXisRadioButton()))/]
 	[/if]
 [/for]
 [/if]
@@ -165,6 +169,8 @@ mDatePicker[c.name.toUpperFirst()/].getText().toString()
 mTimePicker[c.name.toUpperFirst()/].getText().toString()
 [elseif (c.isXisDropdown())]
 mDropdown[c.name.toUpperFirst()/].getSelectedItem().toString()
+[elseif (c.isXisRadioButton())]
+mRadioButton[c.name.toUpperFirst()/].isChecked().toString()
 [/if]
 [/template]
 

@@ -142,6 +142,8 @@ public class [entity.name.toUpperFirst()/]Adapter extends ArrayAdapter<[entity.n
 (ListView) convertView.findViewById(R.id.list[c.name.toUpperFirst()/]);
 [elseif (c.isXisDropdown())]
 (XisDropdown) convertView.findViewById(R.id.dropdown[c.name.toUpperFirst()/]);
+[elseif (c.isXisRadioButton())]
+(XisRadioButton) convertView.findViewById(R.id.radioButton[c.name.toUpperFirst()/]);
 [/if]
 [/template]
 
@@ -170,5 +172,7 @@ XisMapView
 ListView
 [elseif (c.isXisDropdown())]
 XisDropdown
+[elseif (c.isXisRadioButton())]
+RadioButton
 [/if]
 [/template]

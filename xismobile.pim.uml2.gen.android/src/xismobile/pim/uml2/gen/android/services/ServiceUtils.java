@@ -155,6 +155,14 @@ public final class ServiceUtils {
 		return c.getAppliedStereotype("XIS-Mobile::XisDropdown");
 	}
 	
+	public static boolean isXisRadioButton(Class c) {
+		return getXisRadioButton(c) != null;
+	}
+	
+	public static Stereotype getXisRadioButton(Class c) {
+		return c.getAppliedStereotype("XIS-Mobile::XisRadioButton");
+	}
+	
 	public static String getXisSimpleWidgetEntityAttributeName(Class c, Stereotype s) {
 		String entityAttributeName = (String) c.getValue(s, "entityAttributeName");
 		return entityAttributeName;
@@ -388,6 +396,8 @@ public final class ServiceUtils {
 			s = getXisMapView(c);
 		} else if (isXisDropdown(c)) {
 			s = getXisDropdown(c);
+		} else if (isXisRadioButton(c)) {
+			s = getXisRadioButton(c);
 		} else if (isXisList(c)) {
 			s = getXisList(c);
 		} else if (isXisVisibilityBoundary(c)) {
@@ -442,6 +452,8 @@ public final class ServiceUtils {
 			name = "mapView";
 		} else if (isXisDropdown(c)) {
 			name = "dropdown";
+		} else if (isXisRadioButton(c)) {
+			name = "radioButton";
 		} else if (isXisForm(c)) {
 			name = "form";
 		} else if (isXisCompositeWidget(c)) {

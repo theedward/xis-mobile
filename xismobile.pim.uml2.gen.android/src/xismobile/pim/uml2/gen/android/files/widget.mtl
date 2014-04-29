@@ -30,6 +30,8 @@ mWebView[c.name.toUpperFirst()/]
 mMapView[c.name.toUpperFirst()/]
 [elseif (c.isXisDropdown())]
 mDropdown[c.name.toUpperFirst()/]
+[elseif (c.isXisRadioButton())]
+mRadioButton[c.name.toUpperFirst()/]	
 [elseif (c.isXisForm())]
 mForm[c.name.toUpperFirst()/]
 [elseif (c.isXisList())]
@@ -170,6 +172,14 @@ mDropdown.setPrompt("Select [c.name/]...");
 	[if (c.owner.oclIsTypeOf(Class) and c.owner.oclAsType(Class).isXisVisibilityBoundary())]
 [c.writeVisibility('mDropdown' + c.name.toUpperFirst())/]
 	[/if]
+[elseif (c.isXisRadioButton())]
+mRadioButton[c.name.toUpperFirst()/] = (RadioButton) findViewById(R.id.radioButton[c.name.toUpperFirst()/]);
+	[if (c.getXisWidgetValue(c.getXisRadioButton()).oclIsUndefined())]
+[c.writeSetWidgetValue(c.getXisRadioButton(), name)/]
+	[/if]
+	[if (c.owner.oclIsTypeOf(Class) and c.owner.oclAsType(Class).isXisVisibilityBoundary())]
+[c.writeVisibility('mRadioButton' + c.name.toUpperFirst())/]
+	[/if]
 [elseif (c.isXisList())]
 mList[c.name.toUpperFirst()/] = (ListView) findViewById(R.id.list[c.name.toUpperFirst()/]);
 [let entity : Class = c.getXisListEntity()]
@@ -294,6 +304,8 @@ XisWebViewGestureManager
 XisMapViewGestureManager
 [elseif (c.isXisDropdown())]
 XisDropdownGestureManager
+[elseif (c.isXisRadioButton())]
+XisRadioButtonGestureManager
 [/if]
 [/template]
 
@@ -446,6 +458,8 @@ public void onPinch() {
 [writeListView(c)/]
 [elseif (c.isXisDropdown())]
 [writeDropdown(widgets, c)/]
+[elseif (c.isXisRadioButton())]
+[writeRadioButton(widgets, c)/]
 [elseif (c.isXisForm())]
 [writeForm(widgets, c)/]
 [/if]
@@ -655,6 +669,17 @@ public void onPinch() {
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
 	[writeWidgetRelativePositioning(widgets, c)/]
+/>
+[/let]
+[/template]
+
+[template private writeRadioButton(widgets : Sequence(Class), c : Class)]
+[let name : String = 'radioButton' + c.name.toUpperFirst()]
+<xis_mobile.library.widgets.XisRadioButton
+	android:id="@+id/[name/]"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    [writeWidgetRelativePositioning(widgets, c)/]
 />
 [/let]
 [/template]
