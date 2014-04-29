@@ -218,6 +218,7 @@ public class XMLParser {
 		addToMap(document.getElementsByTagName("XIS-Mobile:XisWebView"), widgets);
 		addToMap(document.getElementsByTagName("XIS-Mobile:XisMapView"), widgets);
 		addToMap(document.getElementsByTagName("XIS-Mobile:XisDropdown"), widgets);
+		addToMap(document.getElementsByTagName("XIS-Mobile:XisRadioButton"), widgets);
 		addToMap(document.getElementsByTagName("XIS-Mobile:XisCompositeWidget"), widgets);
 		
 		return widgets.size() > 0 ? widgets : null;
