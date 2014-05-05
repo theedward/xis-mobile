@@ -639,8 +639,8 @@
 	not c.getXisCheckBox().oclIsUndefined()
 /]
 
-[query public getCheckBoxText(c : Class) : String =
-	c.getValue(c.getXisCheckBox(), 'text')
+[query public getCheckBoxLabel(c : Class) : String =
+	c.getValue(c.getXisCheckBox(), 'label')
 /]
 
 [query public getXisButton(c : Class) : Stereotype =
