@@ -3,6 +3,8 @@ package xis_mobile.library.gestures;
 public abstract class XisLinkGestureManager implements XisGestureManager {
 	
 	public abstract void onDoubleTap();
+	
+	public abstract void onSwipe();
 
 	@Override
 	public void onPinch() {
@@ -11,11 +13,6 @@ public abstract class XisLinkGestureManager implements XisGestureManager {
 	
 	@Override
 	public void onStretch() {
-		// TODO Auto-generated method stub
-	}
-	
-	@Override
-	public void onSwipe() {
 		// TODO Auto-generated method stub
 	}
 }
