@@ -173,6 +173,6 @@ ListView
 [elseif (c.isXisDropdown())]
 XisDropdown
 [elseif (c.isXisRadioButton())]
-RadioButton
+XisRadioButton
 [/if]
 [/template]

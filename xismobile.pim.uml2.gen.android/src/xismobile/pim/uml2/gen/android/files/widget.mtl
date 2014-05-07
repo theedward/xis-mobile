@@ -173,7 +173,7 @@ mDropdown.setPrompt("Select [c.name/]...");
 [c.writeVisibility('mDropdown' + c.name.toUpperFirst())/]
 	[/if]
 [elseif (c.isXisRadioButton())]
-mRadioButton[c.name.toUpperFirst()/] = (RadioButton) findViewById(R.id.radioButton[c.name.toUpperFirst()/]);
+mRadioButton[c.name.toUpperFirst()/] = (XisRadioButton) findViewById(R.id.radioButton[c.name.toUpperFirst()/]);
 	[if (c.getXisWidgetValue(c.getXisRadioButton()).oclIsUndefined())]
 [c.writeSetWidgetValue(c.getXisRadioButton(), name)/]
 	[/if]
