@@ -17,7 +17,7 @@ The XIS-Mobile Framework aims to:
 1. Allow the specification of mobile applications using XIS-Mobile language through a visual editor;
 2. Check the quality of the produced model;
 3. Generate User-Interfaces views from the other views;
-4. Generate source code from it for different platforms (Android and Windows Phone).
+4. Generate source code from it for different platforms (Android, Windows Phone and iOS).
 
 To accomplish these goals are being developed four modules:
 
