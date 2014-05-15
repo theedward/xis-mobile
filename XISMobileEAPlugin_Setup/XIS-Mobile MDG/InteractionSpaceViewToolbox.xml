@@ -13,7 +13,7 @@
 					<Tag name="XIS-Mobile::XisAction" type="" description="" unit="" values="" default="XisAction"/>
 				</TaggedValues>
 			</Stereotype>
-			<Stereotype name="Simple_Widget_Elements" alias="Simple Widget Elements" notes="Simple Widget Elements for InteractionSpace View Diagrams" cx="292" cy="202" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
+			<Stereotype name="Simple_Widget_Elements" alias="Simple Widget Elements" notes="Simple Widget Elements for InteractionSpace View Diagrams" cx="292" cy="215" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
 				<AppliesTo>
 					<Apply type="ToolboxPage"/>
 				</AppliesTo>
@@ -31,6 +31,7 @@
 					<Tag name="XIS-Mobile::XisMapMarker" type="" description="" unit="" values="" default="XisMapMarker"/>
 					<Tag name="XIS-Mobile::XisDropdown" type="" description="" unit="" values="" default="XisDropdown"/>
 					<Tag name="XIS-Mobile::XisMenuItem" type="" description="" unit="" values="" default="XisMenuItem"/>
+					<Tag name="XIS-Mobile::XisRadioButton" type="" description="" unit="" values="" default="XisRadioButton"/>
 				</TaggedValues>
 			</Stereotype>
 			<Stereotype name="InteractionSpace_Relationships" alias="InteractionSpace Relationships" notes="Relationships for InteractionSpace View Diagrams" cx="323" cy="85" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
@@ -65,6 +66,69 @@
 				<TaggedValues>
 					<Tag name="XIS-Mobile::XisVisibilityBoundary" type="" description="" unit="" values="" default="XisVisibilityBoundary"/>
 				</TaggedValues>
+			</Stereotype>
+			<Stereotype name="InteractionSpace_Patterns" alias="InteractionSpace Patterns" notes="Patterns for InteractionSpace View Diagrams" cx="316" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
+				<AppliesTo>
+					<Apply type="ToolboxPage"/>
+				</AppliesTo>
+				<TaggedValues>
+					<Tag name="XIS-MobileT::XisList Pattern(UMLPattern)" type="" description="" unit="" values="" default="XisList Pattern"/>
+					<Tag name="XIS-MobileT::XisMenu Pattern(UMLPattern)" type="" description="" unit="" values="" default="XisMenu Pattern"/>
+				</TaggedValues>
+			</Stereotype>
+			<Stereotype name="XIS-MobileT::XisList Pattern(UMLPattern)" notes="">
+				<Icon type="bitmap" xmlns:dt="urn:schemas-microsoft-com:datatypes" dt:dt="bin.base64">
+				  Qk02AwAAAAAAADYAAAAoAAAAEAAAABAAAAABABgAAAAAAAADAAATCwAAEwsAAAAAAAAAAAAA
+				  wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA
+				  wMDAzJmZzGYzzGYzzGYzzGYzzGYzzGYzzGYzzGYzzGYzzGYzzGYzwMDAwMDAwMDAwMDAzJmZ
+				  8Mqm8Mqm8Mqm8Mqm8MqmAAD/8Mqm8Mqm8Mqm8MqmzGYzwMDAwMDAwMDAwMDAzJmZ////////
+				  8Mqm8MqmAAD/AAD/mTMz8Mqm8Mqm8MqmzGYzwMDAwMDAwMDAwMDAzJmZ////////////8Mqm
+				  AJn/M///mTMz8Mqm8Mqm8MqmzGYzwMDAwMDAwMDAwMDAAACAzJmZ////////8MqmM///M///
+				  M///8Mqm8Mqm8MqmzGYzwMDAwMDAwMDAAACAAACAgAAAzJmZ////////8MqmM///8MqmAAD/
+				  8Mqm8MqmzGYzwMDAwMDAAACAAAD/AACA/wAAgAAAzJmZ////////8MqmAAD/AAD/mTMz8Mqm
+				  zGYzwMDAwMDAAAD/AAD/AJn//wAAgAAAzJmZ////////8MqmAJn/M///mTMz8MqmzGYzwMDA
+				  wMDAAAD/AJn/M///gICAgAAAzJmZ////////8MqmM///M///M///8MqmzGYzwMDAwMDAAJn/
+				  M///M///M///ZmZmzJmZ////8MqmAAD/8MqmM///8Mqm8MqmzGYzwMDAwMDAwMDAM///M///
+				  M///zJmZ////8MqmAAD/AAD/mTMz8Mqm8Mqm8MqmzGYzwMDAwMDAwMDAwMDAM///zJmZ////
+				  ////8MqmAJn/M///mTMzzJmZzGYzzGYzzGYzwMDAwMDAwMDAwMDAzJmZ////////////8Mqm
+				  M///M///M///zJmZ////zJmZwMDAwMDAwMDAwMDAwMDAzJmZ////////////////8MqmM///
+				  8MqmzJmZzJmZwMDAwMDAwMDAwMDAwMDAwMDAzJmZzJmZzJmZzJmZzJmZzJmZzJmZzJmZzJmZ
+				  wMDAwMDAwMDAwMDArboN8K26DfCtug3wrboN8K26DfCtug3wrboN8K26DfCtug3wrboN8K26
+				  DfCtug3wrboN8K26DfCtug3wrboN8K26DfCtug3wrboN8K26DfCtug3wrboN8K26DfCtug3w
+				  rboN8K26DfCtug3wrboN8K26DfCtug3wrboN8K26DfCtug3wrboN8K26DfCtug3wrboN8K26
+				  DfCtug3wrboN8K26DfCtug3wrboN8K26DfCtug3wrboN8K26DfCtug3wrboN8K26DfCt
+				  ug==
+				</Icon>
+				<AppliesTo>
+				  <Apply type="ToolboxItemImage"/>
+				</AppliesTo>
+			</Stereotype>
+			<Stereotype name="XIS-MobileT::XisMenu Pattern(UMLPattern)" notes="">
+				<Icon type="bitmap" xmlns:dt="urn:schemas-microsoft-com:datatypes" dt:dt="bin.base64">
+				  Qk02AwAAAAAAADYAAAAoAAAAEAAAABAAAAABABgAAAAAAAADAAATCwAAEwsAAAAAAAAAAAAA
+				  wMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA
+				  wMDAzJmZzGYzzGYzzGYzzGYzzGYzzGYzzGYzzGYzzGYzzGYzzGYzwMDAwMDAwMDAwMDAzJmZ
+				  8Mqm8Mqm8Mqm8Mqm8MqmAAD/8Mqm8Mqm8Mqm8MqmzGYzwMDAwMDAwMDAwMDAzJmZ////////
+				  8Mqm8MqmAAD/AAD/mTMz8Mqm8Mqm8MqmzGYzwMDAwMDAwMDAwMDAzJmZ////////////8Mqm
+				  AJn/M///mTMz8Mqm8Mqm8MqmzGYzwMDAwMDAwMDAwMDAAACAzJmZ////////8MqmM///M///
+				  M///8Mqm8Mqm8MqmzGYzwMDAwMDAwMDAAACAAACAgAAAzJmZ////////8MqmM///8MqmAAD/
+				  8Mqm8MqmzGYzwMDAwMDAAACAAAD/AACA/wAAgAAAzJmZ////////8MqmAAD/AAD/mTMz8Mqm
+				  zGYzwMDAwMDAAAD/AAD/AJn//wAAgAAAzJmZ////////8MqmAJn/M///mTMz8MqmzGYzwMDA
+				  wMDAAAD/AJn/M///gICAgAAAzJmZ////////8MqmM///M///M///8MqmzGYzwMDAwMDAAJn/
+				  M///M///M///ZmZmzJmZ////8MqmAAD/8MqmM///8Mqm8MqmzGYzwMDAwMDAwMDAM///M///
+				  M///zJmZ////8MqmAAD/AAD/mTMz8Mqm8Mqm8MqmzGYzwMDAwMDAwMDAwMDAM///zJmZ////
+				  ////8MqmAJn/M///mTMzzJmZzGYzzGYzzGYzwMDAwMDAwMDAwMDAzJmZ////////////8Mqm
+				  M///M///M///zJmZ////zJmZwMDAwMDAwMDAwMDAwMDAzJmZ////////////////8MqmM///
+				  8MqmzJmZzJmZwMDAwMDAwMDAwMDAwMDAwMDAzJmZzJmZzJmZzJmZzJmZzJmZzJmZzJmZzJmZ
+				  wMDAwMDAwMDAwMDArboN8K26DfCtug3wrboN8K26DfCtug3wrboN8K26DfCtug3wrboN8K26
+				  DfCtug3wrboN8K26DfCtug3wrboN8K26DfCtug3wrboN8K26DfCtug3wrboN8K26DfCtug3w
+				  rboN8K26DfCtug3wrboN8K26DfCtug3wrboN8K26DfCtug3wrboN8K26DfCtug3wrboN8K26
+				  DfCtug3wrboN8K26DfCtug3wrboN8K26DfCtug3wrboN8K26DfCtug3wrboN8K26DfCt
+				  ug==
+				</Icon>
+				<AppliesTo>
+				  <Apply type="ToolboxItemImage"/>
+				</AppliesTo>
 			</Stereotype>
 		</Stereotypes>
 		<TaggedValueTypes/>

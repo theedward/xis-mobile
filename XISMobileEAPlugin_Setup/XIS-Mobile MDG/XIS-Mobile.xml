@@ -148,7 +148,7 @@
 			</Stereotype>
 			<Stereotype name="XisCheckBox" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0" generalizes="XisSimpleWidget" baseStereotypes="XisSimpleWidget">
 				<TaggedValues>
-					<Tag name="text" type="String" description="" unit="" values="" default=""/>
+					<Tag name="label" type="String" description="" unit="" values="" default=""/>
 				</TaggedValues>
 			</Stereotype>
 			<Stereotype name="XisClientMobileApp" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0" generalizes="XisProvider" baseStereotypes="XisProvider"/>
@@ -302,10 +302,10 @@
 					<Tag name="name" type="String" description="" unit="" values="" default=""/>
 					<Tag name="isMainScreen" type="boolean" description="" unit="" values="true,false" default="false"/>
 					<Tag name="title" type="String" description="" unit="" values="" default=""/>
-					<Tag name="posX" type="String" description="" unit="" values="" default=""/>
-					<Tag name="posY" type="String" description="" unit="" values="" default=""/>
-					<Tag name="width" type="String" description="" unit="" values="" default=""/>
-					<Tag name="height" type="String" description="" unit="" values="" default=""/>
+					<Tag name="posX" type="double" description="" unit="" values="" default=""/>
+					<Tag name="posY" type="double" description="" unit="" values="" default=""/>
+					<Tag name="width" type="double" description="" unit="" values="" default=""/>
+					<Tag name="height" type="double" description="" unit="" values="" default=""/>
 				</TaggedValues>
 			</Stereotype>
 			<Stereotype name="XisInteractionSpaceAssociation" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
@@ -412,6 +412,7 @@
 					</Apply>
 				</AppliesTo>
 			</Stereotype>
+			<Stereotype name="XisRadioButton" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0" generalizes="XisSimpleWidget" baseStereotypes="XisSimpleWidget"/>
 			<Stereotype name="XisRemoteService" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0" generalizes="XisService" baseStereotypes="XisService">
 				<TaggedValues>
 					<Tag name="returnType" type="enumeration" description="" unit="" values="XML,JSON" default=""/>
@@ -514,10 +515,10 @@ AAABAAEAPgAAANgBAAAAAA==</Image>
 				</AppliesTo>
 				<TaggedValues>
 					<Tag name="name" type="String" description="" unit="" values="" default=""/>
-					<Tag name="posX" type="int" description="" unit="" values="" default=""/>
-					<Tag name="posY" type="int" description="" unit="" values="" default=""/>
-					<Tag name="width" type="int" description="" unit="" values="" default=""/>
-					<Tag name="height" type="int" description="" unit="" values="" default=""/>
+					<Tag name="posX" type="double" description="" unit="" values="" default=""/>
+					<Tag name="posY" type="double" description="" unit="" values="" default=""/>
+					<Tag name="width" type="double" description="" unit="" values="" default=""/>
+					<Tag name="height" type="double" description="" unit="" values="" default=""/>
 					<Tag name="value" type="String" description="" unit="" values="" default=""/>
 					<Tag name="valueFromExpression" type="String" description="" unit="" values="" default=""/>
 				</TaggedValues>
