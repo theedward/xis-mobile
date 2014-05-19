@@ -1,0 +1,340 @@
+[comment encoding = UTF-8 /]
+[module widget('http://www.eclipse.org/uml2/4.0.0/UML')]
+
+[import xismobile::pim::uml2::gen::windowsphone::common::xisMobileUtils /]
+[import xismobile::pim::uml2::gen::windowsphone::services::services /]
+
+[template public getWidgetName(c : Class) post (trim())]
+[if (c.isXisLabel())]
+mLabel[c.name.toUpperFirst()/]
+[elseif (c.isXisTextBox())]
+mTextBox[c.name.toUpperFirst()/]
+[elseif (c.isXisCheckBox())]
+mCheckBox[c.name.toUpperFirst()/]
+[elseif (c.isXisButton())]
+mButton[c.name.toUpperFirst()/]
+[elseif (c.isXisLink())]
+mLink[c.name.toUpperFirst()/]
+[elseif (c.isXisImage())]
+mImage[c.name.toUpperFirst()/]
+[elseif (c.isXisDatePicker())]
+mDatePicker[c.name.toUpperFirst()/]
+[elseif (c.isXisTimePicker())]
+mTimePicker[c.name.toUpperFirst()/]
+[elseif (c.isXisWebView())]
+mWebView[c.name.toUpperFirst()/]
+[elseif (c.isXisMapView())]
+mMapView[c.name.toUpperFirst()/]
+[elseif (c.isXisDropdown())]
+mDropdown[c.name.toUpperFirst()/]
+[elseif (c.isXisRadioButton())]
+mRadioButton[c.name.toUpperFirst()/]	
+[elseif (c.isXisForm())]
+mForm[c.name.toUpperFirst()/]
+[elseif (c.isXisList())]
+mList[c.name.toUpperFirst()/]
+[/if]
+[/template]
+
+[template public initializeWidget(c : Class) post (trim())]
+[comment @TODO Add code.../]
+[/template]
+
+[template private writeVisibility(c : Class, name : String) post (trim())]
+[comment @TODO Add code.../]
+[/template]
+
+[template private writeGestureBinding(c : Class) post (trim())]
+[comment @TODO Add code.../]
+[/template]
+
+[template private getXisGestureManagerName(c : Class) post (trim())]
+[comment @TODO Add code.../]
+[/template]
+
+[template private writeXisGestureManager(c : Class, gestures : OrderedSet(Class)) post (trim())]
+[comment @TODO Add code.../]
+[/template]
+
+[template private writeOnTap(c : Class, gestures : OrderedSet(Class)) post (trim())]
+[comment @TODO Add code.../]
+[/template]
+
+[template private writeOnTapDefault(c : Class, op : Operation) post (trim())]
+[comment @TODO Add code.../]
+[/template]
+	
+[template private writeOnDoubleTap(gestures : OrderedSet(Class)) post (trim())]
+[comment @TODO Add code.../]
+[/template]
+
+[template private writeOnLongTap(c : Class, gestures : OrderedSet(Class)) post (trim())]
+[comment @TODO Add code.../]
+[/template]
+
+[template private writeOnSwipe(gestures : OrderedSet(Class)) post (trim())]
+[comment @TODO Add code.../]
+[/template]
+
+[template private writeOnStretch(gestures : OrderedSet(Class)) post (trim())]
+[comment @TODO Add code.../]
+[/template]
+
+[template private writeOnPinch(gestures : OrderedSet(Class)) post (trim())]
+[comment @TODO Add code.../]
+[/template]
+
+[template public writeWidget(widgets : Sequence(Class), c : Class) post (trim())]
+[if (c.isXisLabel())]
+[writeLabel(widgets, c)/]
+[elseif (c.isXisTextBox())]
+[writeTextBox(widgets, c)/]
+[elseif (c.isXisCheckBox())]
+[writeCheckBox(widgets, c)/]
+[elseif (c.isXisButton())]
+[writeButton(widgets, c)/]
+[elseif (c.isXisLink())]
+[writeLink(widgets, c)/]
+[elseif (c.isXisImage())]
+[writeImageView(widgets, c)/]
+[elseif (c.isXisDatePicker())]
+[writeDatePicker(widgets, c)/]
+[elseif (c.isXisTimePicker())]
+[writeTimePicker(widgets, c)/]
+[elseif (c.isXisWebView())]
+[writeWebView(widgets, c)/]
+[elseif (c.isXisMapView())]
+[writeMapView(widgets, c)/]
+[elseif (c.isXisList())]
+[writeListView(c)/]
+[elseif (c.isXisDropdown())]
+[writeDropdown(widgets, c)/]
+[elseif (c.isXisRadioButton())]
+[writeRadioButton(widgets, c)/]
+[elseif (c.isXisForm())]
+[writeForm(widgets, c)/]
+[/if]
+[/template]
+
+[template private writeLabel(widgets : Sequence(Class), c : Class)]
+[let name : String = 'label' + c.name.toUpperFirst()]
+<xis_mobile.library.widgets.XisLabel
+	android:id="@+id/[name/]"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	[writeWidgetRelativePositioning(widgets, c)/]
+[let value : String = c.getXisWidgetValue(c.getXisLabel())]
+	[if (not value.oclIsUndefined())]
+	[comment]android:text="[addString(name + '_text', value)/]"[/comment]
+	[/if]
+[/let]
+/>
+[/let]
+[/template]
+
+[template private writeTextBox(widgets : Sequence(Class), c : Class)]
+[let name : String = 'textBox' + c.name.toUpperFirst()]
+<xis_mobile.library.widgets.XisTextBox
+	android:id="@+id/[name/]"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	[writeWidgetRelativePositioning(widgets, c)/]
+	android:ems="10"
+	[if (c.getXisTexBoxLines() > 1)]
+	android:inputType="textMultiLine"
+	[/if]
+	android:minLines="[c.getXisTexBoxLines()/]"
+	android:gravity="top"
+	android:scrollbars="vertical"
+	[if (c.xisTextBoxHasHint())]
+[comment]	android:hint="[addString(name + '_hint', c.getXisTexBoxHint())/]"[/comment]
+	[/if]
+[let value : String = c.getXisWidgetValue(c.getXisTextBox())]
+	[if (not value.oclIsUndefined())]
+[comment]	android:text="[addString(name + '_text', value)/]"[/comment]
+	[/if]
+[/let]
+/>
+[/let]
+[/template]
+
+[template private writeCheckBox(widgets : Sequence(Class), c : Class)]
+[let name : String = 'checkBox' + c.name.toUpperFirst()]
+<xis_mobile.library.widgets.XisCheckBox
+	android:id="@+id/[name/]"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+	[writeWidgetRelativePositioning(widgets, c)/]
+    [if (c.hasXisAction())]
+	android:onClick="[c.getXisAction().name.toLowerFirst()/]"
+	[/if]
+[let value : String = c.getXisWidgetValue(c.getXisCheckBox())]
+	[if (not value.oclIsUndefined())]
+[comment]	android:text="[addString(name + '_text', value)/]"[/comment]
+	[/if]
+[/let]
+/>
+[/let]
+[/template]
+
+[template private writeButton(widgets : Sequence(Class), c : Class)]
+[let name : String = 'button' + c.name.toUpperFirst()]
+<xis_mobile.library.widgets.XisButton
+	android:id="@+id/[name/]"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	[writeWidgetRelativePositioning(widgets, c)/]
+	[if (c.hasXisAction())]
+	android:onClick="[c.getXisAction().name.toLowerFirst()/]"
+	[/if]
+[let value : String = c.getXisWidgetValue(c.getXisButton())]
+	[if (not value.oclIsUndefined())]
+[comment]	android:text="[addString(name + '_text', value)/]"[/comment]
+	[/if]
+[/let]
+/>
+[/let]
+[/template]
+
+[template private writeLink(widgets : Sequence(Class), c : Class)]
+[let name : String = 'link' + c.name.toUpperFirst()]
+<<xis_mobile.library.widgets.XisLink
+	android:id="@+id/link[c.name.toUpperFirst()/]"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	[writeWidgetRelativePositioning(widgets, c)/]
+	android:autolink="web"
+[comment]	android:text="[addString(name + '_text', c.getXisLinkURL())/]"[/comment]
+/>
+[/let]
+[/template]
+
+[template private writeImageView(widgets : Sequence(Class), c : Class)]
+[let name : String = 'image' + c.name.toUpperFirst()]
+<xis_mobile.library.widgets.XisImage
+	android:id="@+id/[name/]"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	[writeWidgetRelativePositioning(widgets, c)/]
+[comment]	android:src="[addString(name + '_src', c.getXisImagePath())/]"[/comment]
+/>
+[/let]
+[/template]
+
+[template private writeDatePicker(widgets : Sequence(Class), c : Class)]
+[let name : String = 'datePicker' + c.name.toUpperFirst()]
+<xis_mobile.library.widgets.XisDatePicker
+	android:id="@+id/[name/]"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	[writeWidgetRelativePositioning(widgets, c)/]
+[let value : String = c.getXisWidgetValue(c.getXisDatePicker())]
+	[if (not value.oclIsUndefined())]
+[comment]	android:text="[addString(name + '_text', value)/]"[/comment]
+	[/if]
+[/let]
+/>
+[/let]
+[/template]
+
+[template private writeTimePicker(widgets : Sequence(Class), c : Class)]
+[let name : String = 'timePicker' + c.name.toUpperFirst()]
+<xis_mobile.library.widgets.XisTimePicker
+	android:id="@+id/[name/]"
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	[writeWidgetRelativePositioning(widgets, c)/]
+[let value : String = c.getXisWidgetValue(c.getXisTimePicker())]
+	[if (not value.oclIsUndefined())]
+	[comment]android:text="[addString(name + '_text', value)/]"[/comment]
+	[/if]
+[/let]
+/>
+[/let]
+[/template]
+
+[template private writeWebView(widgets : Sequence(Class), c : Class)]
+[let name : String = 'webView' + c.name.toUpperFirst()]
+<xis_mobile.library.widgets.XisWebView
+	android:id="@+id/[name/]"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	[writeWidgetRelativePositioning(widgets, c)/]
+/>
+[/let]
+[/template]
+
+[template private writeMapView(widgets : Sequence(Class), c : Class)]
+[let name : String = 'mapView' + c.name.toUpperFirst()]
+<fragment
+	android:id="@+id/[name/]"
+	android:name="xis_mobile.library.widgets.XisMapView"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	[writeWidgetRelativePositioning(widgets, c)/]
+/>
+[/let]
+[/template]
+
+[template private writeListView(c : Class)]
+[if (c.xisListIsSearchable())]
+[let name : String = 'search' + c.name.toUpperFirst()]
+<EditText
+    android:id="@+id/[name/]"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:drawableRight="@android:drawable/ic_search_category_default"
+    android:ems="10"
+[comment]    android:hint="[addString(name + '_hint', 'Search...')/]" >[/comment]
+    <requestFocus />
+</EditText>
+[/let]
+[/if]
+<ListView
+	android:id="@+id/list[c.name.toUpperFirst()/]"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:layout_centerHorizontal="true"
+/>
+[/template]
+
+[template private writeDropdown(widgets : Sequence(Class), c : Class)]
+[let name : String = 'dropdown' + c.name.toUpperFirst()]
+<xis_mobile.library.widgets.XisDropdown
+    android:id="@+id/[name/]"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+	[writeWidgetRelativePositioning(widgets, c)/]
+/>
+[/let]
+[/template]
+
+[template private writeRadioButton(widgets : Sequence(Class), c : Class)]
+[let name : String = 'radioButton' + c.name.toUpperFirst()]
+<xis_mobile.library.widgets.XisRadioButton
+	android:id="@+id/[name/]"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    [writeWidgetRelativePositioning(widgets, c)/]
+/>
+[/let]
+[/template]
+
+[template private writeForm(widgets : Sequence(Class), c : Class)]
+[let name : String = 'form' + c.name.toUpperFirst()]
+<RelativeLayout
+	android:id="@+id/[name/]"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	[writeWidgetRelativePositioning(widgets, c)/]
+	android:background="@drawable/form_border" >
+
+[let w : Sequence(Class) = orderWidgetsByPosition(c.getXisInteractionSpaceWidgets())]
+[for (cl : Class | w)]
+	[writeWidget(w, cl)/]
+[/for]
+[/let]
+
+</RelativeLayout>
+[/let]
+[/template]
