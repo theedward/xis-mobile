@@ -2,6 +2,8 @@
 [module layout('http://www.eclipse.org/uml2/4.0.0/UML')]
 
 [import xismobile::pim::uml2::gen::windowsphone::common::xisMobileUtils /]
+[import xismobile::pim::uml2::gen::windowsphone::files::widget /]
+[import xismobile::pim::uml2::gen::windowsphone::services::services /]
 
 [template public generatePageXaml(c : Class)]
 
@@ -37,11 +39,18 @@
         </StackPanel>
 
         <!--ContentPanel - place additional content here-->
-        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0"></Grid>
+        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
+		[let widgets : Sequence(Class) = c.getXisInteractionSpaceWidgets()]
+		[for (cl : Class | widgets)]
+			[writeWidget(widgets, cl)/]
+		[/for]
+		[/let]
+		</Grid>
     </Grid>
  
-    <!--Sample code showing usage of ApplicationBar-->
-    <!--<phone:PhoneApplicationPage.ApplicationBar>
+    <!--Code of ApplicationBar-->
+	[if (c.hasOptionsMenu())]
+    <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
             <shell:ApplicationBarIconButton IconUri="/Images/appbar_button1.png" Text="Button 1"/>
             <shell:ApplicationBarIconButton IconUri="/Images/appbar_button2.png" Text="Button 2"/>
@@ -50,7 +59,8 @@
                 <shell:ApplicationBarMenuItem Text="MenuItem 2"/>
             </shell:ApplicationBar.MenuItems>
         </shell:ApplicationBar>
-    </phone:PhoneApplicationPage.ApplicationBar>-->
+    </phone:PhoneApplicationPage.ApplicationBar>
+	[/if]
 
 </phone:PhoneApplicationPage>
 [/file]
