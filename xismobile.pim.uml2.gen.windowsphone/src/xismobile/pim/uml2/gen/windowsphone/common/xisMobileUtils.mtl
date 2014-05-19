@@ -813,6 +813,14 @@
 	not c.getXisDropdown().oclIsUndefined()
 /]
 
+[query public getXisRadioButton(c : Class) : Stereotype =
+	c.getAppliedStereotype('XIS-Mobile::XisRadioButton')
+/]
+
+[query public isXisRadioButton(c : Class) : Boolean =
+	not c.getXisRadioButton().oclIsUndefined()
+/]
+
 [query public getXisSimpleWidgetEntityAttributeName(c : Class, s : Stereotype) : String =
 	c.getValue(s, 'entityAttributeName')
 /]
