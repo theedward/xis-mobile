@@ -563,7 +563,7 @@ public void onPinch() {
 [template private writeLink(widgets : Sequence(Class), c : Class)]
 [let name : String = 'link' + c.name.toUpperFirst()]
 <<xis_mobile.library.widgets.XisLink
-	android:id="@+id/link[c.name.toUpperFirst()/]"
+	android:id="@+id/[name/]"
 	android:layout_width="fill_parent"
 	android:layout_height="wrap_content"
 	[writeWidgetRelativePositioning(widgets, c)/]
