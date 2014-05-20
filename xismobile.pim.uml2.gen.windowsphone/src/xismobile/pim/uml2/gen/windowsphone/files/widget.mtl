@@ -118,14 +118,10 @@ mList[c.name.toUpperFirst()/]
 
 [template private writeLabel(widgets : Sequence(Class), c : Class)]
 [let name : String = 'label' + c.name.toUpperFirst()]
-<xis_mobile.library.widgets.XisLabel
-	android:id="@+id/[name/]"
-	android:layout_width="fill_parent"
-	android:layout_height="wrap_content"
-	[writeWidgetRelativePositioning(widgets, c)/]
+<TextBlock Height="30" HorizontalAlignment="Center" Name="[name/]"
 [let value : String = c.getXisWidgetValue(c.getXisLabel())]
 	[if (not value.oclIsUndefined())]
-	[comment]android:text="[addString(name + '_text', value)/]"[/comment]
+	Text="[value/]"
 	[/if]
 [/let]
 />
@@ -134,24 +130,13 @@ mList[c.name.toUpperFirst()/]
 
 [template private writeTextBox(widgets : Sequence(Class), c : Class)]
 [let name : String = 'textBox' + c.name.toUpperFirst()]
-<xis_mobile.library.widgets.XisTextBox
-	android:id="@+id/[name/]"
-	android:layout_width="wrap_content"
-	android:layout_height="wrap_content"
-	[writeWidgetRelativePositioning(widgets, c)/]
-	android:ems="10"
+<TextBox Height="72" HorizontalAlignment="Center" Name="[name/]"
 	[if (c.getXisTexBoxLines() > 1)]
-	android:inputType="textMultiLine"
-	[/if]
-	android:minLines="[c.getXisTexBoxLines()/]"
-	android:gravity="top"
-	android:scrollbars="vertical"
-	[if (c.xisTextBoxHasHint())]
-[comment]	android:hint="[addString(name + '_hint', c.getXisTexBoxHint())/]"[/comment]
+	TextWrapping="Wrap"
 	[/if]
 [let value : String = c.getXisWidgetValue(c.getXisTextBox())]
 	[if (not value.oclIsUndefined())]
-[comment]	android:text="[addString(name + '_text', value)/]"[/comment]
+	Text="[value/]"
 	[/if]
 [/let]
 />
@@ -160,17 +145,13 @@ mList[c.name.toUpperFirst()/]
 
 [template private writeCheckBox(widgets : Sequence(Class), c : Class)]
 [let name : String = 'checkBox' + c.name.toUpperFirst()]
-<xis_mobile.library.widgets.XisCheckBox
-	android:id="@+id/[name/]"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-	[writeWidgetRelativePositioning(widgets, c)/]
+<CheckBox Height="72" HorizontalAlignment="Center" Name="[name/]"
     [if (c.hasXisAction())]
-	android:onClick="[c.getXisAction().name.toLowerFirst()/]"
+	Click="[c.getXisAction().name.toLowerFirst()/]"
 	[/if]
 [let value : String = c.getXisWidgetValue(c.getXisCheckBox())]
 	[if (not value.oclIsUndefined())]
-[comment]	android:text="[addString(name + '_text', value)/]"[/comment]
+	Content="[value/]"
 	[/if]
 [/let]
 />
@@ -179,17 +160,13 @@ mList[c.name.toUpperFirst()/]
 
 [template private writeButton(widgets : Sequence(Class), c : Class)]
 [let name : String = 'button' + c.name.toUpperFirst()]
-<xis_mobile.library.widgets.XisButton
-	android:id="@+id/[name/]"
-	android:layout_width="wrap_content"
-	android:layout_height="wrap_content"
-	[writeWidgetRelativePositioning(widgets, c)/]
+<Button Height="72" HorizontalAlignment="Center" Name="[name/]"
 	[if (c.hasXisAction())]
-	android:onClick="[c.getXisAction().name.toLowerFirst()/]"
+	Click="[c.getXisAction().name.toLowerFirst()/]"
 	[/if]
 [let value : String = c.getXisWidgetValue(c.getXisButton())]
 	[if (not value.oclIsUndefined())]
-[comment]	android:text="[addString(name + '_text', value)/]"[/comment]
+	Content="[value/]"
 	[/if]
 [/let]
 />
@@ -198,39 +175,24 @@ mList[c.name.toUpperFirst()/]
 
 [template private writeLink(widgets : Sequence(Class), c : Class)]
 [let name : String = 'link' + c.name.toUpperFirst()]
-<<xis_mobile.library.widgets.XisLink
-	android:id="@+id/link[c.name.toUpperFirst()/]"
-	android:layout_width="fill_parent"
-	android:layout_height="wrap_content"
-	[writeWidgetRelativePositioning(widgets, c)/]
-	android:autolink="web"
-[comment]	android:text="[addString(name + '_text', c.getXisLinkURL())/]"[/comment]
+<TextBlock Height="30" HorizontalAlignment="Center" Name="[name/]"
+	<Hyperlink NavigateUri="[c.getXisLinkURL()/]">[c.getXisLinkURL()/]</Hyperlink>
 />
 [/let]
 [/template]
 
 [template private writeImageView(widgets : Sequence(Class), c : Class)]
 [let name : String = 'image' + c.name.toUpperFirst()]
-<xis_mobile.library.widgets.XisImage
-	android:id="@+id/[name/]"
-	android:layout_width="wrap_content"
-	android:layout_height="wrap_content"
-	[writeWidgetRelativePositioning(widgets, c)/]
-[comment]	android:src="[addString(name + '_src', c.getXisImagePath())/]"[/comment]
-/>
+<Image Height="150" HorizontalAlignment="Center" Name="[name/]" Source="[c.getXisImagePath()/]" />
 [/let]
 [/template]
 
 [template private writeDatePicker(widgets : Sequence(Class), c : Class)]
 [let name : String = 'datePicker' + c.name.toUpperFirst()]
-<xis_mobile.library.widgets.XisDatePicker
-	android:id="@+id/[name/]"
-	android:layout_width="wrap_content"
-	android:layout_height="wrap_content"
-	[writeWidgetRelativePositioning(widgets, c)/]
+<toolkit:DatePicker Height="72" HorizontalAlignment="Center" x:Name="[name/]"
 [let value : String = c.getXisWidgetValue(c.getXisDatePicker())]
 	[if (not value.oclIsUndefined())]
-[comment]	android:text="[addString(name + '_text', value)/]"[/comment]
+	Value="[value/]"
 	[/if]
 [/let]
 />
@@ -239,14 +201,10 @@ mList[c.name.toUpperFirst()/]
 
 [template private writeTimePicker(widgets : Sequence(Class), c : Class)]
 [let name : String = 'timePicker' + c.name.toUpperFirst()]
-<xis_mobile.library.widgets.XisTimePicker
-	android:id="@+id/[name/]"
-	android:layout_width="wrap_content"
-	android:layout_height="wrap_content"
-	[writeWidgetRelativePositioning(widgets, c)/]
+<toolkit:DatePicker Height="72" HorizontalAlignment="Center" x:Name="[name/]"
 [let value : String = c.getXisWidgetValue(c.getXisTimePicker())]
 	[if (not value.oclIsUndefined())]
-	[comment]android:text="[addString(name + '_text', value)/]"[/comment]
+	Value="[value/]"
 	[/if]
 [/let]
 />
@@ -255,23 +213,14 @@ mList[c.name.toUpperFirst()/]
 
 [template private writeWebView(widgets : Sequence(Class), c : Class)]
 [let name : String = 'webView' + c.name.toUpperFirst()]
-<xis_mobile.library.widgets.XisWebView
-	android:id="@+id/[name/]"
-	android:layout_width="fill_parent"
-	android:layout_height="fill_parent"
-	[writeWidgetRelativePositioning(widgets, c)/]
-/>
+<phone:WebBrowser HorizontalAlignment="Center" Name="[name/]" />
 [/let]
 [/template]
 
 [template private writeMapView(widgets : Sequence(Class), c : Class)]
 [let name : String = 'mapView' + c.name.toUpperFirst()]
-<fragment
-	android:id="@+id/[name/]"
-	android:name="xis_mobile.library.widgets.XisMapView"
-	android:layout_width="fill_parent"
-	android:layout_height="fill_parent"
-	[writeWidgetRelativePositioning(widgets, c)/]
+<
+
 />
 [/let]
 [/template]
@@ -311,11 +260,12 @@ mList[c.name.toUpperFirst()/]
 
 [template private writeRadioButton(widgets : Sequence(Class), c : Class)]
 [let name : String = 'radioButton' + c.name.toUpperFirst()]
-<xis_mobile.library.widgets.XisRadioButton
-	android:id="@+id/[name/]"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    [writeWidgetRelativePositioning(widgets, c)/]
+<RadioButton Height="72" HorizontalAlignment="Center" Name="[name/]"
+[let value : String = c.getXisWidgetValue(c.getXisRadioButton())]
+	[if (not value.oclIsUndefined())]
+	Content="[value/]"
+	[/if]
+[/let]
 />
 [/let]
 [/template]
