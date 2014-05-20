@@ -707,6 +707,10 @@
 	not c.getXisWebView().oclIsUndefined()
 /]
 
+[query public getXisWebViewURL(c : Class) : String = 
+	c.getValue(c.getXisWebView(), 'url')
+/]
+
 [query public getXisMapView(c : Class) : Stereotype =
 	c.getAppliedStereotype('XIS-Mobile::XisMapView')
 /]
