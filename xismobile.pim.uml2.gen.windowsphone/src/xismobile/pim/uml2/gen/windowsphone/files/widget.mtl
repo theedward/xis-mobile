@@ -219,42 +219,23 @@ mList[c.name.toUpperFirst()/]
 
 [template private writeMapView(widgets : Sequence(Class), c : Class)]
 [let name : String = 'mapView' + c.name.toUpperFirst()]
-<
-
-/>
+<my:Map Name="[name/]" Width="Auto" Height="Auto" HorizontalAlignment="Center" VerticalAlignment="Top" />
 [/let]
 [/template]
 
 [template private writeListView(c : Class)]
 [if (c.xisListIsSearchable())]
 [let name : String = 'search' + c.name.toUpperFirst()]
-<EditText
-    android:id="@+id/[name/]"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:drawableRight="@android:drawable/ic_search_category_default"
-    android:ems="10"
-[comment]    android:hint="[addString(name + '_hint', 'Search...')/]" >[/comment]
-    <requestFocus />
-</EditText>
+<toolkit:AutoCompleteBox HorizontalAlignment="Center"  Width="450" Grid.Row="0" Name="[name/]" VerticalAlignment="Top"/>
 [/let]
 [/if]
-<ListView
-	android:id="@+id/list[c.name.toUpperFirst()/]"
-	android:layout_width="match_parent"
-	android:layout_height="wrap_content"
-	android:layout_centerHorizontal="true"
+<ListBox HorizontalAlignment="Center" Name="list[c.name.toUpperFirst()/]"
 />
 [/template]
 
 [template private writeDropdown(widgets : Sequence(Class), c : Class)]
 [let name : String = 'dropdown' + c.name.toUpperFirst()]
-<xis_mobile.library.widgets.XisDropdown
-    android:id="@+id/[name/]"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-	[writeWidgetRelativePositioning(widgets, c)/]
-/>
+<toolkit:ListPicker Name="[name/]" SelectedIndex="1" />
 [/let]
 [/template]
 
@@ -272,12 +253,7 @@ mList[c.name.toUpperFirst()/]
 
 [template private writeForm(widgets : Sequence(Class), c : Class)]
 [let name : String = 'form' + c.name.toUpperFirst()]
-<RelativeLayout
-	android:id="@+id/[name/]"
-	android:layout_width="match_parent"
-	android:layout_height="wrap_content"
-	[writeWidgetRelativePositioning(widgets, c)/]
-	android:background="@drawable/form_border" >
+<Border HorizontalAlignment="Center" Name="[name/]" BorderBrush="Azure" BorderThickness="2">
 
 [let w : Sequence(Class) = orderWidgetsByPosition(c.getXisInteractionSpaceWidgets())]
 [for (cl : Class | w)]
@@ -285,6 +261,6 @@ mList[c.name.toUpperFirst()/]
 [/for]
 [/let]
 
-</RelativeLayout>
+</Border>
 [/let]
 [/template]
