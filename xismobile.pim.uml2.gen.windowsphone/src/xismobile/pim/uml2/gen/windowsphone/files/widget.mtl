@@ -37,11 +37,214 @@ mList[c.name.toUpperFirst()/]
 [/template]
 
 [template public initializeWidget(c : Class) post (trim())]
-[comment @TODO Add code.../]
+[if (c.isXisLabel())]
+[let name : String = 'mLabel' + c.name.toUpperFirst()]
+[name/] = (XisLabel) findViewById(R.id.label[c.name.toUpperFirst()/]);
+	[if (c.getXisWidgetValue(c.getXisLabel()).oclIsUndefined())]
+[c.writeSetWidgetValue(c.getXisLabel(), name)/]
+	[/if]
+	[if (c.owner.oclIsTypeOf(Class) and c.owner.oclAsType(Class).isXisVisibilityBoundary())]
+[c.writeVisibility(name)/]
+	[/if]
+[/let]
+[elseif (c.isXisTextBox())]
+[let name : String = 'mTextBox' + c.name.toUpperFirst()]
+[name/] = (XisTextBox) findViewById(R.id.textBox[c.name.toUpperFirst()/]);
+	[if (c.getXisWidgetValue(c.getXisTextBox()).oclIsUndefined())]
+[c.writeSetWidgetValue(c.getXisTextBox(), name)/]
+	[/if]
+	[if (c.owner.oclIsTypeOf(Class) and c.owner.oclAsType(Class).isXisVisibilityBoundary())]
+[c.writeVisibility(name)/]
+	[/if]
+[/let]
+[elseif (c.isXisCheckBox())]
+[let name : String = 'mCheckBox' + c.name.toUpperFirst()]
+[name/] = (XisCheckBox) findViewById(R.id.checkBox[c.name.toUpperFirst()/]);
+	[if (c.getXisWidgetValue(c.getXisCheckBox()).oclIsUndefined())]
+[c.writeSetWidgetValue(c.getXisCheckBox(), name)/]
+	[/if]
+	[if (c.owner.oclIsTypeOf(Class) and c.owner.oclAsType(Class).isXisVisibilityBoundary())]
+[c.writeVisibility('mCheckBox' + c.name.toUpperFirst())/]
+	[/if]
+[/let]
+[elseif (c.isXisButton())]
+[let name : String = 'mButton' + c.name.toUpperFirst()]
+[name/] = (XisButton) findViewById(R.id.button[c.name.toUpperFirst()/]);
+	[if (c.getXisWidgetValue(c.getXisButton()).oclIsUndefined())]
+[c.writeSetWidgetValue(c.getXisButton(), name)/]
+	[/if]
+	[if (c.owner.oclIsTypeOf(Class) and c.owner.oclAsType(Class).isXisVisibilityBoundary())]
+[c.writeVisibility(name)/]
+	[/if]
+[/let]
+[elseif (c.isXisLink())]
+mLink[c.name.toUpperFirst()/] = (XisLink) findViewById(R.id.link[c.name.toUpperFirst()/]);
+	[if (c.owner.oclIsTypeOf(Class) and c.owner.oclAsType(Class).isXisVisibilityBoundary())]
+[c.writeVisibility('mLink' + c.name.toUpperFirst())/]
+	[/if]
+[elseif (c.isXisImage())]
+mImage[c.name.toUpperFirst()/] = (XisImage) findViewById(R.id.image[c.name.toUpperFirst()/]);
+	[if (c.owner.oclIsTypeOf(Class) and c.owner.oclAsType(Class).isXisVisibilityBoundary())]
+[c.writeVisibility('mImage' + c.name.toUpperFirst())/]
+	[/if]
+[elseif (c.isXisDatePicker())]
+[let name : String = 'mDatePicker' + c.name.toUpperFirst()]
+[name/] = (XisDatePicker) findViewById(R.id.datePicker[c.name.toUpperFirst()/]);
+	[if (c.getXisWidgetValue(c.getXisDatePicker()).oclIsUndefined())]
+[c.writeSetWidgetValue(c.getXisDatePicker(), name)/]
+	[/if]
+	[if (c.owner.oclIsTypeOf(Class) and c.owner.oclAsType(Class).isXisVisibilityBoundary())]
+[c.writeVisibility(name)/]
+	[/if]
+[/let]
+[elseif (c.isXisTimePicker())]
+[let name : String = 'mTimePicker' + c.name.toUpperFirst()]
+[name/] = (XisTimePicker) findViewById(R.id.timePicker[c.name.toUpperFirst()/]);
+	[if (c.getXisWidgetValue(c.getXisTimePicker()).oclIsUndefined())]
+[c.writeSetWidgetValue(c.getXisTimePicker(), name)/]
+	[/if]
+	[if (c.owner.oclIsTypeOf(Class) and c.owner.oclAsType(Class).isXisVisibilityBoundary())]
+[c.writeVisibility(name)/]
+	[/if]
+[/let]
+[elseif (c.isXisWebView())]
+mWebView[c.name.toUpperFirst()/] = (XisWebView) findViewById(R.id.web[c.name.toUpperFirst()/]);
+	[if (c.owner.oclIsTypeOf(Class) and c.owner.oclAsType(Class).isXisVisibilityBoundary())]
+[c.writeVisibility('mWebView' + c.name.toUpperFirst())/]
+	[/if]
+[elseif (c.isXisMapView())]
+SupportMapFragment mv = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map[c.name.toUpperFirst()/]);
+mMap[c.name.toUpperFirst()/] = mv.getMap();
+
+if (mMap[c.name.toUpperFirst()/] == null) {
+	Toast.makeText(getApplicationContext(), "Unable to create mMap[c.name.toUpperFirst()/]!", Toast.LENGTH_SHORT).show();
+} else {
+	[if (c.mapHasCenter())]
+	LatLng center = new LatLng([c.getMapLatitute()/], [c.getMapLongitude()/]);
+	[if (c.mapHasZoom())]
+	mMap[c.name.toUpperFirst()/].moveCamera(CameraUpdateFactory.newLatLngZoom(center, [c.getMapZoom()/]));
+	[else]
+	mMap[c.name.toUpperFirst()/].moveCamera(CameraUpdateFactory.newLatLng(center));
+	[/if]
+	[/if]
+	[if (c.mapHasMarkers())]
+	for (int i = 0; i < [c.getMapMarkers()->size()/]; i++) {
+	[for (m : Class | c.getMapMarkers())]
+		[if (m.markerHasTitle() or m.markerHasDescription() or
+			(m.markerHasLatitude() and m.markerHasLongitude()) or m.markerHasIcon())]
+		MarkerOptions mOpt = new MarkerOptions();
+		[if (m.markerHasTitle())]
+		mOpt.title([m.getMarkerTitle()/]);
+		[/if]
+		[if (m.markerHasDescription())]
+		mOpt.snippet([m.getMarkerDescription()/]);
+		[/if]
+		[if (m.markerHasLatitude() and m.markerHasLongitude())]
+		mOpt.position(new LatLng([m.getMarkerLatitude()/], [m.getMarkerLongitude()/]));
+		[/if]
+		[if (m.markerHasIcon())]
+		mOpt.icon(BitmapDescriptorFactory.fromAsset("[m.getMarkerIcon()/]"));
+		[/if]
+		mMap[c.name.toUpperFirst()/].addMarker(mOpt);
+		[/if]
+	}
+	[comment @FIXME Review the use of OnTap /]
+	[if (m.markerHasOnTap())]
+	mMap[c.name.toUpperFirst()/].setOnInfoWindowClickListener(new OnInfoWindowClickListener() {
+		@Override
+		public void onInfoWindowClick(Marker marker) {
+			
+		}
+	});
+	[/if]
+	[/for]
+	[/if]
+}
+[elseif (c.isXisDropdown())]
+mDropdown[c.name.toUpperFirst()/] = (XisDropdown) findViewById(R.id.dropdown[c.name.toUpperFirst()/]);
+ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item);
+[comment @TODO Add Items to XisDropdown  /]
+adapter.add("TODO");
+mDropdown.setPrompt("Select [c.name/]...");
+	[if (c.owner.oclIsTypeOf(Class) and c.owner.oclAsType(Class).isXisVisibilityBoundary())]
+[c.writeVisibility('mDropdown' + c.name.toUpperFirst())/]
+	[/if]
+[elseif (c.isXisRadioButton())]
+mRadioButton[c.name.toUpperFirst()/] = (XisRadioButton) findViewById(R.id.radioButton[c.name.toUpperFirst()/]);
+	[if (c.getXisWidgetValue(c.getXisRadioButton()).oclIsUndefined())]
+[c.writeSetWidgetValue(c.getXisRadioButton(), name)/]
+	[/if]
+	[if (c.owner.oclIsTypeOf(Class) and c.owner.oclAsType(Class).isXisVisibilityBoundary())]
+[c.writeVisibility('mRadioButton' + c.name.toUpperFirst())/]
+	[/if]
+[elseif (c.isXisList())]
+mList[c.name.toUpperFirst()/] = (ListView) findViewById(R.id.list[c.name.toUpperFirst()/]);
+[let entity : Class = c.getXisListEntity()]
+[let item : Class = c.getXisListItems()->at(1)]
+mList[c.name.toUpperFirst()/].setAdapter(new [entity.name.toUpperFirst()/]Adapter(getApplicationContext(), R.layout.[item.name.toLower()/]_item, [entity.name.toLowerFirst()/]s));
+[if (item.hasContextMenu())]
+registerForContextMenu(mList[c.name.toUpperFirst()/]);
+[/if]
+[if (c.owner.oclIsTypeOf(Class) and c.owner.oclAsType(Class).isXisVisibilityBoundary())]
+[c.writeVisibility('mList' + c.name.toUpperFirst())/]
+[/if]
+[comment][item.generateListItem()/]
+[item.generateAdapter(entity)/][/comment]
+[/let]
+[/let]
+[/if]
+[if (not c.isXisList())]
+[c.writeGestureBinding()/]
+[/if]
 [/template]
 
 [template private writeVisibility(c : Class, name : String) post (trim())]
-[comment @TODO Add code.../]
+[let boundary : Class = c.owner.oclAsType(Class)]
+[let entity : String = boundary.getXisCompositeWidgetEntityName(boundary.getXisVisibilityBoundary())]
+[comment @FIXME Visibility Modes /]
+[if (not boundary.getXisVisibilityBoundaryCreate() and
+	 not boundary.getXisVisibilityBoundaryView() and
+	 not boundary.getXisVisibilityBoundaryEdit())]
+[name/].Visible = false;
+[elseif (boundary.getXisVisibilityBoundaryCreate() and
+	 	 not boundary.getXisVisibilityBoundaryView() and
+	 	 not boundary.getXisVisibilityBoundaryEdit())]
+if (!inCreateMode) {
+	[name/].Visible = false;
+}
+[elseif (not boundary.getXisVisibilityBoundaryCreate() and
+	 	 boundary.getXisVisibilityBoundaryView() and
+	 	 not boundary.getXisVisibilityBoundaryEdit())]
+if (!inViewMode) {
+	[name/].Visible = false;
+}
+[elseif (not boundary.getXisVisibilityBoundaryCreate() and
+	 	 not boundary.getXisVisibilityBoundaryView() and
+	 	 boundary.getXisVisibilityBoundaryEdit())]
+if (!inEditMode) {
+	[name/].Visible = false;
+}
+[elseif (boundary.getXisVisibilityBoundaryCreate() and
+	 	 boundary.getXisVisibilityBoundaryView() and
+	 	 not boundary.getXisVisibilityBoundaryEdit())]
+if (inEditMode) {
+	[name/].Visible = false;
+}
+[elseif (boundary.getXisVisibilityBoundaryCreate() and
+	 	 not boundary.getXisVisibilityBoundaryView() and
+	 	 boundary.getXisVisibilityBoundaryEdit())]
+if (inViewMode) {
+	[name/].Visible = false;
+}
+[elseif (not boundary.getXisVisibilityBoundaryCreate() and
+	 	 boundary.getXisVisibilityBoundaryView() and
+	 	 boundary.getXisVisibilityBoundaryEdit())]
+if (inCreateMode) {
+	[name/].Visible = false;
+}
+[/if]
+[/let]
+[/let]
 [/template]
 
 [template private writeGestureBinding(c : Class) post (trim())]
