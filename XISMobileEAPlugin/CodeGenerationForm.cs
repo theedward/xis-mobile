@@ -98,8 +98,8 @@ namespace XISMobileEAPlugin
                             break;
                         case "All":
                             ExecuteCommand(exePath + "\\AndroidGenerator.jar\" " + exePath + "\" " + umlPath + " \"" + textBoxPath.Text + "\\android\\src-gen\"");
-                            //ExecuteCommand(exePath + "\\WindowsPhoneGenerator.jar\" " + exePath + "\" " + umlPath + " " + textBoxPath.Text + "\\windowsphone\\src-gen");
-                            ExecuteCommand(exePath + "\\iOSGenerator.jar\" " + exePath + "\" " + umlPath + " \"" + textBoxPath.Text + "\\ios\\src-gen\"");
+                            ExecuteCommand(exePath + "\\WindowsPhoneGenerator.jar\" " + exePath + "\" " + umlPath + " " + textBoxPath.Text + "\\windowsphone\\src-gen");
+                            //ExecuteCommand(exePath + "\\iOSGenerator.jar\" " + exePath + "\" " + umlPath + " \"" + textBoxPath.Text + "\\ios\\src-gen\"");
                             break;
                         default:
                             break;
