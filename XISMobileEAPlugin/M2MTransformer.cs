@@ -601,7 +601,7 @@ namespace XISMobileEAPlugin
             EA.Diagram detailDiagram = XISMobileHelper.CreateDiagram(package, master.Element.Name + "EditorIS Diagram",
                 "XIS-Mobile_Diagrams::InteractionSpaceViewModel");
             XisInteractionSpace detailIS = new XisInteractionSpace(repository, package, detailDiagram,
-                master.Element.Name + "EditorIS", null, isStartingUC, !isStartingUC);
+                master.Element.Name + "EditorIS", master.Element.Name + " Editor", isStartingUC, !isStartingUC);
 
             if (isStartingUC && patternType == null)
             {
@@ -1284,7 +1284,7 @@ namespace XISMobileEAPlugin
         {
             EA.Diagram diagram = XISMobileHelper.CreateDiagram(package, entity.Element.Name + "EditorIS Diagram",
                 "XIS-Mobile_Diagrams::InteractionSpaceViewModel");
-            XisInteractionSpace detailIS = new XisInteractionSpace(repository, package, diagram, entity.Element.Name + "EditorIS", null);
+            XisInteractionSpace detailIS = new XisInteractionSpace(repository, package, diagram, entity.Element.Name + "EditorIS", entity.Element.Name + " Editor");
 
             if (!string.IsNullOrEmpty(entity.Filter))
             {
