@@ -10,6 +10,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Runtime.Remoting.Messaging;
 using System.Reflection;
+using System.Threading;
 
 namespace XISMobileEAPlugin
 {
@@ -19,8 +20,6 @@ namespace XISMobileEAPlugin
         const string noPath = "Select a folder...";
         private EA.Repository repository;
         private bool GENERATE = true;
-
-        private delegate string ExecuteCommandDelegate(string command);
 
         public CodeGenerationForm(EA.Repository repository)
         {
@@ -71,47 +70,37 @@ namespace XISMobileEAPlugin
 
             if (valid)
             {
-                EA.Project project = repository.GetProjectInterface();
-                EA.Package package = (EA.Package)repository.Models.GetAt(0);
-                string[] res = repository.ConnectionString.Split('\\');
-                string projectName = res[res.Length - 1].Split('.')[0];
-                string xmiPath = textBoxPath.Text + "\\" + projectName + ".xmi";
-                string umlPath = "\"" + textBoxPath.Text + "\\" + projectName + ".uml\"";
-
                 if (GENERATE)
                 {
-                    project.ExportPackageXMI(package.PackageGUID, EA.EnumXMIType.xmiEA21, 1, -1, 1, 0, xmiPath);
-                    string exePath = "\"" + Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-                    xmiPath = "\"" + xmiPath + "\"";
-                    ExecuteCommand(exePath + "\\XMLParser.jar\" " + exePath + "\" " + xmiPath + " " + projectName);
-
-                    switch (platformType)
-                    {
-                        case "Android":
-                            ExecuteCommand(exePath + "\\AndroidGenerator.jar\" " + exePath + "\" " + umlPath + " \"" + textBoxPath.Text + "\\src-gen\"");
-                            break;
-                        case "Windows Phone":
-                            ExecuteCommand(exePath + "\\WindowsPhoneGenerator.jar\" " + exePath + "\" " + umlPath + " " + textBoxPath.Text + "\\src-gen");
-                            break;
-                        case "iOS":
-                            ExecuteCommand(exePath + "\\iOSGenerator.jar\" " + exePath + "\" " + umlPath + " \"" + textBoxPath.Text + "\\src-gen\"");
-                            break;
-                        case "All":
-                            ExecuteCommand(exePath + "\\AndroidGenerator.jar\" " + exePath + "\" " + umlPath + " \"" + textBoxPath.Text + "\\android\\src-gen\"");
-                            ExecuteCommand(exePath + "\\WindowsPhoneGenerator.jar\" " + exePath + "\" " + umlPath + " " + textBoxPath.Text + "\\windowsphone\\src-gen");
-                            //ExecuteCommand(exePath + "\\iOSGenerator.jar\" " + exePath + "\" " + umlPath + " \"" + textBoxPath.Text + "\\ios\\src-gen\"");
-                            break;
-                        default:
-                            break;
-                    }
+                    ChangeControlsUponGeneration();
+                    backgroundWorker.RunWorkerAsync();
                 }
                 else
                 {
                     MessageBox.Show("Code Generation disabled for now. It is being updated for the next version!",
                         "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-                Close();
             }
+        }
+
+        private void ChangeControlsUponGeneration()
+        {
+            this.ClientSize = new System.Drawing.Size(399, 155);
+            progressBar.Visible = true;
+            buttonBrowse.Enabled = false;
+            comboBoxTarget.Enabled = false;
+            buttonGenerate.Enabled = false;
+            buttonGenerate.Text = "Generating...";
+        }
+
+        private void RestoreControlsAfterGeneration()
+        {
+            this.ClientSize = new System.Drawing.Size(399, 135);
+            progressBar.Visible = false;
+            buttonBrowse.Enabled = true;
+            comboBoxTarget.Enabled = true;
+            buttonGenerate.Enabled = true;
+            buttonGenerate.Text = "Generate!";
         }
 
         private void ExecuteCommand(string command)
@@ -149,5 +138,71 @@ namespace XISMobileEAPlugin
             }
             process.Close();
         }
+
+        #region backgroundWorker Methods
+
+        private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            EA.Project project = repository.GetProjectInterface();
+            EA.Package package = (EA.Package)repository.Models.GetAt(0);
+            string[] res = repository.ConnectionString.Split('\\');
+            string projectName = res[res.Length - 1].Split('.')[0];
+            string xmiPath = textBoxPath.Text + "\\" + projectName + ".xmi";
+            string umlPath = "\"" + textBoxPath.Text + "\\" + projectName + ".uml\"";
+            project.ExportPackageXMI(package.PackageGUID, EA.EnumXMIType.xmiEA21, 1, -1, 1, 0, xmiPath);
+            string exePath = "\"" + Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            xmiPath = "\"" + xmiPath + "\"";
+
+            switch (platformType)
+            {
+                case "Android":
+                    ExecuteCommand(exePath + "\\XMLParser.jar\" " + exePath + "\" " + xmiPath + " " + projectName);
+                    backgroundWorker.ReportProgress(50, new string[] { "Model parsing done!" });
+                    ExecuteCommand(exePath + "\\AndroidGenerator.jar\" " + exePath + "\" " + umlPath + " \"" + textBoxPath.Text + "\\src-gen\"");
+                    backgroundWorker.ReportProgress(100, new string[] { "Android generation done!" });
+                    break;
+                case "Windows Phone":
+                    ExecuteCommand(exePath + "\\XMLParser.jar\" " + exePath + "\" " + xmiPath + " " + projectName);
+                    backgroundWorker.ReportProgress(50, new string[] { "Model parsing done!" });
+                    ExecuteCommand(exePath + "\\WindowsPhoneGenerator.jar\" " + exePath + "\" " + umlPath + " " + textBoxPath.Text + "\\src-gen");
+                    backgroundWorker.ReportProgress(100, new string[] { "Windows Phone generation done!" });
+                    break;
+                case "iOS":
+                    ExecuteCommand(exePath + "\\XMLParser.jar\" " + exePath + "\" " + xmiPath + " " + projectName);
+                    backgroundWorker.ReportProgress(50, new string[] { "Model parsing done!" });
+                    ExecuteCommand(exePath + "\\iOSGenerator.jar\" " + exePath + "\" " + umlPath + " \"" + textBoxPath.Text + "\\src-gen\"");
+                    backgroundWorker.ReportProgress(100, new string[] { "iOS generation done!" });
+                    break;
+                case "All":
+                    ExecuteCommand(exePath + "\\XMLParser.jar\" " + exePath + "\" " + xmiPath + " " + projectName);
+                    backgroundWorker.ReportProgress(33, new string[] { "Model parsing done!" });
+                    ExecuteCommand(exePath + "\\AndroidGenerator.jar\" " + exePath + "\" " + umlPath + " \"" + textBoxPath.Text + "\\android\\src-gen\"");
+                    backgroundWorker.ReportProgress(66, new string[] { "Android generation done!" });
+                    ExecuteCommand(exePath + "\\WindowsPhoneGenerator.jar\" " + exePath + "\" " + umlPath + " " + textBoxPath.Text + "\\windowsphone\\src-gen");
+                    backgroundWorker.ReportProgress(100, new string[] { "Windows Phone generation done!" });
+                    //ExecuteCommand(exePath + "\\iOSGenerator.jar\" " + exePath + "\" " + umlPath + " \"" + tbPath + "\\ios\\src-gen\"");
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void backgroundWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            progressBar.Value = e.ProgressPercentage;
+            this.Text = e.ProgressPercentage.ToString() + "%";
+
+            if (e.UserState is string[] && ((string[])e.UserState).Count() > 0)
+            {
+                this.Text += " - " + ((string[])e.UserState)[0];
+            }
+        }
+
+        private void backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            RestoreControlsAfterGeneration();
+        }
+
+        #endregion
     }
 }

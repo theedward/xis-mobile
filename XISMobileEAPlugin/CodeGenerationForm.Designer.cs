@@ -37,6 +37,12 @@
             this.comboBoxTarget = new System.Windows.Forms.ComboBox();
             this.textBoxPath = new System.Windows.Forms.TextBox();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.progressBar = new System.Windows.Forms.ProgressBar();
+            this.backgroundWorker = new System.ComponentModel.BackgroundWorker();
+            this.backgroundWorker.WorkerReportsProgress = true;
+            this.backgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(backgroundWorker_DoWork);
+            this.backgroundWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(backgroundWorker_ProgressChanged);
+            this.backgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(backgroundWorker_RunWorkerCompleted);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
             // 
@@ -108,11 +114,20 @@
             this.errorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
             this.errorProvider.ContainerControl = this;
             // 
-            // GenerationForm
+            // progressBar
+            // 
+            this.progressBar.Location = new System.Drawing.Point(49, 124);
+            this.progressBar.Name = "progressBar1";
+            this.progressBar.Size = new System.Drawing.Size(301, 23);
+            this.progressBar.TabIndex = 6;
+            this.progressBar.Visible = false;
+            // 
+            // CodeGenerationForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(399, 135);
+            this.Controls.Add(this.progressBar);
             this.Controls.Add(this.textBoxPath);
             this.Controls.Add(this.comboBoxTarget);
             this.Controls.Add(this.labelTarget);
@@ -122,7 +137,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "GenerationForm";
+            this.Name = "CodeGenerationForm";
             this.Text = "Generate Code...";
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             this.ResumeLayout(false);
@@ -140,5 +155,7 @@
         private System.Windows.Forms.ComboBox comboBoxTarget;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
         private System.Windows.Forms.ErrorProvider errorProvider;
+        private System.Windows.Forms.ProgressBar progressBar;
+        private System.ComponentModel.BackgroundWorker backgroundWorker;
     }
 }
