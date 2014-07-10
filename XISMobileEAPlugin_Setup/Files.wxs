@@ -71,6 +71,9 @@
 							<File Id="XIS_Mobile_Diagrams.xml" Name="XIS-Mobile_Diagrams.xml" Source="XIS-Mobile MDG\XIS-Mobile_Diagrams.xml" />
 							<File Id="XIS_Mobile_Template.xml" Name="XIS-Mobile_Template.xml" Source="XIS-Mobile MDG\XIS-Mobile_Template.xml" />
 							<File Id="XIS_MobileViewsToolbox.xml" Name="XIS-MobileViewsToolbox.xml" Source="XIS-Mobile MDG\XIS-MobileViewsToolbox.xml" />
+							<File Id="QuickLinks.csv" Name="QuickLinks.csv" Source="XIS-Mobile MDG\QuickLinks.csv" />
+							<File Id="XisListPattern.xml" Name="XisListPattern.xml" Source="XIS-Mobile MDG\XisListPattern.xml" />
+							<File Id="XisMenuPattern.xml" Name="XisMenuPattern.xml" Source="XIS-Mobile MDG\XisMenuPattern.xml" />
 						</Component>
 					</Directory>
 					<Directory Id="XIS_Mobile" Name="XIS-Mobile">
