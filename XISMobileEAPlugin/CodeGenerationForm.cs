@@ -164,7 +164,7 @@ namespace XISMobileEAPlugin
                 case "Windows Phone":
                     ExecuteCommand(exePath + "\\XMLParser.jar\" " + exePath + "\" " + xmiPath + " \"" + projectName + "\"");
                     backgroundWorker.ReportProgress(50, new string[] { "Model parsing done!" });
-                    ExecuteCommand(exePath + "\\WindowsPhoneGenerator.jar\" " + exePath + "\" " + umlPath + " " + textBoxPath.Text + "\\src-gen");
+                    ExecuteCommand(exePath + "\\WindowsPhoneGenerator.jar\" " + exePath + "\" " + umlPath + " \"" + textBoxPath.Text + "\\src-gen");
                     backgroundWorker.ReportProgress(100, new string[] { "Windows Phone generation done!" });
                     break;
                 case "iOS":
@@ -175,12 +175,13 @@ namespace XISMobileEAPlugin
                     break;
                 case "All":
                     ExecuteCommand(exePath + "\\XMLParser.jar\" " + exePath + "\" " + xmiPath + " \"" + projectName + "\"");
-                    backgroundWorker.ReportProgress(33, new string[] { "Model parsing done!" });
+                    backgroundWorker.ReportProgress(25, new string[] { "Model parsing done!" });
                     ExecuteCommand(exePath + "\\AndroidGenerator.jar\" " + exePath + "\" " + umlPath + " \"" + textBoxPath.Text + "\\android\\src-gen\"");
-                    backgroundWorker.ReportProgress(66, new string[] { "Android generation done!" });
-                    ExecuteCommand(exePath + "\\WindowsPhoneGenerator.jar\" " + exePath + "\" " + umlPath + " " + textBoxPath.Text + "\\windowsphone\\src-gen");
-                    backgroundWorker.ReportProgress(100, new string[] { "Windows Phone generation done!" });
-                    //ExecuteCommand(exePath + "\\iOSGenerator.jar\" " + exePath + "\" " + umlPath + " \"" + tbPath + "\\ios\\src-gen\"");
+                    backgroundWorker.ReportProgress(50, new string[] { "Android generation done!" });
+                    ExecuteCommand(exePath + "\\WindowsPhoneGenerator.jar\" " + exePath + "\" " + umlPath + " \"" + textBoxPath.Text + "\\windowsphone\\src-gen");
+                    backgroundWorker.ReportProgress(75, new string[] { "Windows Phone generation done!" });
+                    ExecuteCommand(exePath + "\\iOSGenerator.jar\" " + exePath + "\" " + umlPath + " \"" + textBoxPath.Text + "\\ios\\src-gen\"");
+                    backgroundWorker.ReportProgress(100, new string[] { "iOS generation done!" });
                     break;
                 default:
                     break;
