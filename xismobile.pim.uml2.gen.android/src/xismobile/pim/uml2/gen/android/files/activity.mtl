@@ -15,7 +15,9 @@
 package [c.getPackagePath()/];
 
 import java.sql.Date;
+[if (c.getXisLists()->size() > 0)]
 import java.util.List;
+[/if]
 
 import android.app.Activity;
 [if (c.hasXisDialogs())]
