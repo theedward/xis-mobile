@@ -1892,4 +1892,4 @@ AAABAAEAPgAAANgBAAAAAA==</Image>
 				<TaggedValueTypes/>
 			</Content>
 		</UMLProfile>
-	</UIToolboxes><ModelTemplates><Model name="XIS-Mobile Framework model" description="Packages, Diagrams and Elements for modeling with the XIS-Mobile Framework." location="C:\Users\User\git\xis-mobile\XISMobileEAPlugin\bin\Release\XIS-Mobile MDG\XIS-Mobile_Template.xml" default="yes" icon="34" filter="Common"/></ModelTemplates></MDG.Technology>
+	</UIToolboxes><ModelTemplates><Model name="XIS-Mobile Framework model" description="Packages, Diagrams and Elements for modeling with the XIS-Mobile Framework." location="%PATH%" default="yes" icon="34" filter="Common"/></ModelTemplates></MDG.Technology>
