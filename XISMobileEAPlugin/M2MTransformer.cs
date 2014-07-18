@@ -16,9 +16,11 @@ namespace XISMobileEAPlugin
         public static void ProcessUseCase(EA.Repository rep, EA.Package navigationPackage, EA.Package interactionPackage,
             List<EA.Element> useCases, string patternType = null)
         {
-            nsDiagram = XISMobileHelper.CreateDiagram(navigationPackage, "Navigation Space",
-                "XIS-Mobile_Diagrams::NavigationSpaceViewModel");
             repository = rep;
+            string[] res = repository.ConnectionString.Split('\\');
+            string projectName = res[res.Length - 1].Split('.')[0];
+            nsDiagram = XISMobileHelper.CreateDiagram(navigationPackage, projectName + "NavigationSpace Diagram",
+                "XIS-Mobile_Diagrams::NavigationSpaceViewModel");
             bool isStartingUC = true;
 
             if (patternType != null)
