@@ -265,9 +265,9 @@ namespace XISMobileEAPlugin
                     XISMobileHelper.CreateXisAction(repository, item.Element, actionName, ActionType.Navigate, targetIS.Element.Name);
                     CreateXisInteractionSpaceAssociation(actionName, homeIS, targetIS);
                     break;
-                case "Tab Menu":
-                    // TODO: Implement Tab
-                    break;
+                //case "Tab Menu":
+                //    // TODO: Implement Tab
+                //    break;
                 default:
                     break;
             }

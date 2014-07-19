@@ -51,8 +51,8 @@
             this.comboBoxPatterns.FormattingEnabled = true;
             this.comboBoxPatterns.Items.AddRange(new object[] {
             "Springboard",
-            "List Menu",
-            "Tab Menu"});
+            "List Menu"});
+            //"Tab Menu"});
             this.comboBoxPatterns.Location = new System.Drawing.Point(167, 10);
             this.comboBoxPatterns.Name = "comboBoxPatterns";
             this.comboBoxPatterns.Size = new System.Drawing.Size(121, 21);
