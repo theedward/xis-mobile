@@ -247,6 +247,7 @@ namespace XISMobileEAPlugin
             {
                 case "Springboard":
                     XisButton b = new XisButton(repository, homeIS, homeDiagram, useCase.Name, actionName);
+                    b.SetValue(useCase.Name);
                     XISMobileHelper.CreateXisAction(repository, b.Element, actionName, ActionType.Navigate, targetIS.Element.Name);
                     CreateXisInteractionSpaceAssociation(actionName, homeIS, targetIS);
                     break;
@@ -278,12 +279,22 @@ namespace XISMobileEAPlugin
             // Create IS Diagram
             EA.Diagram listDiagram = XISMobileHelper.CreateDiagram(package, master.Element.Name + "ListIS Diagram",
                 "XIS-Mobile_Diagrams::InteractionSpaceViewModel");
-            XisInteractionSpace listIS = new XisInteractionSpace(repository, package, listDiagram,
-                master.Element.Name + "ListIS", "Manage " + master.Element.Name + "s", isStartingUC, !isStartingUC);
+            XisInteractionSpace listIS = null;
 
-            if (isStartingUC && patternType == null)
+            if (isStartingUC && patternType != null)
             {
-                homeIS = listIS;
+                listIS = new XisInteractionSpace(repository, package, listDiagram,
+                    master.Element.Name + "ListIS", "Manage " + master.Element.Name + "s");
+            }
+            else
+            {
+                listIS = new XisInteractionSpace(repository, package, listDiagram,
+                    master.Element.Name + "ListIS", "Manage " + master.Element.Name + "s", isStartingUC, !isStartingUC);
+
+                if (isStartingUC && patternType == null)
+                {
+                    homeIS = listIS;
+                }
             }
 
             // List Creation
@@ -602,12 +613,22 @@ namespace XISMobileEAPlugin
         {
             EA.Diagram detailDiagram = XISMobileHelper.CreateDiagram(package, master.Element.Name + "EditorIS Diagram",
                 "XIS-Mobile_Diagrams::InteractionSpaceViewModel");
-            XisInteractionSpace detailIS = new XisInteractionSpace(repository, package, detailDiagram,
-                master.Element.Name + "EditorIS", master.Element.Name + " Editor", isStartingUC, !isStartingUC);
+            XisInteractionSpace detailIS = null;
 
-            if (isStartingUC && patternType == null)
+            if (isStartingUC && patternType != null)
             {
-                homeIS = detailIS;
+                detailIS = new XisInteractionSpace(repository, package, detailDiagram,
+                    master.Element.Name + "EditorIS", master.Element.Name + " Editor");
+            }
+            else
+            {
+                detailIS = new XisInteractionSpace(repository, package, detailDiagram,
+                    master.Element.Name + "EditorIS", master.Element.Name + " Editor", isStartingUC, !isStartingUC);
+
+                if (isStartingUC && patternType == null)
+                {
+                    homeIS = detailIS;
+                }
             }
 
             #region Process Master attributes
@@ -1866,11 +1887,11 @@ namespace XISMobileEAPlugin
                 ucType = GetTaggedValue(uc.TaggedValues, "type").Value;
                 string spaceName = null;
 
-                if (ucType == "Manager")
+                if (ucType == "EntityManagement")
                 {
                     spaceName = entityName + "ListIS";
                 }
-                else if (ucType == "Detail")
+                else if (ucType == "EntityConfiguration")
                 {
                     spaceName = entityName + "DetailIS";
                 }
