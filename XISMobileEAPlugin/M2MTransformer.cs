@@ -326,6 +326,7 @@ namespace XISMobileEAPlugin
             //}
 
             XisListItem item = new XisListItem(repository, listDiagram, list, list.Element.Name + "Item");
+            
             if (ContainsUpdateMaster(useCase))
             {
                 string actionName = "edit" + master.Element.Name;
@@ -558,9 +559,10 @@ namespace XISMobileEAPlugin
             }
             #endregion
 
-            if (detailModes.Count > 0 || item.GetOnTapAction() != null)
+            if (detailModes.Count > 0 || !string.IsNullOrEmpty(item.GetOnTapAction()))
             {
                 XisInteractionSpace detailIS = CreateMasterEditorIS(package, master, listIS, useCase, be, services);
+                
                 foreach (ActionType key in detailModes.Keys)
                 {
                     XisMenuItem mItem = detailModes[key];
@@ -569,7 +571,7 @@ namespace XISMobileEAPlugin
                     CreateXisInteractionSpaceAssociation(mItem.GetOnTapAction(), listIS, detailIS);
                 }
 
-                if (item.GetOnTapAction() != null)
+                if (!string.IsNullOrEmpty(item.GetOnTapAction()))
                 {
                     XISMobileHelper.CreateXisAction(repository, item.Element, item.GetOnTapAction(),
                         ActionType.Update, detailIS.Element.Name);
@@ -1472,7 +1474,7 @@ namespace XISMobileEAPlugin
             managerIS.Menu = menu;
             #endregion
 
-            if (detailModes.Count > 0 || item.GetOnTapAction() != null)
+            if (detailModes.Count > 0 || !string.IsNullOrEmpty(item.GetOnTapAction()))
             {
                 XisInteractionSpace detailIS = CreateDetailOrRefEditorIS(package, entity, managerIS, useCase, isDetail, be);
                 foreach (ActionType key in detailModes.Keys)
@@ -1483,7 +1485,7 @@ namespace XISMobileEAPlugin
                     CreateXisInteractionSpaceAssociation(mItem.GetOnTapAction(), managerIS, detailIS);
                 }
 
-                if (item.GetOnTapAction() != null)
+                if (!string.IsNullOrEmpty(item.GetOnTapAction()))
                 {
                     XISMobileHelper.CreateXisAction(repository, item.Element, item.GetOnTapAction(),
                         ActionType.Update, detailIS.Element.Name);
