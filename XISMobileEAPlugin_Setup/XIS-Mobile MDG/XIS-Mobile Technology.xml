@@ -1,4 +1,4 @@
-<MDG.Technology version="1.0"><Documentation id="XIS-MobileT" name="XIS-Mobile Framework" version="1" notes="XIS-Mobile Framework allows the generation of Mobile Applications code from UML models." supportURI="andre.ribeiro@ist.utl.pt"/>
+<MDG.Technology version="1.0"><Documentation id="XIS-MobileT" name="XIS-Mobile Framework" version="1" notes="XIS-Mobile Framework allows the generation of Mobile Applications code from UML models." supportURI="andre.ribeiro@tecnico.ulisboa.pt"/>
 <UMLProfiles>
 	<UMLProfile profiletype="uml2">
 	<Documentation id="3213C2DC-E" name="XIS-Mobile" version="1.0" notes="XIS-Mobile"/>
