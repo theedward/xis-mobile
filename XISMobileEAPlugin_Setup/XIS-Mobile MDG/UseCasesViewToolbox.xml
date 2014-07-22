@@ -13,7 +13,7 @@
 					<Tag name="XIS-Mobile::XisServiceUseCase" type="" description="" unit="" values="" default="XisServiceUseCase"/>
 				</TaggedValues>
 			</Stereotype>
-			<Stereotype name="UseCase_Relationships" alias="UseCase Relationships" notes="Relationships for UseCases View Diagrams" cx="341" cy="85" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
+			<Stereotype name="UseCase_Relationships" alias="UseCase Relationships" notes="Relationships for UseCases View Diagrams" cx="341" cy="98" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
 				<AppliesTo>
 					<Apply type="ToolboxPage"/>
 				</AppliesTo>
@@ -22,6 +22,7 @@
 					<Tag name="XIS-Mobile::XisEntityUC-BEAssociation" type="" description="" unit="" values="" default="XisEntityUC-BEAssociation"/>
 					<Tag name="XIS-Mobile::XisServiceUC-BEAssociation" type="" description="" unit="" values="" default="XisServiceUC-BEAssociation"/>
 					<Tag name="XIS-Mobile::XisServiceUC-ProviderAssociation" type="" description="" unit="" values="" default="XisServiceUC-ProviderAssociation"/>
+					<Tag name="UML::UCExtend" type="" description="" unit="" values="" default="Extend"/>
 				</TaggedValues>
 			</Stereotype>
 		</Stereotypes>
