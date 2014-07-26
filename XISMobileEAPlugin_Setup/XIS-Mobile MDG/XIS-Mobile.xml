@@ -1,57 +1,127 @@
 <?xml version="1.0" encoding="windows-1252"?>
 <UMLProfile profiletype="uml2">
-	<Documentation id="3213C2DC-E" name="XIS-Mobile" version="1.0" notes="XIS-Mobile"/>
+	<Documentation id="B3867616-5" name="XIS-Mobile" version="1.0" notes="XIS-Mobile"/>
 	<Content>
 		<Stereotypes>
-			<Stereotype name="Architectural View" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
+			<Stereotype name="XisInteractionSpace" notes="" cx="173" cy="124" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
 				<AppliesTo>
-					<Apply type="Package">
-						<Property name="_defaultDiagramType" value="XIS-Mobile_Diagrams::ArchitecturalViewModel"/>
-						<Property name="_makeComposite" value="true"/>
+					<Apply type="Class">
+						<Property name="isActive" value=""/>
 					</Apply>
 				</AppliesTo>
+				<TaggedValues>
+					<Tag name="name" type="String" description="" unit="" values="" default=""/>
+					<Tag name="isMainScreen" type="boolean" description="" unit="" values="true,false" default="false"/>
+					<Tag name="title" type="String" description="" unit="" values="" default=""/>
+					<Tag name="posX" type="double" description="" unit="" values="" default=""/>
+					<Tag name="posY" type="double" description="" unit="" values="" default=""/>
+					<Tag name="width" type="double" description="" unit="" values="" default=""/>
+					<Tag name="height" type="double" description="" unit="" values="" default=""/>
+				</TaggedValues>
 			</Stereotype>
-			<Stereotype name="BusinessEntities View" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
+			<Stereotype name="XisWidget" notes="" cx="164" cy="124" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0" isAbstract="true">
 				<AppliesTo>
-					<Apply type="Package">
-						<Property name="_defaultDiagramType" value="XIS-Mobile_Diagrams::BusinessEntitiesViewModel"/>
-						<Property name="_makeComposite" value="true"/>
+					<Apply type="Class">
+						<Property name="isActive" value=""/>
 					</Apply>
 				</AppliesTo>
+				<TaggedValues>
+					<Tag name="name" type="String" description="" unit="" values="" default=""/>
+					<Tag name="posX" type="double" description="" unit="" values="" default=""/>
+					<Tag name="posY" type="double" description="" unit="" values="" default=""/>
+					<Tag name="width" type="double" description="" unit="" values="" default=""/>
+					<Tag name="height" type="double" description="" unit="" values="" default=""/>
+					<Tag name="value" type="String" description="" unit="" values="" default=""/>
+					<Tag name="valueFromExpression" type="String" description="" unit="" values="" default=""/>
+				</TaggedValues>
 			</Stereotype>
-			<Stereotype name="Domain View" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
+			<Stereotype name="XisSimpleWidget" notes="" cx="158" cy="46" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0" isAbstract="true" generalizes="XisWidget" baseStereotypes="XisWidget">
+				<TaggedValues>
+					<Tag name="entityAttributeName" type="String" description="" unit="" values="" default=""/>
+				</TaggedValues>
+			</Stereotype>
+			<Stereotype name="XisEntity" notes="" cx="149" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
 				<AppliesTo>
-					<Apply type="Package">
-						<Property name="_defaultDiagramType" value="XIS-Mobile_Diagrams::DomainViewModel"/>
-						<Property name="_makeComposite" value="true"/>
+					<Apply type="Class">
+						<Property name="isActive" value=""/>
 					</Apply>
 				</AppliesTo>
+				<TaggedValues>
+					<Tag name="name" type="String" description="" unit="" values="" default=""/>
+					<Tag name="persistent" type="boolean" description="" unit="" values="true,false" default="true"/>
+				</TaggedValues>
 			</Stereotype>
-			<Stereotype name="InteractionSpace View" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
+			<Stereotype name="XisEntityAttribute" notes="" cx="167" cy="98" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
 				<AppliesTo>
-					<Apply type="Package">
-						<Property name="_defaultDiagramType" value="XIS-Mobile_Diagrams::InteractionSpaceViewModel"/>
-						<Property name="_makeComposite" value="true"/>
+					<Apply type="Attribute"/>
+				</AppliesTo>
+				<TaggedValues>
+					<Tag name="name" type="String" description="" unit="" values="" default=""/>
+					<Tag name="value" type="String" description="" unit="" values="" default=""/>
+					<Tag name="type" type="enumeration" description="" unit="" values="Integer,Double,String,Boolean,Date,Time,Image,URL" default="Integer"/>
+					<Tag name="nullable" type="boolean" description="" unit="" values="true,false" default="true"/>
+					<Tag name="isKey" type="boolean" description="" unit="" values="true,false" default="false"/>
+				</TaggedValues>
+			</Stereotype>
+			<Stereotype name="XisCompositeWidget" notes="" cx="163" cy="42" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="1" hideicon="0" isAbstract="true" generalizes="XisWidget" baseStereotypes="XisWidget">
+				<TaggedValues>
+					<Tag name="entityName" type="String" description="" unit="" values="" default=""/>
+				</TaggedValues>
+			</Stereotype>
+			<Stereotype name="XisInteractionSpaceAssociation" notes="" cx="185" cy="53" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
+				<AppliesTo>
+					<Apply type="Association">
+						<Property name="compositionKind" value="none"/>
+						<Property name="direction" value="Source -&gt; Destination"/>
 					</Apply>
 				</AppliesTo>
+				<TaggedValues>
+					<Tag name="actionName" type="String" description="" unit="" values="" default=""/>
+				</TaggedValues>
 			</Stereotype>
-			<Stereotype name="NavigationSpace View" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
+			<Stereotype name="XisEntityAssociation" notes="" cx="129" cy="45" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
 				<AppliesTo>
-					<Apply type="Package">
-						<Property name="_defaultDiagramType" value="XIS-Mobile_Diagrams::NavigationSpaceViewModel"/>
-						<Property name="_makeComposite" value="true"/>
+					<Apply type="Association">
+						<Property name="compositionKind" value="none"/>
+						<Property name="direction" value="Source -&gt; Destination"/>
 					</Apply>
 				</AppliesTo>
+				<TaggedValues>
+					<Tag name="roleName" type="String" description="" unit="" values="" default=""/>
+				</TaggedValues>
 			</Stereotype>
-			<Stereotype name="UseCases View" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
+			<Stereotype name="XisLabel" notes="" cx="90" cy="28" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0" generalizes="XisSimpleWidget" baseStereotypes="XisSimpleWidget"/>
+			<Stereotype name="XisTextBox" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0" generalizes="XisSimpleWidget" baseStereotypes="XisSimpleWidget">
+				<TaggedValues>
+					<Tag name="label" type="String" description="" unit="" values="" default=""/>
+					<Tag name="hint" type="String" description="" unit="" values="" default=""/>
+					<Tag name="lines" type="int" description="" unit="" values="" default="1"/>
+				</TaggedValues>
+			</Stereotype>
+			<Stereotype name="XisButton" notes="" cx="90" cy="46" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0" generalizes="XisSimpleWidget" baseStereotypes="XisSimpleWidget">
+				<TaggedValues>
+					<Tag name="onTap" type="String" description="" unit="" values="" default=""/>
+				</TaggedValues>
+			</Stereotype>
+			<Stereotype name="XisLink" notes="" cx="90" cy="59" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0" generalizes="XisSimpleWidget" baseStereotypes="XisSimpleWidget">
+				<TaggedValues>
+					<Tag name="url" type="String" description="" unit="" values="" default=""/>
+					<Tag name="onTap" type="String" description="" unit="" values="" default=""/>
+				</TaggedValues>
+			</Stereotype>
+			<Stereotype name="XisDatePicker" notes="" cx="108" cy="47" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0" generalizes="XisSimpleWidget" baseStereotypes="XisSimpleWidget"/>
+			<Stereotype name="XisTimePicker" notes="" cx="108" cy="41" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0" generalizes="XisSimpleWidget" baseStereotypes="XisSimpleWidget"/>
+			<Stereotype name="XisGesture" notes="" cx="147" cy="48" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
 				<AppliesTo>
-					<Apply type="Package">
-						<Property name="_defaultDiagramType" value="XIS-Mobile_Diagrams::UseCasesViewModel"/>
-						<Property name="_makeComposite" value="true"/>
+					<Apply type="Class">
+						<Property name="isActive" value=""/>
 					</Apply>
 				</AppliesTo>
+				<TaggedValues>
+					<Tag name="type" type="enumeration" description="" unit="" values="Tap,DoubleTap,LongTap,Swipe,Pinch,Stretch" default="Tap"/>
+				</TaggedValues>
 			</Stereotype>
-			<Stereotype name="XisAction" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
+			<Stereotype name="XisAction" notes="" cx="147" cy="59" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
 				<AppliesTo>
 					<Apply type="Operation">
 						<Property name="isOrdered" value=""/>
@@ -66,23 +136,7 @@
 					<Tag name="navigation" type="String" description="" unit="" values="" default=""/>
 				</TaggedValues>
 			</Stereotype>
-			<Stereotype name="XisActor" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
-				<AppliesTo>
-					<Apply type="Actor"/>
-				</AppliesTo>
-				<TaggedValues>
-					<Tag name="name" type="String" description="" unit="" values="" default=""/>
-				</TaggedValues>
-			</Stereotype>
-			<Stereotype name="XisActor-UCAssociation" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
-				<AppliesTo>
-					<Apply type="Association">
-						<Property name="compositionKind" value="none"/>
-						<Property name="direction" value="Source -&gt; Destination"/>
-					</Apply>
-				</AppliesTo>
-			</Stereotype>
-			<Stereotype name="XisArgument" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
+			<Stereotype name="XisArgument" notes="" cx="161" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
 				<AppliesTo>
 					<Apply type="Parameter">
 						<Property name="default" value=""/>
@@ -98,112 +152,45 @@
 					<Tag name="type" type="enumeration" description="" unit="" values="Integer,Double,String,Boolean,Date,Time,Image,URL" default=""/>
 				</TaggedValues>
 			</Stereotype>
-			<Stereotype name="XisBE-EntityDetailAssociation" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
-				<AppliesTo>
-					<Apply type="Association">
-						<Property name="compositionKind" value="none"/>
-						<Property name="direction" value="Source -&gt; Destination"/>
-					</Apply>
-				</AppliesTo>
+			<Stereotype name="XisWebView" notes="" cx="90" cy="58" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0" generalizes="XisSimpleWidget" baseStereotypes="XisSimpleWidget">
 				<TaggedValues>
-					<Tag name="filter" type="String" description="" unit="" values="" default=""/>
+					<Tag name="url" type="String" description="" unit="" values="" default=""/>
 				</TaggedValues>
 			</Stereotype>
-			<Stereotype name="XisBE-EntityMasterAssociation" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
-				<AppliesTo>
-					<Apply type="Association">
-						<Property name="compositionKind" value="none"/>
-						<Property name="direction" value="Source -&gt; Destination"/>
-					</Apply>
-				</AppliesTo>
+			<Stereotype name="XisMapView" notes="" cx="114" cy="85" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0" generalizes="XisSimpleWidget" baseStereotypes="XisSimpleWidget">
 				<TaggedValues>
-					<Tag name="filter" type="String" description="" unit="" values="" default=""/>
+					<Tag name="latitude" type="double" description="" unit="" values="" default=""/>
+					<Tag name="longitude" type="double" description="" unit="" values="" default=""/>
+					<Tag name="zoom" type="int" description="" unit="" values="" default=""/>
 				</TaggedValues>
 			</Stereotype>
-			<Stereotype name="XisBE-EntityReferenceAssociation" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
-				<AppliesTo>
-					<Apply type="Association">
-						<Property name="compositionKind" value="none"/>
-						<Property name="direction" value="Source -&gt; Destination"/>
-					</Apply>
-				</AppliesTo>
+			<Stereotype name="XisImage" notes="" cx="90" cy="47" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0" generalizes="XisSimpleWidget" baseStereotypes="XisSimpleWidget">
 				<TaggedValues>
-					<Tag name="filter" type="String" description="" unit="" values="" default=""/>
+					<Tag name="path" type="String" description="" unit="" values="" default=""/>
 				</TaggedValues>
 			</Stereotype>
-			<Stereotype name="XisBusinessEntity" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
+			<Stereotype name="XisCheckBox" notes="" cx="90" cy="46" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0" generalizes="XisSimpleWidget" baseStereotypes="XisSimpleWidget">
+				<TaggedValues>
+					<Tag name="label" type="String" description="" unit="" values="" default=""/>
+				</TaggedValues>
+			</Stereotype>
+			<Stereotype name="XisEnumeration" notes="" cx="106" cy="46" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
 				<AppliesTo>
-					<Apply type="Class">
-						<Property name="isActive" value=""/>
-					</Apply>
+					<Apply type="Enumeration"/>
 				</AppliesTo>
 				<TaggedValues>
 					<Tag name="name" type="String" description="" unit="" values="" default=""/>
 				</TaggedValues>
 			</Stereotype>
-			<Stereotype name="XisButton" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0" generalizes="XisSimpleWidget" baseStereotypes="XisSimpleWidget">
-				<TaggedValues>
-					<Tag name="onTap" type="String" description="" unit="" values="" default=""/>
-				</TaggedValues>
-			</Stereotype>
-			<Stereotype name="XisCheckBox" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0" generalizes="XisSimpleWidget" baseStereotypes="XisSimpleWidget">
-				<TaggedValues>
-					<Tag name="label" type="String" description="" unit="" values="" default=""/>
-				</TaggedValues>
-			</Stereotype>
-			<Stereotype name="XisClientMobileApp" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0" generalizes="XisProvider" baseStereotypes="XisProvider"/>
-			<Stereotype name="XisCompositeWidget" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="1" hideicon="0" isAbstract="true" generalizes="XisWidget" baseStereotypes="XisWidget">
-				<TaggedValues>
-					<Tag name="entityName" type="String" description="" unit="" values="" default=""/>
-				</TaggedValues>
-			</Stereotype>
-			<Stereotype name="XisDatePicker" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0" generalizes="XisSimpleWidget" baseStereotypes="XisSimpleWidget"/>
-			<Stereotype name="XisDialog" notes="" cx="90" cy="70" bgcolor="6008319" fontcolor="-1" bordercolor="-1" borderwidth="1" hideicon="0" generalizes="XisCompositeWidget" baseStereotypes="XisCompositeWidget">
-				<TaggedValues>
-					<Tag name="title" type="String" description="" unit="" values="" default=""/>
-					<Tag name="description" type="String" description="" unit="" values="" default=""/>
-				</TaggedValues>
-			</Stereotype>
-			<Stereotype name="XisDropdown" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0" generalizes="XisSimpleWidget" baseStereotypes="XisSimpleWidget">
-				<TaggedValues>
-					<Tag name="label" type="String" description="" unit="" values="" default=""/>
-				</TaggedValues>
-			</Stereotype>
-			<Stereotype name="XisEntity" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
-				<AppliesTo>
-					<Apply type="Class">
-						<Property name="isActive" value=""/>
-					</Apply>
-				</AppliesTo>
-				<TaggedValues>
-					<Tag name="name" type="String" description="" unit="" values="" default=""/>
-					<Tag name="persistent" type="boolean" description="" unit="" values="true,false" default="true"/>
-				</TaggedValues>
-			</Stereotype>
-			<Stereotype name="XisEntityAssociation" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
-				<AppliesTo>
-					<Apply type="Association">
-						<Property name="compositionKind" value="none"/>
-						<Property name="direction" value="Source -&gt; Destination"/>
-					</Apply>
-				</AppliesTo>
-				<TaggedValues>
-					<Tag name="roleName" type="String" description="" unit="" values="" default=""/>
-				</TaggedValues>
-			</Stereotype>
-			<Stereotype name="XisEntityAttribute" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
+			<Stereotype name="XisEnumerationValue" notes="" cx="134" cy="47" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
 				<AppliesTo>
 					<Apply type="Attribute"/>
 				</AppliesTo>
 				<TaggedValues>
 					<Tag name="name" type="String" description="" unit="" values="" default=""/>
-					<Tag name="value" type="String" description="" unit="" values="" default=""/>
-					<Tag name="type" type="enumeration" description="" unit="" values="Integer,Double,String,Boolean,Date,Time,Image,URL" default="Integer"/>
-					<Tag name="nullable" type="boolean" description="" unit="" values="true,false" default="true"/>
-					<Tag name="isKey" type="boolean" description="" unit="" values="true,false" default="false"/>
 				</TaggedValues>
 			</Stereotype>
-			<Stereotype name="XisEntityInheritance" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
+			<Stereotype name="XisEntityInheritance" notes="" cx="126" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
 				<AppliesTo>
 					<Apply type="Generalization">
 						<Property name="direction" value="Source -&gt; Destination"/>
@@ -211,7 +198,23 @@
 					</Apply>
 				</AppliesTo>
 			</Stereotype>
-			<Stereotype name="XisEntityUC-BEAssociation" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
+			<Stereotype name="XisMobileApp" notes="" cx="126" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
+				<AppliesTo>
+					<Apply type="Class">
+						<Property name="isActive" value=""/>
+					</Apply>
+				</AppliesTo>
+				<TaggedValues>
+					<Tag name="name" type="String" description="" unit="" values="" default=""/>
+				</TaggedValues>
+			</Stereotype>
+			<Stereotype name="XisServer" notes="" cx="100" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0" generalizes="XisProvider" baseStereotypes="XisProvider">
+				<TaggedValues>
+					<Tag name="address" type="String" description="" unit="" values="" default=""/>
+				</TaggedValues>
+			</Stereotype>
+			<Stereotype name="XisClientMobileApp" notes="" cx="123" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0" generalizes="XisProvider" baseStereotypes="XisProvider"/>
+			<Stereotype name="XisMobileApp-ServiceAssociation" notes="" cx="196" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
 				<AppliesTo>
 					<Apply type="Association">
 						<Property name="compositionKind" value="none"/>
@@ -219,7 +222,96 @@
 					</Apply>
 				</AppliesTo>
 			</Stereotype>
-			<Stereotype name="XisEntityUseCase" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0" generalizes="XisUseCase" baseStereotypes="XisUseCase">
+			<Stereotype name="XisBusinessEntity" notes="" cx="117" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
+				<AppliesTo>
+					<Apply type="Class">
+						<Property name="isActive" value=""/>
+					</Apply>
+				</AppliesTo>
+				<TaggedValues>
+					<Tag name="name" type="String" description="" unit="" values="" default=""/>
+				</TaggedValues>
+			</Stereotype>
+			<Stereotype name="XisInternalProvider" notes="" cx="208" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0" generalizes="XisProvider" baseStereotypes="XisProvider">
+				<TaggedValues>
+					<Tag name="type" type="enumeration" description="" unit="" values="Location,Contacts,Calendar,Media,Custom" default="Location"/>
+				</TaggedValues>
+			</Stereotype>
+			<Stereotype name="XisServiceMethod" notes="" cx="117" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
+				<AppliesTo>
+					<Apply type="Operation">
+						<Property name="isOrdered" value=""/>
+						<Property name="isQuery" value="false"/>
+						<Property name="isUnique" value=""/>
+						<Property name="lower" value=""/>
+						<Property name="upper" value=""/>
+					</Apply>
+				</AppliesTo>
+				<TaggedValues>
+					<Tag name="name" type="String" description="" unit="" values="" default=""/>
+				</TaggedValues>
+			</Stereotype>
+			<Stereotype name="XisService" notes="" cx="101" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0" isAbstract="true">
+				<AppliesTo>
+					<Apply type="Interface"/>
+				</AppliesTo>
+				<TaggedValues>
+					<Tag name="name" type="String" description="" unit="" values="" default=""/>
+				</TaggedValues>
+			</Stereotype>
+			<Stereotype name="XisBE-EntityMasterAssociation" notes="" cx="180" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
+				<AppliesTo>
+					<Apply type="Association">
+						<Property name="compositionKind" value="none"/>
+						<Property name="direction" value="Source -&gt; Destination"/>
+					</Apply>
+				</AppliesTo>
+				<TaggedValues>
+					<Tag name="filter" type="String" description="" unit="" values="" default=""/>
+				</TaggedValues>
+			</Stereotype>
+			<Stereotype name="XisBE-EntityReferenceAssociation" notes="" cx="196" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
+				<AppliesTo>
+					<Apply type="Association">
+						<Property name="compositionKind" value="none"/>
+						<Property name="direction" value="Source -&gt; Destination"/>
+					</Apply>
+				</AppliesTo>
+				<TaggedValues>
+					<Tag name="filter" type="String" description="" unit="" values="" default=""/>
+				</TaggedValues>
+			</Stereotype>
+			<Stereotype name="XisBE-EntityDetailAssociation" notes="" cx="174" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
+				<AppliesTo>
+					<Apply type="Association">
+						<Property name="compositionKind" value="none"/>
+						<Property name="direction" value="Source -&gt; Destination"/>
+					</Apply>
+				</AppliesTo>
+				<TaggedValues>
+					<Tag name="filter" type="String" description="" unit="" values="" default=""/>
+				</TaggedValues>
+			</Stereotype>
+			<Stereotype name="XisIS-BEAssociation" notes="" cx="139" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
+				<AppliesTo>
+					<Apply type="Association">
+						<Property name="compositionKind" value="none"/>
+						<Property name="direction" value="Source -&gt; Destination"/>
+					</Apply>
+				</AppliesTo>
+			</Stereotype>
+			<Stereotype name="XisDropdown" notes="" cx="99" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0" generalizes="XisSimpleWidget" baseStereotypes="XisSimpleWidget">
+				<TaggedValues>
+					<Tag name="label" type="String" description="" unit="" values="" default=""/>
+				</TaggedValues>
+			</Stereotype>
+			<Stereotype name="XisRemoteService" notes="" cx="177" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0" generalizes="XisService" baseStereotypes="XisService">
+				<TaggedValues>
+					<Tag name="returnType" type="enumeration" description="" unit="" values="XML,JSON" default=""/>
+				</TaggedValues>
+			</Stereotype>
+			<Stereotype name="XisInternalService" notes="" cx="114" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0" generalizes="XisService" baseStereotypes="XisService"/>
+			<Stereotype name="XisEntityUseCase" notes="" cx="249" cy="202" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0" generalizes="XisUseCase" baseStereotypes="XisUseCase">
 				<TaggedValues>
 					<Tag name="type" type="enumeration" description="" unit="" values="EntityManagement,EntityConfiguration" default="EntityManagement"/>
 					<Tag name="CreateMaster" type="boolean" description="" unit="" values="true,false" default="false"/>
@@ -236,34 +328,7 @@
 					<Tag name="DeleteReference" type="boolean" description="" unit="" values="true,false" default="false"/>
 				</TaggedValues>
 			</Stereotype>
-			<Stereotype name="XisEnumeration" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
-				<AppliesTo>
-					<Apply type="Enumeration"/>
-				</AppliesTo>
-				<TaggedValues>
-					<Tag name="name" type="String" description="" unit="" values="" default=""/>
-				</TaggedValues>
-			</Stereotype>
-			<Stereotype name="XisEnumerationValue" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
-				<AppliesTo>
-					<Apply type="Attribute"/>
-				</AppliesTo>
-				<TaggedValues>
-					<Tag name="name" type="String" description="" unit="" values="" default=""/>
-				</TaggedValues>
-			</Stereotype>
-			<Stereotype name="XisForm" notes="" cx="90" cy="70" bgcolor="13353215" fontcolor="-1" bordercolor="-1" borderwidth="1" hideicon="0" generalizes="XisCompositeWidget" baseStereotypes="XisCompositeWidget"/>
-			<Stereotype name="XisGesture" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
-				<AppliesTo>
-					<Apply type="Class">
-						<Property name="isActive" value=""/>
-					</Apply>
-				</AppliesTo>
-				<TaggedValues>
-					<Tag name="type" type="enumeration" description="" unit="" values="Tap,DoubleTap,LongTap,Swipe,Pinch,Stretch" default="Tap"/>
-				</TaggedValues>
-			</Stereotype>
-			<Stereotype name="XisIS-BEAssociation" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
+			<Stereotype name="XisEntityUC-BEAssociation" notes="" cx="161" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
 				<AppliesTo>
 					<Apply type="Association">
 						<Property name="compositionKind" value="none"/>
@@ -271,220 +336,79 @@
 					</Apply>
 				</AppliesTo>
 			</Stereotype>
-			<Stereotype name="XisIS-DialogAssociation" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
+			<Stereotype name="Domain View" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
 				<AppliesTo>
-					<Apply type="Association">
-						<Property name="compositionKind" value="none"/>
-						<Property name="direction" value="Source -&gt; Destination"/>
+					<Apply type="Package">
+						<Property name="_defaultDiagramType" value="XIS-Mobile_Diagrams::DomainViewModel"/>
+						<Property name="_makeComposite" value="true"/>
 					</Apply>
 				</AppliesTo>
 			</Stereotype>
-			<Stereotype name="XisIS-MenuAssociation" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
+			<Stereotype name="BusinessEntities View" notes="" cx="114" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
 				<AppliesTo>
-					<Apply type="Association">
-						<Property name="compositionKind" value="none"/>
-						<Property name="direction" value="Source -&gt; Destination"/>
+					<Apply type="Package">
+						<Property name="_defaultDiagramType" value="XIS-Mobile_Diagrams::BusinessEntitiesViewModel"/>
+						<Property name="_makeComposite" value="true"/>
 					</Apply>
 				</AppliesTo>
 			</Stereotype>
-			<Stereotype name="XisImage" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0" generalizes="XisSimpleWidget" baseStereotypes="XisSimpleWidget">
-				<TaggedValues>
-					<Tag name="path" type="String" description="" unit="" values="" default=""/>
-				</TaggedValues>
-			</Stereotype>
-			<Stereotype name="XisInteractionSpace" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
+			<Stereotype name="UseCases View" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
 				<AppliesTo>
-					<Apply type="Class">
-						<Property name="isActive" value=""/>
+					<Apply type="Package">
+						<Property name="_defaultDiagramType" value="XIS-Mobile_Diagrams::UseCasesViewModel"/>
+						<Property name="_makeComposite" value="true"/>
 					</Apply>
 				</AppliesTo>
-				<TaggedValues>
-					<Tag name="name" type="String" description="" unit="" values="" default=""/>
-					<Tag name="isMainScreen" type="boolean" description="" unit="" values="true,false" default="false"/>
-					<Tag name="title" type="String" description="" unit="" values="" default=""/>
-					<Tag name="posX" type="double" description="" unit="" values="" default=""/>
-					<Tag name="posY" type="double" description="" unit="" values="" default=""/>
-					<Tag name="width" type="double" description="" unit="" values="" default=""/>
-					<Tag name="height" type="double" description="" unit="" values="" default=""/>
-				</TaggedValues>
 			</Stereotype>
-			<Stereotype name="XisInteractionSpaceAssociation" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
+			<Stereotype name="Architectural View" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
 				<AppliesTo>
-					<Apply type="Association">
-						<Property name="compositionKind" value="none"/>
-						<Property name="direction" value="Source -&gt; Destination"/>
+					<Apply type="Package">
+						<Property name="_defaultDiagramType" value="XIS-Mobile_Diagrams::ArchitecturalViewModel"/>
+						<Property name="_makeComposite" value="true"/>
 					</Apply>
 				</AppliesTo>
+			</Stereotype>
+			<Stereotype name="NavigationSpace View" notes="" cx="115" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
+				<AppliesTo>
+					<Apply type="Package">
+						<Property name="_defaultDiagramType" value="XIS-Mobile_Diagrams::NavigationSpaceViewModel"/>
+						<Property name="_makeComposite" value="true"/>
+					</Apply>
+				</AppliesTo>
+			</Stereotype>
+			<Stereotype name="InteractionSpace View" notes="" cx="114" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
+				<AppliesTo>
+					<Apply type="Package">
+						<Property name="_defaultDiagramType" value="XIS-Mobile_Diagrams::InteractionSpaceViewModel"/>
+						<Property name="_makeComposite" value="true"/>
+					</Apply>
+				</AppliesTo>
+			</Stereotype>
+			<Stereotype name="XisMenu" notes="" cx="107" cy="48" bgcolor="16763904" fontcolor="-1" bordercolor="-1" borderwidth="1" hideicon="0" generalizes="XisCompositeWidget" baseStereotypes="XisCompositeWidget">
 				<TaggedValues>
-					<Tag name="actionName" type="String" description="" unit="" values="" default=""/>
+					<Tag name="type" type="enumeration" description="" unit="" values="OptionsMenu,ContextMenu" default=""/>
 				</TaggedValues>
 			</Stereotype>
-			<Stereotype name="XisInternalProvider" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0" generalizes="XisProvider" baseStereotypes="XisProvider">
-				<TaggedValues>
-					<Tag name="type" type="enumeration" description="" unit="" values="Location,Contacts,Calendar,Media,Custom" default="Location"/>
-				</TaggedValues>
-			</Stereotype>
-			<Stereotype name="XisInternalService" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0" generalizes="XisService" baseStereotypes="XisService"/>
-			<Stereotype name="XisLabel" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0" generalizes="XisSimpleWidget" baseStereotypes="XisSimpleWidget"/>
-			<Stereotype name="XisLink" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0" generalizes="XisSimpleWidget" baseStereotypes="XisSimpleWidget">
-				<TaggedValues>
-					<Tag name="url" type="String" description="" unit="" values="" default=""/>
-					<Tag name="onTap" type="String" description="" unit="" values="" default=""/>
-				</TaggedValues>
-			</Stereotype>
-			<Stereotype name="XisList" notes="" cx="90" cy="70" bgcolor="65535" fontcolor="-1" bordercolor="-1" borderwidth="1" hideicon="0" generalizes="XisCompositeWidget" baseStereotypes="XisCompositeWidget">
+			<Stereotype name="XisList" notes="" cx="106" cy="70" bgcolor="65535" fontcolor="-1" bordercolor="-1" borderwidth="1" hideicon="0" generalizes="XisCompositeWidget" baseStereotypes="XisCompositeWidget">
 				<TaggedValues>
 					<Tag name="searchBy" type="String" description="" unit="" values="" default=""/>
 					<Tag name="orderBy" type="String" description="" unit="" values="" default=""/>
 				</TaggedValues>
 			</Stereotype>
-			<Stereotype name="XisListGroup" notes="" cx="90" cy="70" bgcolor="55295" fontcolor="-1" bordercolor="-1" borderwidth="1" hideicon="0" generalizes="XisCompositeWidget" baseStereotypes="XisCompositeWidget"/>
-			<Stereotype name="XisListItem" notes="" cx="90" cy="70" bgcolor="10092287" fontcolor="-1" bordercolor="-1" borderwidth="1" hideicon="0" generalizes="XisCompositeWidget" baseStereotypes="XisCompositeWidget">
+			<Stereotype name="XisListItem" notes="" cx="119" cy="70" bgcolor="10092287" fontcolor="-1" bordercolor="-1" borderwidth="1" hideicon="0" generalizes="XisCompositeWidget" baseStereotypes="XisCompositeWidget">
 				<TaggedValues>
 					<Tag name="onTap" type="String" description="" unit="" values="" default=""/>
 					<Tag name="onLongTap" type="String" description="" unit="" values="" default=""/>
 				</TaggedValues>
 			</Stereotype>
-			<Stereotype name="XisMapMarker" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
-				<AppliesTo>
-					<Apply type="Class">
-						<Property name="isActive" value=""/>
-					</Apply>
-				</AppliesTo>
-				<TaggedValues>
-					<Tag name="title" type="String" description="" unit="" values="" default=""/>
-					<Tag name="description" type="String" description="" unit="" values="" default=""/>
-					<Tag name="latitude" type="double" description="" unit="" values="" default=""/>
-					<Tag name="longitude" type="double" description="" unit="" values="" default=""/>
-					<Tag name="onTap" type="String" description="" unit="" values="" default=""/>
-				</TaggedValues>
-			</Stereotype>
-			<Stereotype name="XisMapView" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0" generalizes="XisSimpleWidget" baseStereotypes="XisSimpleWidget">
-				<TaggedValues>
-					<Tag name="latitude" type="double" description="" unit="" values="" default=""/>
-					<Tag name="longitude" type="double" description="" unit="" values="" default=""/>
-					<Tag name="zoom" type="int" description="" unit="" values="" default=""/>
-				</TaggedValues>
-			</Stereotype>
-			<Stereotype name="XisMenu" notes="" cx="90" cy="70" bgcolor="16763904" fontcolor="-1" bordercolor="-1" borderwidth="1" hideicon="0" generalizes="XisCompositeWidget" baseStereotypes="XisCompositeWidget">
-				<TaggedValues>
-					<Tag name="type" type="enumeration" description="" unit="" values="OptionsMenu,ContextMenu" default=""/>
-				</TaggedValues>
-			</Stereotype>
-			<Stereotype name="XisMenuGroup" notes="" cx="90" cy="70" bgcolor="16764057" fontcolor="-1" bordercolor="-1" borderwidth="1" hideicon="0" generalizes="XisCompositeWidget" baseStereotypes="XisCompositeWidget"/>
+			<Stereotype name="XisMenuGroup" notes="" cx="101" cy="70" bgcolor="16764057" fontcolor="-1" bordercolor="-1" borderwidth="1" hideicon="0" generalizes="XisCompositeWidget" baseStereotypes="XisCompositeWidget"/>
 			<Stereotype name="XisMenuItem" notes="" cx="90" cy="70" bgcolor="16777164" fontcolor="-1" bordercolor="-1" borderwidth="1" hideicon="0" generalizes="XisSimpleWidget" baseStereotypes="XisSimpleWidget">
 				<TaggedValues>
 					<Tag name="onTap" type="String" description="" unit="" values="" default=""/>
 				</TaggedValues>
 			</Stereotype>
-			<Stereotype name="XisMobileApp" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
-				<AppliesTo>
-					<Apply type="Class">
-						<Property name="isActive" value=""/>
-					</Apply>
-				</AppliesTo>
-				<TaggedValues>
-					<Tag name="name" type="String" description="" unit="" values="" default=""/>
-				</TaggedValues>
-			</Stereotype>
-			<Stereotype name="XisMobileApp-ServiceAssociation" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
-				<AppliesTo>
-					<Apply type="Association">
-						<Property name="compositionKind" value="none"/>
-						<Property name="direction" value="Source -&gt; Destination"/>
-					</Apply>
-				</AppliesTo>
-			</Stereotype>
-			<Stereotype name="XisProvider" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0" isAbstract="true">
-				<AppliesTo>
-					<Apply type="Class">
-						<Property name="isActive" value=""/>
-					</Apply>
-				</AppliesTo>
-				<TaggedValues>
-					<Tag name="name" type="String" description="" unit="" values="" default=""/>
-				</TaggedValues>
-			</Stereotype>
-			<Stereotype name="XisProvider-ServiceRealization" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
-				<AppliesTo>
-					<Apply type="Realisation">
-						<Property name="direction" value="Source -&gt; Destination"/>
-					</Apply>
-				</AppliesTo>
-			</Stereotype>
-			<Stereotype name="XisRadioButton" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0" generalizes="XisSimpleWidget" baseStereotypes="XisSimpleWidget"/>
-			<Stereotype name="XisRemoteService" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0" generalizes="XisService" baseStereotypes="XisService">
-				<TaggedValues>
-					<Tag name="returnType" type="enumeration" description="" unit="" values="XML,JSON" default=""/>
-				</TaggedValues>
-			</Stereotype>
-			<Stereotype name="XisServer" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0" generalizes="XisProvider" baseStereotypes="XisProvider">
-				<TaggedValues>
-					<Tag name="address" type="String" description="" unit="" values="" default=""/>
-				</TaggedValues>
-			</Stereotype>
-			<Stereotype name="XisService" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0" isAbstract="true">
-				<AppliesTo>
-					<Apply type="Interface"/>
-				</AppliesTo>
-				<TaggedValues>
-					<Tag name="name" type="String" description="" unit="" values="" default=""/>
-				</TaggedValues>
-			</Stereotype>
-			<Stereotype name="XisServiceMethod" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
-				<AppliesTo>
-					<Apply type="Operation">
-						<Property name="isOrdered" value=""/>
-						<Property name="isQuery" value="false"/>
-						<Property name="isUnique" value=""/>
-						<Property name="lower" value=""/>
-						<Property name="upper" value=""/>
-					</Apply>
-				</AppliesTo>
-				<TaggedValues>
-					<Tag name="name" type="String" description="" unit="" values="" default=""/>
-				</TaggedValues>
-			</Stereotype>
-			<Stereotype name="XisServiceUC-BEAssociation" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
-				<AppliesTo>
-					<Apply type="Association">
-						<Property name="compositionKind" value="none"/>
-						<Property name="direction" value="Source -&gt; Destination"/>
-					</Apply>
-				</AppliesTo>
-			</Stereotype>
-			<Stereotype name="XisServiceUC-ProviderAssociation" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
-				<AppliesTo>
-					<Apply type="Association">
-						<Property name="compositionKind" value="none"/>
-						<Property name="direction" value="Source -&gt; Destination"/>
-					</Apply>
-				</AppliesTo>
-			</Stereotype>
-			<Stereotype name="XisServiceUseCase" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0" generalizes="XisUseCase" baseStereotypes="XisUseCase"/>
-			<Stereotype name="XisSimpleWidget" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0" isAbstract="true" generalizes="XisWidget" baseStereotypes="XisWidget">
-				<TaggedValues>
-					<Tag name="entityAttributeName" type="String" description="" unit="" values="" default=""/>
-				</TaggedValues>
-			</Stereotype>
-			<Stereotype name="XisTextBox" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0" generalizes="XisSimpleWidget" baseStereotypes="XisSimpleWidget">
-				<TaggedValues>
-					<Tag name="label" type="String" description="" unit="" values="" default=""/>
-					<Tag name="hint" type="String" description="" unit="" values="" default=""/>
-					<Tag name="lines" type="int" description="" unit="" values="" default="1"/>
-				</TaggedValues>
-			</Stereotype>
-			<Stereotype name="XisTimePicker" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0" generalizes="XisSimpleWidget" baseStereotypes="XisSimpleWidget"/>
-			<Stereotype name="XisUseCase" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0" isAbstract="true">
-				<AppliesTo>
-					<Apply type="UseCase"/>
-				</AppliesTo>
-				<TaggedValues>
-					<Tag name="name" type="String" description="" unit="" values="" default=""/>
-					<Tag name="isStartingUseCase" type="boolean" description="" unit="" values="true,false" default="false"/>
-				</TaggedValues>
-			</Stereotype>
-			<Stereotype name="XisVisibilityBoundary" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0" generalizes="XisCompositeWidget" baseStereotypes="XisCompositeWidget">
+			<Stereotype name="XisListGroup" notes="" cx="90" cy="70" bgcolor="55295" fontcolor="-1" bordercolor="-1" borderwidth="1" hideicon="0" generalizes="XisCompositeWidget" baseStereotypes="XisCompositeWidget"/>
+			<Stereotype name="XisVisibilityBoundary" notes="" cx="167" cy="85" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0" generalizes="XisCompositeWidget" baseStereotypes="XisCompositeWidget">
 				<Image type="EAShapeScript 1.0" xmlns:dt="urn:schemas-microsoft-com:datatypes" dt:dt="bin.base64">UEsDBBQAAAAIAAyQeUMMDeZzogEAADQIAAAHABEAc3RyLmRhdFVUDQAHNpCTUjaQk1I2kJNS
 tVXLasJAFD3bFvoPkmwUurBCV8WVFLosttBlSZNopDFKYhal9Iv6Cf25njtxnEnMQ3wweOeO
 995zH3OYZIjgYY0QPSypLZDgBtf4VvIKL7Rs8EyZ4I3WgKcIfYwwwMPWZ4EZo/t4YnyGV8o5
@@ -502,28 +426,21 @@ AAABAAEAPgAAANgBAAAAAA==</Image>
 					<Tag name="Edit" type="boolean" description="" unit="" values="true,false" default="false"/>
 				</TaggedValues>
 			</Stereotype>
-			<Stereotype name="XisWebView" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0" generalizes="XisSimpleWidget" baseStereotypes="XisSimpleWidget">
-				<TaggedValues>
-					<Tag name="url" type="String" description="" unit="" values="" default=""/>
-				</TaggedValues>
-			</Stereotype>
-			<Stereotype name="XisWidget" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0" isAbstract="true">
+			<Stereotype name="XisMapMarker" notes="" cx="114" cy="111" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
 				<AppliesTo>
 					<Apply type="Class">
 						<Property name="isActive" value=""/>
 					</Apply>
 				</AppliesTo>
 				<TaggedValues>
-					<Tag name="name" type="String" description="" unit="" values="" default=""/>
-					<Tag name="posX" type="double" description="" unit="" values="" default=""/>
-					<Tag name="posY" type="double" description="" unit="" values="" default=""/>
-					<Tag name="width" type="double" description="" unit="" values="" default=""/>
-					<Tag name="height" type="double" description="" unit="" values="" default=""/>
-					<Tag name="value" type="String" description="" unit="" values="" default=""/>
-					<Tag name="valueFromExpression" type="String" description="" unit="" values="" default=""/>
+					<Tag name="title" type="String" description="" unit="" values="" default=""/>
+					<Tag name="description" type="String" description="" unit="" values="" default=""/>
+					<Tag name="latitude" type="double" description="" unit="" values="" default=""/>
+					<Tag name="longitude" type="double" description="" unit="" values="" default=""/>
+					<Tag name="onTap" type="String" description="" unit="" values="" default=""/>
 				</TaggedValues>
 			</Stereotype>
-			<Stereotype name="XisWidget-GestureAssociation" notes="" cx="90" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
+			<Stereotype name="XisIS-MenuAssociation" notes="" cx="142" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
 				<AppliesTo>
 					<Apply type="Association">
 						<Property name="compositionKind" value="none"/>
@@ -531,8 +448,91 @@ AAABAAEAPgAAANgBAAAAAA==</Image>
 					</Apply>
 				</AppliesTo>
 			</Stereotype>
+			<Stereotype name="XisDialog" notes="" cx="115" cy="70" bgcolor="6008319" fontcolor="-1" bordercolor="-1" borderwidth="1" hideicon="0" generalizes="XisCompositeWidget" baseStereotypes="XisCompositeWidget">
+				<TaggedValues>
+					<Tag name="title" type="String" description="" unit="" values="" default=""/>
+					<Tag name="description" type="String" description="" unit="" values="" default=""/>
+				</TaggedValues>
+			</Stereotype>
+			<Stereotype name="XisIS-DialogAssociation" notes="" cx="146" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
+				<AppliesTo>
+					<Apply type="Association">
+						<Property name="compositionKind" value="none"/>
+						<Property name="direction" value="Source -&gt; Destination"/>
+					</Apply>
+				</AppliesTo>
+			</Stereotype>
+			<Stereotype name="XisForm" notes="" cx="90" cy="70" bgcolor="13353215" fontcolor="-1" bordercolor="-1" borderwidth="1" hideicon="0" generalizes="XisCompositeWidget" baseStereotypes="XisCompositeWidget"/>
+			<Stereotype name="XisServiceUseCase" notes="" cx="127" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0" generalizes="XisUseCase" baseStereotypes="XisUseCase"/>
+			<Stereotype name="XisServiceUC-BEAssociation" notes="" cx="172" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
+				<AppliesTo>
+					<Apply type="Association">
+						<Property name="compositionKind" value="none"/>
+						<Property name="direction" value="Source -&gt; Destination"/>
+					</Apply>
+				</AppliesTo>
+			</Stereotype>
+			<Stereotype name="XisUseCase" notes="" cx="193" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0" isAbstract="true">
+				<AppliesTo>
+					<Apply type="UseCase"/>
+				</AppliesTo>
+				<TaggedValues>
+					<Tag name="name" type="String" description="" unit="" values="" default=""/>
+					<Tag name="isStartingUseCase" type="boolean" description="" unit="" values="true,false" default="false"/>
+				</TaggedValues>
+			</Stereotype>
+			<Stereotype name="XisProvider" notes="" cx="124" cy="49" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0" isAbstract="true">
+				<AppliesTo>
+					<Apply type="Class">
+						<Property name="isActive" value=""/>
+					</Apply>
+				</AppliesTo>
+				<TaggedValues>
+					<Tag name="name" type="String" description="" unit="" values="" default=""/>
+				</TaggedValues>
+			</Stereotype>
+			<Stereotype name="XisServiceUC-ProviderAssociation" notes="" cx="201" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
+				<AppliesTo>
+					<Apply type="Association">
+						<Property name="compositionKind" value="none"/>
+						<Property name="direction" value="Source -&gt; Destination"/>
+					</Apply>
+				</AppliesTo>
+			</Stereotype>
+			<Stereotype name="XisWidget-GestureAssociation" notes="" cx="177" cy="52" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
+				<AppliesTo>
+					<Apply type="Association">
+						<Property name="compositionKind" value="none"/>
+						<Property name="direction" value="Source -&gt; Destination"/>
+					</Apply>
+				</AppliesTo>
+			</Stereotype>
+			<Stereotype name="XisProvider-ServiceRealization" notes="" cx="183" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
+				<AppliesTo>
+					<Apply type="Realisation">
+						<Property name="direction" value="Source -&gt; Destination"/>
+					</Apply>
+				</AppliesTo>
+			</Stereotype>
+			<Stereotype name="XisActor" notes="" cx="90" cy="46" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
+				<AppliesTo>
+					<Apply type="Actor"/>
+				</AppliesTo>
+				<TaggedValues>
+					<Tag name="name" type="String" description="" unit="" values="" default=""/>
+				</TaggedValues>
+			</Stereotype>
+			<Stereotype name="XisActor-UCAssociation" notes="" cx="145" cy="70" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0">
+				<AppliesTo>
+					<Apply type="Association">
+						<Property name="compositionKind" value="none"/>
+						<Property name="direction" value="Source -&gt; Destination"/>
+					</Apply>
+				</AppliesTo>
+			</Stereotype>
+			<Stereotype name="XisRadioButton" notes="" cx="103" cy="38" bgcolor="-1" fontcolor="-1" bordercolor="-1" borderwidth="-1" hideicon="0" generalizes="XisSimpleWidget" baseStereotypes="XisSimpleWidget"/>
 		</Stereotypes>
 		<TaggedValueTypes/>
-		<QuickLink data="// Source Element Type,Source Stereotype,Target Element Type,Target Stereotype,Diagram Filter,New Element Type,New Element Stereotype,New Link Type,New Link Stereotype,New Link Direction,New Link Caption,New Link &amp; Element Caption,Create Link,Create Element,Disallow Self connector,Exclusive to ST filter,Menu Group,Complexity Level,Target Must Be Parent,Embed element,Precedes Separator LEAF,Precedes Separator GROUP&#xA;Class,XisEntity,,,,Class,XisEntity,Association,XisEntityAssociation,to,,XisEntityAssociation,TRUE,TRUE,TRUE,TRUE,XisEntity,0,,,,&#xA;Class,XisEntity,Class,XisEntity,,,,Association,XisEntityAssociation,to,XisEntityAssociation,,TRUE,,TRUE,TRUE,XisEntity,0,,,,&#xA;Class,XisEntity,,,,Class,XisEntity,Generalization,XisEntityInheritance,to,,XisEntityInheritance,TRUE,TRUE,TRUE,TRUE,XisEntity,0,,,,&#xA;Class,XisEntity,Class,XisEntity,,,,Generalization,XisEntityInheritance,to,XisEntityInheritance,,TRUE,,TRUE,TRUE,XisEntity,0,,,,&#xA;Class,XisBusinessEntity,Class,XisEntity,,,,Association,XisBE-EntityMasterAssociation,from,XisBE-EntityMasterAssociation,,TRUE,,TRUE,TRUE,BusinessEntities View,0,,,,&#xA;Class,XisEntity,Class,XisBusinessEntity,,,,Association,XisBE-EntityMasterAssociation,to,XisBE-EntityMasterAssociation,,TRUE,,TRUE,TRUE,BusinessEntities View,0,,,,&#xA;Class,XisBusinessEntity,Class,XisEntity,,,,Association,XisBE-EntityDetailAssociation,from,XisBE-EntityDetailAssociation,,TRUE,,TRUE,TRUE,BusinessEntities View,0,,,,&#xA;Class,XisEntity,Class,XisBusinessEntity,,,,Association,XisBE-EntityDetailAssociation,to,XisBE-EntityDetailAssociation,,TRUE,,TRUE,TRUE,BusinessEntities View,0,,,,&#xA;Class,XisBusinessEntity,Class,XisEntity,,,,Association,XisBE-EntityReferenceAssociation,from,XisBE-EntityReferenceAssociation,,TRUE,,TRUE,TRUE,BusinessEntities View,0,,,,&#xA;Class,XisEntity,Class,XisBusinessEntity,,,,Association,XisBE-EntityReferenceAssociation,to,XisBE-EntityReferenceAssociation,,TRUE,,TRUE,TRUE,BusinessEntities View,0,,,,&#xA;Actor,XisActor,,,,UseCase,XisEntityUseCase,Association,XisActor-UCAssociation,to,,XisActor-UCAssociation,TRUE,TRUE,TRUE,TRUE,XisEntityUseCase,0,,,,&#xA;Actor,XisActor,UseCase,XisEntityUseCase,,,,Association,XisActor-UCAssociation,to,XisActor-UCAssociation,,TRUE,,TRUE,TRUE,XisEntityUseCase,0,,,,&#xA;Actor,XisActor,,,,UseCase,XisServiceUseCase,Association,XisActor-UCAssociation,to,,XisActor-UCAssociation,TRUE,TRUE,TRUE,TRUE,XisServiceUseCase,0,,,,&#xA;Actor,XisActor,UseCase,XisServiceUseCase,,,,Association,XisActor-UCAssociation,to,XisActor-UCAssociation,,TRUE,,TRUE,TRUE,XisServiceUseCase,0,,,,&#xA;UseCase,XisEntityUseCase,Class,XisBusinessEntity,,,,Association,XisEntityUC-BEAssociation,to,XisEntityUC-BEAssociation,,TRUE,,TRUE,TRUE,UseCases View,0,,,,&#xA;UseCase,XisServiceUseCase,Class,XisBusinessEntity,,,,Association,XisServiceUC-BEAssociation,to,XisServiceUC-BEAssociation,,TRUE,,TRUE,TRUE,UseCases View,0,,,,&#xA;UseCase,XisServiceUseCase,Class,XisServer,,,,Association,XisServiceUC-ProviderAssociation,to,XisServiceUC-ProviderAssociation,,TRUE,,TRUE,TRUE,UseCases View,0,,,,&#xA;UseCase,XisServiceUseCase,Class,XisClientMobileApp,,,,Association,XisServiceUC-ProviderAssociation,to,XisServiceUC-ProviderAssociation,,TRUE,,TRUE,TRUE,UseCases View,0,,,,&#xA;UseCase,XisServiceUseCase,Class,XisInternalProvider,,,,Association,XisServiceUC-ProviderAssociation,to,XisServiceUC-ProviderAssociation,,TRUE,,TRUE,TRUE,UseCases View,0,,,,&#xA;Class,XisMobileApp,,,,Interface,XisInternalService,Association,XisMobileApp-ServiceAssociation,to,,XisMobileApp-ServiceAssociation,TRUE,TRUE,TRUE,TRUE,XisInternalService,0,,,,&#xA;Class,XisMobileApp,Interface,XisInternalService,,,,Association,XisMobileApp-ServiceAssociation,to,XisMobileApp-ServiceAssociation,,TRUE,,TRUE,TRUE,Architectural View,0,,,,&#xA;Class,XisMobileApp,,,,Interface,XisRemoteService,Association,XisMobileApp-ServiceAssociation,to,,XisMobileApp-ServiceAssociation,TRUE,TRUE,TRUE,TRUE,XisRemoteService,0,,,,&#xA;Class,XisMobileApp,Interface,XisRemoteService,,,,Association,XisMobileApp-ServiceAssociation,to,XisMobileApp-ServiceAssociation,,TRUE,,TRUE,TRUE,Architectural View,0,,,,&#xA;Interface,XisInternalService,,,,Class,XisMobileApp,Association,XisMobileApp-ServiceAssociation,from,,XisMobileApp-ServiceAssociation,TRUE,TRUE,TRUE,TRUE,XisMobileApp,0,,,,&#xA;Interface,XisInternalService,Class,XisMobileApp,,,,Association,XisMobileApp-ServiceAssociation,from,XisMobileApp-ServiceAssociation,,TRUE,,TRUE,TRUE,Architectural View,0,,,,&#xA;Interface,XisInternalService,,,,Class,XisInternalProvider,Realization,XisProvider-ServiceRealization,from,,XisProvider-ServiceRealization,TRUE,TRUE,TRUE,TRUE,XisInternalProvider,0,,,,&#xA;Interface,XisInternalService,Class,XisInternalProvider,,,,Realization,XisProvider-ServiceRealization,from,XisProvider-ServiceRealization,,TRUE,,TRUE,TRUE,Architectural View,0,,,,&#xA;Interface,XisRemoteService,,,,Class,XisServer,Realization,XisProvider-ServiceRealization,from,,XisProvider-ServiceRealization,TRUE,TRUE,TRUE,TRUE,XisServer,0,,,,&#xA;Interface,XisRemoteService,Class,XisServer,,,,Realization,XisProvider-ServiceRealization,from,XisProvider-ServiceRealization,,TRUE,,TRUE,TRUE,Architectural View,0,,,,&#xA;Interface,XisRemoteService,,,,Class,XisClientMobileApp,Realization,XisProvider-ServiceRealization,from,,XisProvider-ServiceRealization,TRUE,TRUE,TRUE,TRUE,XisClientMobileApp,0,,,,&#xA;Interface,XisRemoteService,Class,XisClientMobileApp,,,,Realization,XisProvider-ServiceRealization,from,XisProvider-ServiceRealization,,TRUE,,TRUE,TRUE,Architectural View,0,,,,&#xA;Class,XisInternalProvider,,,,Interface,XisInternalService,Realization,XisProvider-ServiceRealization,to,,XisProvider-ServiceRealization,TRUE,TRUE,TRUE,TRUE,XisInternalService,0,,,,&#xA;Class,XisInternalProvider,Interface,XisInternalService,,,,Realization,XisProvider-ServiceRealization,to,XisProvider-ServiceRealization,,TRUE,,TRUE,TRUE,Architectural View,0,,,,&#xA;Class,XisServer,,,,Interface,XisRemoteService,Realization,XisProvider-ServiceRealization,to,,XisProvider-ServiceRealization,TRUE,TRUE,TRUE,TRUE,XisRemoteService,0,,,,&#xA;Class,XisServer,Interface,XisRemoteService,,,,Realization,XisProvider-ServiceRealization,to,XisProvider-ServiceRealization,,TRUE,,TRUE,TRUE,Architectural View,0,,,,&#xA;Class,XisClientMobileApp,,,,Interface,XisRemoteService,Realization,XisProvider-ServiceRealization,to,,XisProvider-ServiceRealization,TRUE,TRUE,TRUE,TRUE,XisRemoteService,0,,,,&#xA;Class,XisClientMobileApp,Interface,XisRemoteService,,,,Realization,XisProvider-ServiceRealization,to,XisProvider-ServiceRealization,,TRUE,,TRUE,TRUE,Architectural View,0,,,,&#xA;Class,XisInteractionSpace,Class,XisInteractionSpace,,,,Association,XisInteractionSpaceAssociation,to,XisInteractionSpaceAssociation,,TRUE,,TRUE,TRUE,NavigationSpace View,0,,,,&#xA;Class,XisInteractionSpace,Class,XisBusinessEntity,,,,Association,XisIS-BEAssociation,to,XisIS-BEAssociation,,TRUE,,TRUE,TRUE,InteractionSpace View,0,,,,&#xA;Class,XisInteractionSpace,,,,Class,XisMenu,Association,XisIS-MenuAssociation,to,,XisIS-MenuAssociation,TRUE,TRUE,TRUE,TRUE,XisMenu,0,,,,&#xA;Class,XisInteractionSpace,Class,XisMenu,,,,Association,XisIS-MenuAssociation,to,XisIS-MenuAssociation,,TRUE,,TRUE,TRUE,InteractionSpace View,0,,,,&#xA;Class,XisInteractionSpace,,,,Class,XisDialog,Association,XisIS-DialogAssociation,to,,XisIS-DialogAssociation,TRUE,TRUE,TRUE,TRUE,XisDialog,0,,,,&#xA;Class,XisInteractionSpace,Class,XisDialog,,,,Association,XisIS-DialogAssociation,to,XisIS-DialogAssociation,,TRUE,,TRUE,TRUE,InteractionSpace View,0,,,,&#xA;Class,XisLabel,,,,Class,XisGesture,Association,XisWidget-GestureAssociation,to,,XisWidget-GestureAssociation,TRUE,TRUE,TRUE,TRUE,XisGesture,0,,,,&#xA;Class,XisTextBox,,,,Class,XisGesture,Association,XisWidget-GestureAssociation,to,,XisWidget-GestureAssociation,TRUE,TRUE,TRUE,TRUE,XisGesture,0,,,,&#xA;Class,XisCheckBox,,,,Class,XisGesture,Association,XisWidget-GestureAssociation,to,,XisWidget-GestureAssociation,TRUE,TRUE,TRUE,TRUE,XisGesture,0,,,,&#xA;Class,XisButton,,,,Class,XisGesture,Association,XisWidget-GestureAssociation,to,,XisWidget-GestureAssociation,TRUE,TRUE,TRUE,TRUE,XisGesture,0,,,,&#xA;Class,XisLink,,,,Class,XisGesture,Association,XisWidget-GestureAssociation,to,,XisWidget-GestureAssociation,TRUE,TRUE,TRUE,TRUE,XisGesture,0,,,,&#xA;Class,XisImage,,,,Class,XisGesture,Association,XisWidget-GestureAssociation,to,,XisWidget-GestureAssociation,TRUE,TRUE,TRUE,TRUE,XisGesture,0,,,,&#xA;Class,XisDatePicker,,,,Class,XisGesture,Association,XisWidget-GestureAssociation,to,,XisWidget-GestureAssociation,TRUE,TRUE,TRUE,TRUE,XisGesture,0,,,,&#xA;Class,XisTimePicker,,,,Class,XisGesture,Association,XisWidget-GestureAssociation,to,,XisWidget-GestureAssociation,TRUE,TRUE,TRUE,TRUE,XisGesture,0,,,,&#xA;Class,XisWebView,,,,Class,XisGesture,Association,XisWidget-GestureAssociation,to,,XisWidget-GestureAssociation,TRUE,TRUE,TRUE,TRUE,XisGesture,0,,,,&#xA;Class,XisMapView,,,,Class,XisGesture,Association,XisWidget-GestureAssociation,to,,XisWidget-GestureAssociation,TRUE,TRUE,TRUE,TRUE,XisGesture,0,,,,&#xA;Class,XisDropdown,,,,Class,XisGesture,Association,XisWidget-GestureAssociation,to,,XisWidget-GestureAssociation,TRUE,TRUE,TRUE,TRUE,XisGesture,0,,,,&#xA;Class,XisRadioButton,,,,Class,XisGesture,Association,XisWidget-GestureAssociation,to,,XisWidget-GestureAssociation,TRUE,TRUE,TRUE,TRUE,XisGesture,0,,,,&#xA;&#xA;"/>
+		<QuickLink data="// Source Element Type,Source Stereotype,Target Element Type,Target Stereotype,Diagram Filter,New Element Type,New Element Stereotype,New Link Type,New Link Stereotype,New Link Direction,New Link Caption,New Link &amp; Element Caption,Create Link,Create Element,Disallow Self connector,Exclusive to ST filter,Menu Group,Complexity Level,Target Must Be Parent,Embed element,Precedes Separator LEAF,Precedes Separator GROUP&#xA;Class,XisEntity,,,,Class,XisEntity,Association,XisEntityAssociation,to,,XisEntityAssociation,TRUE,TRUE,TRUE,TRUE,XisEntity,0,,,,&#xA;Class,XisEntity,Class,XisEntity,,,,Association,XisEntityAssociation,to,XisEntityAssociation,,TRUE,,TRUE,TRUE,XisEntity,0,,,,&#xA;Class,XisEntity,,,,Class,XisEntity,Generalization,XisEntityInheritance,to,,XisEntityInheritance,TRUE,TRUE,TRUE,TRUE,XisEntity,0,,,,&#xA;Class,XisEntity,Class,XisEntity,,,,Generalization,XisEntityInheritance,to,XisEntityInheritance,,TRUE,,TRUE,TRUE,XisEntity,0,,,,&#xA;Class,XisBusinessEntity,Class,XisEntity,,,,Association,XisBE-EntityMasterAssociation,to,XisBE-EntityMasterAssociation,,TRUE,,TRUE,TRUE,BusinessEntities View,0,,,,&#xA;Class,XisEntity,Class,XisBusinessEntity,,,,Association,XisBE-EntityMasterAssociation,from,XisBE-EntityMasterAssociation,,TRUE,,TRUE,TRUE,BusinessEntities View,0,,,,&#xA;Class,XisBusinessEntity,Class,XisEntity,,,,Association,XisBE-EntityDetailAssociation,to,XisBE-EntityDetailAssociation,,TRUE,,TRUE,TRUE,BusinessEntities View,0,,,,&#xA;Class,XisEntity,Class,XisBusinessEntity,,,,Association,XisBE-EntityDetailAssociation,from,XisBE-EntityDetailAssociation,,TRUE,,TRUE,TRUE,BusinessEntities View,0,,,,&#xA;Class,XisBusinessEntity,Class,XisEntity,,,,Association,XisBE-EntityReferenceAssociation,to,XisBE-EntityReferenceAssociation,,TRUE,,TRUE,TRUE,BusinessEntities View,0,,,,&#xA;Class,XisEntity,Class,XisBusinessEntity,,,,Association,XisBE-EntityReferenceAssociation,from,XisBE-EntityReferenceAssociation,,TRUE,,TRUE,TRUE,BusinessEntities View,0,,,,&#xA;Actor,XisActor,,,,UseCase,XisEntityUseCase,Association,XisActor-UCAssociation,to,,XisActor-UCAssociation,TRUE,TRUE,TRUE,TRUE,XisEntityUseCase,0,,,,&#xA;Actor,XisActor,UseCase,XisEntityUseCase,,,,Association,XisActor-UCAssociation,to,XisActor-UCAssociation,,TRUE,,TRUE,TRUE,XisEntityUseCase,0,,,,&#xA;Actor,XisActor,,,,UseCase,XisServiceUseCase,Association,XisActor-UCAssociation,to,,XisActor-UCAssociation,TRUE,TRUE,TRUE,TRUE,XisServiceUseCase,0,,,,&#xA;Actor,XisActor,UseCase,XisServiceUseCase,,,,Association,XisActor-UCAssociation,to,XisActor-UCAssociation,,TRUE,,TRUE,TRUE,XisServiceUseCase,0,,,,&#xA;UseCase,XisEntityUseCase,Class,XisBusinessEntity,,,,Association,XisEntityUC-BEAssociation,to,XisEntityUC-BEAssociation,,TRUE,,TRUE,TRUE,UseCases View,0,,,,&#xA;UseCase,XisServiceUseCase,Class,XisBusinessEntity,,,,Association,XisServiceUC-BEAssociation,to,XisServiceUC-BEAssociation,,TRUE,,TRUE,TRUE,UseCases View,0,,,,&#xA;UseCase,XisServiceUseCase,Class,XisServer,,,,Association,XisServiceUC-ProviderAssociation,to,XisServiceUC-ProviderAssociation,,TRUE,,TRUE,TRUE,UseCases View,0,,,,&#xA;UseCase,XisServiceUseCase,Class,XisClientMobileApp,,,,Association,XisServiceUC-ProviderAssociation,to,XisServiceUC-ProviderAssociation,,TRUE,,TRUE,TRUE,UseCases View,0,,,,&#xA;UseCase,XisServiceUseCase,Class,XisInternalProvider,,,,Association,XisServiceUC-ProviderAssociation,to,XisServiceUC-ProviderAssociation,,TRUE,,TRUE,TRUE,UseCases View,0,,,,&#xA;Class,XisMobileApp,,,,Interface,XisInternalService,Association,XisMobileApp-ServiceAssociation,to,,XisMobileApp-ServiceAssociation,TRUE,TRUE,TRUE,TRUE,XisInternalService,0,,,,&#xA;Class,XisMobileApp,Interface,XisInternalService,,,,Association,XisMobileApp-ServiceAssociation,to,XisMobileApp-ServiceAssociation,,TRUE,,TRUE,TRUE,Architectural View,0,,,,&#xA;Class,XisMobileApp,,,,Interface,XisRemoteService,Association,XisMobileApp-ServiceAssociation,to,,XisMobileApp-ServiceAssociation,TRUE,TRUE,TRUE,TRUE,XisRemoteService,0,,,,&#xA;Class,XisMobileApp,Interface,XisRemoteService,,,,Association,XisMobileApp-ServiceAssociation,to,XisMobileApp-ServiceAssociation,,TRUE,,TRUE,TRUE,Architectural View,0,,,,&#xA;Interface,XisInternalService,,,,Class,XisMobileApp,Association,XisMobileApp-ServiceAssociation,from,,XisMobileApp-ServiceAssociation,TRUE,TRUE,TRUE,TRUE,XisMobileApp,0,,,,&#xA;Interface,XisInternalService,Class,XisMobileApp,,,,Association,XisMobileApp-ServiceAssociation,from,XisMobileApp-ServiceAssociation,,TRUE,,TRUE,TRUE,Architectural View,0,,,,&#xA;Interface,XisInternalService,,,,Class,XisInternalProvider,Realization,XisProvider-ServiceRealization,from,,XisProvider-ServiceRealization,TRUE,TRUE,TRUE,TRUE,XisInternalProvider,0,,,,&#xA;Interface,XisInternalService,Class,XisInternalProvider,,,,Realization,XisProvider-ServiceRealization,from,XisProvider-ServiceRealization,,TRUE,,TRUE,TRUE,Architectural View,0,,,,&#xA;Interface,XisRemoteService,,,,Class,XisServer,Realization,XisProvider-ServiceRealization,from,,XisProvider-ServiceRealization,TRUE,TRUE,TRUE,TRUE,XisServer,0,,,,&#xA;Interface,XisRemoteService,Class,XisServer,,,,Realization,XisProvider-ServiceRealization,from,XisProvider-ServiceRealization,,TRUE,,TRUE,TRUE,Architectural View,0,,,,&#xA;Interface,XisRemoteService,,,,Class,XisClientMobileApp,Realization,XisProvider-ServiceRealization,from,,XisProvider-ServiceRealization,TRUE,TRUE,TRUE,TRUE,XisClientMobileApp,0,,,,&#xA;Interface,XisRemoteService,Class,XisClientMobileApp,,,,Realization,XisProvider-ServiceRealization,from,XisProvider-ServiceRealization,,TRUE,,TRUE,TRUE,Architectural View,0,,,,&#xA;Class,XisInternalProvider,,,,Interface,XisInternalService,Realization,XisProvider-ServiceRealization,to,,XisProvider-ServiceRealization,TRUE,TRUE,TRUE,TRUE,XisInternalService,0,,,,&#xA;Class,XisInternalProvider,Interface,XisInternalService,,,,Realization,XisProvider-ServiceRealization,to,XisProvider-ServiceRealization,,TRUE,,TRUE,TRUE,Architectural View,0,,,,&#xA;Class,XisServer,,,,Interface,XisRemoteService,Realization,XisProvider-ServiceRealization,to,,XisProvider-ServiceRealization,TRUE,TRUE,TRUE,TRUE,XisRemoteService,0,,,,&#xA;Class,XisServer,Interface,XisRemoteService,,,,Realization,XisProvider-ServiceRealization,to,XisProvider-ServiceRealization,,TRUE,,TRUE,TRUE,Architectural View,0,,,,&#xA;Class,XisClientMobileApp,,,,Interface,XisRemoteService,Realization,XisProvider-ServiceRealization,to,,XisProvider-ServiceRealization,TRUE,TRUE,TRUE,TRUE,XisRemoteService,0,,,,&#xA;Class,XisClientMobileApp,Interface,XisRemoteService,,,,Realization,XisProvider-ServiceRealization,to,XisProvider-ServiceRealization,,TRUE,,TRUE,TRUE,Architectural View,0,,,,&#xA;Class,XisInteractionSpace,Class,XisInteractionSpace,,,,Association,XisInteractionSpaceAssociation,to,XisInteractionSpaceAssociation,,TRUE,,TRUE,TRUE,NavigationSpace View,0,,,,&#xA;&#xA;"/>
 	</Content>
 </UMLProfile>
