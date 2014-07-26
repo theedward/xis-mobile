@@ -142,6 +142,31 @@ namespace XISMobileEAPlugin
                             }
                         }
                     }
+                    else if (connector.Stereotype == "XisServiceUC-BEAssociation")
+                    {
+                        EA.Element be = repository.GetElementByID(connector.SupplierID);
+                        XisEntity master = null;
+                        List<XisEntity> details = new List<XisEntity>();
+                        List<XisEntity> references = new List<XisEntity>();
+
+                        foreach (EA.Connector beConn in be.Connectors)
+                        {
+                            switch (beConn.Stereotype)
+                            {
+                                case "XisBE-EntityMasterAssociation":
+                                    master = new XisEntity(repository.GetElementByID(beConn.SupplierID),
+                                        GetConnectorTag(beConn.TaggedValues, "filter").Value);
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+
+                        if (master != null)
+                        {   
+                            ProcessServiceUseCase(interactionPackage, master, useCase, be, isStartingUC, null, patternType);
+                        }
+                    }
                 }
                 isStartingUC = false;
             }
@@ -579,6 +604,21 @@ namespace XISMobileEAPlugin
                 }
             }
 
+            if (homeIS != listIS)
+            {
+                if (listIS.Menu == null)
+                {
+                    listIS.Menu = new XisMenu(repository, listDiagram, listIS, listIS.Element.Name + "Menu", MenuType.OptionsMenu);
+                }
+
+                string actionBack = "backTo" + homeIS.Element.Name;
+                XisMenuItem backMenuItem = new XisMenuItem(repository, listDiagram, listIS.Menu,
+                    "BackTo" + homeIS.Element.Name + "Item", actionBack);
+                backMenuItem.SetValue("Back");
+                XISMobileHelper.CreateXisAction(repository, backMenuItem.Element, actionBack, ActionType.Cancel);
+                CreateXisInteractionSpaceAssociation(actionBack, listIS, homeIS);
+            }
+
             ComputePositions(listIS, listDiagram);
 
             if (listIS.ContextMenu != null)
@@ -986,6 +1026,21 @@ namespace XISMobileEAPlugin
             }
             #endregion
 
+            if (homeIS != detailIS)
+            {
+                if (detailIS.Menu == null)
+                {
+                    detailIS.Menu = new XisMenu(repository, detailDiagram, detailIS, detailIS.Element.Name + "Menu", MenuType.OptionsMenu);
+                }
+
+                string actionBack = "backTo" + homeIS.Element.Name;
+                XisMenuItem backMenuItem = new XisMenuItem(repository, detailDiagram, detailIS.Menu,
+                    "BackTo" + homeIS.Element.Name + "Item", actionBack);
+                backMenuItem.SetValue("Back");
+                XISMobileHelper.CreateXisAction(repository, backMenuItem.Element, actionBack, ActionType.Cancel);
+                CreateXisInteractionSpaceAssociation(actionBack, detailIS, homeIS);
+            }
+
             ComputePositions(detailIS, detailDiagram);
             // Associate BE
             AssociateBEtoIS(detailDiagram, detailIS, be);
@@ -1310,20 +1365,21 @@ namespace XISMobileEAPlugin
             EA.Diagram diagram = XISMobileHelper.CreateDiagram(package, entity.Element.Name + "EditorIS Diagram",
                 "XIS-Mobile_Diagrams::InteractionSpaceViewModel");
             XisInteractionSpace detailIS = new XisInteractionSpace(repository, package, diagram, entity.Element.Name + "EditorIS", entity.Element.Name + " Editor");
+            XisForm form = new XisForm(repository, diagram, detailIS, entity.Element.Name + "Form", entity.Element.Name);
 
             if (!string.IsNullOrEmpty(entity.Filter))
             {
                 List<EA.Attribute> filtered = GetFilteredAttributeList(entity);
                 foreach (EA.Attribute attr in filtered)
                 {
-                    XISMobileHelper.ProcessXisAttribute(repository, diagram, detailIS, attr, entity.Element.Name);
+                    XISMobileHelper.ProcessXisAttribute(repository, diagram, form, attr, entity.Element.Name);
                 }
             }
             else
             {
                 foreach (EA.Attribute attr in entity.Element.Attributes)
                 {
-                    XISMobileHelper.ProcessXisAttribute(repository, diagram, detailIS, attr, entity.Element.Name);
+                    XISMobileHelper.ProcessXisAttribute(repository, diagram, form, attr, entity.Element.Name);
                 }
             }
 
@@ -1518,6 +1574,124 @@ namespace XISMobileEAPlugin
             AssociateBEtoIS(diagram, managerIS, be);
 
             return managerIS;
+        }
+
+        public static void ProcessServiceUseCase(EA.Package package, XisEntity master,
+            EA.Element useCase, EA.Element be, bool isStartingUC, List<EA.Element> useCases = null, String patternType = null)
+        {
+            // Create IS Diagram
+            EA.Diagram listDiagram = XISMobileHelper.CreateDiagram(package, master.Element.Name + "ListIS Diagram",
+                "XIS-Mobile_Diagrams::InteractionSpaceViewModel");
+            XisInteractionSpace listIS = null;
+
+            if (isStartingUC && patternType != null)
+            {
+                listIS = new XisInteractionSpace(repository, package, listDiagram,
+                    master.Element.Name + "ListIS", "Manage " + master.Element.Name + "s");
+            }
+            else
+            {
+                listIS = new XisInteractionSpace(repository, package, listDiagram,
+                    master.Element.Name + "ListIS", "Manage " + master.Element.Name + "s", isStartingUC, !isStartingUC);
+
+                if (isStartingUC && patternType == null)
+                {
+                    homeIS = listIS;
+                }
+            }
+
+            // List Creation
+            XisList list = new XisList(repository, listDiagram, listIS, master.Element.Name + "List");
+            list.SetEntityName(master.Element.Name);
+
+            XisListItem item = new XisListItem(repository, listDiagram, list, list.Element.Name + "Item");
+
+            if (master.Element.Attributes.Count > 1)
+            {
+                EA.Attribute first = master.Element.Attributes.GetAt(0);
+                EA.Attribute second = master.Element.Attributes.GetAt(1);
+                XisLabel lbl1 = new XisLabel(repository, item, listDiagram, first.Name + "Lbl");
+                lbl1.SetEntityAttributeName(master.Element.Name + "." + first.Name);
+                XisLabel lbl2 = new XisLabel(repository, item, listDiagram, second.Name + "Lbl");
+                lbl2.SetEntityAttributeName(master.Element.Name + "." + second.Name);
+            }
+            else if (master.Element.Attributes.Count == 1)
+            {
+                EA.Attribute attr = master.Element.Attributes.GetAt(0);
+                item.SetValueFromExpression(master.Element.Name + "." + attr.Name);
+            }
+
+            // Navigation between home UC and the others
+            if (patternType != null)
+            {
+                AddToHomeISByPattern(useCase, listIS, patternType);
+            }
+            else if (isStartingUC)
+            {
+                if (useCases != null)
+                {
+                    AssociateFirstSubSpaces(listDiagram, useCases, listIS, be.ElementID, master.Element.Name);
+                }
+            }
+
+            XisMenu menu = new XisMenu(repository, listDiagram, listIS, listIS.Element.Name + "Menu", MenuType.OptionsMenu);
+            List<EA.Element> providers = new List<EA.Element>();
+            EA.Element provider = null;
+
+            foreach (EA.Connector conn in useCase.Connectors)
+            {
+                if (conn.Stereotype == "XisServiceUC-ProviderAssociation")
+                {
+                    provider = repository.GetElementByID(conn.SupplierID);
+                    providers.Add(provider);
+                }
+            }
+
+            List<EA.Element> services = new List<EA.Element>();
+
+            foreach (EA.Element p in providers)
+            {
+                foreach (EA.Connector c in p.Connectors)
+                {
+                    if (c.Stereotype == "XisProvider-ServiceRealization")
+                    {
+                        EA.Element el = repository.GetElementByID(c.SupplierID);
+                        services.Add(el);
+                    }
+                }
+            }
+
+            foreach (EA.Element serv in services)
+            {
+                foreach (EA.Method method in serv.Methods)
+                {
+                    if (method.Stereotype == "XisServiceMethod")
+                    {
+                        XisMenuItem menuItem = new XisMenuItem(repository, listDiagram, menu,
+                            method.Name, serv.Name + "." + method.Name);
+                        menuItem.SetValue(method.Name);
+                        XISMobileHelper.CreateXisAction(repository, menuItem.Element, menuItem.GetOnTapAction(),
+                            ActionType.WebService);
+                    }
+                }
+            }
+
+            listIS.Menu = menu;
+
+            if (homeIS != listIS)
+            {
+                string actionBack = "backTo" + homeIS.Element.Name;
+                XisMenuItem backMenuItem = new XisMenuItem(repository, listDiagram, listIS.Menu,
+                    "BackTo" + homeIS.Element.Name + "Item", actionBack);
+                backMenuItem.SetValue("Back");
+                XISMobileHelper.CreateXisAction(repository, backMenuItem.Element, actionBack, ActionType.Cancel);
+                CreateXisInteractionSpaceAssociation(actionBack, listIS, homeIS);
+            }
+
+            ComputePositions(listIS, listDiagram);
+
+            // Associate BE
+            AssociateBEtoIS(listDiagram, listIS, be);
         }
 
         private static void ComputePositions(XisInteractionSpace space, EA.Diagram diagram)
