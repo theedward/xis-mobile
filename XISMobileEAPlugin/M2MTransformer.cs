@@ -738,7 +738,7 @@ namespace XISMobileEAPlugin
                             {
                                 if (ContainsCreateDetail(useCase) || ContainsUpdateDetail(useCase))
                                 {
-                                    XisVisibilityBoundary b = new XisVisibilityBoundary(repository, detailDiagram, detailIS,
+                                    XisVisibilityBoundary b = new XisVisibilityBoundary(repository, detailDiagram, form,
                                         "Save" + d.Element.Name + "Boundary", ContainsCreateDetail(useCase), false, ContainsUpdateDetail(useCase));
                                     b.SetEntityName(d.Element.Name);
                                     string actionName = "save" + d.Element.Name;
@@ -777,7 +777,7 @@ namespace XISMobileEAPlugin
                         {
                             if (ContainsCreateDetail(useCase) || ContainsUpdateDetail(useCase))
                             {
-                                XisVisibilityBoundary b = new XisVisibilityBoundary(repository, detailDiagram, detailIS,
+                                XisVisibilityBoundary b = new XisVisibilityBoundary(repository, detailDiagram, form,
                                     "Save" + d.Element.Name + "Boundary", ContainsCreateDetail(useCase), false, ContainsUpdateDetail(useCase));
                                 b.SetEntityName(d.Element.Name);
                                 string actionName = "save" + d.Element.Name;
@@ -843,7 +843,7 @@ namespace XISMobileEAPlugin
                             {
                                 if (ContainsCreateReference(useCase) || ContainsUpdateReference(useCase))
                                 {
-                                    XisVisibilityBoundary b = new XisVisibilityBoundary(repository, detailDiagram, detailIS,
+                                    XisVisibilityBoundary b = new XisVisibilityBoundary(repository, detailDiagram, form,
                                         "Save" + r.Element.Name + "Boundary", ContainsCreateReference(useCase), false, ContainsUpdateReference(useCase));
                                     b.SetEntityName(r.Element.Name);
                                     string actionName = "save" + r.Element.Name;
@@ -882,7 +882,7 @@ namespace XISMobileEAPlugin
                         {
                             if (ContainsCreateReference(useCase) || ContainsUpdateReference(useCase))
                             {
-                                XisVisibilityBoundary b = new XisVisibilityBoundary(repository, detailDiagram, detailIS,
+                                XisVisibilityBoundary b = new XisVisibilityBoundary(repository, detailDiagram, form,
                                     "Save" + r.Element.Name + "Boundary", ContainsCreateReference(useCase), false, ContainsUpdateReference(useCase));
                                 b.SetEntityName(r.Element.Name);
                                 string actionName = "save" + r.Element.Name;
