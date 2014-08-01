@@ -329,6 +329,8 @@ namespace XISMobileEAPlugin
                         if (useCases.Count < 2)
                         {
                             M2MTransformer.ProcessUseCase(Repository, navigationView, interactionView, useCases);
+                            MessageBox.Show("Models successfully generated!\r\nCheck the contents of «InteractionSpace View» and «NavigationSpace View».",
+                                "XIS-Mobile Plugin", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                         else
                         {
