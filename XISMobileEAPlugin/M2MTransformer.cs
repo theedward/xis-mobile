@@ -1580,39 +1580,40 @@ namespace XISMobileEAPlugin
             EA.Element useCase, EA.Element be, bool isStartingUC, List<EA.Element> useCases = null, String patternType = null)
         {
             // Create IS Diagram
-            EA.Diagram listDiagram = XISMobileHelper.CreateDiagram(package, master.Element.Name + "ListIS Diagram",
+            string serviceISName = useCase.Name.Replace(" ", "") + "IS";
+            EA.Diagram serviceDiagram = XISMobileHelper.CreateDiagram(package, serviceISName + " Diagram",
                 "XIS-Mobile_Diagrams::InteractionSpaceViewModel");
-            XisInteractionSpace listIS = null;
+            XisInteractionSpace serviceIS = null;
 
             if (isStartingUC && patternType != null)
             {
-                listIS = new XisInteractionSpace(repository, package, listDiagram,
-                    master.Element.Name + "ListIS", "Manage " + master.Element.Name + "s");
+                serviceIS = new XisInteractionSpace(repository, package, serviceDiagram,
+                    serviceISName, useCase.Name);
             }
             else
             {
-                listIS = new XisInteractionSpace(repository, package, listDiagram,
-                    master.Element.Name + "ListIS", "Manage " + master.Element.Name + "s", isStartingUC, !isStartingUC);
+                serviceIS = new XisInteractionSpace(repository, package, serviceDiagram,
+                    serviceISName, useCase.Name, isStartingUC, !isStartingUC);
 
                 if (isStartingUC && patternType == null)
                 {
-                    homeIS = listIS;
+                    homeIS = serviceIS;
                 }
             }
 
             // List Creation
-            XisList list = new XisList(repository, listDiagram, listIS, master.Element.Name + "List");
+            XisList list = new XisList(repository, serviceDiagram, serviceIS, master.Element.Name + "List");
             list.SetEntityName(master.Element.Name);
 
-            XisListItem item = new XisListItem(repository, listDiagram, list, list.Element.Name + "Item");
+            XisListItem item = new XisListItem(repository, serviceDiagram, list, list.Element.Name + "Item");
 
             if (master.Element.Attributes.Count > 1)
             {
                 EA.Attribute first = master.Element.Attributes.GetAt(0);
                 EA.Attribute second = master.Element.Attributes.GetAt(1);
-                XisLabel lbl1 = new XisLabel(repository, item, listDiagram, first.Name + "Lbl");
+                XisLabel lbl1 = new XisLabel(repository, item, serviceDiagram, first.Name + "Lbl");
                 lbl1.SetEntityAttributeName(master.Element.Name + "." + first.Name);
-                XisLabel lbl2 = new XisLabel(repository, item, listDiagram, second.Name + "Lbl");
+                XisLabel lbl2 = new XisLabel(repository, item, serviceDiagram, second.Name + "Lbl");
                 lbl2.SetEntityAttributeName(master.Element.Name + "." + second.Name);
             }
             else if (master.Element.Attributes.Count == 1)
@@ -1624,17 +1625,17 @@ namespace XISMobileEAPlugin
             // Navigation between home UC and the others
             if (patternType != null)
             {
-                AddToHomeISByPattern(useCase, listIS, patternType);
+                AddToHomeISByPattern(useCase, serviceIS, patternType);
             }
             else if (isStartingUC)
             {
                 if (useCases != null)
                 {
-                    AssociateFirstSubSpaces(listDiagram, useCases, listIS, be.ElementID, master.Element.Name);
+                    AssociateFirstSubSpaces(serviceDiagram, useCases, serviceIS, be.ElementID, master.Element.Name);
                 }
             }
 
-            XisMenu menu = new XisMenu(repository, listDiagram, listIS, listIS.Element.Name + "Menu", MenuType.OptionsMenu);
+            XisMenu menu = new XisMenu(repository, serviceDiagram, serviceIS, serviceIS.Element.Name + "Menu", MenuType.OptionsMenu);
             List<EA.Element> providers = new List<EA.Element>();
             EA.Element provider = null;
 
@@ -1667,7 +1668,7 @@ namespace XISMobileEAPlugin
                 {
                     if (method.Stereotype == "XisServiceMethod")
                     {
-                        XisMenuItem menuItem = new XisMenuItem(repository, listDiagram, menu,
+                        XisMenuItem menuItem = new XisMenuItem(repository, serviceDiagram, menu,
                             method.Name, serv.Name + "." + method.Name);
                         menuItem.SetValue(method.Name);
                         XISMobileHelper.CreateXisAction(repository, menuItem.Element, menuItem.GetOnTapAction(),
@@ -1676,22 +1677,22 @@ namespace XISMobileEAPlugin
                 }
             }
 
-            listIS.Menu = menu;
+            serviceIS.Menu = menu;
 
-            if (homeIS != listIS)
+            if (homeIS != serviceIS)
             {
                 string actionBack = "backTo" + homeIS.Element.Name;
-                XisMenuItem backMenuItem = new XisMenuItem(repository, listDiagram, listIS.Menu,
+                XisMenuItem backMenuItem = new XisMenuItem(repository, serviceDiagram, serviceIS.Menu,
                     "BackTo" + homeIS.Element.Name + "Item", actionBack);
                 backMenuItem.SetValue("Back");
                 XISMobileHelper.CreateXisAction(repository, backMenuItem.Element, actionBack, ActionType.Cancel);
-                CreateXisInteractionSpaceAssociation(actionBack, listIS, homeIS);
+                CreateXisInteractionSpaceAssociation(actionBack, serviceIS, homeIS);
             }
 
-            ComputePositions(listIS, listDiagram);
+            ComputePositions(serviceIS, serviceDiagram);
 
             // Associate BE
-            AssociateBEtoIS(listDiagram, listIS, be);
+            AssociateBEtoIS(serviceDiagram, serviceIS, be);
         }
 
         private static void ComputePositions(XisInteractionSpace space, EA.Diagram diagram)
