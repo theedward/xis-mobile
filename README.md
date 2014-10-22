@@ -2,7 +2,7 @@ XIS-Mobile
 ==========
 
 XIS-Mobile is a Master's (MSc) Thesis project which intends to develop mobile applications using a Model-Driven Software Development approach with the goal of tackling the complexity of software development and the fragmentation of mobile platforms.  
-	In order to accomplish this goal, it proposes a Domain Specific Language (DSL) to describe mobile applications in a platform-independent way and Enterprise Architect MDG and EMF-based framework which supports the language.  
+	In order to accomplish this goal, it proposes a Domain Specific Language (DSL) to describe mobile applications in a platform-independent way and an Enterprise Architect MDG and EMF-based framework which supports the language.  
 The XIS-Mobile language reuses some of the best concepts used in the XIS UML profile, used for modeling interactive systems, and introduces new ones in order to be more appropriate to mobile applications design. The latest version of the XIS-Mobile language comprises six views:
 
 - **Domain View -** Describes the domain entities relevant to the problem domain, their attributes and the relationships among them;
