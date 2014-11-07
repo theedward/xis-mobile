@@ -1017,17 +1017,17 @@ public class Services {
 			spaceBottom = spaceY + spaceHeight/2;
 		}
 		
-		if (form != null) {
-			s = ServiceUtils.getXisForm(form);
-			spaceX = ServiceUtils.getPosX(form, s);
-			spaceY = ServiceUtils.getPosY(form, s);
-			int formWidth = ServiceUtils.getWidth(form, s);
-			int formHeight = ServiceUtils.getHeight(form, s);
-			spaceLeft = spaceX - formWidth/2;
-			spaceRight = spaceX + formWidth/2;
-			spaceTop = spaceY - formHeight/2;
-			spaceBottom = spaceY + formHeight/2;
-		}
+//		if (form != null) {
+//			s = ServiceUtils.getXisForm(form);
+//			spaceX = ServiceUtils.getPosX(form, s);
+//			spaceY = ServiceUtils.getPosY(form, s);
+//			int formWidth = ServiceUtils.getWidth(form, s);
+//			int formHeight = ServiceUtils.getHeight(form, s);
+//			spaceLeft = spaceX - formWidth/2;
+//			spaceRight = spaceX + formWidth/2;
+//			spaceTop = spaceY - formHeight/2;
+//			spaceBottom = spaceY + formHeight/2;
+//		}
 		
 		s = ServiceUtils.getWidgetStereotype(c);
 		int posX = ServiceUtils.getPosX(c, s);
@@ -1039,171 +1039,70 @@ public class Services {
 		int top = posY - height/2;
 		int bottom = posY + height/2;
 		
-		List<Class> predecessors = new ArrayList<Class>();
-		
-		for (Class w : widgets) {
-			if (w.getName().equals(c.getName())) {
-				break;
-			} else {
-				predecessors.add(w);
-			}
-		}
-		
 		if (posX == spaceX) {
-			sb.append("android:layout_centerHorizontal=\"true\"");
+			sb.append("HorizontalAlignment=\"Center\"");
 		}
 		
-		if (predecessors.size() > 0) {
-			if (sb.length() > 0) {
-				// only Y is missing
-				int closerTop = spaceTop;
-				int closerMargin = top - spaceTop - TOP;
-				Class closer = null;
-				
-				for (Class w : predecessors) {
-					Stereotype wStereo = ServiceUtils.getWidgetStereotype(w);
-					int wTop = ServiceUtils.getPosY(w, wStereo) - ServiceUtils.getHeight(w, wStereo)/2;
-					
-					if (wTop == top) {
-						closerTop = wTop;
-						closerMargin = 0;
-						closer = w;
-						break;
-					} else if (wTop < top) {
-						int wMargin = top - wTop;
-						if (wMargin <= closerMargin) {
-							closerTop = wTop;
-							closerMargin = wMargin;
-							closer = w;
-						}
-					}
-				}
-				
-				if (closerTop == spaceTop) {
-					sb.append(newLine + "android:layout_alignParentTop=\"true\"");
-				} else if (closerTop == (spaceTop + TOP) && closer == null) {
-					sb.append(newLine + "android:layout_below=\"@+id/label" + ServiceUtils.toUpperFirst(space.getName()) + "Title\"");
-				} else {
-					sb.append(newLine + "android:layout_below=\"@+id/" + ServiceUtils.getWidgetName(closer) + "\"");
-				}
-				
-				if (closerMargin > 0) {
-					sb.append(newLine + "android:layout_marginTop=\"" + (closerMargin*120/spaceHeight) + "dp\"");
+		// Align with parent
+		if (sb.length() > 0) {
+			// only Y remaining
+			int distTop = top - spaceTop - TOP;
+			int distBottom = spaceBottom - bottom - BORDER;
+			
+			if (distTop <= distBottom) {
+				sb.append(newLine + "VerticalAlignment=\"Top\"");
+				if (distTop > 0) {
+					sb.append(newLine + "Margin=\"0," + (distTop*696/spaceHeight) + ",0,0\"");
 				}
 			} else {
-				int closerLeft = spaceLeft;
-				int closerTop = spaceTop;
-				int closerMarginX = left - spaceLeft - BORDER;
-				int closerMarginY = top - spaceTop - TOP;
-				Class closerX = null;
-				Class closerY = null;
-				
-				for (Class w : predecessors) {
-					Stereotype wStereo = ServiceUtils.getWidgetStereotype(w);
-					int wLeft = ServiceUtils.getPosX(w, wStereo) - ServiceUtils.getWidth(w, wStereo)/2;
-					int wTop = ServiceUtils.getPosY(w, wStereo) - ServiceUtils.getHeight(w, wStereo)/2;
-					
-					if (wLeft == left) {
-						closerLeft = wLeft;
-						closerMarginX = 0;
-						closerX = w;
-						break;
-					} else if (wLeft < left) {
-						if ((left - wLeft) < closerMarginX) {
-							closerLeft = wLeft;
-							closerMarginX = left - wLeft;
-							closerX = w;
-						}
-					}
-					
-					if (wTop == top) {
-						closerTop = wTop;
-						closerMarginY = 0;
-						closerY = w;
-						break;
-					} else if (wTop < top) {
-						if ((top - wTop) < closerMarginY) {
-							closerTop = wTop;
-							closerMarginY = top - wTop;
-							closerY = w;
-						}
-					}
-				}
-				
-				if (closerLeft == spaceLeft) {
-					sb.append("android:layout_alignParentLeft=\"true\"");
-				} else {
-					sb.append("android:layout_alignLeft=\"@+id/" + ServiceUtils.getWidgetName(closerX) + "\"");
-				}
-				
-				if (closerTop == spaceTop) {
-					sb.append(newLine + "android:layout_alignParentTop=\"true\"");
-				} else if (closerTop == (spaceTop + TOP) && closerY == null) {
-					sb.append(newLine + "android:layout_below=\"@+id/label" + ServiceUtils.toUpperFirst(space.getName()) + "Title\"");
-				} else {
-					sb.append(newLine + "android:layout_below=\"@+id/" + ServiceUtils.getWidgetName(closerY) + "\"");
-				}
-				
-				if (closerMarginX > 0) {
-					sb.append(newLine + "android:layout_marginLeft=\"" + (closerMarginX*120/spaceWidth) + "dp\"");
-				}
-				
-				if (closerMarginY > 0) {
-					sb.append(newLine + "android:layout_marginTop=\"" + (closerMarginY*120/spaceHeight) + "dp\"");
+				sb.append(newLine + "VerticalAlignment=\"Bottom\"");
+				if (distBottom > 0) {
+					sb.append(newLine + "Margin=\"0,0,0," + (distBottom*696/spaceHeight) + "\"");
 				}
 			}
 		} else {
-			// Align with parent
-			if (sb.length() > 0) {
-				// only Y remaining
-				int distTop = top - spaceTop - TOP;
-				int distBottom = spaceBottom - bottom - BORDER;
-				
-				if (distTop <= distBottom) {
-					sb.append(newLine + "android:layout_alignParentTop=\"true\"");
-					if (distTop > 0) {
-						sb.append(newLine + "android:layout_marginTop=\"" + (distTop*120/spaceHeight) + "dp\"");
-					}
-				} else {
-					sb.append(newLine + "android:layout_alignParentBottom=\"true\"");
-					if (distBottom > 0) {
-						sb.append(newLine + "android:layout_marginBottom=\"" + (distBottom*120/spaceHeight)  + "dp\"");
-					}
-				}
-			} else {
-				int distLeft = left - spaceLeft;
-				int distRight = right -spaceRight;
-				int distTop = top - spaceTop - TOP;
-				int distBottom = spaceBottom - bottom - BORDER;
+			int distLeft = left - spaceLeft;
+			int distRight = right -spaceRight;
+			int distTop = top - spaceTop - TOP;
+			int distBottom = spaceBottom - bottom - BORDER;
 
-				// Set X positioning
-				if (distLeft <= distRight) {
-					sb.append("android:layout_alignParentLeft=\"true\"");
-					if (distLeft > 10) {
-						int margin = distLeft - BORDER;
-						sb.append(newLine + "android:layout_marginLeft=\"" + (margin*120/spaceWidth) + "dp\"");
-					}
-				} else {
-					sb.append("android:layout_alignParentRight=\"true\"");
-					if (distRight > 10) {
-						int margin = distRight - BORDER;
-						sb.append(newLine + "android:layout_marginRight=\"" + (margin*120/spaceWidth) + "dp\"");
-					}
-				}
-				// Set Y positioning
-				if (distTop <= distBottom) {
-					sb.append(newLine + "android:layout_alignParentTop=\"true\"");
-					if (distTop > 0) {
-						sb.append(newLine + "android:layout_marginTop=\"" + (distTop*120/spaceHeight) + "dp\"");
-					}
-				} else {
-					sb.append(newLine + "android:layout_alignParentBottom=\"true\"");
-					if (distBottom > 0) {
-						sb.append(newLine + "android:layout_marginBottom=\"" + (distBottom*120/spaceHeight) + "dp\"");
-					}
-				}
+			// Set X positioning
+			if (distLeft <= distRight) {
+				sb.append("HorizontalAlignment=\"Left\"");
+//				if (distLeft > 10) {
+//					int margin = distLeft - BORDER;
+//					sb.append(newLine + "android:layout_marginLeft=\"" + (margin*120/spaceWidth) + "dp\"");
+//				}
+			} else {
+				sb.append("HorizontalAlignment=\"Right\"");
+//				if (distRight > 10) {
+//					int margin = distRight - BORDER;
+//					sb.append(newLine + "android:layout_marginRight=\"" + (margin*120/spaceWidth) + "dp\"");
+//				}
+			}
+			// Set Y positioning
+			if (distTop <= distBottom) {
+				sb.append(newLine + "VerticalAlignment=\"Top\"");
+//				if (distTop > 0) {
+//					sb.append(newLine + "android:layout_marginTop=\"" + (distTop*120/spaceHeight) + "dp\"");
+//				}
+			} else {
+				sb.append(newLine + "VerticalAlignment=\"Bottom\"");
+//				if (distBottom > 0) {
+//					sb.append(newLine + "android:layout_marginBottom=\"" + (distBottom*120/spaceHeight) + "dp\"");
+//				}
+			}
+			
+			if (distLeft > 10 || distRight > 10 || distTop > 0 || distBottom > 0) {
+				int mLeft = ((distLeft - BORDER) * 480 / spaceWidth);
+				int mRight = ((distRight - BORDER) * 480 / spaceWidth);
+				int mTop = distTop * 696 / spaceHeight;
+				int mBottom = distBottom * 696 / spaceHeight;
+				
+				sb.append(newLine + "Margin=\"" + mLeft + "," + mTop + "," + mRight + "," + mBottom + "\"");
 			}
 		}
+		
 		return sb.toString();
 	}
 	

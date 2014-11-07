@@ -599,6 +599,14 @@
 	c.getValue(s, 'value')
 /]
 
+[query public getXisWidgetPosX(c : Class, s : Stereotype) : String =
+	c.getValue(s, 'posX')
+/]
+
+[query public getXisWidgetPosY(c : Class, s : Stereotype) : String =
+	c.getValue(s, 'posY')
+/]
+
 [query public getXisWidgetValueFromExpression(c : Class, s : Stereotype) : String =
 	c.getValue(s, 'valueFromExpression')
 /]

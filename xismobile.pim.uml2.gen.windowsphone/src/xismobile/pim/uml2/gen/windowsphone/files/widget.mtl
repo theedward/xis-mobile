@@ -321,19 +321,20 @@ if (inCreateMode) {
 
 [template private writeLabel(widgets : Sequence(Class), c : Class)]
 [let name : String = 'label' + c.name.toUpperFirst()]
-<TextBlock Height="30" HorizontalAlignment="Center" Name="[name/]"
+<TextBlock Height="Auto" Width="Auto" Name="[name/]"
 [let value : String = c.getXisWidgetValue(c.getXisLabel())]
 	[if (not value.oclIsUndefined())]
 	Text="[value/]"
 	[/if]
 [/let]
+	[writeWidgetRelativePositioning(widgets, c)/]
 />
 [/let]
 [/template]
 
 [template private writeTextBox(widgets : Sequence(Class), c : Class)]
 [let name : String = 'textBox' + c.name.toUpperFirst()]
-<TextBox Height="72" HorizontalAlignment="Center" Name="[name/]"
+<TextBox Height="Auto" Width="Auto" Name="[name/]"
 	[if (c.getXisTexBoxLines() > 1)]
 	TextWrapping="Wrap"
 	[/if]
@@ -342,13 +343,14 @@ if (inCreateMode) {
 	Text="[value/]"
 	[/if]
 [/let]
+	[writeWidgetRelativePositioning(widgets, c)/]
 />
 [/let]
 [/template]
 
 [template private writeCheckBox(widgets : Sequence(Class), c : Class)]
 [let name : String = 'checkBox' + c.name.toUpperFirst()]
-<CheckBox Height="72" HorizontalAlignment="Center" Name="[name/]"
+<CheckBox Height="Auto" Width="Auto" Name="[name/]"
     [if (c.hasXisAction())]
 	Click="[c.getXisAction().name.toLowerFirst()/]"
 	[/if]
@@ -357,13 +359,14 @@ if (inCreateMode) {
 	Content="[value/]"
 	[/if]
 [/let]
+	[writeWidgetRelativePositioning(widgets, c)/]
 />
 [/let]
 [/template]
 
 [template private writeButton(widgets : Sequence(Class), c : Class)]
 [let name : String = 'button' + c.name.toUpperFirst()]
-<Button Height="72" HorizontalAlignment="Center" Name="[name/]"
+<Button Height="Auto" Width="Auto" Name="[name/]"
 	[if (c.hasXisAction())]
 	Click="[c.getXisAction().name.toLowerFirst()/]"
 	[/if]
@@ -372,57 +375,67 @@ if (inCreateMode) {
 	Content="[value/]"
 	[/if]
 [/let]
+	[writeWidgetRelativePositioning(widgets, c)/]
 />
 [/let]
 [/template]
 
 [template private writeLink(widgets : Sequence(Class), c : Class)]
 [let name : String = 'link' + c.name.toUpperFirst()]
-<TextBlock Height="30" HorizontalAlignment="Center" Name="[name/]"
+<TextBlock Height="Auto" Width="Auto" Name="[name/]"
 	<Hyperlink NavigateUri="[c.getXisLinkURL()/]">[c.getXisLinkURL()/]</Hyperlink>
+	[writeWidgetRelativePositioning(widgets, c)/]
 />
 [/let]
 [/template]
 
 [template private writeImageView(widgets : Sequence(Class), c : Class)]
 [let name : String = 'image' + c.name.toUpperFirst()]
-<Image Height="150" HorizontalAlignment="Center" Name="[name/]" Source="[c.getXisImagePath()/]" />
+<Image Height="Auto" Width="Auto" Name="[name/]" Source="[c.getXisImagePath()/]"
+	[writeWidgetRelativePositioning(widgets, c)/]
+/>
 [/let]
 [/template]
 
 [template private writeDatePicker(widgets : Sequence(Class), c : Class)]
 [let name : String = 'datePicker' + c.name.toUpperFirst()]
-<toolkit:DatePicker Height="72" HorizontalAlignment="Center" x:Name="[name/]"
+<toolkit:DatePicker Height="Auto" Width="Auto" x:Name="[name/]"
 [let value : String = c.getXisWidgetValue(c.getXisDatePicker())]
 	[if (not value.oclIsUndefined())]
 	Value="[value/]"
 	[/if]
 [/let]
+	[writeWidgetRelativePositioning(widgets, c)/]
 />
 [/let]
 [/template]
 
 [template private writeTimePicker(widgets : Sequence(Class), c : Class)]
 [let name : String = 'timePicker' + c.name.toUpperFirst()]
-<toolkit:DatePicker Height="72" HorizontalAlignment="Center" x:Name="[name/]"
+<toolkit:DatePicker Height="Auto" Width="Auto" x:Name="[name/]"
 [let value : String = c.getXisWidgetValue(c.getXisTimePicker())]
 	[if (not value.oclIsUndefined())]
 	Value="[value/]"
 	[/if]
 [/let]
+	[writeWidgetRelativePositioning(widgets, c)/]
 />
 [/let]
 [/template]
 
 [template private writeWebView(widgets : Sequence(Class), c : Class)]
 [let name : String = 'webView' + c.name.toUpperFirst()]
-<phone:WebBrowser HorizontalAlignment="Center" Name="[name/]" />
+<phone:WebBrowser Height="Auto" Width="Auto" Name="[name/]"
+	[writeWidgetRelativePositioning(widgets, c)/]
+/>
 [/let]
 [/template]
 
 [template private writeMapView(widgets : Sequence(Class), c : Class)]
 [let name : String = 'mapView' + c.name.toUpperFirst()]
-<my:Map Name="[name/]" Width="Auto" Height="Auto" HorizontalAlignment="Center" VerticalAlignment="Top" />
+<my:Map Name="[name/]" Width="Auto" Height="Auto"
+	[writeWidgetRelativePositioning(widgets, c)/]
+/>
 [/let]
 [/template]
 
@@ -432,8 +445,7 @@ if (inCreateMode) {
 <toolkit:AutoCompleteBox HorizontalAlignment="Center"  Width="450" Grid.Row="0" Name="[name/]" VerticalAlignment="Top"/>
 [/let]
 [/if]
-<ListBox HorizontalAlignment="Center" Name="list[c.name.toUpperFirst()/]"
-/>
+<ListBox Height="Auto" HorizontalAlignment="Stretch" Name="list[c.name.toUpperFirst()/]" />
 [/template]
 
 [template private writeDropdown(widgets : Sequence(Class), c : Class)]
@@ -444,26 +456,27 @@ if (inCreateMode) {
 
 [template private writeRadioButton(widgets : Sequence(Class), c : Class)]
 [let name : String = 'radioButton' + c.name.toUpperFirst()]
-<RadioButton Height="72" HorizontalAlignment="Center" Name="[name/]"
+<RadioButton Height="Auto" Width="Auto" Name="[name/]"
 [let value : String = c.getXisWidgetValue(c.getXisRadioButton())]
 	[if (not value.oclIsUndefined())]
 	Content="[value/]"
 	[/if]
 [/let]
+	[writeWidgetRelativePositioning(widgets, c)/]
 />
 [/let]
 [/template]
 
 [template private writeForm(widgets : Sequence(Class), c : Class)]
 [let name : String = 'form' + c.name.toUpperFirst()]
-<Border HorizontalAlignment="Center" Name="[name/]" BorderBrush="Azure" BorderThickness="2">
-
-[let w : Sequence(Class) = orderWidgetsByPosition(c.getXisInteractionSpaceWidgets())]
-[for (cl : Class | w)]
-	[writeWidget(w, cl)/]
-[/for]
-[/let]
-
+<Border Height="Auto" Width="Auto" HorizontalAlignment="Center" Name="[name/]" BorderBrush="Azure" BorderThickness="5">
+	<Grid>
+	[let w : Sequence(Class) = orderWidgetsByPosition(c.getXisInteractionSpaceWidgets())]
+	[for (cl : Class | w)]
+		[writeWidget(w, cl)/]
+	[/for]
+	[/let]
+	</Grid>
 </Border>
 [/let]
 [/template]

@@ -53,16 +53,50 @@
 	[if (c.hasOptionsMenu())]
     <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button1.png" Text="Button 1"/>
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button2.png" Text="Button 2"/>
-            <shell:ApplicationBar.MenuItems>
-                <shell:ApplicationBarMenuItem Text="MenuItem 1"/>
-                <shell:ApplicationBarMenuItem Text="MenuItem 2"/>
-            </shell:ApplicationBar.MenuItems>
+		[let menu : Class = c.getOptionsMenu()]
+			[for (el : Class | menu.getChildren())]
+			[if (el.isXisMenuItem())]
+			[el.writeMenuItem()/]
+			[/if]
+			[/for]
+		[/let]
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>
 	[/if]
 
 </phone:PhoneApplicationPage>
 [/file]
+[/template]
+
+[template private writeMenuItem(c : Class) post (trim())]
+<shell:ApplicationBarIconButton
+	[if (c.hasXisAction())]
+	[let o : Operation = c.getXisAction()]
+	[if (o.isCancelAction() or o.isCreateAction() or o.isUpdateAction()
+		 or o.isDeleteteAction() or o.isDeleteteAllAction() or o.isWebServiceAction())]
+	IconUri="[writeActionIcon(o)/]"
+	[/if]
+	Click="[o.name/]"
+	[/let]
+	[/if]
+	[if (not c.getXisWidgetValue(c.getXisMenuItem()).oclIsUndefined())]
+	Text="[c.getXisWidgetValue(c.getXisMenuItem())/]"
+	[else]
+	Text="[c.name/]"
+	[/if]
+/>
+[/template]
+
+[template private writeActionIcon(o : Operation) post (trim())]
+[if (o.isCancelAction())]
+/Images/appbar_button1.png
+[elseif (o.isCreateAction())]
+/Images/appbar.new.rest.png
+[elseif (o.isUpdateAction())]
+/Images/appbar_button1.png
+[elseif (o.isDeleteteAction() or o.isDeleteteAllAction())]
+/Images/appbar.delete.rest.png
+[elseif (o.isWebServiceAction())]
+/Images/appbar_button1.png
+[/if]
 [/template]
